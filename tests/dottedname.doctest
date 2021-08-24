@@ -1,0 +1,159 @@
+Regression Testing for epydoc.apidoc
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This file serves to provide both documentation and regression tests
+for the pydocspec.dottedname.DottedName. 
+
+    >>> from pydocspec.dottedname import DottedName
+
+Dotted Names
+============
+The DottedName class is used to encode dotted names, such as
+'epydoc.apidoc.DottedName', and make them easier to work with.
+Conceptually, a dotted name consists of a sequence of identifiers,
+separated by periods.
+
+Dotted names can be constructed from strings:
+
+    >>> name1 = DottedName('foo.bar')
+    >>> name1
+    DottedName('foo', 'bar')
+
+Note that the given name is split on periods.  You may also pass
+multiple strings to the constructor; they will be combined together
+into a single sequence:
+
+    >>> name2 = DottedName('x.y', 'z')
+    >>> name2
+    DottedName('x', 'y', 'z')
+
+Each string can be a single identifier or a sequence of identifiers
+joined py periods.  You may also pass DottedName objects to the
+constructor; their sequence of identifiers will be used:
+
+    >>> name3 = DottedName(name1, name2)
+    >>> name3
+    DottedName('foo', 'bar', 'x', 'y', 'z')
+
+The string representation of a dotted name is formed by joining the
+identifiers with periods:
+
+    >>> str(name1)
+    'foo.bar'
+    >>> str(name2)
+    'x.y.z'
+    >>> str(name3)
+    'foo.bar.x.y.z'
+
+The individual identifiers of a dotted name can be accessed via
+indexing; and the number of identifiers is returned by the len
+operator:
+
+    >>> name1[0], name1[1]
+    ('foo', 'bar')
+    >>> name3[-1]
+    'z'
+    >>> name3[1:3]
+    DottedName('bar', 'x')
+    >>> len(name2)
+    3
+
+As a result, you can iterate over the identifiers in a dotted name:
+
+    >>> for ident in name1:
+    ...     print(ident)
+    foo
+    bar
+
+Two dotted names compare equal if they have the same number of
+identifies and they are pairwise equal:
+
+    >>> DottedName('foo.bar') == DottedName('foo', 'bar')
+    True
+    >>> DottedName('foo.bar') == DottedName('foo.baz')
+    False
+    >>> DottedName('foo.bar') == DottedName('foo.bar.baz')
+    False
+
+Dotted names may be combined with the addition operator:
+
+    >>> name1 + name2
+    DottedName('foo', 'bar', 'x', 'y', 'z')
+    >>> name1 + name2 == name3
+    True
+    >>> name2 + name1 == name3
+    False
+
+The container method may be used to construct a new dotted name with the
+last identifier stripped off:
+
+    >>> name1.container()
+    DottedName('foo')
+    >>> name3.container()
+    DottedName('foo', 'bar', 'x', 'y')
+
+If a dotted name has only one identifier, then its container is None:
+
+    >>> print(DottedName('baz').container())
+    None
+    >>> print(name1.container().container())
+    None
+
+It is an error to create an empty dotted name; or a dotted name that
+contains a string that's not a valid python identifier:
+
+
+    >>> DottedName()
+    Traceback (most recent call last):
+    ...
+    pydocspec.dottedname.DottedName.InvalidDottedName: Empty DottedName
+
+    >>> DottedName('1+2', strict=True)
+    Traceback (most recent call last):
+    ...
+    pydocspec.dottedname.DottedName.InvalidDottedName: Bad identifier '1+2'
+
+    >>> DottedName({})
+    Traceback (most recent call last):
+    ...
+    TypeError: Bad identifier {}: expected DottedName or str
+
+    >>> DottedName('1+2', strict=False)
+    ...
+    DottedName('1+2')
+
+The one exception is that '??' is treated as if it were a valid python
+identifier. But it cannot be use as contextualization for names.
+
+    >>> DottedName('??', 'foo')
+    DottedName('??', 'foo')
+
+    >>> DottedName('??', 'foo', 'bar').contextualize(DottedName('??', 'foo'))
+    DottedName('??', 'foo', 'bar')
+
+    >>> DottedName('bar', 'foo', '??').contextualize(DottedName('bar', 'foo'))
+    DottedName('??')
+
+    >>> DottedName('foo', '??', 'bar').contextualize(DottedName('foo', '??'))
+    DottedName('??', 'bar')
+
+This is used when we can't find any name for an object (e.g., if
+there's a class that was used as the base class, but is not contained
+in any module or class).
+
+A dotted name can be queried into a context to obtain a reduced version:
+
+    >>> DottedName('foo.bar').contextualize(DottedName('foo'))
+    DottedName('bar')
+    >>> DottedName('foo.bar.baz.qux').contextualize(DottedName('foo.bar'))
+    DottedName('baz', 'qux')
+    >>> DottedName('foo.bar').contextualize(DottedName('baz'))
+    DottedName('foo', 'bar')
+    >>> DottedName('foo.bar').contextualize(DottedName('foo').container())
+    DottedName('foo', 'bar')
+    >>> DottedName('foo.bar').contextualize(DottedName('??'))
+    DottedName('foo', 'bar')
+
+But a contextualization can't reduce to an empty DottedName:
+
+    >>> DottedName('foo').contextualize(DottedName('foo'))
+    DottedName('foo')
