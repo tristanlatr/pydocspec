@@ -4,7 +4,7 @@ import pydocspec
 
 from .fixtures import mod1
 
-def test_converter_fix(mod1: docspec.Module) -> None:
+def test_converter_object_types(mod1: docspec.Module) -> None:
 
     root = converter.to_pydocspec([mod1])
     assert isinstance(root.all_objects['a'], pydocspec.Module)
@@ -13,7 +13,7 @@ def test_converter_fix(mod1: docspec.Module) -> None:
     assert isinstance(root.all_objects['a.foo.val'], pydocspec.Data)
     assert isinstance(root.all_objects['a.foo.__init__'], pydocspec.Function)
 
-def test_root_property_fix(mod1: docspec.Module) -> None:
+def test_root_property(mod1: docspec.Module) -> None:
     root = converter.to_pydocspec([mod1])
     assert root.all_objects['a'].root is root
     root.all_objects['a'].get_member('foo').root is root
@@ -23,7 +23,7 @@ def test_root_property_fix(mod1: docspec.Module) -> None:
     assert root.all_objects['a.foo.val'].root is root
     assert root.all_objects['a.foo.__init__'].root is root
 
-def test_expand_name_fix(mod1: docspec.Module) -> None:
+def test_expand_name(mod1: docspec.Module) -> None:
     root = converter.to_pydocspec([mod1])
 
     saila = root.all_objects['a.saila']
