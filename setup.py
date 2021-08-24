@@ -1,7 +1,7 @@
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
-from setuptools import setup, find_packages
+from setuptools import setup
 setup(
     name='pydocspec',
     version='0.0.0',
@@ -15,7 +15,8 @@ setup(
         "Bug Tracker": "https://github.com/tristanlatr/pydocspec/issues"
     },
     license='MIT',
-    packages=find_packages(exclude=['tests']),
+    packages=['pydocspec'],
     include_package_data=True,
-    install_requires=["docspec==1.0.2"], 
+    install_requires=['docspec @ git+https://github.com/NiklasRosenstein/docspec.git#subdirectory=docspec', 
+                      'cached-property'], 
 )
