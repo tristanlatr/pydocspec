@@ -71,10 +71,10 @@ def walk(ob: T, visitor: Visitor[T], get_children: Callable[[T], Iterable[T]]) -
     or replaced occurs after the current node, the old node will
     still be traversed, and any new nodes will not.
 
-    :param ob: An object to walk.
-    :param visitor: A `Visitor` object, containing a
+    @param ob: An object to walk.
+    @param visitor: A `Visitor` object, containing a
         ``visit`` implementation for each object type encountered.
-    :param get_children: A callable that returns the children of an object. 
+    @param get_children: A callable that returns the children of an object. 
     """
     visitor.visit(ob)
     children = get_children(ob)
@@ -86,10 +86,10 @@ def walkabout(ob: T, visitor: Visitor[T], get_children: Callable[[T], Iterable[T
     Perform a tree traversal similarly to `walk()` (which
     see), except also call the `depart()` method before exiting each node.
 
-    :param ob: An object to walk.
-    :param visitor: A `Visitor` object, containing a
+    @param ob: An object to walk.
+    @param visitor: A `Visitor` object, containing a
         ``visit`` and ``depart`` implementation for each concrete object type encountered.
-    :param get_children: A callable that returns the children of an object. 
+    @param get_children: A callable that returns the children of an object. 
     """
     visitor.visit(ob)
     children = get_children(ob)

@@ -63,8 +63,9 @@ class DottedName:
         of values.  In that case, that tuple will be used as the
         C{DottedName}'s identifiers; it will I{not} be checked to
         see if it's valid.
-        @kwparam strict: if true, then raise an L{InvalidDottedName}
-        if the given name is invalid.
+
+        @param strict: if true, then raise an L{InvalidDottedName}
+            if the given name is invalid.
         """
         if len(pieces) == 0:
             raise DottedName.InvalidDottedName('Empty DottedName')

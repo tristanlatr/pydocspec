@@ -149,7 +149,7 @@ class ApiObject(docspec.ApiObject):
         C{"external.Processor.more_spec"}.
         
         @param name: The name to expand.
-        @follow_aliases name: Whether or not to follow aliases. Indirections will still be followed anyway.
+        @param follow_aliases: Whether or not to follow aliases. Indirections will still be followed anyway.
         @note: The implementation replies on iterating through the each part of the dotted name, 
             calling L{_local_to_full_name} for each name in their associated context and incrementally building 
             the full_name from that. 
@@ -218,14 +218,14 @@ class ApiObject(docspec.ApiObject):
         If the object is an alias or an indirection, then follow it and return the supposed full name fo the origin object,
         or return the passed object's full name.
 
-        :note: It can exceptionnaly return None if an indirection cannot be resolved. 
-            then we use the indirection's full_name. 
-
         Resolve the alias value to it's target full name.
         Or fall back to original alias full name if we know we've exhausted the max recursions.
+
         @param alias: an ALIAS object.
         @param indirections: Chain of alias objects followed. 
             This variable is used to prevent infinite loops when doing the lookup.
+        @note: It can exceptionnaly return None if an indirection cannot be resolved. 
+            then we use the indirection's full_name. 
         """
 
         if _indirections and len(_indirections) > _RESOLVE_ALIAS_MAX_RECURSE:
@@ -311,7 +311,7 @@ class Data(docspec.Data, ApiObject):
     @cached_property
     def is_using_typing_final(self) -> bool:
         """
-        Detect if C{obj}'s L{Attribute.annotation} is using L{typing.Final}.
+        Detect if this object is using L{typing.Final} as annotation.
         """
         full_name = astutils.node2fullname(self.datatype_ast, self)
         if full_name == "typing.Final":

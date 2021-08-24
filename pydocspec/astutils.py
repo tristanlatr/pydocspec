@@ -20,7 +20,7 @@ def uses_auto_attribs(call: ast.Call, ctx: 'ApiObject') -> bool:
     @param call: AST of the call to L{attr.s()}.
         This function will assume that L{attr.s()} is called without
         verifying that.
-    @param module: Module that contains the call, used for error reporting.
+    @param ctx: Namespace that contains the call, used for error reporting.
     @return: L{True} if L{True} is passed for C{auto_attribs},
         L{False} in all other cases: if C{auto_attribs} is not passed,
         if an explicit L{False} is passed or if an error was reported.
@@ -69,7 +69,7 @@ def node2dottedname(node: Optional[ast.expr]) -> Optional[List[str]]:
 
 def node2fullname(expr: Optional[Union[ast.expr, str]], ctx: 'ApiObject') -> Optional[str]:
     """
-    Return L{ctx.expand_name(name)} if C{expr} is a valid name, or C{None}.
+    Return C{ctx.expand_name(name)} if C{expr} is a valid name, or C{None}.
     """
     dottedname = node2dottedname(expr) if isinstance(expr, ast.expr) else expr
     if dottedname is None:
