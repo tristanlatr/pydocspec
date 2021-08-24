@@ -2,11 +2,10 @@
 Extends docspec for python specific usages.
 """
 
-from typing import Dict, Iterator, List, Mapping, Optional, Union
+from typing import Iterator, List, Mapping, Optional, Union
 import ast
 import inspect
 import warnings
-import dataclasses
 
 import attr
 
@@ -16,15 +15,16 @@ import docspec
 
 from . import astutils, dottedname, dupsafedict
 
-# __all__ = [
-#   'Location',
-#   'Decoration',
-#   'Argument',
-#   'ApiObject',
-#   'Data',
-#   'Function',
-#   'Class',
-#   'Module',
+__all__ = [
+  'ApiObjectsRoot',
+  'Location',
+  'Decoration',
+  'Argument',
+  'ApiObject',
+  'Data',
+  'Function',
+  'Class',
+  'Module',
 #   'load_module',
 #   'load_modules',
 #   'dump_module',
@@ -32,9 +32,12 @@ from . import astutils, dottedname, dupsafedict
 #   'visit',
 #   'ReverseMap',
 #   'get_member',
-# ]
+]
 
 _RESOLVE_ALIAS_MAX_RECURSE = 5
+
+Location = docspec.Location
+HasMembers = docspec.HasMembers
 
 @attr.s(auto_attribs=True)
 class ApiObjectsRoot:
@@ -83,7 +86,8 @@ class ApiObject(docspec.ApiObject):
                 return sources
             for b in self.parent.all_base_classes(include_self=False):
                 base = b.get_member(self.name)
-                sources.append(base)
+                if base:
+                    sources.append(base)
         return sources
     
     @cached_property
@@ -328,12 +332,8 @@ class Indirection(docspec.Indirection, ApiObject):
   find the full name target of a link written with a local name. 
   """
 
-class HasMembers(docspec.HasMembers, ApiObject):
-    members: List['ApiObject']
-
 class Class(docspec.Class, ApiObject):
     decorations: Optional[List['Decoration']] # help mypy
-    args: List['Argument']
     parent: 'ApiObject'
 
     @cached_property
