@@ -2,59 +2,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
           "DTD/xhtml1-strict.dtd">
 <html>
-  
-
   <head>
-    
-    <title>pydocspec.astutils</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
-        
-    </meta>
+    <title>pydocspec.astutils : API documentation</title>
+
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="apidocs.css" />
-    <link rel="stylesheet" type="text/css" href="extra.css" />
-</head>
-
+  </head>
   <body>
 
-    
-
     <nav class="navbar navbar-default">
-  
-  <div class="container">
-
-    <div class="navbar-header">
-      
-      <div class="navlinks">
-          <span class="navbar-brand">
-            <a href="https://github.com/tristanlatr/pydocspec/" class="projecthome">pydocspec</a> <a href="index.html">API Documentation</a>
-          </span>
-
-          <a href="moduleIndex.html">
-            Modules
-          </a>
-
-          <a href="classIndex.html">
-            Classes
-          </a>
-
-          <a href="nameIndex.html">
-            Names
-          </a>
+      <div class="container">
+        <div class="navbar-header navbar-brand">
+          <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>
+          <a href="index.html">API Documentation</a>
+        </div>
       </div>
-
-    </div>
-  </div>
-</nav>
-
-    
+    </nav>
 
     <div class="container">
 
       <div class="page-header">
-        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astutils.html">astutils</a></code></code></h1>
+        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code>.<code><a href="pydocspec.astutils.html">astutils</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,7 +34,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py">(source)</a>
         <p></p>
       </div>
 
@@ -74,10 +43,24 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id3">
-  
+        <table class="children sortable" id="id37">
   
   <tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#uses_auto_attribs">uses_auto_attribs</a></code></td>
+    <td><span class="undocumented">No summary</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#node2dottedname">node2dottedname</a></code></td>
+    <td><span>Resove expression composed by <code><a href="https://docs.python.org/3/library/ast.html#ast.Attribute">ast.Attribute</a></code> and <code><a href="https://docs.python.org/3/library/ast.html#ast.Name">ast.Name</a></code> nodes to a list of names.</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#node2fullname">node2fullname</a></code></td>
+    <td><span>Return <code>ctx.expand_name(name)</code> if <code>expr</code> is a valid name, or <code>None</code>.</span></td>
+  </tr><tr class="function">
     
     <td>Function</td>
     <td><code><a href="#bind_args">bind_args</a></code></td>
@@ -95,38 +78,23 @@
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#infer_type">infer_type</a></code></td>
-    <td><span>Infer an expression's type. @param expr: The expression's AST. @return: A type annotation, or None if the expression has no obvious type.</span></td>
-  </tr><tr class="function">
-    
-    <td>Function</td>
-    <td><code><a href="#node2dottedname">node2dottedname</a></code></td>
-    <td><span>Resove expression composed by <code><a href="https://docs.python.org/3/library/ast.html#ast.Attribute">ast.Attribute</a></code> and <code><a href="https://docs.python.org/3/library/ast.html#ast.Name">ast.Name</a></code> nodes to a list of names.</span></td>
-  </tr><tr class="function">
-    
-    <td>Function</td>
-    <td><code><a href="#node2fullname">node2fullname</a></code></td>
-    <td><span>Return <code>ctx.expand_name(name)</code> if <code>expr</code> is a valid name, or <code>None</code>.</span></td>
-  </tr><tr class="function">
-    
-    <td>Function</td>
     <td><code><a href="#unstring_annotation">unstring_annotation</a></code></td>
     <td><span>Replace all strings in the given expression by parsed versions. @return: The unstringed node. If parsing fails, an error is logged and the original node is returned.</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#uses_auto_attribs">uses_auto_attribs</a></code></td>
-    <td><span class="undocumented">No summary</span></td>
-  </tr><tr class="class private">
+    <td><code><a href="#infer_type">infer_type</a></code></td>
+    <td><span>Infer an expression's type. @param expr: The expression's AST. @return: A type annotation, or None if the expression has no obvious type.</span></td>
+  </tr><tr class="variable private">
     
-    <td>Class</td>
-    <td><code><a href="pydocspec.astutils._AnnotationStringParser.html">_AnnotationStringParser</a></code></td>
-    <td><span>Implementation of <code><a href="pydocspec.astutils.html#unstring_annotation">unstring_annotation()</a></code>.</span></td>
+    <td>Variable</td>
+    <td><code><a href="#_attrs_decorator_signature">_attrs_decorator_signature</a></code></td>
+    <td><span>Signature of the <code>attr.s</code> class decorator.</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_annotation_for_elements">_annotation_for_elements</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><code><a href="#_extract_annotation_subscript">_extract_annotation_subscript</a></code></td>
+    <td><span>Extract the "str, bytes" part from annotations like  "Union[str, bytes]".</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
@@ -135,13 +103,13 @@
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_extract_annotation_subscript">_extract_annotation_subscript</a></code></td>
-    <td><span>Extract the "str, bytes" part from annotations like  "Union[str, bytes]".</span></td>
-  </tr><tr class="variable private">
+    <td><code><a href="#_annotation_for_elements">_annotation_for_elements</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class private">
     
-    <td>Variable</td>
-    <td><code><a href="#_attrs_decorator_signature">_attrs_decorator_signature</a></code></td>
-    <td><span>Signature of the <code><a href="https://www.attrs.org/en/stable/api.html#attr.s">attr.s</a></code> class decorator.</span></td>
+    <td>Class</td>
+    <td><code><a href="pydocspec.astutils._AnnotationStringParser.html">_AnnotationStringParser</a></code></td>
+    <td><span>Implementation of <code><a href="pydocspec.astutils.html#unstring_annotation">unstring_annotation()</a></code>.</span></td>
   </tr>
 </table>
         
@@ -151,250 +119,7 @@
 
       <div id="childList">
 
-        <div class="basefunction">
-  
-  
-  <a name="pydocspec.astutils.bind_args">
-    
-  </a>
-  <a name="bind_args">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">bind_args</span>(sig, call):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L79">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p>Binds the arguments of a function call to that function's signature.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sig:</span><code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature">Signature</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">call:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Call">ast.Call</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/inspect.html#inspect.BoundArguments">BoundArguments</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/exceptions.html#TypeError">TypeError</a></code></td><td>If the arguments do not match the signature.</td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.astutils.extract_expr">
-    
-  </a>
-  <a name="extract_expr">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">extract_expr</span>(expr, filename=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L93">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p>Convert a python expression to ast.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">filename:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.astutils.extract_final_subscript">
-    
-  </a>
-  <a name="extract_final_subscript">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">extract_final_subscript</span>(annotation):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L112">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p>Extract the "str" part from annotations like  "Final[str]".</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Subscript">ast.Subscript</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code></td><td>If the "Final" annotation is not valid.</td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.astutils.infer_type">
-    
-  </a>
-  <a name="infer_type">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">infer_type</span>(expr):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L139">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p>Infer an expression's type.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code>ast.expr</code></td><td class="fieldArgDesc">The expression's AST.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code></td><td class="fieldArgDesc">A type annotation, or None if the expression has no obvious type.</td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.astutils.node2dottedname">
-    
-  </a>
-  <a name="node2dottedname">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">node2dottedname</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L55">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p>Resove expression composed by <code><a href="https://docs.python.org/3/library/ast.html#ast.Attribute">ast.Attribute</a></code> and <code><a href="https://docs.python.org/3/library/ast.html#ast.Name">ast.Name</a></code> nodes to a list of names.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.astutils.node2fullname">
-    
-  </a>
-  <a name="node2fullname">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">node2fullname</span>(expr, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L70">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p>Return <code>ctx.expand_name(name)</code> if <code>expr</code> is a valid name, or <code>None</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr>ast.expr, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.astutils.unstring_annotation">
-    
-  </a>
-  <a name="unstring_annotation">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">unstring_annotation</span>(node, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L125">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p>Replace all strings in the given expression by parsed versions.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>ast.expr</code></td><td class="fieldArgDesc">The unstringed node. If parsing fails, an error is logged and the original node is returned.</td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.astutils.uses_auto_attribs">
-    
-  </a>
-  <a name="uses_auto_attribs">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">uses_auto_attribs</span>(call, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L18">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p>Does the given <code><a href="https://www.attrs.org/en/stable/api.html#attr.s">attr.s()</a></code> decoration contain <code>auto_attribs=True</code>?</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">call:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Call">ast.Call</a></code></td><td class="fieldArgDesc">AST of the call to <code><a href="https://www.attrs.org/en/stable/api.html#attr.s">attr.s()</a></code>. This function will assume that <code><a href="https://www.attrs.org/en/stable/api.html#attr.s">attr.s()</a></code> is called without verifying that.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc">Namespace that contains the call, used for error reporting.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><code><a href="https://docs.python.org/3/library/constants.html#True">True</a></code> if <code><a href="https://docs.python.org/3/library/constants.html#True">True</a></code> is passed for <code>auto_attribs</code>, <code><a href="https://docs.python.org/3/library/constants.html#False">False</a></code> in all other cases: if <code>auto_attribs</code> is not passed, if an explicit <code><a href="https://docs.python.org/3/library/constants.html#False">False</a></code> is passed or if an error was reported.</td></tr></table></div>
-  </div>
-</div><div class="basefunction private">
-  
-  
-  <a name="pydocspec.astutils._annotation_for_elements">
-    
-  </a>
-  <a name="_annotation_for_elements">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_elements</span>(sequence):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L174">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sequence:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#object">object</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basefunction private">
-  
-  
-  <a name="pydocspec.astutils._annotation_for_value">
-    
-  </a>
-  <a name="_annotation_for_value">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_value</span>(value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L155">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">value:</span><code><a href="https://docs.python.org/3/library/functions.html#object">object</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basefunction private">
-  
-  
-  <a name="pydocspec.astutils._extract_annotation_subscript">
-    
-  </a>
-  <a name="_extract_annotation_subscript">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">_extract_annotation_subscript</span>(annotation):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L102">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p>Extract the "str, bytes" part from annotations like  "Union[str, bytes]".</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Subscript">ast.Subscript</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/ast.html#ast.AST">ast.AST</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basevariable private">
-  
+        <div class="basevariable private">
   
   <a name="pydocspec.astutils._attrs_decorator_signature">
     
@@ -405,7 +130,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_attrs_decorator_signature</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/master/pydocspec/astutils.py#L15">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L15">
       
       (source)
     </a>
@@ -413,21 +138,247 @@
   <div class="functionBody">
     
     
-    <div><p>Signature of the <code><a href="https://www.attrs.org/en/stable/api.html#attr.s">attr.s</a></code> class decorator.</p></div>
+    <div><p>Signature of the <code>attr.s</code> class decorator.</p></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="pydocspec.astutils.uses_auto_attribs">
+    
+  </a>
+  <a name="uses_auto_attribs">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">uses_auto_attribs</span>(call, ctx):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L18">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Does the given <code>attr.s()</code> decoration contain <code>auto_attribs=True</code>?</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">call</td><td>AST of the call to <code>attr.s()</code>. This function will assume that <code>attr.s()</code> is called without verifying that. (type: <code><a href="https://docs.python.org/3/library/ast.html#ast.Call">ast.Call</a></code>)</td></tr><tr><td></td><td class="fieldArg">ctx</td><td>Namespace that contains the call, used for error reporting. (type: <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><code><a href="https://docs.python.org/3/library/constants.html#True">True</a></code> if <code><a href="https://docs.python.org/3/library/constants.html#True">True</a></code> is passed for <code>auto_attribs</code>, <code><a href="https://docs.python.org/3/library/constants.html#False">False</a></code> in all other cases: if <code>auto_attribs</code> is not passed, if an explicit <code><a href="https://docs.python.org/3/library/constants.html#False">False</a></code> is passed or if an error was reported. (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="pydocspec.astutils.node2dottedname">
+    
+  </a>
+  <a name="node2dottedname">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">node2dottedname</span>(node):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L55">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Resove expression composed by <code><a href="https://docs.python.org/3/library/ast.html#ast.Attribute">ast.Attribute</a></code> and <code><a href="https://docs.python.org/3/library/ast.html#ast.Name">ast.Name</a></code> nodes to a list of names.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">node</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[ast.expr]</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="pydocspec.astutils.node2fullname">
+    
+  </a>
+  <a name="node2fullname">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">node2fullname</span>(expr, ctx):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L70">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Return <code>ctx.expand_name(name)</code> if <code>expr</code> is a valid name, or <code>None</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">expr</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[ast.expr, <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>)</td></tr><tr><td></td><td class="fieldArg">ctx</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="pydocspec.astutils.bind_args">
+    
+  </a>
+  <a name="bind_args">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">bind_args</span>(sig, call):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L79">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Binds the arguments of a function call to that function's signature.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">sig</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature">Signature</a></code>)</td></tr><tr><td></td><td class="fieldArg">call</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/ast.html#ast.Call">ast.Call</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/inspect.html#inspect.BoundArguments">BoundArguments</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Raises</td><td class="fieldArg"><a href="https://docs.python.org/3/library/exceptions.html#TypeError">TypeError</a></td><td>If the arguments do not match the signature.</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="pydocspec.astutils.extract_expr">
+    
+  </a>
+  <a name="extract_expr">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">extract_expr</span>(expr, filename=None):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L93">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Convert a python expression to ast.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">expr</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)</td></tr><tr><td></td><td class="fieldArg">filename</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code>ast.expr</code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction private">
+  
+  <a name="pydocspec.astutils._extract_annotation_subscript">
+    
+  </a>
+  <a name="_extract_annotation_subscript">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_extract_annotation_subscript</span>(annotation):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L102">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Extract the "str, bytes" part from annotations like  "Union[str, bytes]".</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">annotation</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/ast.html#ast.Subscript">ast.Subscript</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/ast.html#ast.AST">ast.AST</a></code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="pydocspec.astutils.extract_final_subscript">
+    
+  </a>
+  <a name="extract_final_subscript">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">extract_final_subscript</span>(annotation):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L112">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Extract the "str" part from annotations like  "Final[str]".</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">annotation</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/ast.html#ast.Subscript">ast.Subscript</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code>ast.expr</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Raises</td><td class="fieldArg"><a href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></td><td>If the "Final" annotation is not valid.</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="pydocspec.astutils.unstring_annotation">
+    
+  </a>
+  <a name="unstring_annotation">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">unstring_annotation</span>(node, ctx):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L125">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Replace all strings in the given expression by parsed versions.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">node</td><td><span class="undocumented">Undocumented</span> (type: <code>ast.expr</code>)</td></tr><tr><td></td><td class="fieldArg">ctx</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">The unstringed node. If parsing fails, an error is logged and the original node is returned. (type: <code>ast.expr</code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="pydocspec.astutils.infer_type">
+    
+  </a>
+  <a name="infer_type">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">infer_type</span>(expr):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L139">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Infer an expression's type.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">expr</td><td>The expression's AST. (type: <code>ast.expr</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">A type annotation, or None if the expression has no obvious type. (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[ast.expr]</code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction private">
+  
+  <a name="pydocspec.astutils._annotation_for_value">
+    
+  </a>
+  <a name="_annotation_for_value">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_value</span>(value):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L155">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">value</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/functions.html#object">object</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[ast.expr]</code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction private">
+  
+  <a name="pydocspec.astutils._annotation_for_elements">
+    
+  </a>
+  <a name="_annotation_for_elements">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_elements</span>(sequence):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/pydocspec/astutils.py#L174">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">sequence</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<a href="https://docs.python.org/3/library/functions.html#object">object</a>]</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[ast.expr]</code>)</td></tr></table></div>
   </div>
 </div>
 
       </div>
-    </div>
+      <address>
+        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-24 03:22:43.
+      </address>
 
-    <footer class="navbar navbar-default">
-  
-  <div class="container">
-    <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec/" class="projecthome">pydocspec</a>,
-  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-24 02:21:41.
-  </div>
-</footer>
+    </div>
 
     <script src="pydoctor.js" type="text/javascript"></script>
 

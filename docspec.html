@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>docspec : API documentation</title>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header navbar-brand">
+          <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>
+          <a href="index.html">API Documentation</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="module"><code><code><a href="docspec.html">docspec</a></code></code></h1>
+        <div id="showPrivate">
+          <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+        </div>
+      </div>
+
+      <div class="categoryHeader">
+        module documentation
+      </div>
+
+      <div class="extrasDocstring">
+        <a href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py">(source)</a>
+        <p></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p class="undocumented">Undocumented</p></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id1">
+  
+  <tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#__author__">__author__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#__version__">__version__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Location.html">Location</a></code></td>
+    <td><span>Represents the location of an #ApiObject by a filename and line number.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Decoration.html">Decoration</a></code></td>
+    <td><span>Represents a decorator on a #Class or #Function.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Argument.html">Argument</a></code></td>
+    <td><span>Represents a #Function argument.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.ApiObject.html">ApiObject</a></code></td>
+    <td><span>The base class for representing "API Objects". Any API object is any addressable entity in code, be that a variable/constant, function, class or module.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Data.html">Data</a></code></td>
+    <td><span>Represents a variable assignment (e.g. for global variables (often used as constants) or class members).</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Indirection.html">Indirection</a></code></td>
+    <td><span>Represents an imported name. It can be used to properly find the full name target of a link written with a local name.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Function.html">Function</a></code></td>
+    <td><span>Represents a function definition. This can be in a #Module for plain functions or in a #Class for methods. The #decorations need to be introspected to understand if the function has a special purpose (e.g. is it a `@property`, `@classmethod` or `@staticmethod`?).</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.HasMembers.html">HasMembers</a></code></td>
+    <td><span>Base class for API objects that can have members, e.g. #Class and #Module.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Class.html">Class</a></code></td>
+    <td><span>Represents a class definition.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Module.html">Module</a></code></td>
+    <td><span>Represents a module, basically a named container for code/API objects. Modules may be nested in other modules. Be aware that for historical reasons, some loaders lile #docspec_python by default do not return nested modules, even if nesting would be appropriate (and instead the #Module.name simply contains the fully qualified name).</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#load_module">load_module</a></code></td>
+    <td><span>Loads a #Module from the specified *source*, which may be either a filename, a file-like object to read from or plain structured data.</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#load_modules">load_modules</a></code></td>
+    <td><span>Loads a stream of modules from the specified *source*. Similar to #load_module(), the *source* can be a filename, file-like object or a list of plain structured data to deserialize from.</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#dump_module">dump_module</a></code></td>
+    <td><span>Dumps a module to the specified target or returns it as plain structured data.</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#filter_visit">filter_visit</a></code></td>
+    <td><span>Visits all *objects* recursively, applying the *predicate* in the specified *order*. If the predicate returrns #False, the object will be removed from it's containing list.</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#visit">visit</a></code></td>
+    <td><span>Visits all *objects*, applying *func* in the specified *order*.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.ReverseMap.html">ReverseMap</a></code></td>
+    <td><span>Reverse map for finding the parent of an #ApiObject.</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#get_member">get_member</a></code></td>
+    <td><span>Generic function to retrieve a member from an API object. This will always return #None for objects that don't support members (eg. #Function and #Data).</span></td>
+  </tr><tr class="variable private">
+    
+    <td>Variable</td>
+    <td><code><a href="#_MemberType">_MemberType</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable private">
+    
+    <td>Variable</td>
+    <td><code><a href="#_ModuleMemberType">_ModuleMemberType</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+        
+
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="basevariable">
+  
+  <a name="docspec.__author__">
+    
+  </a>
+  <a name="__author__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">__author__</span> =
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py#L22">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+  </div>
+</div><div class="basevariable">
+  
+  <a name="docspec.__version__">
+    
+  </a>
+  <a name="__version__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">__version__</span> =
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py#L23">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+  </div>
+</div><div class="basevariable private">
+  
+  <a name="docspec._MemberType">
+    
+  </a>
+  <a name="_MemberType">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_MemberType</span> =
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py#L287">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable private">
+  
+  <a name="docspec._ModuleMemberType">
+    
+  </a>
+  <a name="_ModuleMemberType">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_ModuleMemberType</span> =
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py#L293">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="docspec.load_module">
+    
+  </a>
+  <a name="load_module">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">load_module</span>(source, filename=None, loader=json.load):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py#L299">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">source</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union">t.Union</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/typing.html#typing.TextIO">t.TextIO</a>, <a href="https://docs.python.org/3/library/typing.html#typing.Dict">t.Dict</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/typing.html#typing.Any">t.Any</a>]]</code>)</td></tr><tr><td></td><td class="fieldArg">filename</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)</td></tr><tr><td></td><td class="fieldArg">loader</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">t.Callable</a>[[<a href="https://docs.python.org/3/library/typing.html#typing.IO">t.IO</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]], <a href="https://docs.python.org/3/library/typing.html#typing.Any">t.Any</a>]</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="docspec.Module.html">Module</a></code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="docspec.load_modules">
+    
+  </a>
+  <a name="load_modules">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">load_modules</span>(source, filename=None, loader=json.load):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py#L331">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Loads a stream of modules from the specified *source*. Similar to #load_module(), the *source* can be a filename, file-like object or a list of plain structured data to deserialize from.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">source</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union">t.Union</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/typing.html#typing.TextIO">t.TextIO</a>, <a href="https://docs.python.org/3/library/typing.html#typing.Iterable">t.Iterable</a>[<a href="https://docs.python.org/3/library/typing.html#typing.Any">t.Any</a>]]</code>)</td></tr><tr><td></td><td class="fieldArg">filename</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)</td></tr><tr><td></td><td class="fieldArg">loader</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">t.Callable</a>[[<a href="https://docs.python.org/3/library/typing.html#typing.IO">t.IO</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]], <a href="https://docs.python.org/3/library/typing.html#typing.Any">t.Any</a>]</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">t.Iterable</a>[<a href="docspec.Module.html">Module</a>]</code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="docspec.dump_module">
+    
+  </a>
+  <a name="dump_module">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">dump_module</span>(module, target=None, dumper=json.dump):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py#L373">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Dumps a module to the specified target or returns it as plain structured data.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">module</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="docspec.Module.html">Module</a></code>)</td></tr><tr><td></td><td class="fieldArg">target</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<a href="https://docs.python.org/3/library/typing.html#typing.Union">t.Union</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/typing.html#typing.IO">t.IO</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]]</code>)</td></tr><tr><td></td><td class="fieldArg">dumper</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">t.Callable</a>[[<a href="https://docs.python.org/3/library/typing.html#typing.Any">t.Any</a>, <a href="https://docs.python.org/3/library/typing.html#typing.IO">t.IO</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]], <a href="https://docs.python.org/3/library/constants.html#None">None</a>]</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<a href="https://docs.python.org/3/library/typing.html#typing.Dict">t.Dict</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/typing.html#typing.Any">t.Any</a>]]</code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="docspec.filter_visit">
+    
+  </a>
+  <a name="filter_visit">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">filter_visit</span>(objects, predicate, order='pre'):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py#L396">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">objects</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<a href="docspec.ApiObject.html">ApiObject</a>]</code>)</td></tr><tr><td></td><td class="fieldArg">predicate</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">t.Callable</a>[[<a href="docspec.ApiObject.html">ApiObject</a>], <a href="https://docs.python.org/3/library/functions.html#bool">bool</a>]</code>)</td></tr><tr><td></td><td class="fieldArg">order</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<a href="docspec.ApiObject.html">ApiObject</a>]</code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="docspec.visit">
+    
+  </a>
+  <a name="visit">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">visit</span>(objects, func, order='pre'):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py#L436">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Visits all *objects*, applying *func* in the specified *order*.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">objects</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<a href="docspec.ApiObject.html">ApiObject</a>]</code>)</td></tr><tr><td></td><td class="fieldArg">func</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">t.Callable</a>[[<a href="docspec.ApiObject.html">ApiObject</a>], <a href="https://docs.python.org/3/library/typing.html#typing.Any">t.Any</a>]</code>)</td></tr><tr><td></td><td class="fieldArg">order</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="docspec.get_member">
+    
+  </a>
+  <a name="get_member">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_member</span>(obj, name):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3149d8695e0405840f6cbe4d9ea8cbf21a95cfcf/docspec.py#L469">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Generic function to retrieve a member from an API object. This will always return #None for objects that don't support members (eg. #Function and #Data).</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">obj</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="docspec.ApiObject.html">ApiObject</a></code>)</td></tr><tr><td></td><td class="fieldArg">name</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<a href="docspec.ApiObject.html">ApiObject</a>]</code>)</td></tr></table></div>
+  </div>
+</div>
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-24 03:22:43.
+      </address>
+
+    </div>
+
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>
