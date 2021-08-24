@@ -1,10 +1,10 @@
-name: unit tests
+name: static checks
 on: 
   push:
     branches: 
       - main
 jobs: 
-  unit:
+  static:
     name: ${{ matrix.os }} py${{ matrix.python-version }}
     runs-on: ${{ matrix.os }} 
 
