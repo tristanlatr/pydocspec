@@ -34,7 +34,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Class</span>(<span title="docspec.Class">docspec.Class</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L335">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Class</span>(<span title="docspec.Class">docspec.Class</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L335">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.Class">View In Hierarchy</a></p>
       </div>
 
@@ -59,17 +59,17 @@
     
     <td>Property</td>
     <td><code><a href="#resolved_bases">resolved_bases</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>For each bases, try to resolve the name to an <code><a href="pydocspec.ApiObject.html">ApiObject</a></code> or fallback to expanded name.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#all_bases">all_bases</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>Reccursively returns resolved_bases for all bases.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#all_base_classes">all_base_classes</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>Reccursively returns all bases that are resolved to a Class.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
@@ -79,26 +79,31 @@
     
     <td>Property</td>
     <td><code><a href="#constructor_params">constructor_params</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>A mapping of constructor parameter names to their type annotation. If a parameter is not annotated, its value is <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code>.</span></td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#is_exception">is_exception</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>Return <code>True</code> if this class extends one of the standard library exceptions.</span></td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#dataclass_decoration">dataclass_decoration</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span></span></td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#attrs_decoration">attrs_decoration</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span></span></td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#uses_attrs_auto_attribs">uses_attrs_auto_attribs</a></code></td>
+    <td><span>Does the <code>attr.s()</code> decoration contain <code>auto_attribs=True</code>?</span></td>
+  </tr><tr class="classvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#_exceptions">_exceptions</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -208,7 +213,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">decorations</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L336">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L336">
       
       (source)
     </a>
@@ -229,7 +234,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">parent</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L337">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L337">
       
       (source)
     </a>
@@ -250,7 +255,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">resolved_bases</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L339">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L339">
       
       (source)
     </a>
@@ -258,7 +263,7 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a href="pydocspec.ApiObject.html">ApiObject</a>, <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>)
+    <div><p>For each bases, try to resolve the name to an <code><a href="pydocspec.ApiObject.html">ApiObject</a></code> or fallback to expanded name.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">See Also</td><td colspan="2">`resolve_name` and `expand_name`</td></tr></table></div> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a href="pydocspec.ApiObject.html">ApiObject</a>, <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>)
   </div>
 </div><div class="basemethod">
   
@@ -271,7 +276,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">all_bases</span>(self, include_self=False):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L346">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L351">
       
       (source)
     </a>
@@ -279,7 +284,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">include_self</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a href="pydocspec.ApiObject.html">ApiObject</a>, <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>)</td></tr></table></div>
+    <div><p>Reccursively returns resolved_bases for all bases.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">include_self</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a href="pydocspec.ApiObject.html">ApiObject</a>, <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>)</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -292,7 +297,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">all_base_classes</span>(self, include_self=False):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L355">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L361">
       
       (source)
     </a>
@@ -300,7 +305,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">include_self</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<a href="pydocspec.Class.html">Class</a>]</code>)</td></tr></table></div>
+    <div><p>Reccursively returns all bases that are resolved to a Class.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">include_self</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<a href="pydocspec.Class.html">Class</a>]</code>)</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -313,7 +318,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">find</span>(self, name):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L360">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L367">
       
       (source)
     </a>
@@ -334,7 +339,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">constructor_params</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L373">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L380">
       
       (source)
     </a>
@@ -342,7 +347,28 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[ast.expr]]</code>)
+    <div><p>A mapping of constructor parameter names to their type annotation. If a parameter is not annotated, its value is <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2">The implementation currently relies on inspecting the <code>__init__</code> method only. If <code>__new__</code> or <code>__call__</code> methods are defined, this information might be incorrect.</td></tr></table></div> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[ast.expr]]</code>)
+  </div>
+</div><div class="baseclassvariable private">
+  
+  <a name="pydocspec.Class._exceptions">
+    
+  </a>
+  <a name="_exceptions">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_exceptions</span> =
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L399">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, ...]</code>)
   </div>
 </div><div class="baseproperty">
   
@@ -355,7 +381,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_exception</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L384">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L420">
       
       (source)
     </a>
@@ -363,7 +389,7 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+    <div><p>Return <code>True</code> if this class extends one of the standard library exceptions.</p></div> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
   </div>
 </div><div class="baseproperty">
   
@@ -376,7 +402,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">dataclass_decoration</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L393">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L429">
       
       (source)
     </a>
@@ -384,7 +410,7 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="pydocspec.Decoration.html">Decoration</a>]</code>)
+    <div></div> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="pydocspec.Decoration.html">Decoration</a>]</code>)
   </div>
 </div><div class="baseproperty">
   
@@ -397,7 +423,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">attrs_decoration</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L400">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L437">
       
       (source)
     </a>
@@ -405,7 +431,7 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="pydocspec.Decoration.html">Decoration</a>]</code>)
+    <div></div> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="pydocspec.Decoration.html">Decoration</a>]</code>)
   </div>
 </div><div class="baseproperty">
   
@@ -418,7 +444,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">uses_attrs_auto_attribs</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/83044745ac5334811fd09eaf2cfbe83223b7e32d/pydocspec/__init__.py#L407">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L445">
       
       (source)
     </a>
@@ -426,13 +452,13 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+    <div><p>Does the <code>attr.s()</code> decoration contain <code>auto_attribs=True</code>?</p></div> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
   </div>
 </div>
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-25 17:20:29.
+        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-25 17:44:45.
       </address>
 
     </div>
