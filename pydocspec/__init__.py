@@ -404,7 +404,7 @@ class Class(docspec.Class, ApiObject):
     @cached_property
     def resolved_bases(self) -> List[Union['ApiObject', 'str']]:
         """
-        For each bases, try to resolve the name to an L{ApiObject} or fallback to expanded name.
+        For each bases, try to resolve the name to an L{ApiObject} or fallback to the expanded name.
         
         @see: `resolve_name` and `expand_name`
         """
