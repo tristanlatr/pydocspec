@@ -342,6 +342,13 @@ class Data(docspec.Data, ApiObject):
     
     @cached_property
     def is_constant(self) -> bool:
+        """
+        Whether this Data is a constant. 
+        
+        This checks two things:
+            - all-caps variable name
+            - typing.Final annotation
+        """
         return self.name.isupper() or self.is_using_typing_final
     
     @cached_property
