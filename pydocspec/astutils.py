@@ -2,7 +2,7 @@
 Various bits of reusable code related to L{ast.AST} node processing.
 """
 
-from typing import Iterable, Optional, List, TYPE_CHECKING, Union
+from typing import Any, Iterable, Optional, List, TYPE_CHECKING, Type, Union
 from inspect import BoundArguments, Signature
 import ast
 import inspect
@@ -13,20 +13,44 @@ import astor
 if TYPE_CHECKING:
     from pydocspec import ApiObject
 
-
 class ValueFormatter:
     """
     Formats values stored in AST expressions.
     Used for presenting default values of parameters and annotations. 
 
-    The default behaviour defers to L{astor.to_source}. 
-    This should be overriden if you want more formatting functions, like outputing HTML tags. 
+    @note: The default behaviour defers to L{astor.to_source}. 
+        This should be overriden if you want more formatting functions, like outputing HTML tags. 
     """
 
     def __init__(self, value: ast.expr):
         self.value = value
     def __repr__(self) -> str:
         return astor.to_source(self.value).strip()
+
+@attr.s(auto_attribs=True)
+class SignatureBuilder:
+    """
+    Builds a signature, parameter by parameter, with customizable value formatter and signature classes.
+    """
+    signature_class: Type['ValueFormatter'] = attr.ib(default=inspect.Signature)
+    value_formatter_class: Type['ValueFormatter'] = attr.ib(default=ValueFormatter)
+    _parameters: List[inspect.Parameter] = attr.ib(factory=list, init=False)
+    _return_annotation: Any = attr.ib(default=inspect.empty, init=False)
+
+    def add_param(self, name: str, 
+                  kind: inspect._ParameterKind, 
+                  default: Optional[ast.expr],
+                  annotation: Optional[ast.expr]) -> None:
+                    
+        default_val = inspect.Parameter.empty if default is None else self.value_formatter_class(default)
+        annotation_val = inspect.Parameter.empty if annotation is None else self.value_formatter_class(annotation)
+        self._parameters.append(inspect.Parameter(name, kind, default=default_val, annotation=annotation_val))
+
+    def set_return_annotation(self, annotation: Optional[ast.expr]) -> None:
+        self._return_annotation = inspect.Parameter.empty if annotation is None else self.value_formatter_class(annotation)
+
+    def get_signature(self) -> Signature:
+        return Signature(self._parameters, return_annotation=self._return_annotation)
 
 _attrs_decorator_signature = inspect.signature(attr.s)
 """Signature of the L{attr.s} class decorator."""
