@@ -39,7 +39,7 @@ class FilterVisitor(genericvisitor.Visitor[ApiObject]):
     new_members = [m for m in ob.members if self.predicate(m)]
     deleted_members = [m for m in ob.members if m not in new_members]
 
-    # Remove the members from the ApiObjectsRoot as well
+    # Remove the member from the ApiObjectsRoot as well
     for m in deleted_members:
       ob.root.all_objects.rmvalue(m.full_name, m)
     
