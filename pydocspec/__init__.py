@@ -338,12 +338,18 @@ class Class(docspec.Class, ApiObject):
 
     @cached_property
     def resolved_bases(self) -> List[Union['ApiObject', 'str']]:
+        """
+        For each bases, try to resolve the name to an L{ApiObject} or fallback to expanded name.
+        
+        @see: `resolve_name` and `expand_name`
+        """
         objs = []
         for base in self.bases or ():
-            objs.append(self.resolve_name(base) or self.expand_name(base))
+            objs.append(self.parent.resolve_name(base) or self.parent.expand_name(base))
         return objs
     
     def all_bases(self, include_self: bool = False) -> Iterator[Union['ApiObject', 'str']]:
+        """Reccursively returns resolved_bases for all bases."""
         if include_self:
             yield self
         for b in self.resolved_bases:
@@ -353,6 +359,7 @@ class Class(docspec.Class, ApiObject):
                 yield b
 
     def all_base_classes(self, include_self: bool = False) -> Iterator['Class']:
+        """Reccursively returns all bases that are resolved to a Class."""
         for b in self.all_bases(include_self):
             if isinstance(b, Class):
                 yield b
@@ -372,6 +379,13 @@ class Class(docspec.Class, ApiObject):
     
     @cached_property
     def constructor_params(self) -> Mapping[str, Optional[ast.expr]]:
+        """
+        A mapping of constructor parameter names to their type annotation.
+        If a parameter is not annotated, its value is L{None}.
+
+        @note: The implementation currently relies on inspecting the C{__init__} method only.
+            If C{__new__} or L{__call__} methods are defined, this information might be incorrect.
+        """
         init_method = self.get_member('__init__')
         if isinstance(init_method, Function):
             args = {}
@@ -380,18 +394,41 @@ class Class(docspec.Class, ApiObject):
             return args
         else:
             return {'self': None}
-
+    
+    # List of exceptions class names in the standard library, Python 3.8.10
+    _exceptions = ('ArithmeticError', 'AssertionError', 'AttributeError', 
+        'BaseException', 'BlockingIOError', 'BrokenPipeError', 
+        'BufferError', 'BytesWarning', 'ChildProcessError', 
+        'ConnectionAbortedError', 'ConnectionError', 
+        'ConnectionRefusedError', 'ConnectionResetError', 
+        'DeprecationWarning', 'EOFError', 
+        'EnvironmentError', 'Exception', 'FileExistsError', 
+        'FileNotFoundError', 'FloatingPointError', 'FutureWarning', 
+        'GeneratorExit', 'IOError', 'ImportError', 'ImportWarning', 
+        'IndentationError', 'IndexError', 'InterruptedError', 
+        'IsADirectoryError', 'KeyError', 'KeyboardInterrupt', 'LookupError', 
+        'MemoryError', 'ModuleNotFoundError', 'NameError', 
+        'NotADirectoryError', 'NotImplementedError', 
+        'OSError', 'OverflowError', 'PendingDeprecationWarning', 'PermissionError', 
+        'ProcessLookupError', 'RecursionError', 'ReferenceError', 
+        'ResourceWarning', 'RuntimeError', 'RuntimeWarning', 'StopAsyncIteration', 
+        'StopIteration', 'SyntaxError', 'SyntaxWarning', 'SystemError', 
+        'SystemExit', 'TabError', 'TimeoutError', 'TypeError', 
+        'UnboundLocalError', 'UnicodeDecodeError', 'UnicodeEncodeError', 
+        'UnicodeError', 'UnicodeTranslateError', 'UnicodeWarning', 'UserWarning', 
+        'ValueError', 'Warning', 'ZeroDivisionError')
     @cached_property
     def is_exception(self) -> bool:
+        """Return C{True} if this class extends one of the standard library exceptions."""
+        
         for base in self.all_bases(True):
-            if base in ('Exception', 'BaseException'):
-                return True
-            if isinstance(base, ApiObject) and base.name in ('Exception', 'BaseException'):
+            if base in self._exceptions:
                 return True
         return False
     
     @cached_property
     def dataclass_decoration(self) -> Optional['Decoration']:
+        """The L{@dataclass} decoration of this class, if any."""
         for deco in self.decorations or ():
             if astutils.node2fullname(deco.name_ast, self.parent) in ('dataclasses.dataclass',):
                 return deco
@@ -399,6 +436,7 @@ class Class(docspec.Class, ApiObject):
 
     @cached_property
     def attrs_decoration(self) -> Optional['Decoration']:
+        """The L{@attr.s} decoration of this class, if any."""
         for deco in self.decorations or ():
             if astutils.node2fullname(deco.name_ast, self.parent) in ('attr.s', 'attr.attrs', 'attr.attributes'):
                 return deco
@@ -406,6 +444,7 @@ class Class(docspec.Class, ApiObject):
 
     @cached_property
     def uses_attrs_auto_attribs(self) -> bool:
+        """Does the C{attr.s()} decoration contain C{auto_attribs=True}?"""
         attrs_deco = self.attrs_decoration
         if attrs_deco is not None and isinstance(attrs_deco.ast, ast.Call):
             return astutils.uses_auto_attribs(attrs_deco.ast, self)
