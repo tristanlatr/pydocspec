@@ -299,9 +299,10 @@ class Data(docspec.Data, ApiObject):
         The AST expresssion of the annotation of this data.
         """
         if self.datatype:
-            return astutils.extract_expr(self.datatype, filename=self.location.filename)
+            return astutils.unstring_annotation(
+                    astutils.extract_expr(self.datatype, filename=self.location.filename))
         return None
-    
+
     @cached_property
     def value_ast(self) -> Optional[ast.expr]:
         """
@@ -511,8 +512,8 @@ class Class(docspec.Class, ApiObject):
     def uses_attrs_auto_attribs(self) -> bool:
         """Does the C{attr.s()} decoration contain C{auto_attribs=True}?"""
         attrs_deco = self.attrs_decoration
-        if attrs_deco is not None and isinstance(attrs_deco.ast, ast.Call):
-            return astutils.uses_auto_attribs(attrs_deco.ast, self)
+        if attrs_deco is not None and isinstance(attrs_deco.expr_ast, ast.Call):
+            return astutils.uses_auto_attribs(attrs_deco.expr_ast, self)
         return False
 
 class Function(docspec.Function, ApiObject):
@@ -522,7 +523,8 @@ class Function(docspec.Function, ApiObject):
     @cached_property
     def return_type_ast(self) -> Optional[ast.expr]:
         if self.return_type:
-            return astutils.extract_expr(self.return_type, filename=self.location.filename)
+            return astutils.unstring_annotation(
+                    astutils.extract_expr(self.return_type, filename=self.location.filename))
         return None
 
     @cached_property
@@ -590,7 +592,8 @@ class Argument(docspec.Argument):
     @cached_property
     def datatype_ast(self) -> Optional[ast.expr]:
         if self.datatype:
-            return astutils.extract_expr(self.datatype)
+            return astutils.unstring_annotation(
+                    astutils.extract_expr(self.datatype))
         return None
 
     @cached_property
@@ -606,7 +609,7 @@ class Decoration(docspec.Decoration):
         return astutils.extract_expr(self.name)
 
     @cached_property
-    def ast(self) -> ast.expr:
+    def expr_ast(self) -> ast.expr:
         return astutils.extract_expr(self.name + (self.args or ''))
 
 class Module(docspec.Module, ApiObject):
