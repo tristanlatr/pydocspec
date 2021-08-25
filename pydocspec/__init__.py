@@ -5,6 +5,7 @@ Extends docspec for python specific usages.
 from typing import Iterator, List, Mapping, Optional, Union
 import ast
 import inspect
+from typing_extensions import TypeAlias
 import warnings
 
 import attr
@@ -13,7 +14,9 @@ from cached_property import cached_property
 
 import docspec
 
-from . import astutils, dottedname, dupsafedict
+from . import astutils
+from .dottedname import DottedName
+from .dupsafedict import DuplicateSafeDict
 
 __all__ = [
   'ApiObjectsRoot',
@@ -36,16 +39,21 @@ __all__ = [
 
 _RESOLVE_ALIAS_MAX_RECURSE = 5
 
-Location = docspec.Location
-HasMembers = docspec.HasMembers
-
 @attr.s(auto_attribs=True)
 class ApiObjectsRoot:
+    """
+    Root of the tree. Special object that provides a single view on all L{ApiObjects} in the tree and root modules.
+
+    @note: L{pydocspec}'s tree contains a hiearchy of packages.
+    """
 
     root_modules: List['Module'] = attr.ib(factory=list, init=False)
-    all_objects: dupsafedict.DuplicateSafeDict['ApiObject'] = attr.ib(factory=dupsafedict.DuplicateSafeDict, init=False)
+    all_objects: DuplicateSafeDict['ApiObject'] = attr.ib(factory=DuplicateSafeDict, init=False)
 
 class ApiObject(docspec.ApiObject):
+    """
+    An augmented L{docspec.ApiObject}, with functionalities to resolve names for the python language.
+    """
 
     # help mypy
     parent: Optional['ApiObject'] # type: ignore[assignment]
@@ -53,6 +61,9 @@ class ApiObject(docspec.ApiObject):
     # this property needs to be manually set from the converter docspec -> pydocspec
     @property
     def root(self) -> ApiObjectsRoot:
+        """
+        L{ApiObjectsRoot} instance holding references to all objects in the tree.
+        """
         return self._root
     @root.setter
     def root(self, value:ApiObjectsRoot) -> None:
@@ -60,6 +71,9 @@ class ApiObject(docspec.ApiObject):
     
     @cached_property
     def root_module(self) -> 'Module':
+        """
+        The root module of this object.
+        """
         if isinstance(self, Module) and not self.parent:
             return self
         assert self.parent is not None
@@ -71,17 +85,30 @@ class ApiObject(docspec.ApiObject):
         return super().location or docspec.Location(filename='<unknown>', lineno=-1)
 
     @cached_property
-    def dotted_name(self) -> dottedname.DottedName:
-        return dottedname.DottedName(*(ob.name for ob in self.path))
+    def dotted_name(self) -> DottedName:
+        """
+        The fully qualified dotted name of this object, as C{DottedName} instance.
+        """
+        return DottedName(*(ob.name for ob in self.path))
 
     @cached_property
     def full_name(self) -> str:
+        """
+        The fully qualified dotted name of this object, as string. 
+        This value is used as the key in the L{ApiObject.root.all_objects} dictionnary.
+        """
         return str(self.dotted_name)
     
     @cached_property
     def doc_sources(self) -> List['ApiObject']:
+        """Objects that can be considered as a source of documentation.
+
+        The motivating example for having multiple sources is looking at a
+        superclass' implementation of a method for documentation for a
+        subclass'.
+        """
         sources = [self]
-        if isinstance(self, (Indirection, Data, Function)):
+        if isinstance(self, Inheritable):
             if not isinstance(self.parent, Class):
                 return sources
             for b in self.parent.all_base_classes(include_self=False):
@@ -92,6 +119,9 @@ class ApiObject(docspec.ApiObject):
     
     @cached_property
     def module(self) -> 'Module':
+        """
+        The L{Module} instance that contains this object.
+        """
         if isinstance(self, Module):
             return self
         else:
@@ -99,10 +129,15 @@ class ApiObject(docspec.ApiObject):
             return self.parent.module
     
     def get_member(self, name: str) -> Optional['ApiObject']:
-        member = docspec.get_member(self, name)
-        if member:
-            assert isinstance(member, ApiObject)
-            return member
+        """
+        Retrieve a member from the API object. This will always return C{None} for
+        objects that don't support members (eg. L{Function} and L{Data}).
+        """
+        if isinstance(self, HasMembers):
+            for member in self.members:
+                if member.name == name:
+                    assert isinstance(member, ApiObject), (name, self, member)
+                    return member
         return None
     
     def get_members(self, name: str) -> Iterator['ApiObject']:
@@ -118,6 +153,7 @@ class ApiObject(docspec.ApiObject):
     def expand_name(self, name: str, follow_aliases: bool = True, _indirections: Optional[List['Indirection']]=None) -> str:
         """
         Return a fully qualified name for the possibly-dotted `name`.
+
         To explain what this means, consider the following modules:
         mod1.py::
             from external_location import External
@@ -157,7 +193,7 @@ class ApiObject(docspec.ApiObject):
             This mean that L{expand_name} will never return the name of an alias,
             it will always follow it's indirection to the origin. Except if follow_aliases=False. 
         """
-        parts = dottedname.DottedName(name)
+        parts = DottedName(name)
         ctx: 'ApiObject' = self # The context for the currently processed part of the name. 
         
         for i, part in enumerate(parts):
@@ -181,7 +217,7 @@ class ApiObject(docspec.ApiObject):
                 break
             ctx = nxt
 
-        return str(dottedname.DottedName(full_name, *parts[i + 1:]))
+        return str(DottedName(full_name, *parts[i + 1:]))
 
     def resolve_name(self, name: str, follow_aliases: bool = True) -> Optional['ApiObject']:
         """
@@ -194,7 +230,7 @@ class ApiObject(docspec.ApiObject):
         return self.root.all_objects.get(self.expand_name(name, follow_aliases=follow_aliases))
 
     def _local_to_full_name(self, name: str, follow_aliases: bool, _indirections: Optional[List['Indirection']]=None) -> str:
-        if not isinstance(self, (Class, Module)):
+        if not isinstance(self, HasMembers):
             assert self.parent is not None
             return self.parent._local_to_full_name(name, follow_aliases, _indirections)
         
@@ -224,8 +260,8 @@ class ApiObject(docspec.ApiObject):
         @param alias: an ALIAS object.
         @param indirections: Chain of alias objects followed. 
             This variable is used to prevent infinite loops when doing the lookup.
-        @note: It can exceptionnaly return None if an indirection cannot be resolved. 
-            then we use the indirection's full_name. 
+        @note: It can return None in exceptionnal cases if an indirection cannot be resolved. 
+            Then we use the indirection's full_name. 
         """
 
         if _indirections and len(_indirections) > _RESOLVE_ALIAS_MAX_RECURSE:
@@ -243,8 +279,8 @@ class ApiObject(docspec.ApiObject):
             return ctx.expand_name(target, _indirections=(_indirections or [])+[indirection])
         else:
             # Issue tracing the alias back to it's original location, found the same indirection again.
-            if ctx.parent is not None:
-                # We try with the parent scope and redirect to the original object!
+            if ctx.parent is not None and ctx.module == ctx.parent.module:
+                # We try with the parent scope, only if the parent is in the same module, otherwise fail. 
                 # This is used in situations like in the pydoctor.model.System class and it's aliases, 
                 # because they have the same target name as the name they are aliasing, it's causing trouble.
                 return ctx.parent.expand_name(target, _indirections=(_indirections or [])+[indirection])
@@ -606,3 +642,7 @@ class Module(docspec.Module, ApiObject):
 
 class zopedocspec:
     ...
+
+Location = docspec.Location
+HasMembers = docspec.HasMembers
+Inheritable: TypeAlias = Union[Indirection, Data, Function]
