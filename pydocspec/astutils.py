@@ -8,9 +8,25 @@ import ast
 import inspect
 
 import attr
+import astor
 
 if TYPE_CHECKING:
     from pydocspec import ApiObject
+
+
+class ValueFormatter:
+    """
+    Formats values stored in AST expressions.
+    Used for presenting default values of parameters and annotations. 
+
+    The default behaviour defers to L{astor.to_source}. 
+    This should be overriden if you want more formatting functions, like outputing HTML tags. 
+    """
+
+    def __init__(self, value: ast.expr):
+        self.value = value
+    def __repr__(self) -> str:
+        return astor.to_source(self.value).strip()
 
 _attrs_decorator_signature = inspect.signature(attr.s)
 """Signature of the L{attr.s} class decorator."""

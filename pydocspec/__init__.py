@@ -2,7 +2,7 @@
 Extends docspec for python specific usages.
 """
 
-from typing import Iterator, List, Mapping, Optional, Union
+from typing import Iterator, List, Mapping, Optional, Union, Type, Any
 import ast
 import inspect
 from typing_extensions import TypeAlias
@@ -578,8 +578,10 @@ class Function(docspec.Function, ApiObject):
                 return True
         return False
     
-    @cached_property
-    def signature(self) -> inspect.Signature:
+    def signature(self, include_types:bool=True, include_defaults:bool=True, 
+                  include_return_type:bool=True, include_self:bool=True,
+                  signature_class: Type[inspect.Signature] = inspect.Signature, 
+                  value_formatter_calss: Type[astutils.ValueFormatter] = astutils.ValueFormatter) -> inspect.Signature:
         # TODO: copy the SignatureBuilder and related code here.
         return inspect.Signature()
 
