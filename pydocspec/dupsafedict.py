@@ -45,9 +45,8 @@ class DuplicateSafeDict(MutableMapping[str, _VT], Generic[_VT]):
         queue = self._store.get(key)
         if queue:
             if value in queue:
-                self.setref(key, value)
-            else:
-                queue.append(value)
+                queue.remove(value)
+            queue.append(value)
         else:
             self._store[key] = [value]
 
@@ -70,13 +69,6 @@ class DuplicateSafeDict(MutableMapping[str, _VT], Generic[_VT]):
     def __len__(self) -> int:
         return len(self._store)
     
-    def setref(self, key: str, value: _VT) -> None:
-        """
-        Set the principal reference of a value to one of it's duplicate values.
-        """
-        self._store[key].remove(value)
-        self._store[key].append(value)
-
     def getall(self, key: str) -> Optional[List[_VT]]:
         """
         Like 'get()' but returns all values for that name, including duplicates. 
