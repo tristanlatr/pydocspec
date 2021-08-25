@@ -34,7 +34,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">ConverterVisitor</span>(<span title="pydocspec.genericvisitor.Visitor[docspec.ApiObject]">genericvisitor.Visitor[docspec.ApiObject]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L16">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ConverterVisitor</span>(<span title="pydocspec.genericvisitor.Visitor[docspec.ApiObject]">genericvisitor.Visitor[docspec.ApiObject]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L80">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.converter.ConverterVisitor">View In Hierarchy</a></p>
       </div>
 
@@ -105,6 +105,11 @@
     <td>Method</td>
     <td><code><a href="#visit_Module">visit_Module</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="staticmethod">
+    
+    <td>Static Method</td>
+    <td><code><a href="#copy_ast_props">copy_ast_props</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="instancevariable private">
     
     <td>Instance Variable</td>
@@ -130,7 +135,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">converter</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L18">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L82">
       
       (source)
     </a>
@@ -151,7 +156,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">converted_module</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L20">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L84">
       
       (source)
     </a>
@@ -172,7 +177,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">current</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L21">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L85">
       
       (source)
     </a>
@@ -193,7 +198,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_stack</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L23">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L87">
       
       (source)
     </a>
@@ -214,7 +219,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">push</span>(self, ob):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L25">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L89">
       
       (source)
     </a>
@@ -235,7 +240,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">pop</span>(self, ob):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L29">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L93">
       
       (source)
     </a>
@@ -256,7 +261,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">enter_object</span>(self, ob):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L32">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L96">
       
       (source)
     </a>
@@ -277,7 +282,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_departure</span>(self, obj):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L48">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L112">
       
       (source)
     </a>
@@ -298,7 +303,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Function</span>(self, function):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L53">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L117">
       
       (source)
     </a>
@@ -319,7 +324,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Class</span>(self, klass):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L70">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L151">
       
       (source)
     </a>
@@ -340,7 +345,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Data</span>(self, data):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L84">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L172">
       
       (source)
     </a>
@@ -361,7 +366,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Indirection</span>(self, indirection):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L92">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L182">
       
       (source)
     </a>
@@ -382,7 +387,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Module</span>(self, module):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/550080896e0fd1cf3818ab2f07b6ffafa1f453a1/pydocspec/converter.py#L99">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L191">
       
       (source)
     </a>
@@ -392,11 +397,32 @@
     
     <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">module</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="docspec.Module.html">docspec.Module</a></code>)</td></tr></table></div>
   </div>
+</div><div class="basestaticmethod">
+  
+  <a name="pydocspec.converter.ConverterVisitor.copy_ast_props">
+    
+  </a>
+  <a name="copy_ast_props">
+    
+  </a>
+  <div class="functionHeader">
+    @staticmethod<br />
+    <span class="py-keyword">def</span> <span class="py-defname">copy_ast_props</span>(ob, pydocspecob):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/2b18fbfca0bd8ff378351951dac519db1c6114ea/pydocspec/converter.py#L200">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">ob</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="docspec.ApiObject.html">docspec.ApiObject</a></code>)</td></tr><tr><td></td><td class="fieldArg">pydocspecob</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code>)</td></tr></table></div>
+  </div>
 </div>
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-24 16:30:05.
+        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-25 15:09:12.
       </address>
 
     </div>
