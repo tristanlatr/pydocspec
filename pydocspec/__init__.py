@@ -295,26 +295,41 @@ class Data(docspec.Data, ApiObject):
 
     @cached_property
     def datatype_ast(self) -> Optional[ast.expr]:
+        """
+        The AST expresssion of the annotation of this data.
+        """
         if self.datatype:
             return astutils.extract_expr(self.datatype, filename=self.location.filename)
         return None
     
     @cached_property
     def value_ast(self) -> Optional[ast.expr]:
+        """
+        The AST expresssion of the value assigned to this Data.
+        """
         if self.value:
             return astutils.extract_expr(self.value, filename=self.location.filename)
         return None
 
     @cached_property
     def is_instance_variable(self) -> bool:
+        """
+        Whether this Data is an instance variable.
+        """
         ...
         # TODO: Think about how to differenciate beetwen instance and class variables ?
     @cached_property
     def is_class_variable(self) -> bool:
+        """
+        Whether this Data is a class variable.
+        """
         ...
 
     @cached_property
     def is_attrs_attribute(self) -> bool:
+        """
+        Whether this Data is an L{attr.ib} attribute.
+        """
         return isinstance(self.value_ast, ast.Call) and \
             astutils.node2fullname(self.value_ast.func, self) in (
                 'attr.ib', 'attr.attrib', 'attr.attr'
@@ -322,6 +337,9 @@ class Data(docspec.Data, ApiObject):
     
     @cached_property
     def is_dataclass_field(self) -> bool:
+        """
+        Whether this Data is a L{dataclasses.field} attribute.
+        """
         return isinstance(self.value_ast, ast.Call) and \
             astutils.node2fullname(self.value_ast.func, self) in (
                 'dataclasses.field',
@@ -329,6 +347,10 @@ class Data(docspec.Data, ApiObject):
     
     @cached_property
     def is_alias(self) -> bool:
+        """
+        Whether this Data is an alias.
+        Aliases are folowed by default when using L{ApiObject.expand_name}. 
+        """
         return astutils.node2dottedname(self.value_ast) is not None
     
     @cached_property
