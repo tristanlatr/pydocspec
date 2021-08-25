@@ -1,13 +1,10 @@
-
-import pydocspec
 import pytest
 
 import docspec
 import pydocspec
+from pydocspec import converter
 
-@pytest.fixture
-def mod1() -> pydocspec.Module:
-  module = docspec.Module('a', docspec.Location('test.py', 0), None, [
+_mod1 = module = docspec.Module('a', docspec.Location('test.py', 0), None, [
     docspec.Indirection('Union', docspec.Location('test.py', 1), None, 'typing.Union'),
     docspec.Class('foo', docspec.Location('test.py', 2), 'This is class foo.', None, None, None, [
       docspec.Data('val', docspec.Location('test.py', 4), None, 'Union[int, float]', '42'),
@@ -18,5 +15,12 @@ def mod1() -> pydocspec.Module:
     ]),
     docspec.Data('saila', docspec.Location('test.py', 8), None, None, 'foo.alias'),
   ])
-  module.sync_hierarchy()
-  return module
+_mod1.sync_hierarchy()
+
+@pytest.fixture
+def mod1() -> docspec.Module:
+  return _mod1
+
+@pytest.fixture
+def root1() -> pydocspec.Module:
+  return converter.convert_docspec_modules([_mod1])
