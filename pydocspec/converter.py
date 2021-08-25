@@ -3,9 +3,7 @@ Convert L{docspec.Module} objects into a L{pydocspec.ApiObjectsRoot} containing 
 
 This converter is supposed to be fully compatible with L{docspec_python}. 
 
-Usage: 
-
-.. python::
+Usage::
 
     import pydocspec
     from docspec_python import load_python_modules
