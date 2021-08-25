@@ -45,7 +45,7 @@ class DuplicateSafeDict(MutableMapping[str, _VT], Generic[_VT]):
         queue = self._store.get(key)
         if queue:
             if value in queue:
-                queue.remove(value)
+                self.rmvalue(key, value)
             queue.append(value)
         else:
             self._store[key] = [value]
@@ -57,6 +57,9 @@ class DuplicateSafeDict(MutableMapping[str, _VT], Generic[_VT]):
         return self._store[key][-1]
 
     def __delitem__(self, key: str) -> None:
+        """
+        Remove the last element added value for a key. 
+        """
         queue = self._store.get(key)
         if queue and len(queue)>1:
             queue.pop()
@@ -69,6 +72,14 @@ class DuplicateSafeDict(MutableMapping[str, _VT], Generic[_VT]):
     def __len__(self) -> int:
         return len(self._store)
     
+    def rmvalue(self, key: str, value: _VT) -> None:
+        """
+        Remove a value from the dict. The value can be a duplicate.
+        Raise key error if no values exists for the key.
+        Raise value error if the value if not present. 
+        """
+        self._store[key].remove(value)
+
     def getall(self, key: str) -> Optional[List[_VT]]:
         """
         Like 'get()' but returns all values for that name, including duplicates. 
