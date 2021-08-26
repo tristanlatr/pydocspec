@@ -1,7 +1,5 @@
 """
 Extends docspec for the python language, offers facility to resolve names and provides additional informations. 
-
-@see: L{ApiObject.expand_name}
 """
 
 from typing import Iterator, List, Mapping, Optional, Union, Type
@@ -202,7 +200,7 @@ class ApiObject(docspec.ApiObject):
             the full_name from that. 
             Lookup members in superclasses when possible and follows aliases and indirections. 
             This mean that L{expand_name} will never return the name of an alias,
-            it will always follow it's indirection to the origin. Except if follow_aliases=False. 
+            it will always follow it's indirection to the origin. Except if C{follow_aliases=False}. 
         """
         parts = DottedName(name)
         ctx: 'ApiObject' = self # The context for the currently processed part of the name. 
@@ -232,11 +230,10 @@ class ApiObject(docspec.ApiObject):
 
     def resolve_name(self, name: str, follow_aliases: bool = True) -> Optional['ApiObject']:
         """
-        Return the object named by "name" (using Python's lookup rules) in
-        this context, if any is known to this system. 
+        Return the object named by "name" (using Python's lookup rules) in this context.
 
         @note: This method will never return an L{Indirection} or an alias since it's supposed to follow 
-            indirections and aliases. Except if follow_aliases=False. 
+            indirections and aliases. Except if C{follow_aliases=False}. 
         """
         return self.root.all_objects.get(self.expand_name(name, follow_aliases=follow_aliases))
 
