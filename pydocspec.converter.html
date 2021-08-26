@@ -2,28 +2,59 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
           "DTD/xhtml1-strict.dtd">
 <html>
-  <head>
-    <title>pydocspec.converter : API documentation</title>
+  
 
+  <head>
+    
+    <title>pydocspec.converter</title>
+    <meta name="generator" content="pydoctor 21.2.2"> 
+        
+    </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="apidocs.css" />
-  </head>
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
   <body>
 
+    
+
     <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header navbar-brand">
-          <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>
-          <a href="index.html">API Documentation</a>
-        </div>
+  
+  <div class="container">
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+          <span class="navbar-brand">
+            <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a> <a href="index.html">API Documentation</a>
+          </span>
+
+          <a href="moduleIndex.html">
+            Modules
+          </a>
+
+          <a href="classIndex.html">
+            Classes
+          </a>
+
+          <a href="nameIndex.html">
+            Names
+          </a>
       </div>
-    </nav>
+
+    </div>
+  </div>
+</nav>
+
+    
 
     <div class="container">
 
       <div class="page-header">
-        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code>.<code><a href="pydocspec.converter.html">converter</a></code></code></h1>
+        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.converter.html">converter</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -34,27 +65,28 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/7003c80bf3bdf036874cf06cf04b280143f33be4/pydocspec/converter.py">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/7a216adb104b61253a726b6ca759b3c2df51bc6e/pydocspec/converter.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>Convert <code><a href="docspec.Module.html">docspec.Module</a></code> objects into a <code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code> containing all your objects.</p><p>This converter is supposed to be fully compatible with <code>docspec_python</code>.</p><p>Usage:</p><pre class="literalblock">
+        <div><p>Convert <code><a href="docspec.html">docspec</a></code> objects to their <code><a href="pydocspec.html">pydocspec</a></code> augmented version.</p><p>This converter is supposed to be fully compatible with <code>docspec_python</code>.</p><p>Usage:</p><pre class="literalblock">
     import pydocspec
     from docspec_python import load_python_modules
     from pydocspec.converter import convert_docspec_modules
-    root: pydocspec.ApiObjectsRoot = convert_docspec_modules(load_python_modules(...))
-</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2">It will transform the tree such that we have an actual hiearchy of packages.</td></tr></table></div>
+    modules: List[pydocspec.Module] = convert_docspec_modules(load_python_modules(...))
+</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">It will transform the tree such that we have an actual hiearchy of packages.</td></tr></table></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id41">
+        <table class="children sortable" id="id28">
   
-  <tr class="function">
+  
+  <tr class="class">
     
-    <td>Function</td>
-    <td><code><a href="#convert_docspec_modules">convert_docspec_modules</a></code></td>
-    <td><span>Convert a list of <code><a href="docspec.Module.html">docspec.Module</a></code> instances into a <code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code>.</span></td>
+    <td>Class</td>
+    <td><code><a href="pydocspec.converter.Converter.html">Converter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -65,11 +97,11 @@
     <td>Class</td>
     <td><code><a href="pydocspec.converter.PostProcessVisitor.html">PostProcessVisitor</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="class">
+  </tr><tr class="function">
     
-    <td>Class</td>
-    <td><code><a href="pydocspec.converter.Converter.html">Converter</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>Function</td>
+    <td><code><a href="#convert_docspec_modules">convert_docspec_modules</a></code></td>
+    <td><span>Convert a list of <code><a href="docspec.Module.html">docspec.Module</a></code> instances into a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>. The modules are transformed into a tree of packages.</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
@@ -91,6 +123,7 @@
 
         <div class="basefunction">
   
+  
   <a name="pydocspec.converter.convert_docspec_modules">
     
   </a>
@@ -100,7 +133,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">convert_docspec_modules</span>(modules, copy_ast_properties=False):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/7003c80bf3bdf036874cf06cf04b280143f33be4/pydocspec/converter.py#L24">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/7a216adb104b61253a726b6ca759b3c2df51bc6e/pydocspec/converter.py#L24">
       
       (source)
     </a>
@@ -108,9 +141,10 @@
   <div class="docstring functionBody">
     
     
-    <div><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">modules</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a href="docspec.Module.html">docspec.Module</a>]</code>)</td></tr><tr><td></td><td class="fieldArg">copy_ast_properties</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code>)</td></tr></table></div>
+    <div><p>Convert a list of <code><a href="docspec.Module.html">docspec.Module</a></code> instances into a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>. The modules are transformed into a tree of packages.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="docspec.Module.html">docspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">copy_ast_properties:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc">By default, the ast properties are computed on demand (creating ast nodes is expensive). This behaviour is highly inefficient when you have already parsed the whole module's AST. You can optimize the process by already setting all the ast properties beforehead on the <code><a href="docspec.html">docspec</a></code> objects and turn this option on.<p>Matching attributes that ends with "ast" will be transferred on new <code><a href="pydocspec.html">pydocspec</a></code> objects.</p><p>List of AST properties:</p><ul><li><code><a href="pydocspec.Data.html#datatype_ast">Data.datatype_ast</a></code></li><li><code><a href="pydocspec.Data.html#value_ast">Data.value_ast</a></code></li><li><code><a href="pydocspec.Function.html#return_type_ast">Function.return_type_ast</a></code></li><li><code><a href="pydocspec.Argument.html#datatype_ast">Argument.datatype_ast</a></code></li><li><code><a href="pydocspec.Argument.html#default_value_ast">Argument.default_value_ast</a></code></li><li><code><a href="pydocspec.Decoration.html#name_ast">Decoration.name_ast</a></code></li><li><code><a href="pydocspec.Decoration.html#expr_ast">Decoration.expr_ast</a></code></li></ul></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code></td><td class="fieldArgDesc">The root modules of the tree.</td></tr></table></div>
   </div>
 </div><div class="basefunction private">
+  
   
   <a name="pydocspec.converter._get_object_by_name">
     
@@ -121,7 +155,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_object_by_name</span>(relativeroots, name):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/7003c80bf3bdf036874cf06cf04b280143f33be4/pydocspec/converter.py#L52">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/7a216adb104b61253a726b6ca759b3c2df51bc6e/pydocspec/converter.py#L55">
       
       (source)
     </a>
@@ -129,9 +163,10 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">relativeroots</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<a href="docspec.ApiObject.html">docspec.ApiObject</a>]</code>)</td></tr><tr><td></td><td class="fieldArg">name</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="pydocspec.dottedname.DottedName.html">dottedname.DottedName</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="docspec.ApiObject.html">docspec.ApiObject</a>]</code>)</td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">relativeroots:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="docspec.ApiObject.html">docspec.ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="pydocspec.dottedname.DottedName.html">dottedname.DottedName</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="docspec.ApiObject.html">docspec.ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction private">
+  
   
   <a name="pydocspec.converter._nest_docspec_python_modules">
     
@@ -142,7 +177,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_nest_docspec_python_modules</span>(modules):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/7003c80bf3bdf036874cf06cf04b280143f33be4/pydocspec/converter.py#L62">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/7a216adb104b61253a726b6ca759b3c2df51bc6e/pydocspec/converter.py#L65">
       
       (source)
     </a>
@@ -150,16 +185,21 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Reparent modules to their respective parent packages such that we have an actual hiearchy of packages.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">modules</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a href="docspec.Module.html">docspec.Module</a>]</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a href="docspec.Module.html">docspec.Module</a>]</code>)</td></tr></table></div>
+    <div><p>Reparent modules to their respective parent packages such that we have an actual hiearchy of packages.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="docspec.Module.html">docspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="docspec.Module.html">docspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
       </div>
-      <address>
-        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-26 13:30:48.
-      </address>
-
     </div>
+
+    <footer class="navbar navbar-default">
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    21.2.2 at 2021-08-26 14:20:20.
+  </div>
+</footer>
 
     <script src="pydoctor.js" type="text/javascript"></script>
 
