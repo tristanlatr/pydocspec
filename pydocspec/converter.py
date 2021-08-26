@@ -1,5 +1,5 @@
 """
-Convert L{docspec.Module} objects into a L{pydocspec.ApiObjectsRoot} containing all your objects.
+Convert L{docspec} objects to their L{pydocspec} augmented version.
 
 This converter is supposed to be fully compatible with L{docspec_python}. 
 
@@ -8,7 +8,7 @@ Usage::
     import pydocspec
     from docspec_python import load_python_modules
     from pydocspec.converter import convert_docspec_modules
-    root: pydocspec.ApiObjectsRoot = convert_docspec_modules(load_python_modules(...))
+    modules: List[pydocspec.Module] = convert_docspec_modules(load_python_modules(...))
 
 @note: It will transform the tree such that we have an actual hiearchy of packages. 
 """
@@ -21,33 +21,36 @@ import docspec
 import pydocspec
 from pydocspec import dottedname, genericvisitor
 
-def convert_docspec_modules(modules: List[docspec.Module], copy_ast_properties:bool=False) -> pydocspec.ApiObjectsRoot:
+def convert_docspec_modules(modules: List[docspec.Module], copy_ast_properties:bool=False) -> List[pydocspec.Module]:
     """
-    Convert a list of L{docspec.Module} instances into a L{ApiObjectsRoot}.  
+    Convert a list of L{docspec.Module} instances into a list of L{pydocspec.Module}. 
+    The modules are transformed into a tree of packages. 
 
     @param copy_ast_properties: By default, the ast properties are computed on demand (creating ast nodes is expensive). 
         This behaviour is highly inefficient when you have already parsed the whole module's AST. 
         You can optimize the process by already setting all the ast properties beforehead on the 
-        `docspec` objects and turn this option on. 
+        L{docspec} objects and turn this option on. 
         
-        Matching attributes that ends with "ast" will be transferred on new `pydocspec` objects. 
+        Matching attributes that ends with "ast" will be transferred on new L{pydocspec} objects. 
 
         List of AST properties:
 
-        - Data.datatype_ast
-        - Data.value_ast
-        - Function.return_type_ast
-        - Argument.datatype_ast
-        - Argument.default_value_ast
-        - Decoration.name_ast
-        - Decoration.expr_ast
+            - L{Data.datatype_ast}
+            - L{Data.value_ast}
+            - L{Function.return_type_ast}
+            - L{Argument.datatype_ast}
+            - L{Argument.default_value_ast}
+            - L{Decoration.name_ast}
+            - L{Decoration.expr_ast}
+
+    @returns: The root modules of the tree.
     """
     root = pydocspec.ApiObjectsRoot()
     converter = Converter(root, copy_ast_properties=copy_ast_properties)
     for mod in _nest_docspec_python_modules(modules):
         converter.process_module(mod)
     converter.post_process()
-    return root
+    return root.root_modules
 
 def _get_object_by_name(relativeroots: Iterable[docspec.ApiObject], name: dottedname.DottedName) -> Optional[docspec.ApiObject]:
     for r in relativeroots:
@@ -69,7 +72,7 @@ def _nest_docspec_python_modules(modules: List[docspec.Module]) -> List[docspec.
             roots.append(mod)
             continue
         pack = _get_object_by_name(roots, container)
-        assert isinstance(pack, docspec.Module), f"Cannot find module named '{container}' in {roots!r}" 
+        assert isinstance(pack, docspec.Module), f"Cannot find package named '{container}' in {roots!r}" 
         mod.name = name[-1]
         cast(List[docspec.Module], pack.members).append(mod)
         pack.sync_hierarchy(pack.parent)

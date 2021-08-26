@@ -6,7 +6,8 @@ from .fixtures import mod1
 
 def test_converter_object_types(mod1: docspec.Module) -> None:
 
-    root = converter.convert_docspec_modules([mod1])
+    root = converter.convert_docspec_modules([mod1])[0].root
+    
     assert isinstance(root.all_objects['a'], pydocspec.Module)
     assert isinstance(root.all_objects['a.Union'], pydocspec.Indirection)
     assert isinstance(root.all_objects['a.foo'], pydocspec.Class)
@@ -16,7 +17,7 @@ def test_converter_object_types(mod1: docspec.Module) -> None:
     assert isinstance(root.all_objects['a.saila'], pydocspec.Data)
 
 def test_root_property(mod1: docspec.Module) -> None:
-    root = converter.convert_docspec_modules([mod1])
+    root = converter.convert_docspec_modules([mod1])[0].root
 
     assert root.all_objects['a'].root is root
     root.all_objects['a'].get_member('foo').root is root
@@ -36,7 +37,7 @@ def test_root_property(mod1: docspec.Module) -> None:
 
 
 def test_expand_name(mod1: docspec.Module) -> None:
-    root = converter.convert_docspec_modules([mod1])
+    root = converter.convert_docspec_modules([mod1])[0].root
 
     saila = root.all_objects['a.saila']
     alias = root.all_objects['a.foo.alias']

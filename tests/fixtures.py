@@ -22,5 +22,5 @@ def mod1() -> docspec.Module:
   return _mod1
 
 @pytest.fixture
-def root1() -> pydocspec.Module:
-  return converter.convert_docspec_modules([_mod1])
+def root1() -> pydocspec.ApiObjectsRoot:
+  return converter.convert_docspec_modules([_mod1])[0].root
