@@ -144,7 +144,8 @@ def _extract_annotation_subscript(annotation: ast.Subscript) -> ast.AST:
     """
     ann_slice = annotation.slice
     if isinstance(ann_slice, ast.Index):
-        return ann_slice.value
+        # mypy on python3.9 get an error: "<subclass of "expr" and "Index">" has no attribute "value"
+        return ann_slice.value # type:ignore[attr-defined]
     else:
         return ann_slice
 
