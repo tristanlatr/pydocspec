@@ -13,7 +13,7 @@ Usage::
 @note: It will transform the tree such that we have an actual hiearchy of packages. 
 """
 
-from typing import Iterable, cast, List, Optional, Sequence
+from typing import Iterable, cast, List, Optional
 
 import attr
 
@@ -25,8 +25,7 @@ def convert_docspec_modules(modules: List[docspec.Module], copy_ast_properties:b
     """
     Convert a list of L{docspec.Module} instances into a L{ApiObjectsRoot}.  
 
-    @param copy_ast_properties: 
-        By default, the ast properties are computed on demand (creating ast nodes is expensive). 
+    @param copy_ast_properties: By default, the ast properties are computed on demand (creating ast nodes is expensive). 
         This behaviour is highly inefficient when you have already parsed the whole module's AST. 
         You can optimize the process by already setting all the ast properties beforehead on the 
         `docspec` objects and turn this option on. 
