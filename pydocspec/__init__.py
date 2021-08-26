@@ -514,7 +514,7 @@ class Class(docspec.Class, ApiObject):
     
     @cached_property
     def dataclass_decoration(self) -> Optional['Decoration']:
-        """The L{@dataclass} decoration of this class, if any."""
+        """The L{dataclass} decoration of this class, if any."""
         for deco in self.decorations or ():
             if astutils.node2fullname(deco.name_ast, self.parent) in ('dataclasses.dataclass',):
                 return deco
@@ -522,7 +522,7 @@ class Class(docspec.Class, ApiObject):
 
     @cached_property
     def attrs_decoration(self) -> Optional['Decoration']:
-        """The L{@attr.s} decoration of this class, if any."""
+        """The L{attr.s} decoration of this class, if any."""
         for deco in self.decorations or ():
             if astutils.node2fullname(deco.name_ast, self.parent) in ('attr.s', 'attr.attrs', 'attr.attributes'):
                 return deco
@@ -651,7 +651,7 @@ class Module(docspec.Module, ApiObject):
     @cached_property
     def is_package(self) -> bool:
         """
-        :note: Currently, packages without submodules will be considered as regular modules.
+        @note: Currently, packages without submodules will be considered as regular modules.
         """
         return any(isinstance(o, docspec.Module) for o in self.members)
 
