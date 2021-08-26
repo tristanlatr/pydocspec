@@ -303,6 +303,9 @@ class ApiObject(docspec.ApiObject):
         warnings.warn(f'{self.full_name}:{self.location.linenumber} - {msg}')
 
 class Data(docspec.Data, ApiObject):
+    """
+    Represents a variable assignment.
+    """
     parent: 'ApiObject'
 
     @cached_property
@@ -411,6 +414,9 @@ class Indirection(docspec.Indirection, ApiObject):
   """
 
 class Class(docspec.Class, ApiObject):
+    """
+    Represents a class definition.
+    """
     # help mypy
     decorations: Optional[List['Decoration']] # type:ignore[assignment]
     parent: 'ApiObject'
@@ -531,6 +537,9 @@ class Class(docspec.Class, ApiObject):
         return False
 
 class Function(docspec.Function, ApiObject):
+    """
+    Represents a function definition.
+    """
     # help mypy
     decorations: Optional[List['Decoration']] # type:ignore
     args: List['Argument'] # type:ignore
@@ -604,7 +613,9 @@ class Function(docspec.Function, ApiObject):
         return inspect.Signature()
 
 class Argument(docspec.Argument):
-
+    """
+    Represents a L{Function} argument.
+    """
     @cached_property
     def datatype_ast(self) -> Optional[ast.expr]:
         if self.datatype:
@@ -619,7 +630,9 @@ class Argument(docspec.Argument):
         return None
 
 class Decoration(docspec.Decoration):
-    
+    """
+    Represents a decorator on a L{Class} or L{Function}.
+    """
     @cached_property
     def name_ast(self) -> ast.expr:
         return astutils.extract_expr(self.name)
@@ -629,6 +642,10 @@ class Decoration(docspec.Decoration):
         return astutils.extract_expr(self.name + (self.args or ''))
 
 class Module(docspec.Module, ApiObject):
+    """
+    Represents a module, basically a named container for code/API objects. Modules may be nested in other modules
+    """
+
     members: List['ApiObject'] # type:ignore[assignment]
 
     @cached_property
@@ -696,6 +713,12 @@ class zopedocspec:
 
 Location = docspec.Location
 
-# to be used with isinstance(), not for annotations.
 HasMembers = (Module, Class)
-Inheritable = (Indirection, Data, Function)
+"""
+Alias to use with C{isinstance()}
+"""
+
+Inheritable = (Indirection, Data, Function) 
+"""
+Alias to use with C{isinstance()}
+"""
