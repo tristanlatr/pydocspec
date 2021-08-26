@@ -1,5 +1,7 @@
 """
-Extends docspec for python specific usages.
+Extends docspec for the python language, offers facility to resolve names and provides additional informations. 
+
+@see: L{ApiObject.expand_name}
 """
 
 from typing import Iterator, List, Mapping, Optional, Union, Type
@@ -41,13 +43,24 @@ _RESOLVE_ALIAS_MAX_RECURSE = 5
 @attr.s(auto_attribs=True)
 class ApiObjectsRoot:
     """
-    Root of the tree. Special object that provides a single view on all L{ApiObjects} in the tree and root modules.
+    Root of the tree. Special object that provides a single view on all L{ApiObject}s in the tree and root modules.
+
+    A reference to the root instance is kept on all L{pydocspec} API objects as L{ApiObject.root}.
 
     @note: L{pydocspec}'s tree contains a hiearchy of packages.
     """
 
     root_modules: List['Module'] = attr.ib(factory=list, init=False)
+    """
+    The root modules of the tree.
+    """
+    
     all_objects: DuplicateSafeDict['ApiObject'] = attr.ib(factory=DuplicateSafeDict, init=False)
+    """
+    All objects of the tree in a mapping C{full_name} -> L{ApiObject}.
+    
+    @note: Special care is taken in order no to shadow objects with duplicate names, see L{DuplicateSafeDict}.
+    """
 
 class ApiObject(docspec.ApiObject):
     """
