@@ -68,18 +68,17 @@ class ApiObject(docspec.ApiObject):
     """
 
     # help mypy
-    parent: Optional['ApiObject'] # type: ignore[assignment]
+    parent: Optional[Union['Class', 'Module']] # type: ignore[assignment]
 
-    # this property needs to be manually set from the converter docspec -> pydocspec
+    # this attribute needs to be manually set from the converter/loader.
+    _root: ApiObjectsRoot
+    
     @property
     def root(self) -> ApiObjectsRoot:
         """
         L{ApiObjectsRoot} instance holding references to all objects in the tree.
         """
         return self._root
-    @root.setter
-    def root(self, value:ApiObjectsRoot) -> None:
-        self._root = value
     
     @cached_property
     def root_module(self) -> 'Module':
@@ -306,7 +305,7 @@ class Data(docspec.Data, ApiObject):
     """
     Represents a variable assignment.
     """
-    parent: 'ApiObject'
+    parent: Union['Class', 'Module']
 
     @cached_property
     def datatype_ast(self) -> Optional[ast.expr]:
@@ -375,7 +374,7 @@ class Data(docspec.Data, ApiObject):
         assert self.value is not None
         indirection = Indirection(self.name, self.location, None, self.value)
         indirection.parent = self.parent
-        indirection.root = self.root
+        indirection._root = self.root
         return indirection
     
     @cached_property
@@ -419,7 +418,7 @@ class Class(docspec.Class, ApiObject):
     """
     # help mypy
     decorations: Optional[List['Decoration']] # type:ignore[assignment]
-    parent: 'ApiObject'
+    parent: Union['Class', 'Module']
     members: List['ApiObject'] # type:ignore[assignment]
 
     @cached_property
@@ -543,7 +542,7 @@ class Function(docspec.Function, ApiObject):
     # help mypy
     decorations: Optional[List['Decoration']] # type:ignore
     args: List['Argument'] # type:ignore
-    parent: 'ApiObject'
+    parent: Union[Class, 'Module']
 
     @cached_property
     def return_type_ast(self) -> Optional[ast.expr]:

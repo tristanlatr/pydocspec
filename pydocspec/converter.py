@@ -95,12 +95,12 @@ class ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
         self.current = self._stack.pop()
     
     def enter_object(self, ob: pydocspec.ApiObject) -> None:
-        ob.root = self.converter.root
+        ob._root = self.converter.root
 
         if self.current:
             assert isinstance(self.current, pydocspec.HasMembers)
             self.current.members.append(ob)
-            self.converted_module.sync_hierarchy()
+            self.current.sync_hierarchy(self.current.parent)
         
         else:
             assert isinstance(ob, pydocspec.Module)
@@ -220,7 +220,7 @@ class PostProcessVisitor(genericvisitor.Visitor[pydocspec.ApiObject]):
                 if isinstance(dup, pydocspec.Function) and dup.is_property:
                     ob.root.all_objects[ob.full_name] = dup
         
-        # TODO: same for overload functions
+        # TODO: same for overload functions, other instances of the issue ?
 
 @attr.s(auto_attribs=True)
 class Converter:
