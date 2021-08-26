@@ -13,7 +13,7 @@ Usage::
 @note: It will transform the tree such that we have an actual hiearchy of packages. 
 """
 
-from typing import List, Optional, Sequence
+from typing import Iterable, cast, List, Optional, Sequence
 
 import attr
 
@@ -50,11 +50,13 @@ def convert_docspec_modules(modules: List[docspec.Module], copy_ast_properties:b
     converter.post_process()
     return root
 
-def _get_mod_by_name(relativeroots: List[docspec.Module], name: Sequence[str]) -> Optional[docspec.Module]:
+def _get_object_by_name(relativeroots: Iterable[docspec.ApiObject], name: dottedname.DottedName) -> Optional[docspec.ApiObject]:
     for r in relativeroots:
         if r.name == name[0]:
             if len(name) > 1:
-                return _get_mod_by_name(r.members, name[1:])
+                ob_full_name = str(dottedname.DottedName(*(o.name for o in r.path)))
+                assert isinstance(r, docspec.HasMembers), f"The object '{ob_full_name}' is not a namespace, cannot find name '{name}'"
+                return _get_object_by_name(r.members, name[1:]) # type:ignore[arg-type]
             return r
     return None
 
@@ -67,12 +69,11 @@ def _nest_docspec_python_modules(modules: List[docspec.Module]) -> List[docspec.
         if not container:
             roots.append(mod)
             continue
-        pack = _get_mod_by_name(roots, container)
-        assert pack is not None, f"Cannot find module named '{container}' in {roots!r}" 
+        pack = _get_object_by_name(roots, container)
+        assert isinstance(pack, docspec.Module), f"Cannot find module named '{container}' in {roots!r}" 
         mod.name = name[-1]
-        pack.members.append(mod)
-    for r in roots:
-        r.sync_hierarchy()
+        cast(List[docspec.Module], pack.members).append(mod)
+        pack.sync_hierarchy(pack.parent)
     return roots
 
 @attr.s(auto_attribs=True)
@@ -95,7 +96,7 @@ class ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
         ob.root = self.converter.root
 
         if self.current:
-            assert isinstance(self.current, docspec.HasMembers)
+            assert isinstance(self.current, pydocspec.HasMembers)
             self.current.members.append(ob)
             self.converted_module.sync_hierarchy()
         
@@ -116,23 +117,23 @@ class ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
         # this ignores the Argument.decorations, it does not exist in python.
         
         # convert arguments
-        args: List[pydocspec.Argument] = []
+        args: List[docspec.Argument] = []
         for a in function.args:
-            converted = self.converter.Argument(name=a.name, type=a.type, 
+            new_arg = self.converter.Argument(name=a.name, type=a.type, 
                                         decorations=None, datatype=a.datatype, 
                                         default_value=a.default_value, )
             if self.converter.copy_ast_properties:
-                self.copy_ast_props(a, converted)
-            args.append(converted)
+                self.copy_ast_props(a, new_arg)
+            args.append(new_arg)
         
         # convert decorators
         if function.decorations is not None:
-            decos: Optional[List[pydocspec.Decoration]] = []
+            decos: Optional[List[docspec.Decoration]] = []
             for d in function.decorations:
-                converted = self.converter.Decoration(d.name, d.args)
+                new_deco = self.converter.Decoration(d.name, d.args)
                 if self.converter.copy_ast_properties:
-                    self.copy_ast_props(d, converted)
-                decos.append(converted)
+                    self.copy_ast_props(d, new_deco)
+                decos.append(new_deco) #type:ignore[union-attr]
         else:
             decos = None
             
@@ -148,12 +149,12 @@ class ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
     
     def visit_Class(self, klass: docspec.Class) -> None:
         if klass.decorations is not None:
-            decos: Optional[List[pydocspec.Decoration]] = []
+            decos: Optional[List[docspec.Decoration]] = []
             for d in klass.decorations:
                 converted = self.converter.Decoration(d.name, d.args)
                 if self.converter.copy_ast_properties:
                     self.copy_ast_props(d, converted)
-            decos.append(converted)
+            decos.append(converted) #type:ignore[union-attr]
         else:
             decos = None
         ob = self.converter.Class(name=klass.name, 
@@ -196,7 +197,7 @@ class ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
             self.copy_ast_props(module, ob)
     
     @staticmethod
-    def copy_ast_props(ob: docspec.ApiObject, pydocspecob: pydocspec.ApiObject) -> None:
+    def copy_ast_props(ob: object, pydocspecob: object) -> None:
         for name,v in ob.__dict__.items():
             if name.endswith("ast"):
                 if name in pydocspecob.__class__.__dict__:
@@ -247,5 +248,5 @@ class Converter:
     def post_process(self) -> None:
         for mod in self.root.root_modules:
             genericvisitor.walkabout(mod, self.PostProcessVisitor(), 
-                get_children=lambda ob: ob.members if isinstance(ob, docspec.HasMembers) else ())
+                get_children=lambda ob: ob.members if isinstance(ob, pydocspec.HasMembers) else ())
         

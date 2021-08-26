@@ -19,5 +19,5 @@ setup(
     include_package_data=True,
     install_requires=['docspec @ git+https://github.com/NiklasRosenstein/docspec.git#subdirectory=docspec', 
                       'docspec_python @ git+https://github.com/NiklasRosenstein/docspec.git#subdirectory=docspec-python', 
-                      'cached-property'], 
+                      'cached-property', 'astor'], 
 )

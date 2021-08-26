@@ -10,10 +10,11 @@
 # $Id: apidoc.py 1811 2009-02-03 21:29:51Z edloper $
 ######################################################################
 
-from typing import Any, Iterator, Optional, Sequence, Set, Tuple, Union, overload
+from typing import Any, Iterator, Optional, Sequence, Set, Tuple, Union, overload, List
 import re
 import warnings
 
+#TODO: Would be good that DottedName fully implements MutableSequence[str]
 class DottedName:
     """
     A sequence of identifiers, separated by periods, used to name a
@@ -130,7 +131,7 @@ class DottedName:
         else:
             return DottedName(*(list(other)+[self])) # type: ignore[list-item]
     
-    @overload
+    @overload # type:ignore[override]
     def __getitem__(self, i: int) -> str:
         ...
     @overload
@@ -149,6 +150,34 @@ class DottedName:
             else: return ()
         else:
             return self._identifiers[i]
+    
+    # @overload
+    # def __delitem__(self, i: int) -> None:
+    #     ...
+    # @overload
+    # def __delitem__(self, i: slice) -> None:
+    #     ...
+    # def __delitem__(self, i: Union[slice, int]) -> None:
+    #     """
+    #     Remove the C{i}th identifier in this C{DottedName}.  If C{i} is
+    #     a non-empty slice, then delete the identifiers selected by the slice.  
+    #     """
+    #     if isinstance(i, slice):
+    #         del self._identifiers[i.start:i.stop]
+    #     else:
+    #         del self._identifiers[i]
+    
+    # def __setitem__(self, i: int, value: str) -> None: # type:ignore[override]
+    #     """
+    #     Set the C{i}th identifier in this C{DottedName}.
+    #     """
+    #     if isinstance(i, int):
+    #         self._identifiers[i] = value
+    #     else:
+    #         raise TypeError(f"DottedName.__setitem__ expected string value, got {type(value)}")
+
+    # def insert(self, index: int, value: str) -> None:
+    #     return self._identifiers.insert(index, value)
 
     def __hash__(self) -> int:
         return hash(self._identifiers)

@@ -2,9 +2,9 @@
 Visitors and helper functions for L{pydocspec.ApiObject} instances.
 """
 try:
-  from termcolor import colored
+  from termcolor import colored as _colored
 except ImportError as exc:
-  def colored(s, *args, **kwargs):  # type: ignore
+  def _colored(s, *args, **kwargs):  # type: ignore
     return str(s)
 
 import typing as t
@@ -74,7 +74,7 @@ class PrintVisitor(genericvisitor.Visitor[ApiObject]):
   def unknown_visit(self, ob: ApiObject) -> None:
     depth = len(ob.path)-1
     tokens = dict(
-      obj_type = colored(type(ob).__name__, self._COLOR_MAP.get(type(ob).__name__)) if self.colorize else type(ob).__name__,
+      obj_type = _colored(type(ob).__name__, self._COLOR_MAP.get(type(ob).__name__)) if self.colorize else type(ob).__name__,
       obj_name = ob.name,
       obj_docstring = ob.docstring or "",
       obj_lineno = str(ob.location.lineno) if ob.location else 0,

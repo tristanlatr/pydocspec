@@ -2,10 +2,9 @@
 Extends docspec for python specific usages.
 """
 
-from typing import Iterator, List, Mapping, Optional, Union, Type, Any
+from typing import Iterator, List, Mapping, Optional, Union, Type
 import ast
 import inspect
-from typing_extensions import TypeAlias
 import warnings
 
 import attr
@@ -684,6 +683,6 @@ class zopedocspec:
 
 Location = docspec.Location
 
-# to be used with isinstance()
+# to be used with isinstance(), not for annotations.
 HasMembers = (Module, Class)
 Inheritable = (Indirection, Data, Function)
