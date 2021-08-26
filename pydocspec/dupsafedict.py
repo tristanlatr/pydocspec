@@ -4,6 +4,11 @@ from typing import Any, Dict, Generic, Iterable, Iterator, List, Mapping, Option
 
 _VT = TypeVar('_VT')
 
+# TODO: Would be good that this mapping object extends WeakValueDictionary such that references are deleted 
+# when an object get removed from the tree. Right now, the FilterVisitor have code that calls the DuplicateSafeDict.rmvalue
+# method when an object gets pruned from the tree, but that should not be necessary.
+# https://docs.python.org/3/library/weakref.html#weakref.WeakValueDictionary
+
 class DuplicateSafeDict(MutableMapping[str, _VT], Generic[_VT]):
     """
     Dictionnary that do not discard old objects when they are overriden, but instead, 
@@ -75,10 +80,15 @@ class DuplicateSafeDict(MutableMapping[str, _VT], Generic[_VT]):
     def rmvalue(self, key: str, value: _VT) -> None:
         """
         Remove a value from the dict. The value can be a duplicate.
+        If no values are left in the queue after the removal, the whole queue will be deleted.
+
         Raise key error if no values exists for the key.
         Raise value error if the value if not present. 
         """
-        self._store[key].remove(value)
+        queue = self._store[key]
+        queue.remove(value)
+        if len(queue) < 1:
+            del self._store[key]
 
     def getall(self, key: str) -> Optional[List[_VT]]:
         """
