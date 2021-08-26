@@ -141,12 +141,15 @@ class ApiObject(docspec.ApiObject):
         """
         Retrieve a member from the API object. This will always return C{None} for
         objects that don't support members (eg. L{Function} and L{Data}).
+
+        @note: Implementation relies on L{ApiObject.root.all_objects} such that
+            it will return the last added object in case of duplicate names.
         """
         if isinstance(self, HasMembers):
-            for member in self.members:
-                if member.name == name:
-                    assert isinstance(member, ApiObject), (name, self, member)
-                    return member
+            member = self.root.all_objects.get(str(self.dotted_name+name))
+            if member is not None:
+                assert isinstance(member, ApiObject), (name, self, member)
+                return member
         return None
     
     def get_members(self, name: str) -> Iterator['ApiObject']:
@@ -413,6 +416,8 @@ class Class(docspec.Class, ApiObject):
     """
     Represents a class definition.
     """
+    # TODO: create property inherited_members
+
     # help mypy
     decorations: Optional[List['Decoration']] # type:ignore[assignment]
     parent: Union['Class', 'Module']
@@ -431,7 +436,7 @@ class Class(docspec.Class, ApiObject):
         return objs
     
     def all_bases(self, include_self: bool = False) -> Iterator[Union['ApiObject', 'str']]:
-        """Reccursively returns resolved_bases for all bases."""
+        """Reccursively returns C{resolved_bases} for all bases."""
         if include_self:
             yield self
         for b in self.resolved_bases:
@@ -441,10 +446,56 @@ class Class(docspec.Class, ApiObject):
                 yield b
 
     def all_base_classes(self, include_self: bool = False) -> Iterator['Class']:
-        """Reccursively returns all bases that are resolved to a Class."""
+        """Reccursively returns all bases that are resolved to a L{Class}."""
         for b in self.all_bases(include_self):
             if isinstance(b, Class):
                 yield b
+    
+    # def overriding_subclasses(self,
+    #         name: str,
+    #         _firstcall: bool = True
+    #         ) -> Iterator['Class']: 
+    #     """
+    #     Retreive the subclasses that override the given name from the parent class object (this object). 
+    #     """
+    #     if not _firstcall and name in self.members:
+    #         yield self
+    #     else:
+    #         for subclass in classobj.subclasses:
+    #             if subclass.isVisible:
+    #                 yield from overriding_subclasses(subclass, name, _firstcall=False)
+
+    # def nested_bases(classobj: Class) -> Iterator[Tuple[model.Class, ...]]:
+    #     """
+    #     Helper function to retreive the complete list of base classes chains (represented by tuples) for a given Class. 
+    #     A chain of classes is used to compute the member inheritence from the first element to the last element of the chain.  
+        
+    #     The first yielded chain only contains the Class itself. 
+
+    #     Then for each of the super-classes:
+    #         - the next yielded chain contains the super class and the class itself, 
+    #         - the the next yielded chain contains the super-super class, the super class and the class itself, etc...
+    #     """
+    #     yield (classobj,)
+    #     for base in classobj.baseobjects:
+    #         if base is None:
+    #             continue
+    #         for nested_base in nested_bases(base):
+    #             yield (nested_base + (classobj,))
+
+    # def unmasked_attrs(baselist: Sequence[Class]) -> Sequence[model.Documentable]:
+    #     """
+    #     Helper function to reteive the list of inherited children given a base classes chain (As yielded by L{nested_bases}). 
+    #     The returned members are inherited from the Class listed first in the chain to the Class listed last: they are not overriden in between. 
+    #     """
+    #     maybe_masking = {
+    #         o.name
+    #         for b in baselist[1:]
+    #         for o in b.contents.values()
+    #         }
+    #     return [o for o in baselist[0].contents.values()
+    #             if o.isVisible and o.name not in maybe_masking]
+
 
     def find(self, name: str) -> Optional[ApiObject]:
         """Look up a name in this class and its base classes.
