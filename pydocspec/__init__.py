@@ -77,7 +77,7 @@ class ApiObject(docspec.ApiObject):
         if isinstance(self, Module) and not self.parent:
             return self
         assert self.parent is not None
-        return self.parent.root_module
+        return self.parent.root_module # type:ignore[no-any-return]
     
     # make the location attribute non-optional, reduces annoyance.
     @cached_property
@@ -126,7 +126,7 @@ class ApiObject(docspec.ApiObject):
             return self
         else:
             assert self.parent is not None
-            return self.parent.module
+            return self.parent.module # type:ignore[no-any-return]
     
     def get_member(self, name: str) -> Optional['ApiObject']:
         """
@@ -241,7 +241,7 @@ class ApiObject(docspec.ApiObject):
                 return self._resolve_indirection(member._alias_indirection, _indirections) or member.full_name
             if isinstance(member, Indirection):
                 return self._resolve_indirection(member, _indirections) or member.full_name
-            return member.full_name
+            return member.full_name # type:ignore[no-any-return]
 
         elif isinstance(self, Class):
             assert self.parent is not None
@@ -265,7 +265,7 @@ class ApiObject(docspec.ApiObject):
         """
 
         if _indirections and len(_indirections) > _RESOLVE_ALIAS_MAX_RECURSE:
-            return _indirections[0].full_name
+            return _indirections[0].full_name # type:ignore[no-any-return]
 
         target = indirection.target
         
@@ -300,7 +300,7 @@ class Data(docspec.Data, ApiObject):
         """
         if self.datatype:
             return astutils.unstring_annotation(
-                    astutils.extract_expr(self.datatype, filename=self.location.filename))
+                    astutils.extract_expr(self.datatype, filename=self.location.filename), self)
         return None
 
     @cached_property
@@ -399,8 +399,10 @@ class Indirection(docspec.Indirection, ApiObject):
   """
 
 class Class(docspec.Class, ApiObject):
-    decorations: Optional[List['Decoration']] # help mypy
+    # help mypy
+    decorations: Optional[List['Decoration']] # type:ignore[assignment]
     parent: 'ApiObject'
+    members: List['ApiObject'] # type:ignore[assignment]
 
     @cached_property
     def resolved_bases(self) -> List[Union['ApiObject', 'str']]:
@@ -517,14 +519,16 @@ class Class(docspec.Class, ApiObject):
         return False
 
 class Function(docspec.Function, ApiObject):
-    decorations: Optional[List['Decoration']] # help mypy
+    # help mypy
+    decorations: Optional[List['Decoration']] # type:ignore
+    args: List['Argument'] # type:ignore
     parent: 'ApiObject'
 
     @cached_property
     def return_type_ast(self) -> Optional[ast.expr]:
         if self.return_type:
             return astutils.unstring_annotation(
-                    astutils.extract_expr(self.return_type, filename=self.location.filename))
+                    astutils.extract_expr(self.return_type, filename=self.location.filename), self)
         return None
 
     @cached_property
@@ -593,7 +597,7 @@ class Argument(docspec.Argument):
     def datatype_ast(self) -> Optional[ast.expr]:
         if self.datatype:
             return astutils.unstring_annotation(
-                    astutils.extract_expr(self.datatype))
+                    astutils.extract_expr(self.datatype)) # TODO find a way to report warnings correctly even if Argument is not an ApiObject.
         return None
 
     @cached_property
@@ -613,6 +617,7 @@ class Decoration(docspec.Decoration):
         return astutils.extract_expr(self.name + (self.args or ''))
 
 class Module(docspec.Module, ApiObject):
+    members: List['ApiObject'] # type:ignore[assignment]
 
     @cached_property
     def is_package(self) -> bool:
@@ -678,5 +683,7 @@ class zopedocspec:
     ...
 
 Location = docspec.Location
-HasMembers = docspec.HasMembers
-Inheritable: TypeAlias = Union[Indirection, Data, Function]
+
+# to be used with isinstance()
+HasMembers = (Module, Class)
+Inheritable = (Indirection, Data, Function)
