@@ -34,7 +34,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py">(source)</a>
         <p></p>
       </div>
 
@@ -45,7 +45,17 @@
       <div id="splitTables">
         <table class="children sortable" id="id37">
   
-  <tr class="function">
+  <tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.astutils.ValueFormatter.html">ValueFormatter</a></code></td>
+    <td><span>Formats values stored in AST expressions. Used for presenting default values of parameters and annotations.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.astutils.SignatureBuilder.html">SignatureBuilder</a></code></td>
+    <td><span>Builds a signature, parameter by parameter, with customizable value formatter and signature classes.</span></td>
+  </tr><tr class="function">
     
     <td>Function</td>
     <td><code><a href="#uses_auto_attribs">uses_auto_attribs</a></code></td>
@@ -130,7 +140,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_attrs_decorator_signature</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L15">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L54">
       
       (source)
     </a>
@@ -151,7 +161,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">uses_auto_attribs</span>(call, ctx):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L18">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L57">
       
       (source)
     </a>
@@ -172,7 +182,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">node2dottedname</span>(node):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L55">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L94">
       
       (source)
     </a>
@@ -193,7 +203,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">node2fullname</span>(expr, ctx):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L70">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L109">
       
       (source)
     </a>
@@ -214,7 +224,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">bind_args</span>(sig, call):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L79">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L118">
       
       (source)
     </a>
@@ -222,7 +232,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Binds the arguments of a function call to that function's signature.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">sig</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature">Signature</a></code>)</td></tr><tr><td></td><td class="fieldArg">call</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/ast.html#ast.Call">ast.Call</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/inspect.html#inspect.BoundArguments">BoundArguments</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Raises</td><td class="fieldArg"><a href="https://docs.python.org/3/library/exceptions.html#TypeError">TypeError</a></td><td>If the arguments do not match the signature.</td></tr></table></div>
+    <div><p>Binds the arguments of a function call to that function's signature.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">sig</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature">inspect.Signature</a></code>)</td></tr><tr><td></td><td class="fieldArg">call</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/ast.html#ast.Call">ast.Call</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/inspect.html#inspect.BoundArguments">inspect.BoundArguments</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Raises</td><td class="fieldArg"><a href="https://docs.python.org/3/library/exceptions.html#TypeError">TypeError</a></td><td>If the arguments do not match the signature.</td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -235,7 +245,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">extract_expr</span>(expr, filename=None):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L93">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L132">
       
       (source)
     </a>
@@ -256,7 +266,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_extract_annotation_subscript</span>(annotation):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L102">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L141">
       
       (source)
     </a>
@@ -277,7 +287,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">extract_final_subscript</span>(annotation):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L112">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L151">
       
       (source)
     </a>
@@ -297,8 +307,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">unstring_annotation</span>(node, ctx):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L125">
+    <span class="py-keyword">def</span> <span class="py-defname">unstring_annotation</span>(node, ctx=None):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L164">
       
       (source)
     </a>
@@ -306,7 +316,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Replace all strings in the given expression by parsed versions.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">node</td><td><span class="undocumented">Undocumented</span> (type: <code>ast.expr</code>)</td></tr><tr><td></td><td class="fieldArg">ctx</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">The unstringed node. If parsing fails, an error is logged and the original node is returned. (type: <code>ast.expr</code>)</td></tr></table></div>
+    <div><p>Replace all strings in the given expression by parsed versions.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">node</td><td><span class="undocumented">Undocumented</span> (type: <code>ast.expr</code>)</td></tr><tr><td></td><td class="fieldArg">ctx</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="pydocspec.ApiObject.html">ApiObject</a>]</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">The unstringed node. If parsing fails, an error is logged and the original node is returned. (type: <code>ast.expr</code>)</td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -319,7 +329,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">infer_type</span>(expr):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L139">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L178">
       
       (source)
     </a>
@@ -340,7 +350,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_value</span>(value):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L155">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L194">
       
       (source)
     </a>
@@ -361,7 +371,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_elements</span>(sequence):
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/astutils.py#L174">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/astutils.py#L213">
       
       (source)
     </a>
@@ -375,7 +385,7 @@
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-25 17:44:45.
+        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-26 03:29:00.
       </address>
 
     </div>

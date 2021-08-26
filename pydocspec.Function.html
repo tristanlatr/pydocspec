@@ -34,7 +34,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Function</span>(<span title="docspec.Function">docspec.Function</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L453">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Function</span>(<span title="docspec.Function">docspec.Function</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L520">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.Function">View In Hierarchy</a></p>
       </div>
 
@@ -49,6 +49,11 @@
     
     <td>Class Variable</td>
     <td><code><a href="#decorations">decorations</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#args">args</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
@@ -100,9 +105,9 @@
     <td>Property</td>
     <td><code><a href="#is_abstractmethod">is_abstractmethod</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="property">
+  </tr><tr class="method">
     
-    <td>Property</td>
+    <td>Method</td>
     <td><code><a href="#signature">signature</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
@@ -117,7 +122,7 @@
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#root">root</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span><code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance holding references to all objects in the tree.</span></td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
@@ -127,7 +132,7 @@
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#root_module">root_module</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>The root module of this object.</span></td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
@@ -137,27 +142,27 @@
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#dotted_name">dotted_name</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>The fully qualified dotted name of this object, as <code>DottedName</code> instance.</span></td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#full_name">full_name</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</span></td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#doc_sources">doc_sources</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>Objects that can be considered as a source of documentation.</span></td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#module">module</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>The <code><a href="pydocspec.Module.html">Module</a></code> instance that contains this object.</span></td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#get_member">get_member</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>Retrieve a member from the API object. This will always return <code>None</code> for objects that don't support members (eg. <code><a href="pydocspec.Function.html">Function</a></code> and <code><a href="pydocspec.Data.html">Data</a></code>).</span></td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
@@ -167,7 +172,7 @@
     
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#expand_name">expand_name</a></code></td>
-    <td><span class="undocumented">No summary</span></td>
+    <td><span>Return a fully qualified name for the possibly-dotted `name`.</span></td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
@@ -213,7 +218,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">decorations</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L454">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L522">
       
       (source)
     </a>
@@ -222,6 +227,27 @@
     
     
     <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a href="pydocspec.Decoration.html">Decoration</a>]]</code>)
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="pydocspec.Function.args">
+    
+  </a>
+  <a name="args">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">args</span> =
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L523">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a href="pydocspec.Argument.html">Argument</a>]</code>)
   </div>
 </div><div class="baseclassvariable">
   
@@ -234,7 +260,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">parent</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L455">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L524">
       
       (source)
     </a>
@@ -255,7 +281,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">return_type_ast</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L457">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L526">
       
       (source)
     </a>
@@ -276,7 +302,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_property</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L463">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L533">
       
       (source)
     </a>
@@ -297,7 +323,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_property_setter</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L471">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L541">
       
       (source)
     </a>
@@ -318,7 +344,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_property_deleter</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L479">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L549">
       
       (source)
     </a>
@@ -339,7 +365,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_async</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L487">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L557">
       
       (source)
     </a>
@@ -360,7 +386,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_method</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L491">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L561">
       
       (source)
     </a>
@@ -381,7 +407,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_classmethod</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L495">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L565">
       
       (source)
     </a>
@@ -402,7 +428,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_staticmethod</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L502">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L572">
       
       (source)
     </a>
@@ -423,7 +449,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_abstractmethod</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L509">
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L579">
       
       (source)
     </a>
@@ -433,7 +459,7 @@
     
     <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
   </div>
-</div><div class="baseproperty">
+</div><div class="basemethod">
   
   <a name="pydocspec.Function.signature">
     
@@ -442,23 +468,23 @@
     
   </a>
   <div class="functionHeader">
-    @cached_property<br />
-    <span class="py-defname">signature</span> =
-    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c7c7042dbf9226a81a917ec4daf5b0024c2f7f52/pydocspec/__init__.py#L516">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">signature</span>(self, include_types=True, include_defaults=True, include_return_type=True, include_self=True, signature_class=inspect.Signature, value_formatter_calss=astutils.ValueFormatter):
+    <a class="functionSourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e05d66a2379533dfacaeaff31cf26a7b18704b84/pydocspec/__init__.py#L586">
       
       (source)
     </a>
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature">inspect.Signature</a></code>)
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">include_types</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)</td></tr><tr><td></td><td class="fieldArg">include_defaults</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)</td></tr><tr><td></td><td class="fieldArg">include_return_type</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)</td></tr><tr><td></td><td class="fieldArg">include_self</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)</td></tr><tr><td></td><td class="fieldArg">signature_class</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a href="https://docs.python.org/3/library/inspect.html#inspect.Signature">inspect.Signature</a>]</code>)</td></tr><tr><td></td><td class="fieldArg">value_formatter_calss</td><td><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a href="pydocspec.astutils.ValueFormatter.html">astutils.ValueFormatter</a>]</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><span class="undocumented">Undocumented</span> (type: <code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature">inspect.Signature</a></code>)</td></tr></table></div>
   </div>
 </div>
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-25 17:44:45.
+        <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec">pydocspec 0.0.0</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-08-26 03:29:00.
       </address>
 
     </div>
