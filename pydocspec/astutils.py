@@ -2,8 +2,7 @@
 Various bits of reusable code related to L{ast.AST} node processing.
 """
 
-from typing import Any, Iterable, Optional, List, TYPE_CHECKING, Type, Union
-from inspect import BoundArguments, Signature
+from typing import Any, Iterable, Optional, List, TYPE_CHECKING, Type, Union, cast
 import ast
 import inspect
 
@@ -25,14 +24,14 @@ class ValueFormatter:
     def __init__(self, value: ast.expr):
         self.value = value
     def __repr__(self) -> str:
-        return astor.to_source(self.value).strip()
+        return cast(str, astor.to_source(self.value)).strip()
 
 @attr.s(auto_attribs=True)
 class SignatureBuilder:
     """
     Builds a signature, parameter by parameter, with customizable value formatter and signature classes.
     """
-    signature_class: Type['ValueFormatter'] = attr.ib(default=inspect.Signature)
+    signature_class: Type['inspect.Signature'] = attr.ib(default=inspect.Signature)
     value_formatter_class: Type['ValueFormatter'] = attr.ib(default=ValueFormatter)
     _parameters: List[inspect.Parameter] = attr.ib(factory=list, init=False)
     _return_annotation: Any = attr.ib(default=inspect.Signature.empty, init=False)
@@ -47,10 +46,10 @@ class SignatureBuilder:
         self._parameters.append(inspect.Parameter(name, kind, default=default_val, annotation=annotation_val))
 
     def set_return_annotation(self, annotation: Optional[ast.expr]) -> None:
-        self._return_annotation = inspect.Parameter.empty if annotation is None else self.value_formatter_class(annotation)
+        self._return_annotation = inspect.Signature.empty if annotation is None else self.value_formatter_class(annotation)
 
-    def get_signature(self) -> Signature:
-        return Signature(self._parameters, return_annotation=self._return_annotation)
+    def get_signature(self) -> inspect.Signature:
+        return self.signature_class(self._parameters, return_annotation=self._return_annotation)
 
 _attrs_decorator_signature = inspect.signature(attr.s)
 """Signature of the L{attr.s} class decorator."""
@@ -116,7 +115,7 @@ def node2fullname(expr: Optional[Union[ast.expr, str]], ctx: 'ApiObject') -> Opt
         return None
     return ctx.expand_name('.'.join(dottedname)) 
 
-def bind_args(sig: Signature, call: ast.Call) -> BoundArguments:
+def bind_args(sig: inspect.Signature, call: ast.Call) -> inspect.BoundArguments:
     """
     Binds the arguments of a function call to that function's signature.
     @raise TypeError: If the arguments do not match the signature.
@@ -162,7 +161,7 @@ def extract_final_subscript(annotation: ast.Subscript) -> ast.expr:
         assert isinstance(ann_slice, ast.expr)
         return ann_slice
 
-def unstring_annotation(node: ast.expr, ctx: 'ApiObject') -> ast.expr:
+def unstring_annotation(node: ast.expr, ctx: Optional['ApiObject']=None) -> ast.expr:
     """Replace all strings in the given expression by parsed versions.
     @return: The unstringed node. If parsing fails, an error is logged
         and the original node is returned.
@@ -170,7 +169,7 @@ def unstring_annotation(node: ast.expr, ctx: 'ApiObject') -> ast.expr:
     try:
         expr = _AnnotationStringParser().visit(node)
     except SyntaxError as ex:
-        ctx._warns(f'syntax error in annotation: {ex}')
+        if ctx: ctx._warns(f'syntax error in annotation: {ex}')
         return node
     else:
         assert isinstance(expr, ast.expr), expr
