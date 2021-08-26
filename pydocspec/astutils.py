@@ -35,7 +35,7 @@ class SignatureBuilder:
     signature_class: Type['ValueFormatter'] = attr.ib(default=inspect.Signature)
     value_formatter_class: Type['ValueFormatter'] = attr.ib(default=ValueFormatter)
     _parameters: List[inspect.Parameter] = attr.ib(factory=list, init=False)
-    _return_annotation: Any = attr.ib(default=inspect.empty, init=False)
+    _return_annotation: Any = attr.ib(default=inspect.Signature.empty, init=False)
 
     def add_param(self, name: str, 
                   kind: inspect._ParameterKind, 
