@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -102,6 +102,11 @@
     <td>Class</td>
     <td><code><a href="docspec.Decoration.html">Decoration</a></code></td>
     <td><span>Represents a decorator on a #Class or #Function.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Docstring.html">Docstring</a></code></td>
+    <td><span>Represents a docstring for an #APIObject, i.e. it's content and location. This class is a subclass of `str` for backwards compatibility reasons. Use the #content property to access the docstring content over the #Docstring value directory.</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -175,7 +180,17 @@
   </tr><tr class="variable private">
     
     <td>Variable</td>
+    <td><code><a href="#_Members">_Members</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable private">
+    
+    <td>Variable</td>
     <td><code><a href="#_MemberType">_MemberType</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable private">
+    
+    <td>Variable</td>
+    <td><code><a href="#_ModuleMembers">_ModuleMembers</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable private">
     
@@ -203,7 +218,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">dump_module</span>(module, target=None, dumper=json.dump):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py#L373">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L403">
       
       (source)
     </a>
@@ -225,7 +240,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">filter_visit</span>(objects, predicate, order='pre'):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py#L396">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L426">
       
       (source)
     </a>
@@ -247,7 +262,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_member</span>(obj, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py#L469">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L499">
       
       (source)
     </a>
@@ -269,7 +284,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">load_module</span>(source, filename=None, loader=json.load):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py#L299">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L329">
       
       (source)
     </a>
@@ -291,7 +306,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">load_modules</span>(source, filename=None, loader=json.load):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py#L331">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L361">
       
       (source)
     </a>
@@ -313,7 +328,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit</span>(objects, func, order='pre'):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py#L436">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L466">
       
       (source)
     </a>
@@ -335,7 +350,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">__author__</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py#L22">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L22">
       
       (source)
     </a>
@@ -357,7 +372,29 @@
   <div class="functionHeader">
     
     <span class="py-defname">__version__</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py#L23">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L23">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable private">
+  
+  
+  <a name="docspec._Members">
+    
+  </a>
+  <a name="_Members">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_Members</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L315">
       
       (source)
     </a>
@@ -379,7 +416,29 @@
   <div class="functionHeader">
     
     <span class="py-defname">_MemberType</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py#L287">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L316">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable private">
+  
+  
+  <a name="docspec._ModuleMembers">
+    
+  </a>
+  <a name="_ModuleMembers">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_ModuleMembers</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L322">
       
       (source)
     </a>
@@ -401,7 +460,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_ModuleMemberType</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e4d07b705c8e361d4fc87d070d8754df40185641/docspec.py#L293">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/docspec.py#L323">
       
       (source)
     </a>
@@ -421,7 +480,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-26 19:28:01.
+    21.2.2 at 2021-08-27 01:02:58.
   </div>
 </footer>
 
