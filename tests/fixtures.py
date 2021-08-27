@@ -48,6 +48,29 @@ _mod3 = module = docspec.Module('a', docspec.Location('test.py', 0), None, [
   ])
 _mod3.sync_hierarchy()
 
+_mod4 = module = docspec.Module('a', docspec.Location('test.py', 0), None, [
+    docspec.Function(
+      name='f',
+      location=None,
+      docstring=docspec.Docstring('This uses annotations and keyword-only arguments.', docspec.Location('test.py', 2)),
+      modifiers=None,
+      args=[
+        docspec.Argument('a', docspec.Argument.Type.Positional, None, 'int', None),
+        docspec.Argument('c', docspec.Argument.Type.KeywordOnly, None, 'str', None),
+        docspec.Argument('opts', docspec.Argument.Type.KeywordRemainder, None, 'Any', None),
+      ],
+      return_type='None',
+      decorations=[],
+    ),
+    docspec.Class('foo', docspec.Location('test.py', 2), 'This is class foo.', None, None, None, [
+      docspec.Function('__init__', docspec.Location('test.py', 6), None, None, [
+        docspec.Argument('self', docspec.Argument.Type.Positional, None, None, None),
+        docspec.Argument('port', docspec.Argument.Type.Positional, None, None, '8001'),
+      ], None, None),
+    ]),
+  ])
+_mod4.sync_hierarchy()
+
 @pytest.fixture
 def mod1() -> docspec.Module:
   return _mod1
@@ -61,3 +84,6 @@ def root2() -> pydocspec.ApiObjectsRoot:
 @pytest.fixture
 def root3() -> pydocspec.ApiObjectsRoot:
   return converter.convert_docspec_modules([_mod3], root=True)
+@pytest.fixture
+def root4() -> pydocspec.ApiObjectsRoot:
+  return converter.convert_docspec_modules([_mod4], root=True)
