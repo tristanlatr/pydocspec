@@ -17,7 +17,11 @@ This module also provides utility to arrange a manually created C{pydocspec} tre
         I should write an efficient builder soon. For now, we can use the C{convert_docspec_modules} function. 
 """
 
-from typing import Iterable, Literal, cast, List, Optional, Union, overload
+from typing import Iterable, cast, List, Optional, Union, overload
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal #type:ignore[misc]
 
 import attr
 
@@ -26,16 +30,16 @@ import pydocspec
 from pydocspec import ApiObjectsRoot, dottedname, genericvisitor
 
 @overload
-def convert_docspec_modules(modules: List[docspec.Module], root:Literal[True]) -> ApiObjectsRoot:...
+def convert_docspec_modules(modules: List[docspec.Module], root:Literal[True]) -> ApiObjectsRoot: ... # type:ignore[invalid-annotation]
 @overload
-def convert_docspec_modules(modules: List[docspec.Module], root:Literal[False]) -> List[pydocspec.Module]:...
+def convert_docspec_modules(modules: List[docspec.Module], root:Literal[False]) -> List[pydocspec.Module]: ... # type:ignore[invalid-annotation]
 
 def convert_docspec_modules(modules: List[docspec.Module], root:bool=False) -> Union[List[pydocspec.Module], ApiObjectsRoot]:
     """
     Convert a list of L{docspec.Module} instances into a list of L{pydocspec.Module}. 
     Alternatively, you can also request the L{ApiObjectsRoot} instance by passing C{root=True}. 
 
-    @returns: The root modules of the tree or the L{ApiObjectsRoot} instance if C{root=True}.
+    @returns: A list of the root modules of the tree or the L{ApiObjectsRoot} instance if C{root=True}.
     @note: It will transform the tree such that we have an actual hiearchy of packages. 
 
     """
@@ -43,7 +47,7 @@ def convert_docspec_modules(modules: List[docspec.Module], root:bool=False) -> U
     converter = Converter(new_root)
     converter.add_docspec_modules(modules)
     converter.post_process()
-    return new_root.root_modules if not root else new_root
+    return new_root.root_modules if not root else new_root # type:ignore[bad-return-type]
 
 @attr.s(auto_attribs=True)
 class _ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
@@ -258,12 +262,12 @@ def _get_object_by_name(relativeroots: Iterable[docspec.ApiObject], name: dotted
         if r.name == name[0]:
             if len(name) > 1:
                 ob_full_name = str(dottedname.DottedName(*(o.name for o in r.path)))
-                assert isinstance(r, docspec.HasMembers), f"The object '{ob_full_name}' is not a namespace, cannot find name '{name}'"
+                assert isinstance(r, docspec.HasMembers), f"The object '{ob_full_name}' is not a docspec.HasMembers instance, cannot find name '{name}'"
                 return _get_object_by_name(r.members, name[1:]) # type:ignore[arg-type]
             return r
     return None
 
-def _nest_docspec_python_modules(modules: List[docspec.Module]) -> List[docspec.Module]:
+def _nest_docspec_python_modules(modules: Iterable[docspec.Module]) -> List[docspec.Module]:
     """Reparent modules to their respective parent packages such that we have an actual hiearchy of packages."""
     roots: List[docspec.Module] = []
     for mod in sorted(modules, key=lambda x: x.name):
