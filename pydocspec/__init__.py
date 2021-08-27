@@ -2,12 +2,10 @@
 Extends docspec for the python language, offers facility to resolve names and provides additional informations. 
 """
 
-import dataclasses
-from typing import Iterator, List, Mapping, Optional, Union, Type, Any
+from typing import Iterator, List, Mapping, Optional, Union, Type, Any, Iterable
 import ast
 import inspect
 import warnings
-import sys
 
 import attr
 
@@ -16,8 +14,10 @@ from cached_property import cached_property
 import docspec
 
 from . import astutils
+
 from .dottedname import DottedName
 from .dupsafedict import DuplicateSafeDict
+from . import genericvisitor
 
 __all__ = [
   'ApiObjectsRoot',
@@ -301,6 +301,29 @@ class ApiObject(docspec.ApiObject):
 
     def _warns(self, msg: str) -> None:
         warnings.warn(f'{self.full_name}:{self.location.lineno} - {msg}')
+    
+    def _members(self) -> Iterable['ApiObject']:
+        if isinstance(self, HasMembers): return self.members
+        else: return ()
+
+    def walk(self, visitor: genericvisitor.Visitor['ApiObject']) -> None:
+        """
+        Traverse a tree of objects, calling the L{genericvisitor.Visitor.visit} 
+        method of `visitor` when entering each node.
+
+        @see: L{genericvisitor.walk} for more details.
+        """
+        genericvisitor.walk(self, visitor, ApiObject._members)
+        
+    def walkabout(self, visitor: genericvisitor.Visitor['ApiObject']) -> None:
+        """
+        Perform a tree traversal similarly to L{walk()}, except also call the L{genericvisitor.Visitor.depart} 
+        method before exiting each node.
+
+        @see L{genericvisitor.walkabout} for more details.
+        """
+        genericvisitor.walkabout(self, visitor, ApiObject._members)
+      
 
 class Data(docspec.Data, ApiObject):
     """
