@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Data</span>(<span title="docspec.Data">docspec.Data</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L305" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Data</span>(<span title="docspec.Data">docspec.Data</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L328" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.Data">View In Hierarchy</a></p>
       </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id44">
+        <table class="children sortable" id="id45">
   
   
   <tr class="classvariable">
@@ -138,7 +138,7 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>:
           </p>
-          <table class="children sortable" id="id45">
+          <table class="children sortable" id="id46">
   
   
   <tr class="basemethod">
@@ -161,6 +161,16 @@
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#resolve_name">resolve_name</a></code></td>
     <td><span>Return the object named by "name" (using Python's lookup rules) in this context.</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.ApiObject.html#walk">walk</a></code></td>
+    <td><span>Traverse a tree of objects, calling the <code><a href="pydocspec.genericvisitor.Visitor.html#visit">genericvisitor.Visitor.visit</a></code> method of `visitor` when entering each node.</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.ApiObject.html#walkabout">walkabout</a></code></td>
+    <td><span>Perform a tree traversal similarly to <code><a href="#walk">walk()</a></code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</span></td>
   </tr><tr class="baseclassvariable">
     
     <td>Class Variable</td>
@@ -204,6 +214,11 @@
   </tr><tr class="basemethod private">
     
     <td>Method</td>
+    <td><code><a href="pydocspec.ApiObject.html#_members">_members</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#_resolve_indirection">_resolve_indirection</a></code></td>
     <td><span>If the object is an alias or an indirection, then follow it and return the supposed full name fo the origin object, or return the passed object's full name.</span></td>
   </tr><tr class="basemethod private">
@@ -232,7 +247,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">parent</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>, <wbr></wbr><a href="pydocspec.Module.html">Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L309">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L332">
       
       (source)
     </a>
@@ -254,7 +269,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">datatype_ast</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L311">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L334">
       
       (source)
     </a>
@@ -276,7 +291,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_alias</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L364">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L387">
       
       (source)
     </a>
@@ -298,7 +313,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_attrs_attribute</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L344">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L367">
       
       (source)
     </a>
@@ -320,7 +335,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_class_variable</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L337">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L360">
       
       (source)
     </a>
@@ -342,7 +357,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_constant</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L382">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L405">
       
       (source)
     </a>
@@ -364,7 +379,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_dataclass_field</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L354">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L377">
       
       (source)
     </a>
@@ -386,7 +401,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_instance_variable</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L330">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L353">
       
       (source)
     </a>
@@ -408,7 +423,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_using_typing_final</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L393">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L416">
       
       (source)
     </a>
@@ -430,7 +445,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">value_ast</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L321">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L344">
       
       (source)
     </a>
@@ -452,7 +467,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">_alias_indirection</span>: <code><a href="pydocspec.Indirection.html">Indirection</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f675a453ef91109a051f16f732ed749d3d4f7d2c/pydocspec/__init__.py#L372">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de31212bb34e4a4db43f4cc660b35e3af6b14b31/pydocspec/__init__.py#L395">
       
       (source)
     </a>
@@ -472,7 +487,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-27 01:02:58.
+    21.2.2 at 2021-08-27 03:40:59.
   </div>
 </footer>
 
