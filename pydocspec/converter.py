@@ -175,22 +175,32 @@ class _PostProcessVisitorFirst(genericvisitor.Visitor[pydocspec.ApiObject]):
 
 class _PostProcessVisitorSecond(genericvisitor.Visitor[pydocspec.ApiObject]):
     """
+    Apply various required processing to new pydocspec trees.
+
     - Setup the L{pydocspec.Class.sub_classes} attribute.
     - Ensures that property setter and deleters do not shadow the getter.
+    - Make the location attribute non-optional, reduces annoyance.
     """
+
+    _default_location = docspec.Location(filename='<unknown>', lineno=-1)
     
     def unknown_visit(self, ob: pydocspec.ApiObject) -> None:
-        pass
+        if ob.location is None:
+            ob.location = self._default_location #type:ignore[unreachable]
+
     def unknown_departure(self, ob: pydocspec.ApiObject) -> None:
         pass
     
     def visit_Class(self, ob: pydocspec.Class) -> None:
+        self.unknown_visit(ob)
+        
         # Populate the sub_classes attribute
         for b in ob.resolved_bases:
             if isinstance(b, pydocspec.Class):
                 b.sub_classes.append(ob)
 
     def visit_Function(self, ob: pydocspec.Function) -> None:
+        self.unknown_visit(ob)
 
         # property setters and deleters should not shadow the property object (getter).
         if ob.is_property_deleter or ob.is_property_setter:
