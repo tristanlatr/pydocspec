@@ -10,7 +10,8 @@ Usage::
     from pydocspec.converter import convert_docspec_modules
     modules: List[pydocspec.Module] = convert_docspec_modules(load_python_modules(...))
 
-@note: It will transform the tree such that we have an actual hiearchy of packages. 
+This module also provides utility to build a correct and complete C{pydocspec} tree manually, see L{PostProcessVisitor}.
+
 """
 
 from typing import Iterable, cast, List, Optional
@@ -24,7 +25,6 @@ from pydocspec import dottedname, genericvisitor
 def convert_docspec_modules(modules: List[docspec.Module], copy_ast_properties:bool=False) -> List[pydocspec.Module]:
     """
     Convert a list of L{docspec.Module} instances into a list of L{pydocspec.Module}. 
-    The modules are transformed into a tree of packages. 
 
     @param copy_ast_properties: By default, the ast properties are computed on demand (creating ast nodes is expensive). 
         This behaviour is highly inefficient when you have already parsed the whole module's AST. 
@@ -43,7 +43,9 @@ def convert_docspec_modules(modules: List[docspec.Module], copy_ast_properties:b
             - L{Decoration.name_ast}
             - L{Decoration.expr_ast}
 
-    @returns: The root modules of the tree.
+    @returns: The root modules of the tree or the L{ApiObjectsRoot} instance if C{root=True}.
+    @note: It will transform the tree such that we have an actual hiearchy of packages. 
+
     """
     root = pydocspec.ApiObjectsRoot()
     converter = Converter(root, copy_ast_properties=copy_ast_properties)
@@ -95,7 +97,7 @@ class ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
         self.current = self._stack.pop()
     
     def enter_object(self, ob: pydocspec.ApiObject) -> None:
-        ob._root = self.converter.root
+        ob.root = self.converter.root
 
         if self.current:
             assert isinstance(self.current, pydocspec.HasMembers)
@@ -206,15 +208,26 @@ class ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
                     setattr(pydocspecob, name, v)
 
 class PostProcessVisitor(genericvisitor.Visitor[pydocspec.ApiObject]):
+    """
+    Apply post process on newly created L{pydocspec} tree. 
+
+    @note: If you are creating a tree manually, you should run this visitor on your tree after building it. 
+    """
     
     def unknown_visit(self, ob: pydocspec.ApiObject) -> None:
         pass
     def unknown_departure(self, ob: pydocspec.ApiObject) -> None:
         pass
+    
+    def visit_Class(self, ob: pydocspec.Class) -> None:
+        # Populate the sub_classes attribute
+        for b in ob.resolved_bases:
+            if isinstance(b, pydocspec.Class):
+                b.sub_classes.append(ob)
 
     def visit_Function(self, ob: pydocspec.Function) -> None:
 
-        # property setters and deleters should not shadow the property object
+        # property setters and deleters should not shadow the property object (getter).
         if ob.is_property_deleter or ob.is_property_setter:
             for dup in ob.root.all_objects.getdup(ob.full_name):
                 if isinstance(dup, pydocspec.Function) and dup.is_property:

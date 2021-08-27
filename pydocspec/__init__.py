@@ -2,10 +2,12 @@
 Extends docspec for the python language, offers facility to resolve names and provides additional informations. 
 """
 
-from typing import Iterator, List, Mapping, Optional, Union, Type
+import dataclasses
+from typing import Iterator, List, Mapping, Optional, Union, Type, Any
 import ast
 import inspect
 import warnings
+import sys
 
 import attr
 
@@ -69,14 +71,10 @@ class ApiObject(docspec.ApiObject):
     parent: Optional[Union['Class', 'Module']] # type: ignore[assignment]
 
     # this attribute needs to be manually set from the converter/loader.
-    _root: ApiObjectsRoot
-    
-    @property
-    def root(self) -> ApiObjectsRoot:
-        """
-        L{ApiObjectsRoot} instance holding references to all objects in the tree.
-        """
-        return self._root
+    root: ApiObjectsRoot
+    """
+    L{ApiObjectsRoot} instance holding references to all objects in the tree.
+    """
     
     @cached_property
     def root_module(self) -> 'Module':
@@ -162,7 +160,7 @@ class ApiObject(docspec.ApiObject):
                     assert isinstance(member, ApiObject), (name, self, member)
                     yield member
     
-    def expand_name(self, name: str, follow_aliases: bool = True, _indirections: Optional[List['Indirection']]=None) -> str:
+    def expand_name(self, name: str, follow_aliases: bool = True, _indirections: Any=None) -> str:
         """
         Return a fully qualified name for the possibly-dotted `name`.
 
@@ -214,8 +212,11 @@ class ApiObject(docspec.ApiObject):
                 # The local name was not found.
                 # If we're looking at a class, we try our luck with the inherited members
                 if isinstance(ctx, Class):
-                    f = ctx.find(part)
-                    full_name = f.full_name if f else full_name
+                    inherited = ctx.find(part)
+                    if inherited:
+                        assert inherited.parent is not None
+                        full_name = inherited.parent._local_to_full_name(inherited.name, follow_aliases=follow_aliases, 
+                                                                 _indirections=_indirections)
                 # We don't have a full name
                 if full_name == part:
                     # TODO: Instead of returning the input, _local_to_full_name
@@ -240,7 +241,7 @@ class ApiObject(docspec.ApiObject):
         """
         return self.root.all_objects.get(self.expand_name(name, follow_aliases=follow_aliases))
 
-    def _local_to_full_name(self, name: str, follow_aliases: bool, _indirections: Optional[List['Indirection']]=None) -> str:
+    def _local_to_full_name(self, name: str, follow_aliases: bool, _indirections:Any=None) -> str:
         if not isinstance(self, HasMembers):
             assert self.parent is not None
             return self.parent._local_to_full_name(name, follow_aliases, _indirections)
@@ -299,7 +300,7 @@ class ApiObject(docspec.ApiObject):
         return None
 
     def _warns(self, msg: str) -> None:
-        warnings.warn(f'{self.full_name}:{self.location.linenumber} - {msg}')
+        warnings.warn(f'{self.full_name}:{self.location.lineno} - {msg}')
 
 class Data(docspec.Data, ApiObject):
     """
@@ -370,11 +371,12 @@ class Data(docspec.Data, ApiObject):
     
     @cached_property
     def _alias_indirection(self) -> 'Indirection':
+        # provided as a helper object to resolve names only.
         assert self.is_alias
         assert self.value is not None
         indirection = Indirection(self.name, self.location, None, self.value)
         indirection.parent = self.parent
-        indirection._root = self.root
+        indirection.root = self.root
         return indirection
     
     @cached_property
@@ -418,10 +420,17 @@ class Class(docspec.Class, ApiObject):
     """
     # TODO: create property inherited_members
 
-    # help mypy
-    decorations: Optional[List['Decoration']] # type:ignore[assignment]
-    parent: Union['Class', 'Module']
-    members: List['ApiObject'] # type:ignore[assignment]
+    def __post_init__(self) -> None:
+        docspec.Class.__post_init__(self)
+
+        # sub classes need to be manually added once the tree has been built, see PostProcessVisitor.
+        self.sub_classes: List['Class'] = []
+        
+        # help mypy
+        self.decorations: Optional[List['Decoration']] # type:ignore[assignment]
+        self.parent: Union['Class', 'Module']
+        self.members: List['ApiObject'] # type:ignore[assignment]
+    
 
     @cached_property
     def resolved_bases(self) -> List[Union['ApiObject', 'str']]:
@@ -451,6 +460,16 @@ class Class(docspec.Class, ApiObject):
             if isinstance(b, Class):
                 yield b
     
+    # TODO: adjust this code to provide inherited_members property
+    # inherited_members : List[Documentable] = []
+    #             for baselist in nested_bases(self.ob):
+    #                 #  If the class has super class
+    #                 if len(baselist) >= 2:
+    #                     attrs = unmasked_attrs(baselist)
+    #                     if attrs:
+    #                         inherited_members.extend(attrs)
+    #             return inherited_members
+
     # def overriding_subclasses(self,
     #         name: str,
     #         _firstcall: bool = True
