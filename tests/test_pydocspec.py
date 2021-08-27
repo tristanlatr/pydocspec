@@ -1,8 +1,20 @@
+from typing import Optional
+import ast
+import io
+import textwrap
+
 import docspec
-from pydocspec import converter
+from docspec_python import load_python_modules
+from pydocspec import converter, astutils
 import pydocspec
 
 from .fixtures import mod1, root2, root4
+
+def mod_from_text(text:str, modname:str='<test>') -> pydocspec.Module:
+    docspec_modules = list(load_python_modules(
+        files=[ (modname, io.StringIO(textwrap.dedent(text))) ]))
+    pydocspec_mod = converter.convert_docspec_modules(docspec_modules).pop()
+    return pydocspec_mod
 
 def test_expand_name(mod1: docspec.Module) -> None:
     root = converter.convert_docspec_modules([mod1])[0].root
@@ -60,3 +72,37 @@ def test_signature(root4: pydocspec.ApiObjectsRoot) -> None:
     assert str(init_method.signature()) == "(self, port=8001)"
     assert str(init_method.signature(include_self=False)) == "(port=8001)"
     assert str(init_method.signature(include_self=False, include_defaults=False)) == "(port)"
+
+def test_node2fullname() -> None:
+    """The node2fullname() function finds the full (global) name for
+    a name expression in the AST.
+    """
+    # https://github.com/NiklasRosenstein/docspec/issues/34
+    # mod = mod_from_text('''
+    # class session:
+    #     from twisted.conch.interfaces import ISession
+    #     ''', modname='test')
+
+    mod = mod_from_text('''
+    from twisted.conch.interfaces import ISession
+    class session:
+        ISession=ISession
+        ''', modname='test')
+
+    def lookup(expr: str) -> Optional[str]:
+        node = ast.parse(expr, mode='eval')
+        assert isinstance(node, ast.Expression)
+        return astutils.node2fullname(node.body, mod)
+
+    # None is returned for non-name nodes.
+    assert lookup('123') is None
+    # Local names are returned with their full name.
+    assert lookup('session') == 'test.session'
+    # A name that has no match at the top level is returned as-is.
+    assert lookup('nosuchname') == 'nosuchname'
+    # Unknown names are resolved as far as possible.
+    assert lookup('session.nosuchname') == 'test.session.nosuchname'
+    # Aliases are resolved on local names.
+    assert lookup('session.ISession') == 'twisted.conch.interfaces.ISession'
+    # Aliases are resolved on global names.
+    assert lookup('test.session.ISession') == 'twisted.conch.interfaces.ISession'
