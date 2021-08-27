@@ -24,7 +24,21 @@ class ValueFormatter:
     def __init__(self, value: ast.expr):
         self.value = value
     def __repr__(self) -> str:
-        return cast(str, astor.to_source(self.value)).strip()
+        value = self.value
+        if isinstance(value, ast.Num):
+            return str(value.n)
+        if isinstance(value, ast.Str):
+            return repr(value.s)
+        if isinstance(value, ast.Constant):
+            return repr(value.value)
+        if isinstance(value, ast.UnaryOp) and isinstance(value.op, ast.USub):
+            operand = value.operand
+            if isinstance(operand, ast.Num):
+                return f'-{operand.n}'
+            if isinstance(operand, ast.Constant):
+                return f'-{operand.value}'
+        source: str = astor.to_source(value)
+        return source.strip()
 
 @attr.s(auto_attribs=True)
 class SignatureBuilder:
@@ -38,8 +52,8 @@ class SignatureBuilder:
 
     def add_param(self, name: str, 
                   kind: inspect._ParameterKind, 
-                  default: Optional[ast.expr],
-                  annotation: Optional[ast.expr]) -> None:
+                  default: Optional[ast.expr]=None,
+                  annotation: Optional[ast.expr]=None) -> None:
                     
         default_val = inspect.Parameter.empty if default is None else self.value_formatter_class(default)
         annotation_val = inspect.Parameter.empty if annotation is None else self.value_formatter_class(annotation)

@@ -38,6 +38,8 @@ __all__ = [
 #   'get_member',
 ]
 
+Location = docspec.Location
+
 _RESOLVE_ALIAS_MAX_RECURSE = 5
 
 @attr.s(auto_attribs=True)
@@ -69,6 +71,7 @@ class ApiObject(docspec.ApiObject):
 
     # help mypy
     parent: Optional[Union['Class', 'Module']] # type: ignore[assignment]
+    location: Location
 
     # this attribute needs to be manually set from the converter/loader.
     root: ApiObjectsRoot
@@ -85,11 +88,6 @@ class ApiObject(docspec.ApiObject):
             return self
         assert self.parent is not None
         return self.parent.root_module # type:ignore[no-any-return]
-    
-    # make the location attribute non-optional, reduces annoyance.
-    @cached_property
-    def location(self) -> docspec.Location:
-        return super().location or docspec.Location(filename='<unknown>', lineno=-1)
 
     @cached_property
     def dotted_name(self) -> DottedName:
@@ -300,6 +298,7 @@ class ApiObject(docspec.ApiObject):
         return None
 
     def _warns(self, msg: str) -> None:
+        # TODO: find another way to report warnings.
         warnings.warn(f'{self.full_name}:{self.location.lineno} - {msg}')
     
     def _members(self) -> Iterable['ApiObject']:
@@ -339,6 +338,7 @@ class Data(docspec.Data, ApiObject):
         if self.datatype:
             return astutils.unstring_annotation(
                     astutils.extract_expr(self.datatype, filename=self.location.filename), self)
+        # TODO: fetch datatype_ast from attrs defaut and factory args and dataclass default and default_factory args.
         return None
 
     @cached_property
@@ -430,6 +430,11 @@ class Data(docspec.Data, ApiObject):
                     return True
 
         return False
+
+    # TODO: Add type/docstring extraction from marshmallow attributes
+    # https://github.com/mkdocstrings/mkdocstrings/issues/130
+
+    # TODO: Always consider Enum values as constants. Maybe having a Class.is_enum property, similar to is_exception?
 
 class Indirection(docspec.Indirection, ApiObject):
   """
@@ -697,9 +702,51 @@ class Function(docspec.Function, ApiObject):
     def signature(self, include_types:bool=True, include_defaults:bool=True, 
                   include_return_type:bool=True, include_self:bool=True,
                   signature_class: Type[inspect.Signature] = inspect.Signature, 
-                  value_formatter_calss: Type[astutils.ValueFormatter] = astutils.ValueFormatter) -> inspect.Signature:
-        # TODO: copy the SignatureBuilder and related code here.
-        return inspect.Signature()
+                  value_formatter_class: Type[astutils.ValueFormatter] = astutils.ValueFormatter) -> inspect.Signature:
+        """
+        Get the function's signature. 
+        """
+        
+        # build the signature
+        signature_builder = astutils.SignatureBuilder(signature_class=signature_class, 
+                                        value_formatter_class=value_formatter_class)
+
+        # filter args
+        args = [a for a in self.args if a.name != 'self' or include_self]
+        
+        for argument in (a for a in args if a.type is docspec.Argument.Type.PositionalOnly):
+            signature_builder.add_param(argument.name, inspect.Parameter.POSITIONAL_ONLY, 
+                default=argument.default_value_ast if argument.default_value and include_defaults else None,
+                annotation=argument.datatype_ast if argument.datatype and include_types else None)
+        
+        for argument in (a for a in args if a.type is docspec.Argument.Type.Positional):
+            signature_builder.add_param(argument.name, inspect.Parameter.POSITIONAL_OR_KEYWORD, 
+                default=argument.default_value_ast if argument.default_value and include_defaults else None,
+                annotation=argument.datatype_ast if argument.datatype and include_types else None)
+        
+        for argument in (a for a in args if a.type is docspec.Argument.Type.PositionalRemainder):
+            signature_builder.add_param(argument.name, inspect.Parameter.VAR_POSITIONAL, default=None,
+                annotation=argument.datatype_ast if argument.datatype and include_types else None)
+        
+        for argument in (a for a in args if a.type is docspec.Argument.Type.KeywordOnly):
+            signature_builder.add_param(argument.name, inspect.Parameter.KEYWORD_ONLY, 
+                default=argument.default_value_ast if argument.default_value and include_defaults else None,
+                annotation=argument.datatype_ast if argument.datatype and include_types else None)
+        
+        for argument in (a for a in args if a.type is docspec.Argument.Type.KeywordRemainder):
+            signature_builder.add_param(argument.name, inspect.Parameter.VAR_KEYWORD, default=None,
+            annotation=argument.datatype_ast if argument.datatype and include_types else None)
+        
+        if include_return_type and self.return_type:
+            signature_builder.set_return_annotation(self.return_type_ast)
+        
+        try:
+            signature = signature_builder.get_signature()
+        except ValueError as ex:
+            self._warns(f'Function "{self.full_name}" has invalid parameters: {ex}')
+            signature = inspect.Signature()
+        
+        return signature
 
 class Argument(docspec.Argument):
     """
@@ -799,8 +846,6 @@ class Module(docspec.Module, ApiObject):
 
 class zopedocspec:
     ...
-
-Location = docspec.Location
 
 HasMembers = (Module, Class)
 """
