@@ -1,6 +1,6 @@
 import pydocspec
 from pydocspec.visitors import PrintVisitor, FilterVisitor
-from .fixtures import root1
+from .fixtures import root1, root3
 
 def test_visitors(capsys, root1: pydocspec.ApiObjectsRoot) -> None:
     module = root1.root_modules[0]
@@ -28,8 +28,8 @@ def test_visitors(capsys, root1: pydocspec.ApiObjectsRoot) -> None:
 | | :6 - Function: __init__
 """
 
-def test_visitors2(capsys, root2: pydocspec.ApiObjectsRoot) -> None:
-    module = root2.root_modules[0]
+def test_visitors2(capsys, root3: pydocspec.ApiObjectsRoot) -> None:
+    module = root3.root_modules[0]
     visitor = PrintVisitor(colorize=False)
     module.walk(visitor)
     captured = capsys.readouterr().out
