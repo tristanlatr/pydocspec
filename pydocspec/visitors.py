@@ -1,5 +1,5 @@
 """
-Visitors and helper functions for L{pydocspec.ApiObject} instances.
+Useful visitors for L{pydocspec.ApiObject} instances.
 """
 try:
   from termcolor import colored as _colored
@@ -17,9 +17,14 @@ from . import genericvisitor
 
 class FilterVisitor(genericvisitor.Visitor[ApiObject]):
   """
-  Visits *objects* applying the *predicate*. 
-  
-  If the predicate returrns #False, the object will be removed from it's containing list.
+  Visits *objects* applying the *predicate*. If the predicate returrns a C{False} value, the object will be removed from it's containing list. 
+
+  Usage::
+    module: pydocspec.Module
+    # removes entries starting by one underscore that are not dunder methods, aka private API.
+    predicate = lambda ob: not ob.name.startswith("_") or ob.name.startswith("__") and ob.name.endswith("__")
+    filter_visitor = FilterVisitor(predicate)
+    module.walk(filter_visitor)
   """
 
   def __init__(self, predicate: t.Callable[[ApiObject], bool]):
@@ -36,7 +41,7 @@ class FilterVisitor(genericvisitor.Visitor[ApiObject]):
     if not isinstance(ob, HasMembers):
       return
 
-    new_members = [m for m in ob.members if self.predicate(m)]
+    new_members = [m for m in ob.members if bool(self.predicate(m))==True]
     deleted_members = [m for m in ob.members if m not in new_members]
 
     # Remove the member from the ApiObjectsRoot as well
@@ -56,6 +61,10 @@ class PrintVisitor(genericvisitor.Visitor[ApiObject]):
     - "{obj_lineno}"
     - "{obj_filename}"
   The default format string is: ":{obj_lineno} - {obj_type}: {obj_name}"
+
+  Usage::
+    module: pydocspec.Module
+    module.walk(PrintVisitor())
   """
 
   _COLOR_MAP = {
@@ -84,15 +93,3 @@ class PrintVisitor(genericvisitor.Visitor[ApiObject]):
 
   def unknown_departure(self, ob: ApiObject) -> None:
     pass
-
-def _get_ApiObject_children(ob: ApiObject) -> t.Iterable['ApiObject']:
-    if isinstance(ob, HasMembers): return ob.members
-    else: return ()
-
-def walk_ApiObject(ob: ApiObject, visitor: genericvisitor.Visitor[ApiObject]) -> None:
-    genericvisitor.walk(ob, visitor, _get_ApiObject_children)
-      
-def walkabout_ApiObject(ob: ApiObject, visitor: genericvisitor.Visitor[ApiObject]) -> None:
-    genericvisitor.walkabout(ob, visitor, _get_ApiObject_children)
-      
-      
