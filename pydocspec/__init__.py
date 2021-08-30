@@ -13,8 +13,7 @@ B{Extensibility}:
 
 The core of the logic is design to be extensible with plugins modules, called "brain" modules. One can define custom
 mixin classes and post-processes in a new module, add the special C{MIXIN_CLASSES} and/or C{POST_PROCESSES} module 
-variables, then include the module's full name (or the imported module directly) as part of the C{additional_brain_modules} 
-argument of function L{converter.convert_docspec_modules}. 
+variables, then include the module's full name as part of the C{additional_brain_modules} argument of function L{converter.convert_docspec_modules}. 
 
 Discovered mixin classes are going to be dynamically added to the list of bases when creating the new objects with the 
 L{specfactory.Factory}. Because of that, the documentation of the classes listed in this module are incomplete, properties
@@ -26,7 +25,7 @@ The C{MIXIN_CLASSES} variable holds a dictionary from the name of the base class
     MIXIN_CLASSES: Dict[str, Union[Sequence[Type], Type]]
 
 The C{POST_PROCESSES} variable holds a dictionary from the priority of execution of the post process (should be greater than 1.0)
-to a post-process. A post-process beeing a callable taking a L{ApiObjectsRoot} instance::
+to a post-process. A post-process beeing a one-argument callable taking a L{ApiObjectsRoot} instance::
 
     POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
 
