@@ -1,5 +1,5 @@
 """
-Submodules contains sets of mixin classes aplied to {ApiObject} in order to extends 
+Submodules contains sets of mixin classes aplied to L{ApiObject}, in order to extends 
 the functionalities for specific libraries. 
 """
 from typing import Iterator

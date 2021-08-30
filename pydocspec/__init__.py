@@ -1,5 +1,35 @@
 """
-Extends docspec for the python language, offers facility to resolve names and provides additional informations. 
+This is C{pydocspec}.
+
+B{Warning}:
+
+Work in progress... API might change without deprecation notice.
+
+B{Usage}:
+
+At the current stage of developments, the only entrypoint of C{pydocspec} is L{converter.convert_docspec_modules}. 
+
+B{Extensibility}:
+
+The core of the logic is design to be extensible with plugins modules, called "brain" modules. One can define custom
+mixin classes and post-processes in a new module, add the special C{MIXIN_CLASSES} and/or C{POST_PROCESSES} module 
+variables, then include the module's full name (or the imported module directly) as part of the C{additional_brain_modules} 
+argument of function L{converter.convert_docspec_modules}. 
+
+Discovered mixin classes are going to be dynamically added to the list of bases when creating the new objects with the 
+L{specfactory.Factory}. Because of that, the documentation of the classes listed in this module are incomplete, properties
+and methods provided by mixin classes can be review in their respective documentation, under the package L{brains}.
+
+The C{MIXIN_CLASSES} variable holds a dictionary from the name of the base class to a list of mixin classes 
+(or only one mixin class)::
+
+    MIXIN_CLASSES: Dict[str, Union[Sequence[Type], Type]]
+
+The C{POST_PROCESSES} variable holds a dictionary from the priority of execution of the post process (should be greater than 1.0)
+to a post-process. A post-process beeing a callable taking a L{ApiObjectsRoot} instance::
+
+    POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
+
 """
 
 from typing import ClassVar, Iterator, List, Mapping, Optional, Union, Type, Any, Iterable, TYPE_CHECKING, cast

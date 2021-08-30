@@ -39,6 +39,6 @@ class AttrsClassMixin:
     #TODO: Craft a special Function object based on attrs attributes and offer a constructor_method_from_attrs property
 
 MIXIN_CLASSES = {
-    'Data': [AttrsDataMixin, ],
-    'Class': [AttrsClassMixin, ],
+    'Data': (AttrsDataMixin, ),
+    'Class': (AttrsClassMixin, ),
 }

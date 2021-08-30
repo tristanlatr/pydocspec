@@ -17,7 +17,7 @@ Usage::
 
 from typing import Iterable, Iterator, cast, List, Optional, Union, overload
 try:
-    from typing import Literal
+    from typing import Literal #type:ignore[attr-defined]
 except ImportError:
     from typing_extensions import Literal #type:ignore[misc]
 
@@ -28,24 +28,35 @@ import pydocspec
 from pydocspec import dottedname, genericvisitor, specfactory, postprocessor
 
 @overload
-def convert_docspec_modules(modules: List[docspec.Module], root:Literal[True]) -> pydocspec.ApiObjectsRoot: ... # type:ignore[invalid-annotation]
+def convert_docspec_modules(modules: Iterable[docspec.Module], root:Literal[True], additional_brain_modules:Optional[List[str]]=None) -> pydocspec.ApiObjectsRoot: ... # type:ignore[invalid-annotation]
 @overload
-def convert_docspec_modules(modules: List[docspec.Module], root:Literal[False]) -> List[pydocspec.Module]: ... # type:ignore[invalid-annotation]
+def convert_docspec_modules(modules: Iterable[docspec.Module], root:Literal[False], additional_brain_modules:Optional[List[str]]=None) -> List[pydocspec.Module]: ... # type:ignore
 
-def convert_docspec_modules(modules: List[docspec.Module], root:bool=False) -> Union[List[pydocspec.Module], pydocspec.ApiObjectsRoot]:
+def convert_docspec_modules(modules: Iterable[docspec.Module], root:bool=False, additional_brain_modules:Optional[List[str]]=None) -> Union[List[pydocspec.Module], pydocspec.ApiObjectsRoot]:
     """
     Convert a list of L{docspec.Module} instances into a list of L{pydocspec.Module}. 
     Alternatively, you can also request the L{ApiObjectsRoot} instance by passing C{root=True}. 
 
+    @param modules: Modules to convert.
+    @param root: Whether to return the L{ApiObjectsRoot} or the list of L{pydocspec.Module}. 
+    @param additional_brain_modules: Custom brain modules to import into the system.
     @returns: A list of the root modules of the tree or the L{ApiObjectsRoot} instance if C{root=True}.
     @note: It will transform the tree such that we have an actual hiearchy of packages. 
     """
     factory = specfactory.Factory.default()
-    new_root = factory.ApiObjectsRoot()
+    post_processor = postprocessor.PostProcessor.default()
+    
+    if additional_brain_modules:
+        for brain in additional_brain_modules:
+            factory.import_mixins_from(brain)
+            post_processor.import_post_processes_from(brain)
+    
     converter = _Converter(factory)
     converted_modules = converter.convert_docspec_modules(modules)
+
+    new_root = factory.ApiObjectsRoot()
     new_root.root_modules.extend(converted_modules)
-    post_processor = postprocessor.PostProcessor.default()
+    
     post_processor.post_process(new_root)
 
     return new_root.root_modules if not root else new_root # type:ignore[bad-return-type]

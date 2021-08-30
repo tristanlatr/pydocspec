@@ -1,7 +1,7 @@
 """
 Create customizable docspec classes. 
 """
-from typing import List, Type, Any, Union
+from typing import List, Type, Any, Union, Sequence
 from typing_extensions import Literal
 from importlib import import_module
 import attr
@@ -53,7 +53,7 @@ class Factory:
         assert isinstance(mixins, list)
         mixins.append(mixin)
 
-    def _add_mixins(self, **kwargs:Union[List[Type[Any]], Type[Any]]) -> None:
+    def _add_mixins(self, **kwargs:Union[Sequence[Type[Any]], Type[Any]]) -> None:
         """
         Add mixin classes to objects in the factory. 
 
@@ -67,7 +67,7 @@ class Factory:
         @keyword Argument: Mixin types to apply to the argument object.
         """
         for key,value in kwargs.items():
-            if isinstance(value, list):
+            if isinstance(value, Sequence):
                 for item in value:
                     self._add_mixin(key, item) # type:ignore[arg-type]
             else:
