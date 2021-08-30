@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>pydocspec.converter._PostProcessVisitorFirst</title>
+    <title>pydocspec.postprocessor._PostProcessVisitorFirst</title>
     <meta name="generator" content="pydoctor 21.2.2"> 
         
     </meta>
@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class private"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.converter.html">converter</a></code><wbr></wbr>.<code><a href="pydocspec.converter._PostProcessVisitorFirst.html">_PostProcessVisitorFirst</a></code></code></h1>
+        <h1 class="class private"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.postprocessor.html">postprocessor</a></code><wbr></wbr>.<code><a href="pydocspec.postprocessor._PostProcessVisitorFirst.html">_PostProcessVisitorFirst</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,16 +65,16 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">_PostProcessVisitorFirst</span>(<span title="pydocspec.genericvisitor.Visitor[pydocspec.ApiObject]">genericvisitor.Visitor[pydocspec.ApiObject]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/converter.py#L158" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#pydocspec.converter._PostProcessVisitorFirst">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">_PostProcessVisitorFirst</span>(<span title="pydocspec.genericvisitor.Visitor[pydocspec.ApiObject]">genericvisitor.Visitor[pydocspec.ApiObject]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/postprocessor.py#L9" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#pydocspec.postprocessor._PostProcessVisitorFirst">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>Visitor responsible to set the <code><a href="pydocspec.ApiObject.html#root">pydocspec.ApiObject.root</a></code> attribute on all objects and register them in the {pydocspec.ApiObjectsRoot.all_objects} mapping. Which is the core to the name resolving system.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">This should be run first after creating a new <code><a href="pydocspec.html">pydocspec</a></code> tree, then <code><a href="pydocspec.converter._PostProcessVisitorSecond.html">_PostProcessVisitorSecond</a></code>.</td></tr></table></div>
+        <div><p>Visitor responsible to set the <code><a href="pydocspec.ApiObject.html#root">pydocspec.ApiObject.root</a></code> attribute on all objects and register them in the {pydocspec.ApiObjectsRoot.all_objects} mapping. Which is the core to the name resolving system.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">This should be run first after creating a new <code><a href="pydocspec.html">pydocspec</a></code> tree, then <code><a href="pydocspec.postprocessor._PostProcessVisitorSecond.html">_PostProcessVisitorSecond</a></code>.</td></tr></table></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id31">
+        <table class="children sortable" id="id48">
   
   
   <tr class="method">
@@ -104,7 +104,7 @@
         <div class="basemethod">
   
   
-  <a name="pydocspec.converter._PostProcessVisitorFirst.unknown_departure">
+  <a name="pydocspec.postprocessor._PostProcessVisitorFirst.unknown_departure">
     
   </a>
   <a name="unknown_departure">
@@ -113,7 +113,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_departure</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/converter.py#L173">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/postprocessor.py#L24">
       
       (source)
     </a>
@@ -126,7 +126,7 @@
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.converter._PostProcessVisitorFirst.unknown_visit">
+  <a name="pydocspec.postprocessor._PostProcessVisitorFirst.unknown_visit">
     
   </a>
   <a name="unknown_visit">
@@ -135,7 +135,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_visit</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/converter.py#L169">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/postprocessor.py#L20">
       
       (source)
     </a>
@@ -148,7 +148,7 @@
 </div><div class="baseinstancevariable">
   
   
-  <a name="pydocspec.converter._PostProcessVisitorFirst.root">
+  <a name="pydocspec.postprocessor._PostProcessVisitorFirst.root">
     
   </a>
   <a name="root">
@@ -157,7 +157,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">root</span>: <code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/converter.py#L167">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/postprocessor.py#L18">
       
       (source)
     </a>
@@ -177,7 +177,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-27 15:37:12.
+    21.2.2 at 2021-08-30 05:17:06.
   </div>
 </footer>
 

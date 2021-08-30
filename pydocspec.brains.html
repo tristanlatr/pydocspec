@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>pydocspec.dupsafedict</title>
+    <title>pydocspec.brains</title>
     <meta name="generator" content="pydoctor 21.2.2"> 
         
     </meta>
@@ -54,96 +54,83 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.dupsafedict.html">dupsafedict</a></code></code></h1>
+        <h1 class="package"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.brains.html">brains</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
       </div>
 
       <div class="categoryHeader">
-        module documentation
+        package documentation
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/dupsafedict.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/brains/__init__.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="undocumented">Undocumented</p></div>
+        <div><p>Submodules contains sets of mixin classes aplied to {ApiObject} in order to extends the functionalities for specific libraries.</p></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id43">
+        <table class="children sortable" id="id29">
   
   
-  <tr class="class">
+  <tr class="module">
     
-    <td>Class</td>
-    <td><code><a href="pydocspec.dupsafedict.DuplicateSafeDict.html">DuplicateSafeDict</a></code></td>
-    <td><span>Dictionnary that do not discard old objects when they are overriden, but instead, only updates a reference to the new object.</span></td>
-  </tr><tr class="variable private">
-    
-    <td>Variable</td>
-    <td><code><a href="#_KT">_KT</a></code></td>
+    <td>Module</td>
+    <td><code><a href="pydocspec.brains.attrs.html">attrs</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable private">
+  </tr><tr class="module">
     
-    <td>Variable</td>
-    <td><code><a href="#_VT">_VT</a></code></td>
+    <td>Module</td>
+    <td><code><a href="pydocspec.brains.dataclasses.html">dataclasses</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="module">
+    
+    <td>Module</td>
+    <td><code><a href="pydocspec.brains.zopeinterface.html">zopeinterface</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
 
-          
+          <p class="fromInitPy">From <code>__init__.py</code>:</p><table class="children sortable" id="id30">
+  
+  
+  <tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#get_all_brain_modules">get_all_brain_modules</a></code></td>
+    <td><span>Get the full names of all the "brain" modules included in <code><a href="pydocspec.html">pydocspec</a></code>.</span></td>
+  </tr>
+</table>
       </div>
 
       <div id="childList">
 
-        <div class="basevariable private">
+        <div class="basefunction">
   
   
-  <a name="pydocspec.dupsafedict._KT">
+  <a name="pydocspec.brains.get_all_brain_modules">
     
   </a>
-  <a name="_KT">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_KT</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/dupsafedict.py#L5">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable private">
-  
-  
-  <a name="pydocspec.dupsafedict._VT">
-    
-  </a>
-  <a name="_VT">
+  <a name="get_all_brain_modules">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">_VT</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/dupsafedict.py#L6">
+    <span class="py-keyword">def</span> <span class="py-defname">get_all_brain_modules</span>():
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/brains/__init__.py#L15">
       
       (source)
     </a>
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>Get the full names of all the "brain" modules included in <code><a href="pydocspec.html">pydocspec</a></code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 

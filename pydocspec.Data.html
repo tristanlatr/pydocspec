@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Data</span>(<span title="docspec.Data">docspec.Data</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L327" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Data</span>(<a href="docspec.Data.html" title="docspec.Data">docspec.Data</a>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L334" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.Data">View In Hierarchy</a></p>
       </div>
 
@@ -74,14 +74,14 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id45">
+        <table class="children sortable" id="id59">
   
   
   <tr class="classvariable">
     
     <td>Class Variable</td>
     <td><code><a href="#parent">parent</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</span></td>
   </tr><tr class="property">
     
     <td>Property</td>
@@ -95,11 +95,6 @@
   </tr><tr class="property">
     
     <td>Property</td>
-    <td><code><a href="#is_attrs_attribute">is_attrs_attribute</a></code></td>
-    <td><span>Whether this Data is an <code>attr.ib</code> attribute.</span></td>
-  </tr><tr class="property">
-    
-    <td>Property</td>
     <td><code><a href="#is_class_variable">is_class_variable</a></code></td>
     <td><span>Whether this Data is a class variable.</span></td>
   </tr><tr class="property">
@@ -107,11 +102,6 @@
     <td>Property</td>
     <td><code><a href="#is_constant">is_constant</a></code></td>
     <td><span>Whether this Data is a constant.</span></td>
-  </tr><tr class="property">
-    
-    <td>Property</td>
-    <td><code><a href="#is_dataclass_field">is_dataclass_field</a></code></td>
-    <td><span>Whether this Data is a <code><a href="https://docs.python.org/3/library/dataclasses.html#dataclasses.field">dataclasses.field</a></code> attribute.</span></td>
   </tr><tr class="property">
     
     <td>Property</td>
@@ -136,9 +126,77 @@
 </table>
         
           <p class="inheritedFrom">
+            Inherited from <code><a href="docspec.Data.html">Data</a></code>:
+          </p>
+          <table class="children sortable" id="id60">
+  
+  
+  <tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.Data.html#datatype">datatype</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.Data.html#value">value</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
+            Inherited from <code><a href="docspec.ApiObject.html">ApiObject</a></code> (via <code><a href="docspec.Data.html">Data</a></code>):
+          </p>
+          <table class="children sortable" id="id61">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#__post_init__">__post_init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#parent.setter">parent.setter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#sync_hierarchy">sync_hierarchy</a></code></td>
+    <td><span class="undocumented">No summary</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.ApiObject.html#docstring">docstring</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.ApiObject.html#location">location</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.ApiObject.html#name">name</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="docspec.ApiObject.html#path">path</a></code></td>
+    <td><span>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</span></td>
+  </tr><tr class="baseinstancevariable private">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="docspec.ApiObject.html#_parent">_parent</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>:
           </p>
-          <table class="children sortable" id="id46">
+          <table class="children sortable" id="id62">
   
   
   <tr class="basemethod">
@@ -229,6 +287,50 @@
   </tr>
 </table>
           
+          <p class="inheritedFrom">
+            Inherited from <code><a href="docspec.ApiObject.html">ApiObject</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>):
+          </p>
+          <table class="children sortable" id="id63">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#__post_init__">__post_init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#parent.setter">parent.setter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#sync_hierarchy">sync_hierarchy</a></code></td>
+    <td><span class="undocumented">No summary</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.ApiObject.html#docstring">docstring</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.ApiObject.html#name">name</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="docspec.ApiObject.html#path">path</a></code></td>
+    <td><span>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</span></td>
+  </tr><tr class="baseinstancevariable private">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="docspec.ApiObject.html#_parent">_parent</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
 
           
       </div>
@@ -247,15 +349,15 @@
   <div class="functionHeader">
     
     <span class="py-defname">parent</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>, <wbr></wbr><a href="pydocspec.Module.html">Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L331">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L338">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overrides <code><a href="pydocspec.ApiObject.html#parent">pydocspec.ApiObject.parent</a></code></div>
+    <div class="interfaceinfo">overrides <code><a href="docspec.ApiObject.html#parent">docspec.ApiObject.parent</a></code></div>
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</p></div>
   </div>
 </div><div class="baseproperty">
   
@@ -269,7 +371,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">datatype_ast</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L333">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L340">
       
       (source)
     </a>
@@ -291,7 +393,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_alias</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L387">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L374">
       
       (source)
     </a>
@@ -300,28 +402,6 @@
     
     
     <div><p>Whether this Data is an alias. Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.html#expand_name">ApiObject.expand_name</a></code>.</p></div>
-  </div>
-</div><div class="baseproperty">
-  
-  
-  <a name="pydocspec.Data.is_attrs_attribute">
-    
-  </a>
-  <a name="is_attrs_attribute">
-    
-  </a>
-  <div class="functionHeader">
-    @cached_property<br />
-    <span class="py-defname">is_attrs_attribute</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L367">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p>Whether this Data is an <code>attr.ib</code> attribute.</p></div>
   </div>
 </div><div class="baseproperty">
   
@@ -335,7 +415,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_class_variable</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L360">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L367">
       
       (source)
     </a>
@@ -357,7 +437,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_constant</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L405">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L392">
       
       (source)
     </a>
@@ -366,28 +446,6 @@
     
     
     <div><p>Whether this Data is a constant.</p><p>This checks two things:</p><ul><li>all-caps variable name</li><li>typing.Final annotation</li></ul></div>
-  </div>
-</div><div class="baseproperty">
-  
-  
-  <a name="pydocspec.Data.is_dataclass_field">
-    
-  </a>
-  <a name="is_dataclass_field">
-    
-  </a>
-  <div class="functionHeader">
-    @cached_property<br />
-    <span class="py-defname">is_dataclass_field</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L377">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p>Whether this Data is a <code><a href="https://docs.python.org/3/library/dataclasses.html#dataclasses.field">dataclasses.field</a></code> attribute.</p></div>
   </div>
 </div><div class="baseproperty">
   
@@ -401,7 +459,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_instance_variable</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L353">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L360">
       
       (source)
     </a>
@@ -423,7 +481,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_using_typing_final</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L416">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L403">
       
       (source)
     </a>
@@ -445,7 +503,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">value_ast</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L344">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L351">
       
       (source)
     </a>
@@ -467,7 +525,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">_alias_indirection</span>: <code><a href="pydocspec.Indirection.html">Indirection</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dce733c06ff0384647744065d6881ec0a691950a/pydocspec/__init__.py#L395">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L382">
       
       (source)
     </a>
@@ -487,7 +545,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-27 15:37:12.
+    21.2.2 at 2021-08-30 05:17:06.
   </div>
 </footer>
 
