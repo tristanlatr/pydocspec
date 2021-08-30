@@ -1,6 +1,7 @@
 import docspec
 from pydocspec import converter
 import pydocspec
+from pydocspec.brains import attrs, dataclasses
 
 from .fixtures import mod1
 
@@ -17,6 +18,13 @@ def test_converter_object_types(mod1: docspec.Module) -> None:
     assert isinstance(root.all_objects['a.foo.alias'], pydocspec.Data)
     assert isinstance(root.all_objects['a.foo.__init__'], pydocspec.Function)
     assert isinstance(root.all_objects['a.saila'], pydocspec.Data)
+
+    assert isinstance(root.all_objects['a.foo.val'], attrs.AttrsDataMixin)
+    assert isinstance(klass, attrs.AttrsClassMixin)
+
+    assert isinstance(root.all_objects['a.foo.val'], dataclasses.DataClassesDataMixin)
+    assert isinstance(klass, dataclasses.DataClassesClassMixin)
+
 
 def test_root_property(mod1: docspec.Module) -> None:
     root = converter.convert_docspec_modules([mod1])[0].root

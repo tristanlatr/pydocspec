@@ -2,6 +2,7 @@ from collections import OrderedDict
 from collections.abc import Mapping as abc_Mapping
 from typing import Any, Dict, Generic, Iterable, Iterator, List, Mapping, Optional, MutableMapping, Tuple, TypeVar, Union
 
+_KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
 
 # TODO: Would be good that this mapping object extends WeakValueDictionary such that references are deleted 

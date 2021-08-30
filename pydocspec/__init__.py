@@ -2,7 +2,7 @@
 Extends docspec for the python language, offers facility to resolve names and provides additional informations. 
 """
 
-from typing import Iterator, List, Mapping, Optional, Union, Type, Any, Iterable
+from typing import ClassVar, Iterator, List, Mapping, Optional, Union, Type, Any, Iterable, TYPE_CHECKING, cast
 import ast
 import inspect
 import warnings
@@ -13,11 +13,12 @@ from cached_property import cached_property
 
 import docspec
 
-from . import astutils
-
+from . import astutils, genericvisitor
 from .dottedname import DottedName
 from .dupsafedict import DuplicateSafeDict
-from . import genericvisitor
+
+if TYPE_CHECKING:
+    from . import specfactory
 
 __all__ = [
   'ApiObjectsRoot',
@@ -38,6 +39,7 @@ __all__ = [
 #   'get_member',
 ]
 
+# TODO: Create a customizable Location attribute.
 Location = docspec.Location
 
 _RESOLVE_ALIAS_MAX_RECURSE = 5
@@ -62,6 +64,12 @@ class ApiObjectsRoot:
     All objects of the tree in a mapping C{full_name} -> L{ApiObject}.
     
     @note: Special care is taken in order no to shadow objects with duplicate names, see L{DuplicateSafeDict}.
+    """
+
+    # This class variable is set from Factory itself.
+    factory: ClassVar['specfactory.Factory'] = cast('specfactory.Factory', None)
+    """
+    The factory used to create this collection of objects.
     """
 
 class ApiObject(docspec.ApiObject):
@@ -319,10 +327,9 @@ class ApiObject(docspec.ApiObject):
         Perform a tree traversal similarly to L{walk()}, except also call the L{genericvisitor.Visitor.depart} 
         method before exiting each node.
 
-        @see L{genericvisitor.walkabout} for more details.
+        @see: L{genericvisitor.walkabout} for more details.
         """
         genericvisitor.walkabout(self, visitor, ApiObject._members)
-      
 
 class Data(docspec.Data, ApiObject):
     """
@@ -363,26 +370,6 @@ class Data(docspec.Data, ApiObject):
         Whether this Data is a class variable.
         """
         ...
-
-    @cached_property
-    def is_attrs_attribute(self) -> bool:
-        """
-        Whether this Data is an L{attr.ib} attribute.
-        """
-        return isinstance(self.value_ast, ast.Call) and \
-            astutils.node2fullname(self.value_ast.func, self) in (
-                'attr.ib', 'attr.attrib', 'attr.attr'
-                )
-    
-    @cached_property
-    def is_dataclass_field(self) -> bool:
-        """
-        Whether this Data is a L{dataclasses.field} attribute.
-        """
-        return isinstance(self.value_ast, ast.Call) and \
-            astutils.node2fullname(self.value_ast.func, self) in (
-                'dataclasses.field',
-                )
     
     @cached_property
     def is_alias(self) -> bool:
@@ -451,7 +438,7 @@ class Class(docspec.Class, ApiObject):
     def __post_init__(self) -> None:
         docspec.Class.__post_init__(self)
 
-        # sub classes need to be manually added once the tree has been built, see PostProcessVisitor.
+        # sub classes need to be manually added once the tree has been built, see _PostProcessVisitorSecond.
         self.sub_classes: List['Class'] = []
         
         # help mypy
@@ -465,7 +452,7 @@ class Class(docspec.Class, ApiObject):
         """
         For each bases, try to resolve the name to an L{ApiObject} or fallback to the expanded name.
         
-        @see: `resolve_name` and `expand_name`
+        @see: L{resolve_name} and L{expand_name}
         """
         objs = []
         for base in self.bases or ():
@@ -563,17 +550,30 @@ class Class(docspec.Class, ApiObject):
         A mapping of constructor parameter names to their type annotation.
         If a parameter is not annotated, its value is L{None}.
 
-        @note: The implementation currently relies on inspecting the C{__init__} method only.
-            If C{__new__} or L{__call__} methods are defined, this information might be incorrect.
+        @note: The implementation relies on inspecting the C{self.constructor_method} object.
         """
-        init_method = self.get_member('__init__')
-        if isinstance(init_method, Function):
+        init_method = self.constructor_method
+        if init_method is not None:
             args = {}
             for arg in init_method.args:
                 args[arg.name] = arg.datatype_ast
             return args
         else:
             return {'self': None}
+    
+    @cached_property
+    def constructor_method(self) -> Optional['Function']:
+        """
+        Get the constructor method of this class.
+
+        @note: The implementation currently returns the C{__init__} method only.
+            If C{__new__} or L{__call__} methods are defined, this information might be incorrect.
+        """
+        init_method = self.get_member('__init__')
+        if isinstance(init_method, Function):
+            return init_method
+        else:
+            return None
     
     # List of exceptions class names in the standard library, Python 3.8.10
     _exceptions = ('ArithmeticError', 'AssertionError', 'AttributeError', 
@@ -604,30 +604,6 @@ class Class(docspec.Class, ApiObject):
         for base in self.all_bases(True):
             if base in self._exceptions:
                 return True
-        return False
-    
-    @cached_property
-    def dataclass_decoration(self) -> Optional['Decoration']:
-        """The L{dataclass} decoration of this class, if any."""
-        for deco in self.decorations or ():
-            if astutils.node2fullname(deco.name_ast, self.parent) in ('dataclasses.dataclass',):
-                return deco
-        return None
-
-    @cached_property
-    def attrs_decoration(self) -> Optional['Decoration']:
-        """The L{attr.s} decoration of this class, if any."""
-        for deco in self.decorations or ():
-            if astutils.node2fullname(deco.name_ast, self.parent) in ('attr.s', 'attr.attrs', 'attr.attributes'):
-                return deco
-        return None
-
-    @cached_property
-    def uses_attrs_auto_attribs(self) -> bool:
-        """Does the C{attr.s()} decoration contain C{auto_attribs=True}?"""
-        attrs_deco = self.attrs_decoration
-        if attrs_deco is not None and isinstance(attrs_deco.expr_ast, ast.Call):
-            return astutils.uses_auto_attribs(attrs_deco.expr_ast, self)
         return False
 
 class Function(docspec.Function, ApiObject):
@@ -844,8 +820,6 @@ class Module(docspec.Module, ApiObject):
         
         return value
 
-class zopedocspec:
-    ...
 
 HasMembers = (Module, Class)
 """
