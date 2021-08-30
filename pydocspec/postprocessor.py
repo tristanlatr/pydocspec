@@ -108,7 +108,7 @@ class PostProcessor:
         else:
             mod = module
         if hasattr(mod, 'POST_PROCESSES'):
-            post_process_definitions = mod.POST_PROCESSES
+            post_process_definitions = mod.POST_PROCESSES # type:ignore[attr-defined]
             assert isinstance(post_process_definitions, dict), f"{mod}.POST_PROCESSES should be a dict, not {type(post_process_definitions)}."
             if any(post_process_definitions.values()):
                 self.post_processes.update(post_process_definitions)
