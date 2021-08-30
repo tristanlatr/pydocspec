@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">ApiObject</span>(<a href="docspec.ApiObject.html" title="docspec.ApiObject">docspec.ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L75" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Class.html">pydocspec.Class</a></code>, <code><a href="pydocspec.Data.html">pydocspec.Data</a></code>, <code><a href="pydocspec.Function.html">pydocspec.Function</a></code>, <code><a href="pydocspec.Indirection.html">pydocspec.Indirection</a></code>, <code><a href="pydocspec.Module.html">pydocspec.Module</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ApiObject</span>(<span title="docspec.ApiObject">docspec.ApiObject</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L75" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Class.html">pydocspec.Class</a></code>, <code><a href="pydocspec.Data.html">pydocspec.Data</a></code>, <code><a href="pydocspec.Function.html">pydocspec.Function</a></code>, <code><a href="pydocspec.Indirection.html">pydocspec.Indirection</a></code>, <code><a href="pydocspec.Module.html">pydocspec.Module</a></code></p>
         <p><a href="classIndex.html#pydocspec.ApiObject">View In Hierarchy</a></p>
       </div>
 
@@ -116,7 +116,7 @@
     
     <td>Class Variable</td>
     <td><code><a href="#parent">parent</a></code></td>
-    <td><span>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</span></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
@@ -170,50 +170,6 @@
   </tr>
 </table>
         
-          <p class="inheritedFrom">
-            Inherited from <code><a href="docspec.ApiObject.html">ApiObject</a></code>:
-          </p>
-          <table class="children sortable" id="id58">
-  
-  
-  <tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="docspec.ApiObject.html#__post_init__">__post_init__</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="docspec.ApiObject.html#parent.setter">parent.setter</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="docspec.ApiObject.html#sync_hierarchy">sync_hierarchy</a></code></td>
-    <td><span class="undocumented">No summary</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="docspec.ApiObject.html#docstring">docstring</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="docspec.ApiObject.html#name">name</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseproperty">
-    
-    <td>Property</td>
-    <td><code><a href="docspec.ApiObject.html#path">path</a></code></td>
-    <td><span>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</span></td>
-  </tr><tr class="baseinstancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="docspec.ApiObject.html#_parent">_parent</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr>
-</table>
-          
 
           
       </div>
@@ -232,7 +188,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">expand_name</span>(self, name, follow_aliases=True, _indirections=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L169">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L169">
       
       (source)
     </a>
@@ -272,7 +228,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_member</span>(self, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L144">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L144">
       
       (source)
     </a>
@@ -294,7 +250,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_members</span>(self, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L159">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L159">
       
       (source)
     </a>
@@ -316,7 +272,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">resolve_name</span>(self, name, follow_aliases=True):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L241">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L241">
       
       (source)
     </a>
@@ -338,7 +294,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walk</span>(self, visitor):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L316">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L316">
       
       (source)
     </a>
@@ -360,7 +316,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walkabout</span>(self, visitor):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L325">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L325">
       
       (source)
     </a>
@@ -382,13 +338,13 @@
   <div class="functionHeader">
     
     <span class="py-defname">location</span>: <code><a href="docspec.Location.html">Location</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L82">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L82">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overrides <code><a href="docspec.ApiObject.html#location">docspec.ApiObject.location</a></code></div>
+    
     
     <div><p class="undocumented">Undocumented</p></div>
   </div>
@@ -404,15 +360,15 @@
   <div class="functionHeader">
     
     <span class="py-defname">parent</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>, <wbr></wbr><a href="pydocspec.Module.html">Module</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L81">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L81">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overrides <code><a href="docspec.ApiObject.html#parent">docspec.ApiObject.parent</a></code></div><div class="interfaceinfo">overridden in <code><a href="pydocspec.Class.html">pydocspec.Class</a></code>, <code><a href="pydocspec.Data.html">pydocspec.Data</a></code>, <code><a href="pydocspec.Function.html">pydocspec.Function</a></code></div>
+    <div class="interfaceinfo">overridden in <code><a href="pydocspec.Class.html">pydocspec.Class</a></code>, <code><a href="pydocspec.Data.html">pydocspec.Data</a></code>, <code><a href="pydocspec.Function.html">pydocspec.Function</a></code></div>
     
-    <div><p>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</p></div>
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
   
@@ -426,7 +382,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">root</span>: <code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L85">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L85">
       
       (source)
     </a>
@@ -448,7 +404,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">doc_sources</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L115">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L115">
       
       (source)
     </a>
@@ -470,7 +426,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">dotted_name</span>: <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L100">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L100">
       
       (source)
     </a>
@@ -492,7 +448,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">full_name</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L107">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L107">
       
       (source)
     </a>
@@ -514,7 +470,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">module</span>: <code><a href="pydocspec.Module.html">Module</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L133">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L133">
       
       (source)
     </a>
@@ -536,7 +492,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">root_module</span>: <code><a href="pydocspec.Module.html">Module</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L90">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L90">
       
       (source)
     </a>
@@ -558,7 +514,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_local_to_full_name</span>(self, name, follow_aliases, _indirections=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L250">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L250">
       
       (source)
     </a>
@@ -580,7 +536,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_members</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L312">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L312">
       
       (source)
     </a>
@@ -602,7 +558,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_resolve_indirection</span>(self, indirection, _indirections=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L270">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L270">
       
       (source)
     </a>
@@ -624,7 +580,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_warns</span>(self, msg):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4d65231882e8f64507d6c82cc1d2c9030aa366c4/pydocspec/__init__.py#L308">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/dc141a7b7f9fa7ce5d77a52df341d38197b4c4fb/pydocspec/__init__.py#L308">
       
       (source)
     </a>
@@ -644,7 +600,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-30 05:17:06.
+    21.2.2 at 2021-08-30 13:46:35.
   </div>
 </footer>
 
