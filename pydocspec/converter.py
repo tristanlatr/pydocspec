@@ -25,7 +25,7 @@ import attr
 
 import docspec
 import pydocspec
-from pydocspec import dottedname, genericvisitor, specfactory, postprocessor
+from pydocspec import dottedname, genericvisitor, specfactory, postprocessor, loader
 
 @overload
 def convert_docspec_modules(modules: Iterable[docspec.Module], root:Literal[True], additional_brain_modules:Optional[List[str]]=None) -> pydocspec.ApiObjectsRoot: ... # type:ignore[invalid-annotation]
@@ -62,38 +62,10 @@ def convert_docspec_modules(modules: Iterable[docspec.Module], root:bool=False, 
     return new_root.root_modules if not root else new_root # type:ignore[bad-return-type]
 
 @attr.s(auto_attribs=True)
-class _ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
+class _ConverterVisitor(loader.BaseBuilder, genericvisitor.Visitor[docspec.ApiObject]):
     """
     Visit each C{docspec} objects of a module and create their C{pydocspec} augmented counterparts.
     """
-    converter: '_Converter'
-
-    converted_module: pydocspec.Module = attr.ib(default=None, init=False)
-    """
-    The new converted module.
-    """
-
-    _current : pydocspec.ApiObject = attr.ib(default=None, init=False)
-    _stack: List[pydocspec.ApiObject] = attr.ib(factory=list, init=False)
-
-    def push(self, ob: pydocspec.ApiObject) -> None:
-        self._stack.append(self._current)
-        self._current = ob
-
-    def pop(self, ob: pydocspec.ApiObject) -> None:
-        self._current = self._stack.pop()
-    
-    def enter_object(self, ob: pydocspec.ApiObject) -> None:
-
-        if self._current:
-            assert isinstance(self._current, pydocspec.HasMembers)
-            self._current.members.append(ob)
-            self._current.sync_hierarchy(self._current.parent)
-        else:
-            assert isinstance(ob, pydocspec.Module)
-            self.converted_module = ob
-        
-        self.push(ob)
     
     def unknown_departure(self, obj: docspec.ApiObject) -> None:
         obj_full_name = str(dottedname.DottedName(*(o.name for o in obj.path)))
@@ -106,7 +78,7 @@ class _ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
         # convert arguments
         args: List[docspec.Argument] = []
         for a in function.args:
-            new_arg = self.converter.factory.Argument(name=a.name, type=a.type, 
+            new_arg = self.factory.Argument(name=a.name, type=a.type, 
                                         decorations=None, datatype=a.datatype, 
                                         default_value=a.default_value, )
             args.append(new_arg)
@@ -115,57 +87,57 @@ class _ConverterVisitor(genericvisitor.Visitor[docspec.ApiObject]):
         if function.decorations is not None:
             decos: Optional[List[docspec.Decoration]] = []
             for d in function.decorations:
-                new_deco = self.converter.factory.Decoration(d.name, d.args)
+                new_deco = self.factory.Decoration(d.name, d.args)
                 decos.append(new_deco) #type:ignore[union-attr]
         else:
             decos = None
             
-        ob = self.converter.factory.Function(name=function.name, location=function.location,
+        ob = self.factory.Function(name=function.name, location=function.location,
                                      docstring=function.docstring, 
                                      modifiers=function.modifiers,
                                      return_type=function.return_type,
                                      args=args,
                                      decorations=decos, )
-        self.enter_object(ob)
+        self.add_object(ob)
     
     def visit_Class(self, klass: docspec.Class) -> None:
         if klass.decorations is not None:
             decos: Optional[List[docspec.Decoration]] = []
             for d in klass.decorations:
-                converted = self.converter.factory.Decoration(d.name, d.args)
+                converted = self.factory.Decoration(d.name, d.args)
             decos.append(converted) #type:ignore[union-attr]
         else:
             decos = None
-        ob = self.converter.factory.Class(name=klass.name, 
+        ob = self.factory.Class(name=klass.name, 
             location=klass.location, 
             docstring=klass.docstring, 
             bases=klass.bases,
             decorations=decos,
             metaclass=klass.metaclass,
             members=[], )
-        self.enter_object(ob)
+        self.add_object(ob)
     
     def visit_Data(self, data: docspec.Data) -> None:
-        ob = self.converter.factory.Data(name=data.name, 
+        ob = self.factory.Data(name=data.name, 
             location=data.location, 
             docstring=data.docstring, 
             datatype=data.datatype, 
             value=data.value, )
-        self.enter_object(ob)
+        self.add_object(ob)
     
     def visit_Indirection(self, indirection: docspec.Indirection) -> None:
-        ob = self.converter.factory.Indirection(name=indirection.name, 
+        ob = self.factory.Indirection(name=indirection.name, 
             location=indirection.location, 
             docstring=indirection.docstring, 
             target=indirection.target, )
-        self.enter_object(ob)
+        self.add_object(ob)
     
     def visit_Module(self, module: docspec.Module) -> None:
-        ob = self.converter.factory.Module(name=module.name, 
+        ob = self.factory.Module(name=module.name, 
             location=module.location,
             docstring=module.docstring, 
             members=[], )
-        self.enter_object(ob)
+        self.add_object(ob)
 
 
 @attr.s(auto_attribs=True)
@@ -178,8 +150,6 @@ class _Converter:
     """
     factory: specfactory.Factory
 
-    ConverterVisitor = _ConverterVisitor
-
     def convert_docspec_modules(self, modules: Iterable[docspec.Module]) -> Iterator[pydocspec.Module]:
         """
         Convert L{docspec.Module}s to the L{ApiObjectsRoot} instance.
@@ -188,11 +158,12 @@ class _Converter:
             yield self._convert_docspec_module(mod)
 
     def _convert_docspec_module(self, mod: docspec.Module) -> pydocspec.Module:
-        v = self.ConverterVisitor(self)
+        v = _ConverterVisitor(self.factory)
+        
         genericvisitor.walkabout(mod, v, 
             get_children=lambda ob: ob.members if isinstance(ob, docspec.HasMembers) else ())
-        return v.converted_module
-    
+        
+        return v.module
 
 #
 # Code for nesting docspec modules
