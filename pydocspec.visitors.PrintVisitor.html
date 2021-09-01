@@ -65,23 +65,29 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">PrintVisitor</span>(<span title="pydocspec.genericvisitor.Visitor[ApiObject]">genericvisitor.Visitor[ApiObject]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/visitors.py#L54" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">PrintVisitor</span>(<span title="pydocspec.genericvisitor.Visitor[ApiObject]">genericvisitor.Visitor[ApiObject]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/visitors.py#L54" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.visitors.PrintVisitor">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="pre">Visit objects and print each object with the defined format string. 
-Available substitutions are: 
-  - "{obj_type}" (colored)
-  - "{obj_name}"
-  - "{obj_docstring}"
-  - "{obj_lineno}"
-  - "{obj_filename}"
-The default format string is: ":{obj_lineno} - {obj_type}: {obj_name}"
-
-Usage::
-  module: pydocspec.Module
-  module.walk(PrintVisitor())</p></div>
+        <div><p>Visit objects and print each object with the defined format string.
+Available substitutions are:</p>
+<blockquote>
+<ul class="rst-simple">
+<li>"{obj_type}" (colored)</li>
+<li>"{obj_name}"</li>
+<li>"{obj_docstring}"</li>
+<li>"{obj_lineno}"</li>
+<li>"{obj_filename}"</li>
+</ul>
+</blockquote>
+<p>The default format string is: ":{obj_lineno} - {obj_type}: {obj_name}"</p>
+<dl class="rst-docutils">
+<dt>Usage::</dt>
+<dd>module: pydocspec.Module
+module.walk(PrintVisitor())</dd>
+</dl>
+</div>
       </div>
 
       <div id="splitTables">
@@ -139,7 +145,7 @@ Usage::
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, formatstr=':{obj_lineno} - {obj_type}: {obj_name}', colorize=True):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/visitors.py#L78">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/visitors.py#L78">
       
       (source)
     </a>
@@ -161,7 +167,7 @@ Usage::
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_departure</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/visitors.py#L94">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/visitors.py#L94">
       
       (source)
     </a>
@@ -183,7 +189,7 @@ Usage::
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_visit</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/visitors.py#L83">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/visitors.py#L83">
       
       (source)
     </a>
@@ -205,7 +211,7 @@ Usage::
   <div class="functionHeader">
     
     <span class="py-defname">colorize</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/visitors.py#L81">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/visitors.py#L81">
       
       (source)
     </a>
@@ -227,7 +233,7 @@ Usage::
   <div class="functionHeader">
     
     <span class="py-defname">formatstr</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/visitors.py#L80">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/visitors.py#L80">
       
       (source)
     </a>
@@ -249,7 +255,7 @@ Usage::
   <div class="functionHeader">
     
     <span class="py-defname">_COLOR_MAP</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/visitors.py#L70">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/visitors.py#L70">
       
       (source)
     </a>
@@ -269,7 +275,7 @@ Usage::
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-01 20:40:05.
+    21.2.2 at 2021-09-01 20:52:40.
   </div>
 </footer>
 

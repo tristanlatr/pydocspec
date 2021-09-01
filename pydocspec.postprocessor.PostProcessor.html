@@ -65,21 +65,19 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">PostProcessor</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/postprocessor.py#L56" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">PostProcessor</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/postprocessor.py#L56" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.postprocessor.PostProcessor">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="pre">Apply post processing to a newly created `pydocspec.ApiObjectsRoot` instance. 
-
-At the point of the post processing, the root `pydocspec.Module` instances should have 
-already been added to the `pydocspec.ApiObjectsRoot.root_modules` attribute.
-
-Post-processes are applied when there are no more unprocessed modules.
-
-Analysis of relations between documentables should be done in a post-process,
+        <div><p>Apply post processing to a newly created <code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code> instance.</p>
+<p>At the point of the post processing, the root <code><a href="pydocspec.Module.html">pydocspec.Module</a></code> instances should have
+already been added to the <code><a href="pydocspec.ApiObjectsRoot.html#root_modules">pydocspec.ApiObjectsRoot.root_modules</a></code> attribute.</p>
+<p>Post-processes are applied when there are no more unprocessed modules.</p>
+<p>Analysis of relations between documentables should be done in a post-process,
 without the risk of drawing incorrect conclusions because modules
-were not fully processed yet.</p></div>
+were not fully processed yet.</p>
+</div>
       </div>
 
       <div id="splitTables">
@@ -95,17 +93,17 @@ were not fully processed yet.</p></div>
     
     <td>Method</td>
     <td><code><a href="#import_post_processes_from">import_post_processes_from</a></code></td>
-    <td><span>Will look for the special mapping ``POST_PROCESSES`` in the provided module.</span></td>
+    <td><span>Will look for the special mapping <tt class="rst-docutils literal">POST_PROCESSES</tt> in the provided module.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#post_process">post_process</a></code></td>
-    <td><span>Apply post process on newly created `pydocspec` tree. This is required.</span></td>
+    <td><span>Apply post process on newly created <code><a href="pydocspec.html">pydocspec</a></code> tree. This is required.</span></td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="#post_processes">post_processes</a></code></td>
-    <td><span>A post process is a function of the following form::</span></td>
+    <td><span>A post process is a function of the following form:</span></td>
   </tr>
 </table>
         
@@ -127,7 +125,7 @@ were not fully processed yet.</p></div>
   <div class="functionHeader">
     @classmethod<br />
     <span class="py-keyword">def</span> <span class="py-defname">default</span>(cls):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/postprocessor.py#L79">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/postprocessor.py#L79">
       
       (source)
     </a>
@@ -149,7 +147,7 @@ were not fully processed yet.</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">import_post_processes_from</span>(self, module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/postprocessor.py#L88">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/postprocessor.py#L88">
       
       (source)
     </a>
@@ -157,7 +155,7 @@ were not fully processed yet.</p></div>
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Will look for the special mapping ``POST_PROCESSES`` in the provided module.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Will look for the special mapping <tt class="rst-docutils literal">POST_PROCESSES</tt> in the provided module.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -171,7 +169,7 @@ were not fully processed yet.</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">post_process</span>(self, root):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/postprocessor.py#L106">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/postprocessor.py#L106">
       
       (source)
     </a>
@@ -179,14 +177,10 @@ were not fully processed yet.</p></div>
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Apply post process on newly created `pydocspec` tree. This is required.
-
-.. python::
-
-    root: pydocspec.ApiObjectsRoot
-    postprocessor.PostProcessor.default().post_process(root)
-
-:note: If you are creating a tree manually, you should run this on your tree as well. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Apply post process on newly created <code><a href="pydocspec.html">pydocspec</a></code> tree. This is required.</p>
+<pre class="py-doctest">
+root: pydocspec.ApiObjectsRoot
+postprocessor.PostProcessor.default().post_process(root)</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">If you are creating a tree manually, you should run this on your tree as well.</td></tr></table></div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -200,7 +194,7 @@ were not fully processed yet.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">post_processes</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#float">float</a>, <wbr></wbr><a href="pydocspec.postprocessor.html#PostProcess">PostProcess</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/postprocessor.py#L72">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/postprocessor.py#L72">
       
       (source)
     </a>
@@ -208,9 +202,11 @@ were not fully processed yet.</p></div>
   <div class="functionBody">
     
     
-    <div><p class="pre">A post process is a function of the following form::
-
-    (root: pydocspec.ApiObjectsRoot) -&gt; None</p></div>
+    <div><p>A post process is a function of the following form:</p>
+<pre class="rst-literal-block">
+(root: pydocspec.ApiObjectsRoot) -&gt; None
+</pre>
+</div>
   </div>
 </div>
 
@@ -222,7 +218,7 @@ were not fully processed yet.</p></div>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-01 20:40:05.
+    21.2.2 at 2021-09-01 20:52:40.
   </div>
 </footer>
 

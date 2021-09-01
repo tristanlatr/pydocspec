@@ -65,40 +65,34 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="pre">This is ``pydocspec``.
-
-**Warning**:
-
-Work in progress... API might change without deprecation notice.
-
-**Usage**:
-
-At the current stage of developments, the only entrypoint of ``pydocspec`` is `converter.convert_docspec_modules`. 
-
-**Extensibility**:
-
-The core of the logic is design to be extensible with plugins modules, called "brain" modules. One can define custom
-mixin classes and post-processes in a new module, add the special ``MIXIN_CLASSES`` and/or ``POST_PROCESSES`` module 
-variables, then include the module's full name as part of the ``additional_brain_modules`` argument of function `converter.convert_docspec_modules`. 
-
-Discovered mixin classes are going to be dynamically added to the list of bases when creating the new objects with the 
-`specfactory.Factory`. Because of that, the documentation of the classes listed in this module are incomplete, properties
-and methods provided by mixin classes can be review in their respective documentation, under the package `brains`.
-
-The ``MIXIN_CLASSES`` variable holds a dictionary from the name of the base class to a list of mixin classes 
-(or only one mixin class)::
-
-    MIXIN_CLASSES: Dict[str, Union[Sequence[Type], Type]]
-
-The ``POST_PROCESSES`` variable holds a dictionary from the priority of execution of the post process (should be greater than 1.0)
-to a post-process. A post-process beeing a one-argument callable taking a `ApiObjectsRoot` instance::
-
-    POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]</p></div>
+        <div><p>This is <tt class="rst-docutils literal">pydocspec</tt>.</p>
+<p><strong>Warning</strong>:</p>
+<p>Work in progress... API might change without deprecation notice.</p>
+<p><strong>Usage</strong>:</p>
+<p>At the current stage of developments, the only entrypoint of <tt class="rst-docutils literal">pydocspec</tt> is <code><a href="pydocspec.converter.html#convert_docspec_modules">converter.convert_docspec_modules</a></code>.</p>
+<p><strong>Extensibility</strong>:</p>
+<p>The core of the logic is design to be extensible with plugins modules, called "brain" modules. One can define custom
+mixin classes and post-processes in a new module, add the special <tt class="rst-docutils literal">MIXIN_CLASSES</tt> and/or <tt class="rst-docutils literal">POST_PROCESSES</tt> module
+variables, then include the module's full name as part of the <tt class="rst-docutils literal">additional_brain_modules</tt> argument of function <code><a href="pydocspec.converter.html#convert_docspec_modules">converter.convert_docspec_modules</a></code>.</p>
+<p>Discovered mixin classes are going to be dynamically added to the list of bases when creating the new objects with the
+<code><a href="pydocspec.specfactory.Factory.html">specfactory.Factory</a></code>. Because of that, the documentation of the classes listed in this module are incomplete, properties
+and methods provided by mixin classes can be review in their respective documentation, under the package <code><a href="pydocspec.brains.html">brains</a></code>.</p>
+<p>The <tt class="rst-docutils literal">MIXIN_CLASSES</tt> variable holds a dictionary from the name of the base class to a list of mixin classes
+(or only one mixin class):</p>
+<pre class="rst-literal-block">
+MIXIN_CLASSES: Dict[str, Union[Sequence[Type], Type]]
+</pre>
+<p>The <tt class="rst-docutils literal">POST_PROCESSES</tt> variable holds a dictionary from the priority of execution of the post process (should be greater than 1.0)
+to a post-process. A post-process beeing a one-argument callable taking a <code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance:</p>
+<pre class="rst-literal-block">
+POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
+</pre>
+</div>
       </div>
 
       <div id="splitTables">
@@ -114,12 +108,12 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
     
     <td>Module</td>
     <td><code><a href="pydocspec.astutils.html">astutils</a></code></td>
-    <td><span>Various bits of reusable code related to `ast.AST` node processing.</span></td>
+    <td><span>Various bits of reusable code related to <code><a href="https://docs.python.org/3/library/ast.html#ast.AST">ast.AST</a></code> node processing.</span></td>
   </tr><tr class="module">
     
     <td>Module</td>
     <td><code><a href="pydocspec.converter.html">converter</a></code></td>
-    <td><span>Convert `docspec` objects to their `pydocspec` augmented version.</span></td>
+    <td><span>Convert <code><a href="docspec.html">docspec</a></code> objects to their <code><a href="pydocspec.html">pydocspec</a></code> augmented version.</span></td>
   </tr><tr class="module">
     
     <td>Module</td>
@@ -154,7 +148,7 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
     
     <td>Module</td>
     <td><code><a href="pydocspec.visitors.html">visitors</a></code></td>
-    <td><span>Useful visitors for `pydocspec.ApiObject` instances.</span></td>
+    <td><span>Useful visitors for <code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code> instances.</span></td>
   </tr>
 </table>
         
@@ -166,17 +160,17 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
     
     <td>Class</td>
     <td><code><a href="pydocspec.ApiObject.html">ApiObject</a></code></td>
-    <td><span>An augmented `docspec.ApiObject`, with functionalities to resolve names for the python language.</span></td>
+    <td><span>An augmented <code><a href="docspec.ApiObject.html">docspec.ApiObject</a></code>, with functionalities to resolve names for the python language.</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
     <td><code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code></td>
-    <td><span>Root of the tree. Special object that provides a single view on all `ApiObject`s in the tree and root modules.</span></td>
+    <td><span>Root of the tree. Special object that provides a single view on all <a href="#id1"><span class="rst-problematic" id="rst-id2">`</span></a>ApiObject`s in the tree and root modules.</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
     <td><code><a href="pydocspec.Argument.html">Argument</a></code></td>
-    <td><span>Represents a `Function` argument.</span></td>
+    <td><span>Represents a <code><a href="pydocspec.Function.html">Function</a></code> argument.</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -191,7 +185,7 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
     
     <td>Class</td>
     <td><code><a href="pydocspec.Decoration.html">Decoration</a></code></td>
-    <td><span>Represents a decorator on a `Class` or `Function`.</span></td>
+    <td><span>Represents a decorator on a <code><a href="pydocspec.Class.html">Class</a></code> or <code><a href="pydocspec.Function.html">Function</a></code>.</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -211,12 +205,12 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
     
     <td>Variable</td>
     <td><code><a href="#HasMembers">HasMembers</a></code></td>
-    <td><span>Alias to use with `isinstance`()</span></td>
+    <td><span>Alias to use with <a href="#id1"><span class="rst-problematic" id="rst-id2">`</span></a>isinstance`()</span></td>
   </tr><tr class="variable">
     
     <td>Variable</td>
     <td><code><a href="#Inheritable">Inheritable</a></code></td>
-    <td><span>Alias to use with `isinstance`()</span></td>
+    <td><span>Alias to use with <a href="#id1"><span class="rst-problematic" id="rst-id2">`</span></a>isinstance`()</span></td>
   </tr><tr class="variable private">
     
     <td>Variable</td>
@@ -240,7 +234,7 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
   <div class="functionHeader">
     
     <span class="py-defname">_RESOLVE_ALIAS_MAX_RECURSE</span>: <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L76">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L76">
       
       (source)
     </a>
@@ -262,7 +256,7 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
   <div class="functionHeader">
     
     <span class="py-defname">HasMembers</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L890">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L890">
       
       (source)
     </a>
@@ -270,7 +264,7 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
   <div class="functionBody">
     
     
-    <div><p class="pre">Alias to use with `isinstance`()</p></div>
+    <div>Alias to use with <a href="#id1"><span class="rst-problematic" id="rst-id2">`</span></a>isinstance`()</div>
   </div>
 </div><div class="basevariable">
   
@@ -284,7 +278,7 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
   <div class="functionHeader">
     
     <span class="py-defname">Inheritable</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L895">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L895">
       
       (source)
     </a>
@@ -292,7 +286,7 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
   <div class="functionBody">
     
     
-    <div><p class="pre">Alias to use with `isinstance`()</p></div>
+    <div>Alias to use with <a href="#id1"><span class="rst-problematic" id="rst-id2">`</span></a>isinstance`()</div>
   </div>
 </div>
 
@@ -304,7 +298,7 @@ to a post-process. A post-process beeing a one-argument callable taking a `ApiOb
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-01 20:40:05.
+    21.2.2 at 2021-09-01 20:52:40.
   </div>
 </footer>
 

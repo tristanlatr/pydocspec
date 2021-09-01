@@ -65,36 +65,36 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">DuplicateSafeDict</span>(<span title="MutableMapping[str, _VT]">MutableMapping[str, _VT]</span>, <span title="Generic[_VT]">Generic[_VT]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L13" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">DuplicateSafeDict</span>(<span title="MutableMapping[str, _VT]">MutableMapping[str, _VT]</span>, <span title="Generic[_VT]">Generic[_VT]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L13" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.dupsafedict.DuplicateSafeDict">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="pre">Dictionnary that do not discard old objects when they are overriden, but instead, 
-only updates a reference to the new object. 
-
-Duplicate values can be fetched with methods `getall`, `getdup` and `allitems`.
-
-&gt;&gt;&gt; d = DuplicateSafeDict(me='bob', you='claudia')
-&gt;&gt;&gt; d['me'] = 'james'
-&gt;&gt;&gt; d['me'] = 'james'
-&gt;&gt;&gt; d['me'] = 'bob'
-&gt;&gt;&gt; d.getall('me')
-['james', 'bob']
-&gt;&gt;&gt; d['me'] = 'james'
-&gt;&gt;&gt; d.getall('me')
-['bob', 'james']
-&gt;&gt;&gt; d.getdup('me')
-['bob']
-&gt;&gt;&gt; d == {'me':'bob', 'you':'claudia'}
-False
-&gt;&gt;&gt; d == DuplicateSafeDict([('me', 'bob'), ('me', 'james'), ('you', 'claudia')])
-True
-&gt;&gt;&gt; del d['me']
-&gt;&gt;&gt; d.getall('me')
-['bob']
-&gt;&gt;&gt; d == dict([('me', 'bob'), ('you', 'claudia')])
-True</p></div>
+        <div><p>Dictionnary that do not discard old objects when they are overriden, but instead,
+only updates a reference to the new object.</p>
+<p>Duplicate values can be fetched with methods <code><a href="#getall">getall</a></code>, <code><a href="#getdup">getdup</a></code> and <code><a href="#allitems">allitems</a></code>.</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>d = DuplicateSafeDict(me=<span class="py-string">'bob'</span>, you=<span class="py-string">'claudia'</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>d[<span class="py-string">'me'</span>] = <span class="py-string">'james'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>d[<span class="py-string">'me'</span>] = <span class="py-string">'james'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>d[<span class="py-string">'me'</span>] = <span class="py-string">'bob'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>d.getall(<span class="py-string">'me'</span>)
+<span class="py-output">['james', 'bob']</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>d[<span class="py-string">'me'</span>] = <span class="py-string">'james'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>d.getall(<span class="py-string">'me'</span>)
+<span class="py-output">['bob', 'james']</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>d.getdup(<span class="py-string">'me'</span>)
+<span class="py-output">['bob']</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>d == {<span class="py-string">'me'</span>:<span class="py-string">'bob'</span>, <span class="py-string">'you'</span>:<span class="py-string">'claudia'</span>}
+<span class="py-output">False</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>d == DuplicateSafeDict([(<span class="py-string">'me'</span>, <span class="py-string">'bob'</span>), (<span class="py-string">'me'</span>, <span class="py-string">'james'</span>), (<span class="py-string">'you'</span>, <span class="py-string">'claudia'</span>)])
+<span class="py-output">True</span>
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">del</span> d[<span class="py-string">'me'</span>]
+<span class="py-prompt">&gt;&gt;&gt; </span>d.getall(<span class="py-string">'me'</span>)
+<span class="py-output">['bob']</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>d == <span class="py-builtin">dict</span>([(<span class="py-string">'me'</span>, <span class="py-string">'bob'</span>), (<span class="py-string">'you'</span>, <span class="py-string">'claudia'</span>)])
+<span class="py-output">True</span>
+</pre></div>
       </div>
 
       <div id="splitTables">
@@ -192,7 +192,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__delitem__</span>(self, key):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L67">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L67">
       
       (source)
     </a>
@@ -200,7 +200,7 @@ True</p></div>
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Remove the last element added value for a key. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">key:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Remove the last element added value for a key.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">key:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -214,7 +214,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__eq__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L117">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L117">
       
       (source)
     </a>
@@ -236,7 +236,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__getitem__</span>(self, key):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L61">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L61">
       
       (source)
     </a>
@@ -244,7 +244,7 @@ True</p></div>
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Return the last element added that matches the name.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">key:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.dupsafedict.html#_VT">_VT</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Return the last element added that matches the name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">key:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.dupsafedict.html#_VT">_VT</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -258,7 +258,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, data=None, **kwargs):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L42">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L42">
       
       (source)
     </a>
@@ -280,7 +280,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__iter__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L77">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L77">
       
       (source)
     </a>
@@ -302,7 +302,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__len__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L80">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L80">
       
       (source)
     </a>
@@ -324,7 +324,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__repr__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L132">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L132">
       
       (source)
     </a>
@@ -346,7 +346,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__setitem__</span>(self, key, value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L50">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L50">
       
       (source)
     </a>
@@ -368,7 +368,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">allitems</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L109">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L109">
       
       (source)
     </a>
@@ -376,7 +376,7 @@ True</p></div>
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Like 'items()' but returns all values, including duplicates. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.dupsafedict.html#_VT">_VT</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Like 'items()' but returns all values, including duplicates.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.dupsafedict.html#_VT">_VT</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -390,7 +390,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">copy</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L126">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L126">
       
       (source)
     </a>
@@ -412,7 +412,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">getall</span>(self, key):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L96">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L96">
       
       (source)
     </a>
@@ -420,7 +420,7 @@ True</p></div>
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Like 'get()' but returns all values for that name, including duplicates. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">key:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.dupsafedict.html#_VT">_VT</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Like 'get()' but returns all values for that name, including duplicates.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">key:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.dupsafedict.html#_VT">_VT</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -434,7 +434,7 @@ True</p></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">getdup</span>(self, key):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L102">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L102">
       
       (source)
     </a>
@@ -442,8 +442,8 @@ True</p></div>
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Return the duplicates objects for that name. List might be empty. 
-Raise key error if the name doesn't exist.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">key:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.dupsafedict.html#_VT">_VT</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Return the duplicates objects for that name. List might be empty.
+Raise key error if the name doesn't exist.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">key:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.dupsafedict.html#_VT">_VT</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -457,7 +457,7 @@ Raise key error if the name doesn't exist.</p><table class="fieldTable"><tr clas
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">rmvalue</span>(self, key, value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L83">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L83">
       
       (source)
     </a>
@@ -465,11 +465,11 @@ Raise key error if the name doesn't exist.</p><table class="fieldTable"><tr clas
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Remove a value from the dict. The value can be a duplicate.
-If no values are left in the queue after the removal, the whole queue will be deleted.
-
-Raise key error if no values exists for the key.
-Raise value error if the value if not present. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">key:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">value:</span><code><a href="pydocspec.dupsafedict.html#_VT">_VT</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Remove a value from the dict. The value can be a duplicate.
+If no values are left in the queue after the removal, the whole queue will be deleted.</p>
+<p>Raise key error if no values exists for the key.
+Raise value error if the value if not present.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">key:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">value:</span><code><a href="pydocspec.dupsafedict.html#_VT">_VT</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -483,7 +483,7 @@ Raise value error if the value if not present. </p><table class="fieldTable"><tr
   <div class="functionHeader">
     
     <span class="py-defname">_store</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.dupsafedict.html#_VT">_VT</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dupsafedict.py#L44">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/dupsafedict.py#L44">
       
       (source)
     </a>
@@ -503,7 +503,7 @@ Raise value error if the value if not present. </p><table class="fieldTable"><tr
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-01 20:40:05.
+    21.2.2 at 2021-09-01 20:52:40.
   </div>
 </footer>
 

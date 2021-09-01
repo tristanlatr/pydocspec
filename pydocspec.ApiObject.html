@@ -65,12 +65,12 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">ApiObject</span>(<span title="docspec.ApiObject">docspec.ApiObject</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L106" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Class.html">pydocspec.Class</a></code>, <code><a href="pydocspec.Data.html">pydocspec.Data</a></code>, <code><a href="pydocspec.Function.html">pydocspec.Function</a></code>, <code><a href="pydocspec.Indirection.html">pydocspec.Indirection</a></code>, <code><a href="pydocspec.Module.html">pydocspec.Module</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ApiObject</span>(<span title="docspec.ApiObject">docspec.ApiObject</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L106" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Class.html">pydocspec.Class</a></code>, <code><a href="pydocspec.Data.html">pydocspec.Data</a></code>, <code><a href="pydocspec.Function.html">pydocspec.Function</a></code>, <code><a href="pydocspec.Indirection.html">pydocspec.Indirection</a></code>, <code><a href="pydocspec.Module.html">pydocspec.Module</a></code></p>
         <p><a href="classIndex.html#pydocspec.ApiObject">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="pre">An augmented `docspec.ApiObject`, with functionalities to resolve names for the python language.</p></div>
+        <div>An augmented <code><a href="docspec.ApiObject.html">docspec.ApiObject</a></code>, with functionalities to resolve names for the python language.</div>
       </div>
 
       <div id="splitTables">
@@ -81,17 +81,17 @@
     
     <td>Method</td>
     <td><code><a href="#expand_name">expand_name</a></code></td>
-    <td><span>Return a fully qualified name for the possibly-dotted `name`.</span></td>
+    <td><span>Return a fully qualified name for the possibly-dotted <code>name</code>.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#get_member">get_member</a></code></td>
-    <td><span>Retrieve a member from the API object. This will always return `None` for objects that don't support members (eg. `Function` and `Data`).</span></td>
+    <td><span>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for objects that don't support members (eg. <code><a href="pydocspec.Function.html">Function</a></code> and <code><a href="pydocspec.Data.html">Data</a></code>).</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#get_members">get_members</a></code></td>
-    <td><span>Like `get_member` but can return several items with the same name.</span></td>
+    <td><span>Like <code><a href="#get_member">get_member</a></code> but can return several items with the same name.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
@@ -101,12 +101,12 @@
     
     <td>Method</td>
     <td><code><a href="#walk">walk</a></code></td>
-    <td><span>Traverse a tree of objects, calling the `genericvisitor.Visitor.visit` method of `visitor` when entering each node.</span></td>
+    <td><span>Traverse a tree of objects, calling the <code><a href="pydocspec.genericvisitor.Visitor.html#visit">genericvisitor.Visitor.visit</a></code> method of <code>visitor</code> when entering each node.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#walkabout">walkabout</a></code></td>
-    <td><span>Perform a tree traversal similarly to `walk()`, except also call the `genericvisitor.Visitor.depart` method before exiting each node.</span></td>
+    <td><span>Perform a tree traversal similarly to <code>walk()</code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</span></td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
@@ -121,7 +121,7 @@
     
     <td>Class Variable</td>
     <td><code><a href="#root">root</a></code></td>
-    <td><span>`ApiObjectsRoot` instance holding references to all objects in the tree.</span></td>
+    <td><span><code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance holding references to all objects in the tree.</span></td>
   </tr><tr class="property">
     
     <td>Property</td>
@@ -131,17 +131,17 @@
     
     <td>Property</td>
     <td><code><a href="#dotted_name">dotted_name</a></code></td>
-    <td><span>The fully qualified dotted name of this object, as `DottedName` instance.</span></td>
+    <td><span>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> instance.</span></td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#full_name">full_name</a></code></td>
-    <td><span>The fully qualified dotted name of this object, as string. This value is used as the key in the `ApiObject.root.all_objects` dictionnary.</span></td>
+    <td><span>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</span></td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#module">module</a></code></td>
-    <td><span>The `Module` instance that contains this object.</span></td>
+    <td><span>The <code><a href="pydocspec.Module.html">Module</a></code> instance that contains this object.</span></td>
   </tr><tr class="property">
     
     <td>Property</td>
@@ -188,7 +188,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">expand_name</span>(self, name, follow_aliases=True, _indirections=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L200">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L200">
       
       (source)
     </a>
@@ -196,50 +196,51 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Return a fully qualified name for the possibly-dotted `name`.
-
-To explain what this means, consider the following modules:
-mod1.py::
-    from external_location import External
-    class Local:
-        pass
-mod2.py::
-    from mod1 import External as RenamedExternal
-    import mod1 as renamed_mod
-    class E:
-        pass
-In the context of mod2.E, ``expand_name("RenamedExternal")`` should be
-``"external_location.External"`` and ``expand_name("renamed_mod.Local")``
-should be ``"mod1.Local"``. 
-
-This method is in charge to follow the aliases when possible!
-It will reccursively follow any alias entries found 
-up to certain level of complexity. 
+    <div><p>Return a fully qualified name for the possibly-dotted <code>name</code>.</p>
+<p>To explain what this means, consider the following modules:
+mod1.py:</p>
+<pre class="rst-literal-block">
+from external_location import External
+class Local:
+    pass
+</pre>
+<dl class="rst-docutils">
+<dt>mod2.py::</dt>
+<dd><p class="rst-first">from mod1 import External as RenamedExternal
+import mod1 as renamed_mod
+class E:</p>
+<blockquote class="rst-last">
+pass</blockquote>
+</dd>
+</dl>
+<p>In the context of mod2.E, <tt class="rst-docutils literal"><span class="pre">expand_name("RenamedExternal")</span></tt> should be
+<tt class="rst-docutils literal">"external_location.External"</tt> and <tt class="rst-docutils literal"><span class="pre">expand_name("renamed_mod.Local")</span></tt>
+should be <tt class="rst-docutils literal">"mod1.Local"</tt>.</p>
+<p>This method is in charge to follow the aliases when possible!
+It will reccursively follow any alias entries found
+up to certain level of complexity.
 Example:
-mod1.py::
-    
-    import external
-    class Processor:
-        spec = external.Processor.more_spec
-    P = Processor
-
-mod2.py::
-
-    from mod1 import P
-    class Runner:
-        processor = P
-
-In the context of mod2, ``expand_name("Runner.processor.spec")`` should be
-``"external.Processor.more_spec"``.
-
-:param name: The name to expand.
-:param follow_aliases: Whether or not to follow aliases. Indirections will still be followed anyway.
-:note: The implementation replies on iterating through the each part of the dotted name, 
-    calling `_local_to_full_name` for each name in their associated context and incrementally building 
-    the full_name from that. 
-    Lookup members in superclasses when possible and follows aliases and indirections. 
-    This mean that `expand_name` will never return the name of an alias,
-    it will always follow it's indirection to the origin. Except if ``follow_aliases=False``. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">follow_aliases:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_indirections:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+mod1.py:</p>
+<pre class="rst-literal-block">
+import external
+class Processor:
+    spec = external.Processor.more_spec
+P = Processor
+</pre>
+<p>mod2.py:</p>
+<pre class="rst-literal-block">
+from mod1 import P
+class Runner:
+    processor = P
+</pre>
+<p>In the context of mod2, <tt class="rst-docutils literal"><span class="pre">expand_name("Runner.processor.spec")</span></tt> should be
+<tt class="rst-docutils literal">"external.Processor.more_spec"</tt>.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc">The name to expand.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">follow_aliases:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc">Whether or not to follow aliases. Indirections will still be followed anyway.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_indirections:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">The implementation replies on iterating through the each part of the dotted name,
+calling <code><a href="#_local_to_full_name">_local_to_full_name</a></code> for each name in their associated context and incrementally building
+the full_name from that.
+Lookup members in superclasses when possible and follows aliases and indirections.
+This mean that <code><a href="#expand_name">expand_name</a></code> will never return the name of an alias,
+it will always follow it's indirection to the origin. Except if <tt class="rst-docutils literal">follow_aliases=False</tt>.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -253,7 +254,7 @@ In the context of mod2, ``expand_name("Runner.processor.spec")`` should be
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_member</span>(self, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L175">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L175">
       
       (source)
     </a>
@@ -261,11 +262,9 @@ In the context of mod2, ``expand_name("Runner.processor.spec")`` should be
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Retrieve a member from the API object. This will always return `None` for
-objects that don't support members (eg. `Function` and `Data`).
-
-:note: Implementation relies on `ApiObject.root.all_objects` such that
-    it will return the last added object in case of duplicate names.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for
+objects that don't support members (eg. <code><a href="pydocspec.Function.html">Function</a></code> and <code><a href="pydocspec.Data.html">Data</a></code>).<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">Implementation relies on <code>ApiObject.root.all_objects</code> such that
+it will return the last added object in case of duplicate names.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -279,7 +278,7 @@ objects that don't support members (eg. `Function` and `Data`).
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_members</span>(self, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L190">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L190">
       
       (source)
     </a>
@@ -287,7 +286,7 @@ objects that don't support members (eg. `Function` and `Data`).
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Like `get_member` but can return several items with the same name.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Like <code><a href="#get_member">get_member</a></code> but can return several items with the same name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -301,7 +300,7 @@ objects that don't support members (eg. `Function` and `Data`).
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">resolve_name</span>(self, name, follow_aliases=True):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L276">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L276">
       
       (source)
     </a>
@@ -309,10 +308,8 @@ objects that don't support members (eg. `Function` and `Data`).
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Return the object named by "name" (using Python's lookup rules) in this context.
-
-:note: This method will never return an `Indirection` or an alias since it's supposed to follow 
-    indirections and aliases. Except if ``follow_aliases=False``. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">follow_aliases:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Return the object named by "name" (using Python's lookup rules) in this context.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">follow_aliases:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">This method will never return an <code><a href="pydocspec.Indirection.html">Indirection</a></code> or an alias since it's supposed to follow
+indirections and aliases. Except if <tt class="rst-docutils literal">follow_aliases=False</tt>.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -326,7 +323,7 @@ objects that don't support members (eg. `Function` and `Data`).
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walk</span>(self, visitor):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L351">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L351">
       
       (source)
     </a>
@@ -334,10 +331,8 @@ objects that don't support members (eg. `Function` and `Data`).
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Traverse a tree of objects, calling the `genericvisitor.Visitor.visit` 
-method of `visitor` when entering each node.
-
-:see: `genericvisitor.walk` for more details.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">genericvisitor.Visitor</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Traverse a tree of objects, calling the <code><a href="pydocspec.genericvisitor.Visitor.html#visit">genericvisitor.Visitor.visit</a></code>
+method of <code>visitor</code> when entering each node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">genericvisitor.Visitor</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">See Also</td></tr><tr><td colspan="2"><code><a href="pydocspec.genericvisitor.html#walk">genericvisitor.walk</a></code> for more details.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -351,7 +346,7 @@ method of `visitor` when entering each node.
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walkabout</span>(self, visitor):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L360">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L360">
       
       (source)
     </a>
@@ -359,10 +354,8 @@ method of `visitor` when entering each node.
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Perform a tree traversal similarly to `walk()`, except also call the `genericvisitor.Visitor.depart` 
-method before exiting each node.
-
-:see: `genericvisitor.walkabout` for more details.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">genericvisitor.Visitor</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Perform a tree traversal similarly to <code>walk()</code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code>
+method before exiting each node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">genericvisitor.Visitor</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">See Also</td></tr><tr><td colspan="2"><code><a href="pydocspec.genericvisitor.html#walkabout">genericvisitor.walkabout</a></code> for more details.</td></tr></table></div>
   </div>
 </div><div class="baseclassvariable">
   
@@ -376,7 +369,7 @@ method before exiting each node.
   <div class="functionHeader">
     
     <span class="py-defname">location</span>: <code><a href="docspec.Location.html">Location</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L113">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L113">
       
       (source)
     </a>
@@ -398,7 +391,7 @@ method before exiting each node.
   <div class="functionHeader">
     
     <span class="py-defname">parent</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>, <wbr></wbr><a href="pydocspec.Module.html">Module</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L112">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L112">
       
       (source)
     </a>
@@ -420,7 +413,7 @@ method before exiting each node.
   <div class="functionHeader">
     
     <span class="py-defname">root</span>: <code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L116">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L116">
       
       (source)
     </a>
@@ -428,7 +421,7 @@ method before exiting each node.
   <div class="functionBody">
     
     
-    <div><p class="pre">`ApiObjectsRoot` instance holding references to all objects in the tree.</p></div>
+    <div><code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance holding references to all objects in the tree.</div>
   </div>
 </div><div class="baseproperty">
   
@@ -442,7 +435,7 @@ method before exiting each node.
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">doc_sources</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L146">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L146">
       
       (source)
     </a>
@@ -450,11 +443,11 @@ method before exiting each node.
   <div class="functionBody">
     
     
-    <div><p class="pre">Objects that can be considered as a source of documentation.
-
-The motivating example for having multiple sources is looking at a
+    <div><p>Objects that can be considered as a source of documentation.</p>
+<p>The motivating example for having multiple sources is looking at a
 superclass' implementation of a method for documentation for a
-subclass'.</p></div>
+subclass'.</p>
+</div>
   </div>
 </div><div class="baseproperty">
   
@@ -468,7 +461,7 @@ subclass'.</p></div>
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">dotted_name</span>: <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L131">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L131">
       
       (source)
     </a>
@@ -476,7 +469,7 @@ subclass'.</p></div>
   <div class="functionBody">
     
     
-    <div><p class="pre">The fully qualified dotted name of this object, as `DottedName` instance.</p></div>
+    <div>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> instance.</div>
   </div>
 </div><div class="baseproperty">
   
@@ -490,7 +483,7 @@ subclass'.</p></div>
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">full_name</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L138">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L138">
       
       (source)
     </a>
@@ -498,8 +491,8 @@ subclass'.</p></div>
   <div class="functionBody">
     
     
-    <div><p class="pre">The fully qualified dotted name of this object, as string. 
-This value is used as the key in the `ApiObject.root.all_objects` dictionnary.</p></div>
+    <div>The fully qualified dotted name of this object, as string.
+This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</div>
   </div>
 </div><div class="baseproperty">
   
@@ -513,7 +506,7 @@ This value is used as the key in the `ApiObject.root.all_objects` dictionnary.</
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">module</span>: <code><a href="pydocspec.Module.html">Module</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L164">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L164">
       
       (source)
     </a>
@@ -521,7 +514,7 @@ This value is used as the key in the `ApiObject.root.all_objects` dictionnary.</
   <div class="functionBody">
     
     
-    <div><p class="pre">The `Module` instance that contains this object.</p></div>
+    <div>The <code><a href="pydocspec.Module.html">Module</a></code> instance that contains this object.</div>
   </div>
 </div><div class="baseproperty">
   
@@ -535,7 +528,7 @@ This value is used as the key in the `ApiObject.root.all_objects` dictionnary.</
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">root_module</span>: <code><a href="pydocspec.Module.html">Module</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L121">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L121">
       
       (source)
     </a>
@@ -543,7 +536,7 @@ This value is used as the key in the `ApiObject.root.all_objects` dictionnary.</
   <div class="functionBody">
     
     
-    <div><p class="pre">The root module of this object.</p></div>
+    <div>The root module of this object.</div>
   </div>
 </div><div class="basemethod private">
   
@@ -557,7 +550,7 @@ This value is used as the key in the `ApiObject.root.all_objects` dictionnary.</
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_local_to_full_name</span>(self, name, follow_aliases, _indirections=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L285">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L285">
       
       (source)
     </a>
@@ -579,7 +572,7 @@ This value is used as the key in the `ApiObject.root.all_objects` dictionnary.</
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_members</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L347">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L347">
       
       (source)
     </a>
@@ -601,7 +594,7 @@ This value is used as the key in the `ApiObject.root.all_objects` dictionnary.</
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_resolve_indirection</span>(self, indirection, _indirections=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L305">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L305">
       
       (source)
     </a>
@@ -609,17 +602,13 @@ This value is used as the key in the `ApiObject.root.all_objects` dictionnary.</
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">If the object is an alias or an indirection, then follow it and return the supposed full name fo the origin object,
-or return the passed object's full name.
-
-Resolve the alias value to it's target full name.
-Or fall back to original alias full name if we know we've exhausted the max recursions.
-
-:param alias: an ALIAS object.
-:param indirections: Chain of alias objects followed. 
-    This variable is used to prevent infinite loops when doing the lookup.
-:note: It can return None in exceptionnal cases if an indirection cannot be resolved. 
-    Then we use the indirection's full_name. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">indirection:</span><code><a href="pydocspec.Indirection.html">Indirection</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_indirections:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Indirection.html">Indirection</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>If the object is an alias or an indirection, then follow it and return the supposed full name fo the origin object,
+or return the passed object's full name.</p>
+<p>Resolve the alias value to it's target full name.
+Or fall back to original alias full name if we know we've exhausted the max recursions.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">indirection:</span><code><a href="pydocspec.Indirection.html">Indirection</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_indirections:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Indirection.html">Indirection</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">alias</span></td><td class="fieldArgDesc">an ALIAS object.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">indirections</span></td><td class="fieldArgDesc">Chain of alias objects followed.
+This variable is used to prevent infinite loops when doing the lookup.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">It can return None in exceptionnal cases if an indirection cannot be resolved.
+Then we use the indirection's full_name.</td></tr></table></div>
   </div>
 </div><div class="basemethod private">
   
@@ -633,7 +622,7 @@ Or fall back to original alias full name if we know we've exhausted the max recu
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_warns</span>(self, msg):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/__init__.py#L343">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/__init__.py#L343">
       
       (source)
     </a>
@@ -653,7 +642,7 @@ Or fall back to original alias full name if we know we've exhausted the max recu
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-01 20:40:05.
+    21.2.2 at 2021-09-01 20:52:40.
   </div>
 </footer>
 

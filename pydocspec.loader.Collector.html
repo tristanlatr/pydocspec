@@ -65,18 +65,16 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Collector</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/loader.py#L43" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.loader.ModuleVisitor.html">pydocspec.loader.ModuleVisitor</a></code>, <code><a href="pydocspec.converter._ConverterVisitor.html">pydocspec.converter._ConverterVisitor</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Collector</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/loader.py#L43" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.loader.ModuleVisitor.html">pydocspec.loader.ModuleVisitor</a></code>, <code><a href="pydocspec.converter._ConverterVisitor.html">pydocspec.converter._ConverterVisitor</a></code></p>
         <p><a href="classIndex.html#pydocspec.loader.Collector">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="pre">Base class to organize a tree of `pydocspec` objects. 
-
-Maintains a stack of objects and incrementally build **one** `Module` instance.
-
-:note: This object does not add root modules to the ``root.root_modules`` attribute. 
-    This is either the responsibility of the converter or the loader, depending on how you built the tree.
-    Nevertheless, it does register the object in the ``root.all_objects`` mapping and set the ``ob.root`` attribute.</p></div>
+        <div><p>Base class to organize a tree of <code><a href="pydocspec.html">pydocspec</a></code> objects.</p>
+<p>Maintains a stack of objects and incrementally build <strong>one</strong> <code><a href="pydocspec.Module.html">Module</a></code> instance.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">This object does not add root modules to the <tt class="rst-docutils literal">root.root_modules</tt> attribute.
+This is either the responsibility of the converter or the loader, depending on how you built the tree.
+Nevertheless, it does register the object in the <tt class="rst-docutils literal">root.all_objects</tt> mapping and set the <tt class="rst-docutils literal">ob.root</tt> attribute.</td></tr></table></div>
       </div>
 
       <div id="splitTables">
@@ -149,7 +147,7 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, root, module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/loader.py#L55">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/loader.py#L55">
       
       (source)
     </a>
@@ -171,7 +169,7 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">add_object</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/loader.py#L88">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/loader.py#L88">
       
       (source)
     </a>
@@ -179,7 +177,7 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Add a newly created object to the tree, and enter it.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Add a newly created object to the tree, and enter it.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -193,7 +191,7 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">pop</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/loader.py#L80">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/loader.py#L80">
       
       (source)
     </a>
@@ -201,7 +199,7 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Exit an object.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Exit an object.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -215,7 +213,7 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">push</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/loader.py#L73">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/loader.py#L73">
       
       (source)
     </a>
@@ -223,7 +221,7 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Enter an object.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Enter an object.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -237,7 +235,7 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="functionHeader">
     
     <span class="py-defname">module</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/loader.py#L64">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/loader.py#L64">
       
       (source)
     </a>
@@ -245,7 +243,7 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="functionBody">
     <div class="interfaceinfo">overridden in <code><a href="pydocspec.loader.ModuleVisitor.html">pydocspec.loader.ModuleVisitor</a></code></div>
     
-    <div><p class="pre">The new module.</p></div>
+    <div>The new module.</div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -259,7 +257,7 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="functionHeader">
     
     <span class="py-defname">root</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/loader.py#L57">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/loader.py#L57">
       
       (source)
     </a>
@@ -267,9 +265,9 @@ Maintains a stack of objects and incrementally build **one** `Module` instance.
   <div class="functionBody">
     
     
-    <div><p class="pre">The root of the tree. 
-
-Can be used to access the ``root.factory`` attribute and create new classes.</p></div>
+    <div><p>The root of the tree.</p>
+<p>Can be used to access the <tt class="rst-docutils literal">root.factory</tt> attribute and create new classes.</p>
+</div>
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -283,7 +281,7 @@ Can be used to access the ``root.factory`` attribute and create new classes.</p>
   <div class="functionHeader">
     
     <span class="py-defname">_current</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/loader.py#L69">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/loader.py#L69">
       
       (source)
     </a>
@@ -305,7 +303,7 @@ Can be used to access the ``root.factory`` attribute and create new classes.</p>
   <div class="functionHeader">
     
     <span class="py-defname">_last</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/loader.py#L70">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/loader.py#L70">
       
       (source)
     </a>
@@ -327,7 +325,7 @@ Can be used to access the ``root.factory`` attribute and create new classes.</p>
   <div class="functionHeader">
     
     <span class="py-defname">_stack</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/loader.py#L71">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/loader.py#L71">
       
       (source)
     </a>
@@ -347,7 +345,7 @@ Can be used to access the ``root.factory`` attribute and create new classes.</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-01 20:40:05.
+    21.2.2 at 2021-09-01 20:52:40.
   </div>
 </footer>
 

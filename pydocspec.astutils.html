@@ -65,12 +65,12 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="pre">Various bits of reusable code related to `ast.AST` node processing.</p></div>
+        <div>Various bits of reusable code related to <code><a href="https://docs.python.org/3/library/ast.html#ast.AST">ast.AST</a></code> node processing.</div>
       </div>
 
       <div id="splitTables">
@@ -111,12 +111,12 @@
     
     <td>Function</td>
     <td><code><a href="#node2dottedname">node2dottedname</a></code></td>
-    <td><span>Resove expression composed by `ast.Attribute` and `ast.Name` nodes to a list of names.</span></td>
+    <td><span>Resove expression composed by <code><a href="https://docs.python.org/3/library/ast.html#ast.Attribute">ast.Attribute</a></code> and <code><a href="https://docs.python.org/3/library/ast.html#ast.Name">ast.Name</a></code> nodes to a list of names.</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
     <td><code><a href="#node2fullname">node2fullname</a></code></td>
-    <td><span>Return ``ctx.expand_name(name)`` if ``expr`` is a valid name, or ``None``.</span></td>
+    <td><span>Return <tt class="rst-docutils literal">ctx.expand_name(name)</tt> if <tt class="rst-docutils literal">expr</tt> is a valid name, or <tt class="rst-docutils literal">None</tt>.</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
@@ -136,7 +136,7 @@
     
     <td>Class</td>
     <td><code><a href="pydocspec.astutils._AnnotationStringParser.html">_AnnotationStringParser</a></code></td>
-    <td><span>Implementation of `unstring_annotation`.</span></td>
+    <td><span>Implementation of <code><a href="pydocspec.astutils.html#unstring_annotation">unstring_annotation</a></code>.</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
@@ -156,7 +156,7 @@
     
     <td>Variable</td>
     <td><code><a href="#_attrs_decorator_signature">_attrs_decorator_signature</a></code></td>
-    <td><span>Signature of the `attr.s` class decorator.</span></td>
+    <td><span>Signature of the <code>attr.s</code> class decorator.</span></td>
   </tr>
 </table>
         
@@ -178,7 +178,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">bind_args</span>(sig, call):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L136">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L136">
       
       (source)
     </a>
@@ -186,8 +186,8 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Binds the arguments of a function call to that function's signature.
-:raise TypeError: If the arguments do not match the signature.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sig:</span><code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature">inspect.Signature</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">call:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Call">ast.Call</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/inspect.html#inspect.BoundArguments">inspect.BoundArguments</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Binds the arguments of a function call to that function's signature.
+:raise TypeError: If the arguments do not match the signature.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sig:</span><code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature">inspect.Signature</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">call:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Call">ast.Call</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/inspect.html#inspect.BoundArguments">inspect.BoundArguments</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -201,7 +201,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">extract_expr</span>(expr, filename=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L150">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L150">
       
       (source)
     </a>
@@ -209,7 +209,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Convert a python expression to ast. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">filename:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Convert a python expression to ast.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">filename:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -223,7 +223,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">extract_final_subscript</span>(annotation):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L170">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L170">
       
       (source)
     </a>
@@ -231,9 +231,9 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Extract the "str" part from annotations like  "Final[str]".
-
-@raises ValueError: If the "Final" annotation is not valid.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Subscript">ast.Subscript</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Extract the "str" part from annotations like  "Final[str]".</p>
+<p>@raises ValueError: If the "Final" annotation is not valid.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Subscript">ast.Subscript</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -247,7 +247,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">infer_type</span>(expr):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L197">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L197">
       
       (source)
     </a>
@@ -255,9 +255,9 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Infer an expression's type.
+    <div>Infer an expression's type.
 :param expr: The expression's AST.
-:return: A type annotation, or None if the expression has no obvious type.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+:return: A type annotation, or None if the expression has no obvious type.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -271,7 +271,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">node2dottedname</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L112">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L112">
       
       (source)
     </a>
@@ -279,7 +279,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Resove expression composed by `ast.Attribute` and `ast.Name` nodes to a list of names. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Resove expression composed by <code><a href="https://docs.python.org/3/library/ast.html#ast.Attribute">ast.Attribute</a></code> and <code><a href="https://docs.python.org/3/library/ast.html#ast.Name">ast.Name</a></code> nodes to a list of names.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -293,7 +293,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">node2fullname</span>(expr, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L127">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L127">
       
       (source)
     </a>
@@ -301,7 +301,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Return ``ctx.expand_name(name)`` if ``expr`` is a valid name, or ``None``.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr>ast.expr, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Return <tt class="rst-docutils literal">ctx.expand_name(name)</tt> if <tt class="rst-docutils literal">expr</tt> is a valid name, or <tt class="rst-docutils literal">None</tt>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr>ast.expr, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -315,7 +315,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">to_source</span>(expr):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L68">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L68">
       
       (source)
     </a>
@@ -323,7 +323,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">This function convert a node tree back into python sourcecode.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.AST">ast.AST</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>This function convert a node tree back into python sourcecode.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.AST">ast.AST</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -337,7 +337,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unstring_annotation</span>(node, ctx=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L183">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L183">
       
       (source)
     </a>
@@ -345,9 +345,11 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Replace all strings in the given expression by parsed versions.
-:return: The unstringed node. If parsing fails, an error is logged
-    and the original node is returned.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Replace all strings in the given expression by parsed versions.
+:return: The unstringed node. If parsing fails, an error is logged</p>
+<blockquote>
+and the original node is returned.</blockquote>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>ast.expr</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -361,7 +363,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">uses_auto_attribs</span>(call, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L75">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L75">
       
       (source)
     </a>
@@ -369,14 +371,14 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Does the given `attr.s()` decoration contain ``auto_attribs=True``?
-:param call: AST of the call to `attr.s()`.
-    This function will assume that `attr.s()` is called without
-    verifying that.
-:param ctx: Namespace that contains the call, used for error reporting.
-:return: `True` if `True` is passed for ``auto_attribs``,
-    `False` in all other cases: if ``auto_attribs`` is not passed,
-    if an explicit `False` is passed or if an error was reported.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">call:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Call">ast.Call</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Does the given <code>attr.s()</code> decoration contain <tt class="rst-docutils literal">auto_attribs=True</tt>?
+:param call: AST of the call to <code>attr.s()</code>.</p>
+<blockquote>
+This function will assume that <code>attr.s()</code> is called without
+verifying that.</blockquote>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">call:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Call">ast.Call</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc">Namespace that contains the call, used for error reporting.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><code><a href="https://docs.python.org/3/library/constants.html#True">True</a></code> if <code><a href="https://docs.python.org/3/library/constants.html#True">True</a></code> is passed for <tt class="rst-docutils literal">auto_attribs</tt>,
+<code><a href="https://docs.python.org/3/library/constants.html#False">False</a></code> in all other cases: if <tt class="rst-docutils literal">auto_attribs</tt> is not passed,
+if an explicit <code><a href="https://docs.python.org/3/library/constants.html#False">False</a></code> is passed or if an error was reported.</td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
@@ -390,7 +392,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_elements</span>(sequence):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L232">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L232">
       
       (source)
     </a>
@@ -412,7 +414,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_value</span>(value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L213">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L213">
       
       (source)
     </a>
@@ -434,7 +436,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_extract_annotation_subscript</span>(annotation):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L159">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L159">
       
       (source)
     </a>
@@ -442,7 +444,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="pre">Extract the "str, bytes" part from annotations like  "Union[str, bytes]".</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Subscript">ast.Subscript</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/ast.html#ast.AST">ast.AST</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Extract the "str, bytes" part from annotations like  "Union[str, bytes]".<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Subscript">ast.Subscript</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/ast.html#ast.AST">ast.AST</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basevariable private">
   
@@ -456,7 +458,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_attrs_decorator_signature</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/astutils.py#L72">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e27392fd5d9f8a827f41735ad9130af8bd4c3efc/pydocspec/astutils.py#L72">
       
       (source)
     </a>
@@ -464,7 +466,7 @@
   <div class="functionBody">
     
     
-    <div><p class="pre">Signature of the `attr.s` class decorator.</p></div>
+    <div>Signature of the <code>attr.s</code> class decorator.</div>
   </div>
 </div>
 
@@ -476,7 +478,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-01 20:40:05.
+    21.2.2 at 2021-09-01 20:52:40.
   </div>
 </footer>
 
