@@ -102,7 +102,8 @@ class Collector:
         # Add object to the root.all_objects. 
         # If the object is a root module, it's either going to be added in by the converter or by the loader.
         self.root.all_objects[ob.full_name] = ob
-
+        # set the ApiObject.root attribute right away.
+        ob.root = self.root
         self.push(ob)
 
 class ModuleVisitor(ast.NodeVisitor, Collector):
@@ -413,7 +414,10 @@ class Loader:
         else:
             self.root.root_modules.append(mod)
         
+        # Manually add object to the root.all_objects. 
         self.root.all_objects[mod.full_name] = mod
+        # Set the ApiObject.root attribute right away.
+        mod.root = self.root
         self._processing_map[mod.full_name] = ProcessingState.UNPROCESSED
 
         return mod

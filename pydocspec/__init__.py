@@ -416,7 +416,7 @@ class Data(docspec.Data, ApiObject):
         assert self.is_alias
         assert self.value is not None
         indirection = Indirection(self.name, self.location, None, self.value)
-        indirection.parent = self.parent
+        indirection.sync_hierarchy(self.parent)
         indirection.root = self.root
         return indirection
     
@@ -469,7 +469,7 @@ class Class(docspec.Class, ApiObject):
     def __post_init__(self) -> None:
         docspec.Class.__post_init__(self)
 
-        # sub classes need to be manually added once the tree has been built, see _PostProcessVisitorSecond.
+        # sub classes need to be manually added once the tree has been built, see _PostProcessVisitor.
         self.sub_classes: List['Class'] = []
         
         # help mypy

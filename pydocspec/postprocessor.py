@@ -9,25 +9,7 @@ import docspec
 import pydocspec
 from pydocspec import genericvisitor, brains
 
-@attr.s(auto_attribs=True)
-class _PostProcessVisitorFirst(genericvisitor.Visitor[pydocspec.ApiObject]):
-    """
-    Visitor responsible to set the L{pydocspec.ApiObject.root} attribute on all objects and register 
-    them in the {pydocspec.ApiObjectsRoot.all_objects} mapping. Which is the core to the name resolving system.
-
-    :note: This should be run first after creating a new L{pydocspec} tree, then L{_PostProcessVisitorSecond}.
-    """
-
-    root: pydocspec.ApiObjectsRoot
-
-    def unknown_visit(self, ob: pydocspec.ApiObject) -> None:        
-        ob.root = self.root
-        self.root.all_objects[ob.full_name] = ob
-    
-    def unknown_departure(self, ob: pydocspec.ApiObject) -> None:
-        pass
-
-class _PostProcessVisitorSecond(genericvisitor.Visitor[pydocspec.ApiObject]):
+class _PostProcessVisitor(genericvisitor.Visitor[pydocspec.ApiObject]):
     """
     Apply various required processing to new pydocspec trees.
 
@@ -67,14 +49,9 @@ class _PostProcessVisitorSecond(genericvisitor.Visitor[pydocspec.ApiObject]):
 
         # TODO: Populate a list of aliases for each objects.
 
-# We should not need this anymore.
-def set_root_post_process(root: pydocspec.ApiObjectsRoot) -> None:
+def default_post_process(root: pydocspec.ApiObjectsRoot) -> None:
     for mod in root.root_modules:
-        mod.walk(_PostProcessVisitorFirst(root))
-
-def generic_post_process(root: pydocspec.ApiObjectsRoot) -> None:
-    for mod in root.root_modules:
-        mod.walk(_PostProcessVisitorSecond())
+        mod.walk(_PostProcessVisitor())
 
 @attr.s(auto_attribs=True)
 class PostProcessor:
@@ -101,10 +78,8 @@ class PostProcessor:
 
     @classmethod
     def default(cls) -> 'PostProcessor':
-        processor = cls()
+        processor = cls(post_processes={0.1: default_post_process})
 
-        processor.post_processes[0.0] = set_root_post_process
-        processor.post_processes[0.1] = generic_post_process
 
         for mod in brains.get_all_brain_modules():
             processor.import_post_processes_from(mod)
