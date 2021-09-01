@@ -50,6 +50,8 @@ class DuplicateSafeDict(MutableMapping[str, _VT], Generic[_VT]):
     def __setitem__(self, key: str, value: _VT) -> None:
         queue = self._store.get(key)
         if queue:
+            if queue[-1] is value:
+                return
             if value in queue:
                 self.rmvalue(key, value)
             queue.append(value)
