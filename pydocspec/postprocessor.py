@@ -1,3 +1,6 @@
+"""
+Post processor and default post-processes. 
+"""
 from typing import Callable, Dict, Union, Any
 from importlib import import_module
 import attr
@@ -36,6 +39,7 @@ class _PostProcessVisitorSecond(genericvisitor.Visitor[pydocspec.ApiObject]):
     _default_location = docspec.Location(filename='<unknown>', lineno=-1)
     
     def unknown_visit(self, ob: pydocspec.ApiObject) -> None:
+        # TODO: Be smarter and use parents location when possible. Fill the filename attribute on object thatt have only the lineno.
         if ob.location is None:
             ob.location = self._default_location #type:ignore[unreachable]
 
@@ -63,6 +67,7 @@ class _PostProcessVisitorSecond(genericvisitor.Visitor[pydocspec.ApiObject]):
 
         # TODO: Populate a list of aliases for each objects.
 
+# We should not need this anymore.
 def set_root_post_process(root: pydocspec.ApiObjectsRoot) -> None:
     for mod in root.root_modules:
         mod.walk(_PostProcessVisitorFirst(root))
@@ -78,6 +83,12 @@ class PostProcessor:
 
     At the point of the post processing, the root L{pydocspec.Module} instances should have 
     already been added to the L{pydocspec.ApiObjectsRoot.root_modules} attribute.
+    
+    Post-processes are applied when there are no more unprocessed modules.
+
+    Analysis of relations between documentables should be done in a post-process,
+    without the risk of drawing incorrect conclusions because modules
+    were not fully processed yet.
     """ 
     
     # TODO: handle duplicates.
@@ -93,7 +104,7 @@ class PostProcessor:
         processor = cls()
 
         processor.post_processes[0.0] = set_root_post_process
-        processor.post_processes[1.0] = generic_post_process
+        processor.post_processes[0.1] = generic_post_process
 
         for mod in brains.get_all_brain_modules():
             processor.import_post_processes_from(mod)
@@ -121,6 +132,11 @@ class PostProcessor:
         """
         Apply post process on newly created L{pydocspec} tree. This is required.
 
+        .. python::
+
+            root: pydocspec.ApiObjectsRoot
+            postprocessor.PostProcessor.default().post_process(root)
+
         @note: If you are creating a tree manually, you should run this on your tree as well. 
         """
         for priority in sorted(self.post_processes.keys()):
@@ -128,3 +144,8 @@ class PostProcessor:
             process(root)
 
 PostProcess = Callable[[pydocspec.ApiObjectsRoot], None]
+"""
+A post process is a function of the following form::
+
+    (root: pydocspec.ApiObjectsRoot) -> None
+"""
