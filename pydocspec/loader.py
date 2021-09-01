@@ -46,8 +46,9 @@ class Collector:
     
     Maintains a stack of objects and incrementally build **one** `Module` instance.
 
-    :note: This object does not add root modules to the root.root_modules attribute. 
+    :note: This object does not add root modules to the ``root.root_modules`` attribute. 
         This is either the responsibility of the converter or the loader, depending on how you built the tree.
+        Nevertheless, it does register the object in the ``root.all_objects`` mapping and set the ``ob.root`` attribute.
     """
     #TODO: add objects to the root in the Collector. 
 
