@@ -1,5 +1,5 @@
 """
-Useful visitors for L{pydocspec.ApiObject} instances.
+Useful visitors for `pydocspec.ApiObject` instances.
 """
 try:
   from termcolor import colored as _colored
@@ -17,7 +17,7 @@ from . import genericvisitor
 
 class FilterVisitor(genericvisitor.Visitor[ApiObject]):
   """
-  Visits *objects* applying the *predicate*. If the predicate returrns a C{False} value, the object will be removed from it's containing list. 
+  Visits *objects* applying the *predicate*. If the predicate returrns a ``False`` value, the object will be removed from it's containing list. 
 
   Usage::
     module: pydocspec.Module

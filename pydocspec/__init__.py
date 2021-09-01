@@ -1,31 +1,31 @@
 """
-This is C{pydocspec}.
+This is ``pydocspec``.
 
-B{Warning}:
+**Warning**:
 
 Work in progress... API might change without deprecation notice.
 
-B{Usage}:
+**Usage**:
 
-At the current stage of developments, the only entrypoint of C{pydocspec} is L{converter.convert_docspec_modules}. 
+At the current stage of developments, the only entrypoint of ``pydocspec`` is `converter.convert_docspec_modules`. 
 
-B{Extensibility}:
+**Extensibility**:
 
 The core of the logic is design to be extensible with plugins modules, called "brain" modules. One can define custom
-mixin classes and post-processes in a new module, add the special C{MIXIN_CLASSES} and/or C{POST_PROCESSES} module 
-variables, then include the module's full name as part of the C{additional_brain_modules} argument of function L{converter.convert_docspec_modules}. 
+mixin classes and post-processes in a new module, add the special ``MIXIN_CLASSES`` and/or ``POST_PROCESSES`` module 
+variables, then include the module's full name as part of the ``additional_brain_modules`` argument of function `converter.convert_docspec_modules`. 
 
 Discovered mixin classes are going to be dynamically added to the list of bases when creating the new objects with the 
-L{specfactory.Factory}. Because of that, the documentation of the classes listed in this module are incomplete, properties
-and methods provided by mixin classes can be review in their respective documentation, under the package L{brains}.
+`specfactory.Factory`. Because of that, the documentation of the classes listed in this module are incomplete, properties
+and methods provided by mixin classes can be review in their respective documentation, under the package `brains`.
 
-The C{MIXIN_CLASSES} variable holds a dictionary from the name of the base class to a list of mixin classes 
+The ``MIXIN_CLASSES`` variable holds a dictionary from the name of the base class to a list of mixin classes 
 (or only one mixin class)::
 
     MIXIN_CLASSES: Dict[str, Union[Sequence[Type], Type]]
 
-The C{POST_PROCESSES} variable holds a dictionary from the priority of execution of the post process (should be greater than 1.0)
-to a post-process. A post-process beeing a one-argument callable taking a L{ApiObjectsRoot} instance::
+The ``POST_PROCESSES`` variable holds a dictionary from the priority of execution of the post process (should be greater than 1.0)
+to a post-process. A post-process beeing a one-argument callable taking a `ApiObjectsRoot` instance::
 
     POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
 
@@ -78,11 +78,11 @@ _RESOLVE_ALIAS_MAX_RECURSE = 5
 @attr.s(auto_attribs=True)
 class ApiObjectsRoot:
     """
-    Root of the tree. Special object that provides a single view on all L{ApiObject}s in the tree and root modules.
+    Root of the tree. Special object that provides a single view on all `ApiObject`s in the tree and root modules.
 
-    A reference to the root instance is kept on all L{pydocspec} API objects as L{ApiObject.root}.
+    A reference to the root instance is kept on all `pydocspec` API objects as `ApiObject.root`.
 
-    :note: L{pydocspec}'s tree contains a hiearchy of packages.
+    :note: `pydocspec`'s tree contains a hiearchy of packages.
     """
 
     root_modules: List['Module'] = attr.ib(factory=list, init=False)
@@ -92,9 +92,9 @@ class ApiObjectsRoot:
     
     all_objects: DuplicateSafeDict['ApiObject'] = attr.ib(factory=DuplicateSafeDict, init=False)
     """
-    All objects of the tree in a mapping C{full_name} -> L{ApiObject}.
+    All objects of the tree in a mapping ``full_name`` -> `ApiObject`.
     
-    :note: Special care is taken in order no to shadow objects with duplicate names, see L{DuplicateSafeDict}.
+    :note: Special care is taken in order no to shadow objects with duplicate names, see `DuplicateSafeDict`.
     """
 
     # This class variable is set from Factory itself.
@@ -105,7 +105,7 @@ class ApiObjectsRoot:
 
 class ApiObject(docspec.ApiObject):
     """
-    An augmented L{docspec.ApiObject}, with functionalities to resolve names for the python language.
+    An augmented `docspec.ApiObject`, with functionalities to resolve names for the python language.
     """
 
     # help mypy
@@ -115,7 +115,7 @@ class ApiObject(docspec.ApiObject):
     # this attribute needs to be manually set from the converter/loader.
     root: ApiObjectsRoot
     """
-    L{ApiObjectsRoot} instance holding references to all objects in the tree.
+    `ApiObjectsRoot` instance holding references to all objects in the tree.
     """
     
     @cached_property
@@ -131,7 +131,7 @@ class ApiObject(docspec.ApiObject):
     @cached_property
     def dotted_name(self) -> DottedName:
         """
-        The fully qualified dotted name of this object, as C{DottedName} instance.
+        The fully qualified dotted name of this object, as `DottedName` instance.
         """
         return DottedName(*(ob.name for ob in self.path))
 
@@ -139,7 +139,7 @@ class ApiObject(docspec.ApiObject):
     def full_name(self) -> str:
         """
         The fully qualified dotted name of this object, as string. 
-        This value is used as the key in the L{ApiObject.root.all_objects} dictionnary.
+        This value is used as the key in the `ApiObject.root.all_objects` dictionnary.
         """
         return str(self.dotted_name)
     
@@ -164,7 +164,7 @@ class ApiObject(docspec.ApiObject):
     @cached_property
     def module(self) -> 'Module':
         """
-        The L{Module} instance that contains this object.
+        The `Module` instance that contains this object.
         """
         if isinstance(self, Module):
             return self
@@ -174,10 +174,10 @@ class ApiObject(docspec.ApiObject):
     
     def get_member(self, name: str) -> Optional['ApiObject']:
         """
-        Retrieve a member from the API object. This will always return C{None} for
-        objects that don't support members (eg. L{Function} and L{Data}).
+        Retrieve a member from the API object. This will always return `None` for
+        objects that don't support members (eg. `Function` and `Data`).
 
-        :note: Implementation relies on L{ApiObject.root.all_objects} such that
+        :note: Implementation relies on `ApiObject.root.all_objects` such that
             it will return the last added object in case of duplicate names.
         """
         if isinstance(self, HasMembers):
@@ -189,7 +189,7 @@ class ApiObject(docspec.ApiObject):
     
     def get_members(self, name: str) -> Iterator['ApiObject']:
         """
-        Like C{get_member} but can return several items with the same name.
+        Like `get_member` but can return several items with the same name.
         """
         if isinstance(self, docspec.HasMembers):
             for member in self.members:
@@ -211,34 +211,38 @@ class ApiObject(docspec.ApiObject):
             import mod1 as renamed_mod
             class E:
                 pass
-        In the context of mod2.E, C{expand_name("RenamedExternal")} should be
-        C{"external_location.External"} and C{expand_name("renamed_mod.Local")}
-        should be C{"mod1.Local"}. 
+        In the context of mod2.E, ``expand_name("RenamedExternal")`` should be
+        ``"external_location.External"`` and ``expand_name("renamed_mod.Local")``
+        should be ``"mod1.Local"``. 
         
         This method is in charge to follow the aliases when possible!
         It will reccursively follow any alias entries found 
         up to certain level of complexity. 
         Example:
         mod1.py::
+            
             import external
             class Processor:
                 spec = external.Processor.more_spec
             P = Processor
+
         mod2.py::
+
             from mod1 import P
             class Runner:
                 processor = P
-        In the context of mod2, C{expand_name("Runner.processor.spec")} should be
-        C{"external.Processor.more_spec"}.
+
+        In the context of mod2, ``expand_name("Runner.processor.spec")`` should be
+        ``"external.Processor.more_spec"``.
         
         :param name: The name to expand.
         :param follow_aliases: Whether or not to follow aliases. Indirections will still be followed anyway.
         :note: The implementation replies on iterating through the each part of the dotted name, 
-            calling L{_local_to_full_name} for each name in their associated context and incrementally building 
+            calling `_local_to_full_name` for each name in their associated context and incrementally building 
             the full_name from that. 
             Lookup members in superclasses when possible and follows aliases and indirections. 
-            This mean that L{expand_name} will never return the name of an alias,
-            it will always follow it's indirection to the origin. Except if C{follow_aliases=False}. 
+            This mean that `expand_name` will never return the name of an alias,
+            it will always follow it's indirection to the origin. Except if ``follow_aliases=False``. 
         """
         parts = DottedName(name)
         ctx: 'ApiObject' = self # The context for the currently processed part of the name. 
@@ -273,8 +277,8 @@ class ApiObject(docspec.ApiObject):
         """
         Return the object named by "name" (using Python's lookup rules) in this context.
 
-        :note: This method will never return an L{Indirection} or an alias since it's supposed to follow 
-            indirections and aliases. Except if C{follow_aliases=False}. 
+        :note: This method will never return an `Indirection` or an alias since it's supposed to follow 
+            indirections and aliases. Except if ``follow_aliases=False``. 
         """
         return self.root.all_objects.get(self.expand_name(name, follow_aliases=follow_aliases))
 
@@ -346,19 +350,19 @@ class ApiObject(docspec.ApiObject):
 
     def walk(self, visitor: genericvisitor.Visitor['ApiObject']) -> None:
         """
-        Traverse a tree of objects, calling the L{genericvisitor.Visitor.visit} 
+        Traverse a tree of objects, calling the `genericvisitor.Visitor.visit` 
         method of `visitor` when entering each node.
 
-        :see: L{genericvisitor.walk} for more details.
+        :see: `genericvisitor.walk` for more details.
         """
         genericvisitor.walk(self, visitor, ApiObject._members)
         
     def walkabout(self, visitor: genericvisitor.Visitor['ApiObject']) -> None:
         """
-        Perform a tree traversal similarly to L{walk()}, except also call the L{genericvisitor.Visitor.depart} 
+        Perform a tree traversal similarly to `walk()`, except also call the `genericvisitor.Visitor.depart` 
         method before exiting each node.
 
-        :see: L{genericvisitor.walkabout} for more details.
+        :see: `genericvisitor.walkabout` for more details.
         """
         genericvisitor.walkabout(self, visitor, ApiObject._members)
 
@@ -406,7 +410,7 @@ class Data(docspec.Data, ApiObject):
     def is_alias(self) -> bool:
         """
         Whether this Data is an alias.
-        Aliases are folowed by default when using L{ApiObject.expand_name}. 
+        Aliases are folowed by default when using `ApiObject.expand_name`. 
         """
         return astutils.node2dottedname(self.value_ast) is not None
     
@@ -434,7 +438,7 @@ class Data(docspec.Data, ApiObject):
     @cached_property
     def is_using_typing_final(self) -> bool:
         """
-        Detect if this object is using L{typing.Final} as annotation.
+        Detect if this object is using `typing.Final` as annotation.
         """
         full_name = astutils.node2fullname(self.datatype_ast, self)
         if full_name == "typing.Final":
@@ -490,9 +494,9 @@ class Class(docspec.Class, ApiObject):
     @cached_property
     def resolved_bases(self) -> List[Union['ApiObject', 'str']]:
         """
-        For each bases, try to resolve the name to an L{ApiObject} or fallback to the expanded name.
+        For each bases, try to resolve the name to an `ApiObject` or fallback to the expanded name.
         
-        :see: L{resolve_name} and L{expand_name}
+        :see: `resolve_name` and `expand_name`
         """
         objs = []
         for base in self.bases or ():
@@ -500,7 +504,7 @@ class Class(docspec.Class, ApiObject):
         return objs
     
     def all_bases(self, include_self: bool = False) -> Iterator[Union['ApiObject', 'str']]:
-        """Reccursively returns C{resolved_bases} for all bases."""
+        """Reccursively returns `resolved_bases` for all bases."""
         if include_self:
             yield self
         for b in self.resolved_bases:
@@ -510,7 +514,7 @@ class Class(docspec.Class, ApiObject):
                 yield b
 
     def all_base_classes(self, include_self: bool = False) -> Iterator['Class']:
-        """Reccursively returns all bases that are resolved to a L{Class}."""
+        """Reccursively returns all bases that are resolved to a `Class`."""
         for b in self.all_bases(include_self):
             if isinstance(b, Class):
                 yield b
@@ -559,7 +563,7 @@ class Class(docspec.Class, ApiObject):
 
     # def unmasked_attrs(baselist: Sequence[Class]) -> Sequence[model.Documentable]:
     #     """
-    #     Helper function to reteive the list of inherited children given a base classes chain (As yielded by L{nested_bases}). 
+    #     Helper function to reteive the list of inherited children given a base classes chain (As yielded by `nested_bases`). 
     #     The returned members are inherited from the Class listed first in the chain to the Class listed last: they are not overriden in between. 
     #     """
     #     maybe_masking = {
@@ -574,7 +578,7 @@ class Class(docspec.Class, ApiObject):
     def find(self, name: str) -> Optional[ApiObject]:
         """Look up a name in this class and its base classes.
 
-        :return: the object with the given name, or L{None} if there isn't one
+        :return: the object with the given name, or `None` if there isn't one
         :note: This does not currently comply with the python method resolution 
             order. We would need to implement C3Linearization algorithm with Class objects. 
         """
@@ -588,9 +592,9 @@ class Class(docspec.Class, ApiObject):
     def constructor_params(self) -> Mapping[str, Optional[ast.expr]]:
         """
         A mapping of constructor parameter names to their type annotation.
-        If a parameter is not annotated, its value is L{None}.
+        If a parameter is not annotated, its value is `None`.
 
-        :note: The implementation relies on inspecting the C{self.constructor_method} object.
+        :note: The implementation relies on inspecting the `constructor_method` object.
         """
         init_method = self.constructor_method
         if init_method is not None:
@@ -606,8 +610,8 @@ class Class(docspec.Class, ApiObject):
         """
         Get the constructor method of this class.
 
-        :note: The implementation currently returns the C{__init__} method only.
-            If C{__new__} or L{__call__} methods are defined, this information might be incorrect.
+        :note: The implementation currently returns the ``__init__`` method only.
+            If ``__new__`` or `__call__` methods are defined, this information might be incorrect.
         """
         init_method = self.get_member('__init__')
         if isinstance(init_method, Function):
@@ -639,7 +643,7 @@ class Class(docspec.Class, ApiObject):
         'ValueError', 'Warning', 'ZeroDivisionError')
     @cached_property
     def is_exception(self) -> bool:
-        """Return C{True} if this class extends one of the standard library exceptions."""
+        """Return `True` if this class extends one of the standard library exceptions."""
         
         for base in self.all_bases(True):
             if base in self._exceptions:
@@ -766,7 +770,7 @@ class Function(docspec.Function, ApiObject):
 
 class Argument(docspec.Argument):
     """
-    Represents a L{Function} argument.
+    Represents a `Function` argument.
     """
     @cached_property
     def datatype_ast(self) -> Optional[ast.expr]:
@@ -783,7 +787,7 @@ class Argument(docspec.Argument):
 
 class Decoration(docspec.Decoration):
     """
-    Represents a decorator on a L{Class} or L{Function}.
+    Represents a decorator on a `Class` or `Function`.
 
     +---------------------------------------+-------------------------+---------------------+-----------------+
     | Code                                  | Decorator.name          | Decorator.args      | Notes           |
@@ -885,10 +889,10 @@ class Module(docspec.Module, ApiObject):
 
 HasMembers = (Module, Class)
 """
-Alias to use with C{isinstance()}
+Alias to use with `isinstance`()
 """
 
 Inheritable = (Indirection, Data, Function) 
 """
-Alias to use with C{isinstance()}
+Alias to use with `isinstance`()
 """

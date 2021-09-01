@@ -1,5 +1,5 @@
 """
-Various bits of reusable code related to L{ast.AST} node processing.
+Various bits of reusable code related to `ast.AST` node processing.
 """
 
 from typing import Any, Iterable, Optional, List, TYPE_CHECKING, Type, Union, cast
@@ -17,7 +17,7 @@ class ValueFormatter:
     Formats values stored in AST expressions back to sourcecode.
     Used for presenting default values of parameters and annotations. 
 
-    :note: The default behaviour defers to L{astor.to_source}. 
+    :note: The default behaviour defers to `astor.to_source`. 
         This should be overriden if you want more formatting functions, like outputing HTML tags. 
     """
 
@@ -70,17 +70,17 @@ def to_source(expr: ast.AST) -> str:
     return repr(ValueFormatter(expr))
 
 _attrs_decorator_signature = inspect.signature(attr.s)
-"""Signature of the L{attr.s} class decorator."""
+"""Signature of the `attr.s` class decorator."""
 
 def uses_auto_attribs(call: ast.Call, ctx: 'ApiObject') -> bool:
-    """Does the given L{attr.s()} decoration contain C{auto_attribs=True}?
-    :param call: AST of the call to L{attr.s()}.
-        This function will assume that L{attr.s()} is called without
+    """Does the given `attr.s()` decoration contain ``auto_attribs=True``?
+    :param call: AST of the call to `attr.s()`.
+        This function will assume that `attr.s()` is called without
         verifying that.
     :param ctx: Namespace that contains the call, used for error reporting.
-    :return: L{True} if L{True} is passed for C{auto_attribs},
-        L{False} in all other cases: if C{auto_attribs} is not passed,
-        if an explicit L{False} is passed or if an error was reported.
+    :return: `True` if `True` is passed for ``auto_attribs``,
+        `False` in all other cases: if ``auto_attribs`` is not passed,
+        if an explicit `False` is passed or if an error was reported.
     """
     try:
         args = bind_args(_attrs_decorator_signature, call)
@@ -111,7 +111,7 @@ def uses_auto_attribs(call: ast.Call, ctx: 'ApiObject') -> bool:
 
 def node2dottedname(node: Optional[ast.expr]) -> Optional[List[str]]:
     """
-    Resove expression composed by L{ast.Attribute} and L{ast.Name} nodes to a list of names. 
+    Resove expression composed by `ast.Attribute` and `ast.Name` nodes to a list of names. 
     """
     parts = []
     while isinstance(node, ast.Attribute):
@@ -126,7 +126,7 @@ def node2dottedname(node: Optional[ast.expr]) -> Optional[List[str]]:
 
 def node2fullname(expr: Optional[Union[ast.expr, str]], ctx: 'ApiObject') -> Optional[str]:
     """
-    Return C{ctx.expand_name(name)} if C{expr} is a valid name, or C{None}.
+    Return ``ctx.expand_name(name)`` if ``expr`` is a valid name, or ``None``.
     """
     dottedname = node2dottedname(expr) if isinstance(expr, ast.expr) else expr
     if dottedname is None:
@@ -246,12 +246,12 @@ def _annotation_for_elements(sequence: Iterable[object]) -> Optional[ast.expr]:
         return None
 
 class _AnnotationStringParser(ast.NodeTransformer):
-    """Implementation of L{unstring_annotation()}.
+    """Implementation of `unstring_annotation`.
 
-    When given an expression, the node returned by L{ast.NodeVisitor.visit()}
+    When given an expression, the node returned by `ast.NodeVisitor.visit()`
     will also be an expression.
     If any string literal contained in the original expression is either
-    invalid Python or not a singular expression, L{SyntaxError} is raised.
+    invalid Python or not a singular expression, `SyntaxError` is raised.
     """
 
     def _parse_string(self, value: str) -> ast.expr:

@@ -13,7 +13,7 @@ class _PostProcessVisitor(genericvisitor.Visitor[pydocspec.ApiObject]):
     """
     Apply various required processing to new pydocspec trees.
 
-    - Setup the L{pydocspec.Class.sub_classes} attribute.
+    - Setup the `pydocspec.Class.sub_classes` attribute.
     - Ensures that property setter and deleters do not shadow the getter.
     - Make the location attribute non-optional, reduces annoyance.
     """
@@ -56,10 +56,10 @@ def default_post_process(root: pydocspec.ApiObjectsRoot) -> None:
 @attr.s(auto_attribs=True)
 class PostProcessor:
     """
-    Apply post processing to a newly created L{pydocspec.ApiObjectsRoot} instance. 
+    Apply post processing to a newly created `pydocspec.ApiObjectsRoot` instance. 
 
-    At the point of the post processing, the root L{pydocspec.Module} instances should have 
-    already been added to the L{pydocspec.ApiObjectsRoot.root_modules} attribute.
+    At the point of the post processing, the root `pydocspec.Module` instances should have 
+    already been added to the `pydocspec.ApiObjectsRoot.root_modules` attribute.
     
     Post-processes are applied when there are no more unprocessed modules.
 
@@ -87,7 +87,7 @@ class PostProcessor:
 
     def import_post_processes_from(self, module:Union[str, Any]) -> None:
         """
-        Will look for the special mapping C{POST_PROCESSES} in the provided module.
+        Will look for the special mapping ``POST_PROCESSES`` in the provided module.
         """
         if isinstance(module, str):
             mod = import_module(module)
@@ -105,7 +105,7 @@ class PostProcessor:
 
     def post_process(self, root: pydocspec.ApiObjectsRoot) -> None:
         """
-        Apply post process on newly created L{pydocspec} tree. This is required.
+        Apply post process on newly created `pydocspec` tree. This is required.
 
         .. python::
 

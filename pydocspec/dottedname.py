@@ -53,19 +53,19 @@ class DottedName:
     def __init__(self, *pieces: Union[str, 'DottedName', Tuple[str, ...]], strict: bool = False):
         """
         Construct a new dotted name from the given sequence of pieces,
-        each of which can be either a C{string} or a C{DottedName}.
+        each of which can be either a ``string`` or a ``DottedName``.
         Each piece is divided into a sequence of identifiers, and
         these sequences are combined together (in order) to form the
-        identifier sequence for the new C{DottedName}.  If a piece
+        identifier sequence for the new ``DottedName``.  If a piece
         contains a string, then it is divided into substrings by
         splitting on periods, and each substring is checked to see if
         it is a valid identifier.
-        As an optimization, C{pieces} may also contain a single tuple
+        As an optimization, ``pieces`` may also contain a single tuple
         of values.  In that case, that tuple will be used as the
-        C{DottedName}'s identifiers; it will I{not} be checked to
+        ``DottedName``'s identifiers; it will *not* be checked to
         see if it's valid.
 
-        :param strict: if true, then raise an L{InvalidDottedName}
+        :param strict: if true, then raise an `InvalidDottedName`
             if the given name is invalid.
         """
         if len(pieces) == 0:
@@ -113,8 +113,8 @@ class DottedName:
 
     def __add__(self, other: Union[str, 'DottedName', Tuple[str, ...]]) -> 'DottedName':
         """
-        Return a new C{DottedName} whose identifier sequence is formed
-        by adding C{other}'s identifier sequence to C{self}'s.
+        Return a new ``DottedName`` whose identifier sequence is formed
+        by adding ``other``'s identifier sequence to ``self``'s.
         """
         if isinstance(other, (DottedName, str)):
             return DottedName(self, other)
@@ -123,8 +123,8 @@ class DottedName:
 
     def __radd__(self, other: Union[str, 'DottedName', Tuple[str, ...]]) -> 'DottedName':
         """
-        Return a new C{DottedName} whose identifier sequence is formed
-        by adding C{self}'s identifier sequence to C{other}'s.
+        Return a new ``DottedName`` whose identifier sequence is formed
+        by adding ``self``'s identifier sequence to ``other``'s.
         """
         if isinstance(other, (DottedName, str)):
             return DottedName(other, self)
@@ -139,10 +139,10 @@ class DottedName:
         ...
     def __getitem__(self, i: Union[slice, int]) -> Union[str, 'DottedName', Tuple[()]]:
         """
-        Return the C{i}th identifier in this C{DottedName}.  If C{i} is
-        a non-empty slice, then return a C{DottedName} built from the
-        identifiers selected by the slice.  If C{i} is an empty slice,
-        return an empty tuple (since empty C{DottedName}s are not valid).
+        Return the ``i``th identifier in this ``DottedName``.  If ``i`` is
+        a non-empty slice, then return a ``DottedName`` built from the
+        identifiers selected by the slice.  If ``i`` is an empty slice,
+        return an empty tuple (since empty ``DottedName``s are not valid).
         """
         if isinstance(i, slice):
             pieces = self._identifiers[i.start:i.stop]
@@ -159,7 +159,7 @@ class DottedName:
     #     ...
     # def __delitem__(self, i: Union[slice, int]) -> None:
     #     """
-    #     Remove the C{i}th identifier in this C{DottedName}.  If C{i} is
+    #     Remove the ``i``th identifier in this ``DottedName``.  If ``i`` is
     #     a non-empty slice, then delete the identifiers selected by the slice.  
     #     """
     #     if isinstance(i, slice):
@@ -169,7 +169,7 @@ class DottedName:
     
     # def __setitem__(self, i: int, value: str) -> None: # type:ignore[override]
     #     """
-    #     Set the C{i}th identifier in this C{DottedName}.
+    #     Set the ``i``th identifier in this ``DottedName``.
     #     """
     #     if isinstance(i, int):
     #         self._identifiers[i] = value
@@ -184,7 +184,7 @@ class DottedName:
 
     def __cmp__(self, other: Any) -> int:
         """
-        Compare this dotted name to C{other}.  Two dotted names are
+        Compare this dotted name to ``other``.  Two dotted names are
         considered equal if their identifier subsequences are equal.
         Ordering between dotted names is lexicographic, in order of
         identifier from left to right.
@@ -226,7 +226,7 @@ class DottedName:
         Return the DottedName formed by removing the last identifier
         from this dotted name's identifier sequence.  If this dotted
         name only has one name in its identifier sequence, return
-        C{None} instead.
+        ``None`` instead.
         """
         if len(self._identifiers) == 1:
             return None
@@ -236,8 +236,8 @@ class DottedName:
     def dominates(self, name: 'DottedName', strict: bool = False) -> bool:
         """
         Return true if this dotted name is equal to a prefix of
-        C{name}.  If C{strict} is true, then also require that
-        C{self!=name}.
+        ``name``.  If ``strict`` is true, then also require that
+        ``self!=name``.
             >>> DottedName('a.b').dominates(DottedName('a.b.c.d'))
             True
         """
@@ -253,15 +253,15 @@ class DottedName:
 
     def contextualize(self, context: Sequence[str]) -> 'DottedName':
         """
-        If C{self} and C{context} share a common ancestor, then return
-        a name for C{self}, relative to that ancestor.  If they do not
-        share a common ancestor (or if C{context} is C{UNREACHABLE}), then
-        simply return C{self}.
+        If ``self`` and ``context`` share a common ancestor, then return
+        a name for ``self``, relative to that ancestor.  If they do not
+        share a common ancestor (or if ``context`` is ``UNREACHABLE``), then
+        simply return ``self``.
         This is used to generate shorter versions of dotted names in
         cases where users can infer the intended target from the
         context.
-        @type context: L{DottedName}
-        :rtype: L{DottedName}
+        :type context: `DottedName`
+        :rtype: `DottedName`
         """
         if len(self) <= 1 or not context:
             return self

@@ -1,8 +1,8 @@
 """
 Our own version of the docspec loader. 
 
-:note: The current implementation is largely adapted from pydoctor's AST builder, simply based on the L{ast} module. 
-    Because of that, it is very fast. But single line comments (starting by "C{#}") are ignored. 
+:note: The current implementation is largely adapted from pydoctor's AST builder, simply based on the `ast` module. 
+    Because of that, it is very fast. But single line comments (starting by "``#``") are ignored. 
     Except for type comments, that are supported by the AST module. 
 
 """
@@ -42,9 +42,9 @@ line in the string, rather than the first line.
 
 class Collector:
     """
-    Base class to organize a tree of C{pydocspec} objects. 
+    Base class to organize a tree of `pydocspec` objects. 
     
-    Maintains a stack of objects and incrementally build one C{Module} instance.
+    Maintains a stack of objects and incrementally build **one** `Module` instance.
 
     :note: This object does not add root modules to the root.root_modules attribute. 
         This is either the responsibility of the converter or the loader, depending on how you built the tree.
@@ -57,7 +57,7 @@ class Collector:
         """
         The root of the tree. 
         
-        Can be used to access the C{root.factory} attribute and create new classes.
+        Can be used to access the ``root.factory`` attribute and create new classes.
         """
         # pytype comlains because module id defined as non-optional in ModuleVisitor.module.
         self.module = module #type:ignore[annotation-type-mismatch]
@@ -425,7 +425,7 @@ class Loader:
     def _process_module(self, mod:pydocspec.Module) -> None:
         """
         Parse the module file to an AST and create it's members. At the time this method is called, not all objects are created. 
-        But all module instances already exist and are added to L{root.all_objects}, including nested modules.
+        But all module instances already exist and are added to `root.all_objects`, including nested modules.
         """
         assert self._processing_map[mod.full_name] is ProcessingState.UNPROCESSED
         self._processing_map[mod.full_name] = ProcessingState.PROCESSING

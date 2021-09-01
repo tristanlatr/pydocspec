@@ -12,7 +12,7 @@ from . import brains
 @attr.s(auto_attribs=True)
 class Factory:
     """
-    Classes are created dynamically with C{type} such that they can inherith from customizable mixin classes. 
+    Classes are created dynamically with `type` such that they can inherith from customizable mixin classes. 
     """
     bases: Dict[str, Type[Any]] = attr.ib(factory=dict)
     mixins: Dict[str, List[Type[Any]]] = attr.ib(factory=dict)
@@ -78,7 +78,7 @@ class Factory:
 
     def import_mixins_from(self, module:Union[str, Any]) -> None:
         """
-        Will look for the special mapping C{MIXIN_CLASSES} in the provided module.
+        Will look for the special mapping ``MIXIN_CLASSES`` in the provided module.
         """
         if isinstance(module, str):
             mod = import_module(module)

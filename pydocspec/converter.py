@@ -1,7 +1,7 @@
 """
-Convert L{docspec} objects to their L{pydocspec} augmented version.
+Convert `docspec` objects to their `pydocspec` augmented version.
 
-This converter is supposed to be fully compatible with L{docspec_python}. 
+This converter is supposed to be fully compatible with `docspec_python`. 
 
 Usage::
 
@@ -10,9 +10,9 @@ Usage::
     from pydocspec.converter import convert_docspec_modules
     modules: List[pydocspec.Module] = convert_docspec_modules(load_python_modules(...))
 
-:note: By default, the ast properties are computed on demand and cached with C{@cached_property} (creating ast nodes is expensive). 
+:note: By default, the ast properties are computed on demand and cached with ``@cached_property`` (creating ast nodes is expensive). 
         This behaviour is highly inefficient if we have already parsed the whole module's AST. 
-        I should write an efficient builder soon. For now, we can use the C{convert_docspec_modules} function. 
+        I should write an efficient builder soon. For now, we can use the ``convert_docspec_modules`` function. 
 """
 
 from typing import Iterable, Iterator, cast, List, Optional, Union, overload
@@ -34,13 +34,13 @@ def convert_docspec_modules(modules: Iterable[docspec.Module], root:Literal[Fals
 
 def convert_docspec_modules(modules: Iterable[docspec.Module], root:bool=False, additional_brain_modules:Optional[List[str]]=None) -> Union[List[pydocspec.Module], pydocspec.ApiObjectsRoot]:
     """
-    Convert a list of L{docspec.Module} instances into a list of L{pydocspec.Module}. 
-    Alternatively, you can also request the L{ApiObjectsRoot} instance by passing C{root=True}. 
+    Convert a list of `docspec.Module` instances into a list of `pydocspec.Module`. 
+    Alternatively, you can also request the `ApiObjectsRoot` instance by passing ``root=True``. 
 
     :param modules: Modules to convert.
-    :param root: Whether to return the L{ApiObjectsRoot} or the list of L{pydocspec.Module}. 
+    :param root: Whether to return the `ApiObjectsRoot` or the list of `pydocspec.Module`. 
     :param additional_brain_modules: Custom brain modules to import into the system.
-    :return: A list of the root modules of the tree or the L{ApiObjectsRoot} instance if C{root=True}.
+    :return: A list of the root modules of the tree or the `ApiObjectsRoot` instance if ``root=True``.
     :note: It will transform the tree such that we have an actual hiearchy of packages. 
     """
     factory = specfactory.Factory.default()
@@ -62,7 +62,7 @@ def convert_docspec_modules(modules: Iterable[docspec.Module], root:bool=False, 
 
 class _ConverterVisitor(loader.Collector, genericvisitor.Visitor[docspec.ApiObject]):
     """
-    Visit each C{docspec} objects of a module and create their C{pydocspec} augmented counterparts.
+    Visit each ``docspec`` objects of a module and create their ``pydocspec`` augmented counterparts.
     """
     
     def unknown_departure(self, obj: docspec.ApiObject) -> None:
@@ -142,13 +142,13 @@ class _ConverterVisitor(loader.Collector, genericvisitor.Visitor[docspec.ApiObje
 @attr.s(auto_attribs=True)
 class _Converter:
     """
-    Converts L{docspec} objects to their L{pydocspec} augmented version.
+    Converts `docspec` objects to their `pydocspec` augmented version.
     """
     root: pydocspec.ApiObjectsRoot
 
     def convert_docspec_modules(self, modules: Iterable[docspec.Module]) -> None:
         """
-        Convert L{docspec.Module}s to the L{ApiObjectsRoot} instance.
+        Convert `docspec.Module`s to the `ApiObjectsRoot` instance.
         """
         _modules = list(modules)
         for mod in _nest_docspec_python_modules(_modules) if len(_modules)>1 else _modules:
