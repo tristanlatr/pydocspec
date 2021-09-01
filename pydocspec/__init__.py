@@ -82,7 +82,7 @@ class ApiObjectsRoot:
 
     A reference to the root instance is kept on all L{pydocspec} API objects as L{ApiObject.root}.
 
-    @note: L{pydocspec}'s tree contains a hiearchy of packages.
+    :note: L{pydocspec}'s tree contains a hiearchy of packages.
     """
 
     root_modules: List['Module'] = attr.ib(factory=list, init=False)
@@ -94,7 +94,7 @@ class ApiObjectsRoot:
     """
     All objects of the tree in a mapping C{full_name} -> L{ApiObject}.
     
-    @note: Special care is taken in order no to shadow objects with duplicate names, see L{DuplicateSafeDict}.
+    :note: Special care is taken in order no to shadow objects with duplicate names, see L{DuplicateSafeDict}.
     """
 
     # This class variable is set from Factory itself.
@@ -177,7 +177,7 @@ class ApiObject(docspec.ApiObject):
         Retrieve a member from the API object. This will always return C{None} for
         objects that don't support members (eg. L{Function} and L{Data}).
 
-        @note: Implementation relies on L{ApiObject.root.all_objects} such that
+        :note: Implementation relies on L{ApiObject.root.all_objects} such that
             it will return the last added object in case of duplicate names.
         """
         if isinstance(self, HasMembers):
@@ -231,9 +231,9 @@ class ApiObject(docspec.ApiObject):
         In the context of mod2, C{expand_name("Runner.processor.spec")} should be
         C{"external.Processor.more_spec"}.
         
-        @param name: The name to expand.
-        @param follow_aliases: Whether or not to follow aliases. Indirections will still be followed anyway.
-        @note: The implementation replies on iterating through the each part of the dotted name, 
+        :param name: The name to expand.
+        :param follow_aliases: Whether or not to follow aliases. Indirections will still be followed anyway.
+        :note: The implementation replies on iterating through the each part of the dotted name, 
             calling L{_local_to_full_name} for each name in their associated context and incrementally building 
             the full_name from that. 
             Lookup members in superclasses when possible and follows aliases and indirections. 
@@ -273,7 +273,7 @@ class ApiObject(docspec.ApiObject):
         """
         Return the object named by "name" (using Python's lookup rules) in this context.
 
-        @note: This method will never return an L{Indirection} or an alias since it's supposed to follow 
+        :note: This method will never return an L{Indirection} or an alias since it's supposed to follow 
             indirections and aliases. Except if C{follow_aliases=False}. 
         """
         return self.root.all_objects.get(self.expand_name(name, follow_aliases=follow_aliases))
@@ -306,10 +306,10 @@ class ApiObject(docspec.ApiObject):
         Resolve the alias value to it's target full name.
         Or fall back to original alias full name if we know we've exhausted the max recursions.
 
-        @param alias: an ALIAS object.
-        @param indirections: Chain of alias objects followed. 
+        :param alias: an ALIAS object.
+        :param indirections: Chain of alias objects followed. 
             This variable is used to prevent infinite loops when doing the lookup.
-        @note: It can return None in exceptionnal cases if an indirection cannot be resolved. 
+        :note: It can return None in exceptionnal cases if an indirection cannot be resolved. 
             Then we use the indirection's full_name. 
         """
 
@@ -349,7 +349,7 @@ class ApiObject(docspec.ApiObject):
         Traverse a tree of objects, calling the L{genericvisitor.Visitor.visit} 
         method of `visitor` when entering each node.
 
-        @see: L{genericvisitor.walk} for more details.
+        :see: L{genericvisitor.walk} for more details.
         """
         genericvisitor.walk(self, visitor, ApiObject._members)
         
@@ -358,7 +358,7 @@ class ApiObject(docspec.ApiObject):
         Perform a tree traversal similarly to L{walk()}, except also call the L{genericvisitor.Visitor.depart} 
         method before exiting each node.
 
-        @see: L{genericvisitor.walkabout} for more details.
+        :see: L{genericvisitor.walkabout} for more details.
         """
         genericvisitor.walkabout(self, visitor, ApiObject._members)
 
@@ -492,7 +492,7 @@ class Class(docspec.Class, ApiObject):
         """
         For each bases, try to resolve the name to an L{ApiObject} or fallback to the expanded name.
         
-        @see: L{resolve_name} and L{expand_name}
+        :see: L{resolve_name} and L{expand_name}
         """
         objs = []
         for base in self.bases or ():
@@ -574,8 +574,8 @@ class Class(docspec.Class, ApiObject):
     def find(self, name: str) -> Optional[ApiObject]:
         """Look up a name in this class and its base classes.
 
-        @return: the object with the given name, or L{None} if there isn't one
-        @note: This does not currently comply with the python method resolution 
+        :return: the object with the given name, or L{None} if there isn't one
+        :note: This does not currently comply with the python method resolution 
             order. We would need to implement C3Linearization algorithm with Class objects. 
         """
         for base in self.all_base_classes(True):
@@ -590,7 +590,7 @@ class Class(docspec.Class, ApiObject):
         A mapping of constructor parameter names to their type annotation.
         If a parameter is not annotated, its value is L{None}.
 
-        @note: The implementation relies on inspecting the C{self.constructor_method} object.
+        :note: The implementation relies on inspecting the C{self.constructor_method} object.
         """
         init_method = self.constructor_method
         if init_method is not None:
@@ -606,7 +606,7 @@ class Class(docspec.Class, ApiObject):
         """
         Get the constructor method of this class.
 
-        @note: The implementation currently returns the C{__init__} method only.
+        :note: The implementation currently returns the C{__init__} method only.
             If C{__new__} or L{__call__} methods are defined, this information might be incorrect.
         """
         init_method = self.get_member('__init__')

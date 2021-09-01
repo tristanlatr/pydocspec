@@ -10,7 +10,7 @@ Usage::
     from pydocspec.converter import convert_docspec_modules
     modules: List[pydocspec.Module] = convert_docspec_modules(load_python_modules(...))
 
-@note: By default, the ast properties are computed on demand and cached with C{@cached_property} (creating ast nodes is expensive). 
+:note: By default, the ast properties are computed on demand and cached with C{@cached_property} (creating ast nodes is expensive). 
         This behaviour is highly inefficient if we have already parsed the whole module's AST. 
         I should write an efficient builder soon. For now, we can use the C{convert_docspec_modules} function. 
 """
@@ -37,11 +37,11 @@ def convert_docspec_modules(modules: Iterable[docspec.Module], root:bool=False, 
     Convert a list of L{docspec.Module} instances into a list of L{pydocspec.Module}. 
     Alternatively, you can also request the L{ApiObjectsRoot} instance by passing C{root=True}. 
 
-    @param modules: Modules to convert.
-    @param root: Whether to return the L{ApiObjectsRoot} or the list of L{pydocspec.Module}. 
-    @param additional_brain_modules: Custom brain modules to import into the system.
-    @returns: A list of the root modules of the tree or the L{ApiObjectsRoot} instance if C{root=True}.
-    @note: It will transform the tree such that we have an actual hiearchy of packages. 
+    :param modules: Modules to convert.
+    :param root: Whether to return the L{ApiObjectsRoot} or the list of L{pydocspec.Module}. 
+    :param additional_brain_modules: Custom brain modules to import into the system.
+    :return: A list of the root modules of the tree or the L{ApiObjectsRoot} instance if C{root=True}.
+    :note: It will transform the tree such that we have an actual hiearchy of packages. 
     """
     factory = specfactory.Factory.default()
     post_processor = postprocessor.PostProcessor.default()

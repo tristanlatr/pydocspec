@@ -65,7 +65,7 @@ class DottedName:
         C{DottedName}'s identifiers; it will I{not} be checked to
         see if it's valid.
 
-        @param strict: if true, then raise an L{InvalidDottedName}
+        :param strict: if true, then raise an L{InvalidDottedName}
             if the given name is invalid.
         """
         if len(pieces) == 0:
@@ -261,7 +261,7 @@ class DottedName:
         cases where users can infer the intended target from the
         context.
         @type context: L{DottedName}
-        @rtype: L{DottedName}
+        :rtype: L{DottedName}
         """
         if len(self) <= 1 or not context:
             return self

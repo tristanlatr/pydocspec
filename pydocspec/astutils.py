@@ -17,7 +17,7 @@ class ValueFormatter:
     Formats values stored in AST expressions back to sourcecode.
     Used for presenting default values of parameters and annotations. 
 
-    @note: The default behaviour defers to L{astor.to_source}. 
+    :note: The default behaviour defers to L{astor.to_source}. 
         This should be overriden if you want more formatting functions, like outputing HTML tags. 
     """
 
@@ -74,11 +74,11 @@ _attrs_decorator_signature = inspect.signature(attr.s)
 
 def uses_auto_attribs(call: ast.Call, ctx: 'ApiObject') -> bool:
     """Does the given L{attr.s()} decoration contain C{auto_attribs=True}?
-    @param call: AST of the call to L{attr.s()}.
+    :param call: AST of the call to L{attr.s()}.
         This function will assume that L{attr.s()} is called without
         verifying that.
-    @param ctx: Namespace that contains the call, used for error reporting.
-    @return: L{True} if L{True} is passed for C{auto_attribs},
+    :param ctx: Namespace that contains the call, used for error reporting.
+    :return: L{True} if L{True} is passed for C{auto_attribs},
         L{False} in all other cases: if C{auto_attribs} is not passed,
         if an explicit L{False} is passed or if an error was reported.
     """
@@ -136,7 +136,7 @@ def node2fullname(expr: Optional[Union[ast.expr, str]], ctx: 'ApiObject') -> Opt
 def bind_args(sig: inspect.Signature, call: ast.Call) -> inspect.BoundArguments:
     """
     Binds the arguments of a function call to that function's signature.
-    @raise TypeError: If the arguments do not match the signature.
+    :raise TypeError: If the arguments do not match the signature.
     """
     kwargs = {
         kw.arg: kw.value
@@ -182,7 +182,7 @@ def extract_final_subscript(annotation: ast.Subscript) -> ast.expr:
 
 def unstring_annotation(node: ast.expr, ctx: Optional['ApiObject']=None) -> ast.expr:
     """Replace all strings in the given expression by parsed versions.
-    @return: The unstringed node. If parsing fails, an error is logged
+    :return: The unstringed node. If parsing fails, an error is logged
         and the original node is returned.
     """
     try:
@@ -196,8 +196,8 @@ def unstring_annotation(node: ast.expr, ctx: Optional['ApiObject']=None) -> ast.
 
 def infer_type(expr: ast.expr) -> Optional[ast.expr]:
     """Infer an expression's type.
-    @param expr: The expression's AST.
-    @return: A type annotation, or None if the expression has no obvious type.
+    :param expr: The expression's AST.
+    :return: A type annotation, or None if the expression has no obvious type.
     """
     try:
         value: object = ast.literal_eval(expr)

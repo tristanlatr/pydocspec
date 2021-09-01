@@ -58,16 +58,16 @@ class Factory:
         """
         Add mixin classes to objects in the factory. 
 
-        @keyword ApiObjectsRoot: Mixin types to apply to the root object.
-        @keyword Class: Mixin types to apply to the class object.
-        @keyword Function: Mixin types to apply to the function object.
-        @keyword Module: Mixin types to apply to the module object.
-        @keyword Data: Mixin types to apply to the data object.
-        @keyword Indirection: Mixin types to apply to the indirection object.
-        @keyword Decoration: Mixin types to apply to the decoration object.
-        @keyword Argument: Mixin types to apply to the argument object.
-        @keyword Docstring: Mixin types to apply to the docstring object.
-        @keyword Location: Mixin types to apply to the location object.
+        :keyword ApiObjectsRoot: Mixin types to apply to the root object.
+        :keyword Class: Mixin types to apply to the class object.
+        :keyword Function: Mixin types to apply to the function object.
+        :keyword Module: Mixin types to apply to the module object.
+        :keyword Data: Mixin types to apply to the data object.
+        :keyword Indirection: Mixin types to apply to the indirection object.
+        :keyword Decoration: Mixin types to apply to the decoration object.
+        :keyword Argument: Mixin types to apply to the argument object.
+        :keyword Docstring: Mixin types to apply to the docstring object.
+        :keyword Location: Mixin types to apply to the location object.
         """
         for key,value in kwargs.items():
             if isinstance(value, Sequence):

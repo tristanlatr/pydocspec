@@ -15,7 +15,7 @@ class _PostProcessVisitorFirst(genericvisitor.Visitor[pydocspec.ApiObject]):
     Visitor responsible to set the L{pydocspec.ApiObject.root} attribute on all objects and register 
     them in the {pydocspec.ApiObjectsRoot.all_objects} mapping. Which is the core to the name resolving system.
 
-    @note: This should be run first after creating a new L{pydocspec} tree, then L{_PostProcessVisitorSecond}.
+    :note: This should be run first after creating a new L{pydocspec} tree, then L{_PostProcessVisitorSecond}.
     """
 
     root: pydocspec.ApiObjectsRoot
@@ -137,7 +137,7 @@ class PostProcessor:
             root: pydocspec.ApiObjectsRoot
             postprocessor.PostProcessor.default().post_process(root)
 
-        @note: If you are creating a tree manually, you should run this on your tree as well. 
+        :note: If you are creating a tree manually, you should run this on your tree as well. 
         """
         for priority in sorted(self.post_processes.keys()):
             process = self.post_processes[priority]

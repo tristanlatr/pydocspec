@@ -1,7 +1,7 @@
 """
 Our own version of the docspec loader. 
 
-@note: The current implementation is largely adapted from pydoctor's AST builder, simply based on the L{ast} module. 
+:note: The current implementation is largely adapted from pydoctor's AST builder, simply based on the L{ast} module. 
     Because of that, it is very fast. But single line comments (starting by "C{#}") are ignored. 
     Except for type comments, that are supported by the AST module. 
 
