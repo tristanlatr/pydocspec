@@ -41,7 +41,6 @@ pydoctor \
     --make-html \
     --quiet \
     --project-base-dir=.\
-    --docformat=epytext \
     --html-output="${docs_folder}" \
     ./docspec.py ./pydocspec/ || true 
 
