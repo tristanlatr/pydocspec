@@ -49,7 +49,7 @@ from .dupsafedict import DuplicateSafeDict
 if TYPE_CHECKING:
     from . import specfactory
 
-__docformat__ = 'restrucuturedtext'
+__docformat__ = 'restructuredtext'
 __all__ = [
   'ApiObjectsRoot',
   'Location',
