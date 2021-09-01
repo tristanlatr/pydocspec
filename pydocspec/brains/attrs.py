@@ -33,7 +33,7 @@ class AttrsClassMixin:
         """Does the C{attr.s()} decoration contain C{auto_attribs=True}?"""
         attrs_deco = self.attrs_decoration
         if attrs_deco is not None and isinstance(attrs_deco.expr_ast, ast.Call):
-            return astutils.uses_auto_attribs(attrs_deco.expr_ast, cast('pydocspec.Class', self))
+            return astutils.uses_auto_attribs(attrs_deco.expr_ast, cast('pydocspec.Class', self)) # we need to help mypy a bit...
         return False
     
     #TODO: Craft a special Function object based on attrs attributes and offer a constructor_method_from_attrs property
