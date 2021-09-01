@@ -181,8 +181,13 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
         if isinstance(parent, pydocspec.Function):
             return None
 
-        str_bases = []
+        bases_str: Optional[List[str]] = None
+        bases_ast: Optional[List[ast.expr]] = None
 
+        if node.bases:
+            bases_str = []
+            bases_ast = []
+            
         # compute the Class.bases attribute
         for n in node.bases:
             dotted_name = astutils.node2dottedname(n)
@@ -190,7 +195,10 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
                 str_base = '.'.join(dotted_name)
             else:
                 str_base = astutils.to_source(n)
-            str_bases.append(str_base)
+            assert isinstance(bases_str, list)
+            assert isinstance(bases_ast, list)
+            bases_str.append(str_base)
+            bases_ast.append(n)
 
         lineno = node.lineno
 
@@ -202,7 +210,9 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
         cls: pydocspec.Class = self.root.factory.Class(node.name, 
                                     location=self.root.factory.Location(None, lineno=lineno),
                                     docstring=None, metaclass=None, 
-                                    bases=str_bases, decorations=None, members=[])
+                                    bases=bases_str, decorations=None, members=[])
+        # set bases (AST)
+        cls.bases_ast = bases_ast
 
         # set docstring
         if len(node.body) > 0 and isinstance(node.body[0], ast.Expr) and isinstance(node.body[0].value, ast.Str):
@@ -246,6 +256,7 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
                 # see https://github.com/NiklasRosenstein/docspec/issues/45
                 # deco = self.root.factory.Decoration(name=name, args=args) 
                 
+                # set name, etc (AST)
                 deco.name_ast = name_ast
                 deco.args_ast = args_ast
                 deco.expr_ast = decnode

@@ -79,6 +79,9 @@ def test_class_docstring(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:
     assert m is not None
     assert m.docstring is not None
     assert m.docstring.content == 'my class'
+    assert isinstance(m, pydocspec.Class)
+    assert m.bases is None
+    assert m.decorations is None
 
 
 @rootcls_param
@@ -97,10 +100,17 @@ def test_class_decos_and_bases(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:
     assert decorations is not None
     assert len(decorations) == 2
     assert [d.name for d in decorations] == ["property", "attr.s"]
+    for d in decorations:
+        assert d.name_ast == d.expr_ast
+        assert isinstance(d.name_ast, (ast.Name, ast.Attribute))
     bases = m.bases
     assert bases is not None
     assert len(bases) == 2
     assert bases == ["str", "pkg.MyBase"]
+    for b in m.bases_ast:
+        assert isinstance(b, (ast.Name, ast.Attribute))
+
+
 
 
 # def test_no_docstring(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:
