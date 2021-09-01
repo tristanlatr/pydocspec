@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>docspec.Location</title>
+    <title>docspec.Class.Semantic</title>
     <meta name="generator" content="pydoctor 21.2.2"> 
         
     </meta>
@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="docspec.html">docspec</a></code><wbr></wbr>.<code><a href="docspec.Location.html">Location</a></code></code></h1>
+        <h1 class="class"><code><code><a href="docspec.html">docspec</a></code><wbr></wbr>.<code><a href="docspec.Class.html">Class</a></code><wbr></wbr>.<code><a href="docspec.Class.Semantic.html">Semantic</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,32 +65,37 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Location</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L59" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#docspec.Location">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Semantic</span>(<a href="https://docs.python.org/3/library/enum.html#enum.Enum" title="enum.Enum">enum.Enum</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L372" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#docspec.Class.Semantic">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>Represents the location of an #ApiObject by a filename and line number.</p></div>
+        <div><p>A list of well-known properties and behaviour that can be attributed to a class.</p></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id2">
+        <table class="children sortable" id="id21">
   
   
   <tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#endlineno">endlineno</a></code></td>
+    <td><code><a href="#ABSTRACT">ABSTRACT</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#filename">filename</a></code></td>
+    <td><code><a href="#ENUM">ENUM</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#lineno">lineno</a></code></td>
+    <td><code><a href="#FINAL">FINAL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#INTERFACE">INTERFACE</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -104,16 +109,16 @@
         <div class="baseclassvariable">
   
   
-  <a name="docspec.Location.endlineno">
+  <a name="docspec.Class.Semantic.ABSTRACT">
     
   </a>
-  <a name="endlineno">
+  <a name="ABSTRACT">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">endlineno</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L70">
+    <span class="py-defname">ABSTRACT</span>: <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L381">
       
       (source)
     </a>
@@ -126,16 +131,16 @@
 </div><div class="baseclassvariable">
   
   
-  <a name="docspec.Location.filename">
+  <a name="docspec.Class.Semantic.ENUM">
     
   </a>
-  <a name="filename">
+  <a name="ENUM">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">filename</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L65">
+    <span class="py-defname">ENUM</span>: <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L387">
       
       (source)
     </a>
@@ -148,16 +153,38 @@
 </div><div class="baseclassvariable">
   
   
-  <a name="docspec.Location.lineno">
+  <a name="docspec.Class.Semantic.FINAL">
     
   </a>
-  <a name="lineno">
+  <a name="FINAL">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">lineno</span>: <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L66">
+    <span class="py-defname">FINAL</span>: <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L384">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="docspec.Class.Semantic.INTERFACE">
+    
+  </a>
+  <a name="INTERFACE">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">INTERFACE</span>: <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L378">
       
       (source)
     </a>

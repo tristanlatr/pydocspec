@@ -65,16 +65,16 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Factory</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L12" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Factory</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L12" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.specfactory.Factory">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>Classes are created dynamically with <code>type</code> such that they can inherith from customizable mixin classes.</p></div>
+        <div><p class="pre">Classes are created dynamically with `type` such that they can inherith from customizable mixin classes. </p></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id52">
+        <table class="children sortable" id="id61">
   
   
   <tr class="classmethod">
@@ -86,7 +86,17 @@
     
     <td>Method</td>
     <td><code><a href="#import_mixins_from">import_mixins_from</a></code></td>
-    <td><span>Will look for the special mapping <code>MIXIN_CLASSES</code> in the provided module.</span></td>
+    <td><span>Will look for the special mapping ``MIXIN_CLASSES`` in the provided module.</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#bases">bases</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#mixins">mixins</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="property">
     
     <td>Property</td>
@@ -115,12 +125,22 @@
   </tr><tr class="property">
     
     <td>Property</td>
+    <td><code><a href="#Docstring">Docstring</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="property">
+    
+    <td>Property</td>
     <td><code><a href="#Function">Function</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#Indirection">Indirection</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="property">
+    
+    <td>Property</td>
+    <td><code><a href="#Location">Location</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="property">
     
@@ -137,85 +157,10 @@
     <td>Method</td>
     <td><code><a href="#_add_mixins">_add_mixins</a></code></td>
     <td><span>Add mixin classes to objects in the factory.</span></td>
-  </tr><tr class="instancevariable private">
+  </tr><tr class="method private">
     
-    <td>Instance Variable</td>
-    <td><code><a href="#_ApiObjectsRoot_base">_ApiObjectsRoot_base</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_ApiObjectsRoot_mixins">_ApiObjectsRoot_mixins</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Argument_base">_Argument_base</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Argument_mixins">_Argument_mixins</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Class_base">_Class_base</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Class_mixins">_Class_mixins</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Data_base">_Data_base</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Data_mixins">_Data_mixins</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Decoration_base">_Decoration_base</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Decoration_mixins">_Decoration_mixins</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Function_base">_Function_base</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Function_mixins">_Function_mixins</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Indirection_base">_Indirection_base</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Indirection_mixins">_Indirection_mixins</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Module_base">_Module_base</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#_Module_mixins">_Module_mixins</a></code></td>
+    <td>Method</td>
+    <td><code><a href="#_get_class">_get_class</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -237,8 +182,8 @@
   </a>
   <div class="functionHeader">
     @classmethod<br />
-    <span class="py-keyword">def</span> <span class="py-defname">default</span>(cls):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L36">
+    <span class="py-keyword">def</span> <span class="py-defname">default</span>(cls, load_brains=True):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L20">
       
       (source)
     </a>
@@ -246,7 +191,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.specfactory.Factory.html">Factory</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">load_brains:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.specfactory.Factory.html">Factory</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -260,7 +205,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">import_mixins_from</span>(self, module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L76">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L79">
       
       (source)
     </a>
@@ -268,7 +213,51 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Will look for the special mapping <code>MIXIN_CLASSES</code> in the provided module.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Will look for the special mapping ``MIXIN_CLASSES`` in the provided module.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.specfactory.Factory.bases">
+    
+  </a>
+  <a name="bases">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">bases</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L17">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.specfactory.Factory.mixins">
+    
+  </a>
+  <a name="mixins">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">mixins</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L18">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseproperty">
   
@@ -282,7 +271,7 @@
   <div class="functionHeader">
     @property<br />
     <span class="py-defname">ApiObjectsRoot</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L94">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L103">
       
       (source)
     </a>
@@ -304,7 +293,7 @@
   <div class="functionHeader">
     @property<br />
     <span class="py-defname">Argument</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Argument.html">pydocspec.Argument</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L138">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L147">
       
       (source)
     </a>
@@ -326,7 +315,7 @@
   <div class="functionHeader">
     @property<br />
     <span class="py-defname">Class</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Class.html">pydocspec.Class</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L102">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L111">
       
       (source)
     </a>
@@ -348,7 +337,7 @@
   <div class="functionHeader">
     @property<br />
     <span class="py-defname">Data</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Data.html">pydocspec.Data</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L120">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L129">
       
       (source)
     </a>
@@ -370,7 +359,29 @@
   <div class="functionHeader">
     @property<br />
     <span class="py-defname">Decoration</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Decoration.html">pydocspec.Decoration</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L132">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L141">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseproperty">
+  
+  
+  <a name="pydocspec.specfactory.Factory.Docstring">
+    
+  </a>
+  <a name="Docstring">
+    
+  </a>
+  <div class="functionHeader">
+    @property<br />
+    <span class="py-defname">Docstring</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="docspec.Docstring.html">pydocspec.Docstring</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L153">
       
       (source)
     </a>
@@ -392,7 +403,7 @@
   <div class="functionHeader">
     @property<br />
     <span class="py-defname">Function</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Function.html">pydocspec.Function</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L108">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L117">
       
       (source)
     </a>
@@ -414,7 +425,29 @@
   <div class="functionHeader">
     @property<br />
     <span class="py-defname">Indirection</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Indirection.html">pydocspec.Indirection</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L126">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L135">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseproperty">
+  
+  
+  <a name="pydocspec.specfactory.Factory.Location">
+    
+  </a>
+  <a name="Location">
+    
+  </a>
+  <div class="functionHeader">
+    @property<br />
+    <span class="py-defname">Location</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="docspec.Location.html">pydocspec.Location</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L159">
       
       (source)
     </a>
@@ -436,7 +469,7 @@
   <div class="functionHeader">
     @property<br />
     <span class="py-defname">Module</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L114">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L123">
       
       (source)
     </a>
@@ -458,7 +491,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_add_mixin</span>(self, for_class, mixin):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L43">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L39">
       
       (source)
     </a>
@@ -466,7 +499,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Add a mixin class to the specied object in the factory.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">for_class:</span><code>Literal[<wbr></wbr>"""ApiObjectsRoot""", <wbr></wbr>"""Class""", <wbr></wbr>"""Function""", <wbr></wbr>"""Module""", <wbr></wbr>"""Data""", <wbr></wbr>"""Indirection""", <wbr></wbr>"""Decoration""", <wbr></wbr>"""Argument"""]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mixin:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Add a mixin class to the specied object in the factory. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">for_class:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mixin:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod private">
   
@@ -480,7 +513,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_add_mixins</span>(self, **kwargs):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L56">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L57">
       
       (source)
     </a>
@@ -488,359 +521,40 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Add mixin classes to objects in the factory.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">kwargs:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ApiObjectsRoot</span></td><td class="fieldArgDesc">Mixin types to apply to the root object.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">Class</span></td><td class="fieldArgDesc">Mixin types to apply to the class object.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">Function</span></td><td class="fieldArgDesc">Mixin types to apply to the function object.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">Module</span></td><td class="fieldArgDesc">Mixin types to apply to the module object.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">Data</span></td><td class="fieldArgDesc">Mixin types to apply to the data object.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">Indirection</span></td><td class="fieldArgDesc">Mixin types to apply to the indirection object.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">Decoration</span></td><td class="fieldArgDesc">Mixin types to apply to the decoration object.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">Argument</span></td><td class="fieldArgDesc">Mixin types to apply to the argument object.</td></tr></table></div>
+    <div><p class="pre">Add mixin classes to objects in the factory. 
+
+:keyword ApiObjectsRoot: Mixin types to apply to the root object.
+:keyword Class: Mixin types to apply to the class object.
+:keyword Function: Mixin types to apply to the function object.
+:keyword Module: Mixin types to apply to the module object.
+:keyword Data: Mixin types to apply to the data object.
+:keyword Indirection: Mixin types to apply to the indirection object.
+:keyword Decoration: Mixin types to apply to the decoration object.
+:keyword Argument: Mixin types to apply to the argument object.
+:keyword Docstring: Mixin types to apply to the docstring object.
+:keyword Location: Mixin types to apply to the location object.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">kwargs:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
-</div><div class="baseinstancevariable private">
+</div><div class="basemethod private">
   
   
-  <a name="pydocspec.specfactory.Factory._ApiObjectsRoot_base">
+  <a name="pydocspec.specfactory.Factory._get_class">
     
   </a>
-  <a name="_ApiObjectsRoot_base">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_ApiObjectsRoot_base</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L27">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._ApiObjectsRoot_mixins">
-    
-  </a>
-  <a name="_ApiObjectsRoot_mixins">
+  <a name="_get_class">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">_ApiObjectsRoot_mixins</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L18">
+    <span class="py-keyword">def</span> <span class="py-defname">_get_class</span>(self, name):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/specfactory.py#L97">
       
       (source)
     </a>
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Argument_base">
-    
-  </a>
-  <a name="_Argument_base">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Argument_base</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Argument.html">pydocspec.Argument</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L34">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Argument_mixins">
-    
-  </a>
-  <a name="_Argument_mixins">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Argument_mixins</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L25">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Class_base">
-    
-  </a>
-  <a name="_Class_base">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Class_base</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Class.html">pydocspec.Class</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L28">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Class_mixins">
-    
-  </a>
-  <a name="_Class_mixins">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Class_mixins</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L19">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Data_base">
-    
-  </a>
-  <a name="_Data_base">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Data_base</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Data.html">pydocspec.Data</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L31">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Data_mixins">
-    
-  </a>
-  <a name="_Data_mixins">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Data_mixins</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L22">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Decoration_base">
-    
-  </a>
-  <a name="_Decoration_base">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Decoration_base</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Decoration.html">pydocspec.Decoration</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L33">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Decoration_mixins">
-    
-  </a>
-  <a name="_Decoration_mixins">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Decoration_mixins</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L24">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Function_base">
-    
-  </a>
-  <a name="_Function_base">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Function_base</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Function.html">pydocspec.Function</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L29">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Function_mixins">
-    
-  </a>
-  <a name="_Function_mixins">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Function_mixins</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L20">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Indirection_base">
-    
-  </a>
-  <a name="_Indirection_base">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Indirection_base</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Indirection.html">pydocspec.Indirection</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L32">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Indirection_mixins">
-    
-  </a>
-  <a name="_Indirection_mixins">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Indirection_mixins</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L23">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Module_base">
-    
-  </a>
-  <a name="_Module_base">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Module_base</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L30">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseinstancevariable private">
-  
-  
-  <a name="pydocspec.specfactory.Factory._Module_mixins">
-    
-  </a>
-  <a name="_Module_mixins">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_Module_mixins</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/specfactory.py#L21">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -852,7 +566,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-30 20:52:36.
+    21.2.2 at 2021-09-01 20:40:05.
   </div>
 </footer>
 

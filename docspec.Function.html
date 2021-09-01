@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Function</span>(<a href="docspec.ApiObject.html" title="docspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/docspec.py#L247" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Function.html">pydocspec.Function</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Function</span>(<a href="docspec.ApiObject.html" title="docspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L292" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#docspec.Function">View In Hierarchy</a></p>
       </div>
 
@@ -74,10 +74,15 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id12">
+        <table class="children sortable" id="id13">
   
   
-  <tr class="classvariable">
+  <tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Function.Semantic.html">Semantic</a></code></td>
+    <td><span>A list of well-known properties and behaviour that can be attributed to a function.</span></td>
+  </tr><tr class="classvariable">
     
     <td>Class Variable</td>
     <td><code><a href="#args">args</a></code></td>
@@ -97,13 +102,18 @@
     <td>Class Variable</td>
     <td><code><a href="#return_type">return_type</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#semantic_hints">semantic_hints</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
           <p class="inheritedFrom">
             Inherited from <code><a href="docspec.ApiObject.html">ApiObject</a></code>:
           </p>
-          <table class="children sortable" id="id13">
+          <table class="children sortable" id="id14">
   
   
   <tr class="basemethod">
@@ -172,13 +182,13 @@
   <div class="functionHeader">
     
     <span class="py-defname">args</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="docspec.Argument.html">Argument</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/docspec.py#L260">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L340">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overridden in <code><a href="pydocspec.Function.html">pydocspec.Function</a></code></div>
+    
     
     <div><p class="undocumented">Undocumented</p></div>
   </div>
@@ -194,13 +204,13 @@
   <div class="functionHeader">
     
     <span class="py-defname">decorations</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="docspec.Decoration.html">Decoration</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/docspec.py#L266">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L346">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overridden in <code><a href="pydocspec.Function.html">pydocspec.Function</a></code></div>
+    
     
     <div><p class="undocumented">Undocumented</p></div>
   </div>
@@ -216,7 +226,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">modifiers</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/docspec.py#L257">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L337">
       
       (source)
     </a>
@@ -238,7 +248,29 @@
   <div class="functionHeader">
     
     <span class="py-defname">return_type</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/docspec.py#L263">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L343">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="docspec.Function.semantic_hints">
+    
+  </a>
+  <a name="semantic_hints">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">semantic_hints</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="docspec.Function.Semantic.html">Semantic</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L349">
       
       (source)
     </a>
@@ -258,7 +290,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-30 20:52:36.
+    21.2.2 at 2021-09-01 20:40:05.
   </div>
 </footer>
 

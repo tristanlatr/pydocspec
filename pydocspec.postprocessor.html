@@ -65,47 +65,37 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/postprocessor.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/postprocessor.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="undocumented">Undocumented</p></div>
+        <div><p class="pre">Post processor and default post-processes. </p></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id47">
+        <table class="children sortable" id="id57">
   
   
   <tr class="class">
     
     <td>Class</td>
     <td><code><a href="pydocspec.postprocessor.PostProcessor.html">PostProcessor</a></code></td>
-    <td><span>Apply post processing to a newly created <code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code> instance.</span></td>
+    <td><span>Apply post processing to a newly created `pydocspec.ApiObjectsRoot` instance.</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#generic_post_process">generic_post_process</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="function">
-    
-    <td>Function</td>
-    <td><code><a href="#set_root_post_process">set_root_post_process</a></code></td>
+    <td><code><a href="#default_post_process">default_post_process</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
     <td>Variable</td>
     <td><code><a href="#PostProcess">PostProcess</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><span>A post process is a function of the following form::</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.postprocessor._PostProcessVisitorFirst.html">_PostProcessVisitorFirst</a></code></td>
-    <td><span>Visitor responsible to set the <code><a href="pydocspec.ApiObject.html#root">pydocspec.ApiObject.root</a></code> attribute on all objects and register them in the {pydocspec.ApiObjectsRoot.all_objects} mapping. Which is the core to the name resolving system.</span></td>
-  </tr><tr class="class private">
-    
-    <td>Class</td>
-    <td><code><a href="pydocspec.postprocessor._PostProcessVisitorSecond.html">_PostProcessVisitorSecond</a></code></td>
+    <td><code><a href="pydocspec.postprocessor._PostProcessVisitor.html">_PostProcessVisitor</a></code></td>
     <td><span>Apply various required processing to new pydocspec trees.</span></td>
   </tr>
 </table>
@@ -119,38 +109,16 @@
         <div class="basefunction">
   
   
-  <a name="pydocspec.postprocessor.generic_post_process">
+  <a name="pydocspec.postprocessor.default_post_process">
     
   </a>
-  <a name="generic_post_process">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">generic_post_process</span>(root):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/postprocessor.py#L70">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.postprocessor.set_root_post_process">
-    
-  </a>
-  <a name="set_root_post_process">
+  <a name="default_post_process">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">set_root_post_process</span>(root):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/postprocessor.py#L66">
+    <span class="py-keyword">def</span> <span class="py-defname">default_post_process</span>(root):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/postprocessor.py#L52">
       
       (source)
     </a>
@@ -172,7 +140,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">PostProcess</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/postprocessor.py#L130">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/postprocessor.py#L121">
       
       (source)
     </a>
@@ -180,7 +148,9 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p class="pre">A post process is a function of the following form::
+
+    (root: pydocspec.ApiObjectsRoot) -&gt; None</p></div>
   </div>
 </div>
 
@@ -192,7 +162,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-30 20:52:36.
+    21.2.2 at 2021-09-01 20:40:05.
   </div>
 </footer>
 

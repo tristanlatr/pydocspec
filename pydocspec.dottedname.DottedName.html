@@ -65,22 +65,26 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">DottedName</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L18" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">DottedName</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L18" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.dottedname.DottedName">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>A sequence of identifiers, separated by periods, used to name a Python variable, value, or argument.  The identifiers that make up a dotted name can be accessed using the indexing operator:</p><pre class="py-doctest">
-<span class="py-prompt">&gt;&gt;&gt; </span>name = DottedName(<span class="py-string">'epydoc'</span>, <span class="py-string">'api_doc'</span>, <span class="py-string">'DottedName'</span>)
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-builtin">print</span>(name)
-<span class="py-output">epydoc.api_doc.DottedName</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>name[1]
-<span class="py-output">'api_doc'</span>
-</pre><p>The special, normally invalid, indentifier "??" can be used for unreachable or unknown names.</p></div>
+        <div><p class="pre">A sequence of identifiers, separated by periods, used to name a
+Python variable, value, or argument.  The identifiers that make up
+a dotted name can be accessed using the indexing operator:
+    &gt;&gt;&gt; name = DottedName('epydoc', 'api_doc', 'DottedName')
+    &gt;&gt;&gt; print(name)
+    epydoc.api_doc.DottedName
+    &gt;&gt;&gt; name[1]
+    'api_doc'
+
+The special, normally invalid, indentifier "??" can be used for 
+unreachable or unknown names.</p></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id42">
+        <table class="children sortable" id="id46">
   
   
   <tr class="class">
@@ -92,7 +96,7 @@
     
     <td>Method</td>
     <td><code><a href="#__add__">__add__</a></code></td>
-    <td><span>Return a new <code>DottedName</code> whose identifier sequence is formed by adding <code>other</code>'s identifier sequence to <code>self</code>'s.</span></td>
+    <td><span>Return a new ``DottedName`` whose identifier sequence is formed by adding ``other``'s identifier sequence to ``self``'s.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
@@ -157,7 +161,7 @@
     
     <td>Method</td>
     <td><code><a href="#__radd__">__radd__</a></code></td>
-    <td><span>Return a new <code>DottedName</code> whose identifier sequence is formed by adding <code>self</code>'s identifier sequence to <code>other</code>'s.</span></td>
+    <td><span>Return a new ``DottedName`` whose identifier sequence is formed by adding ``self``'s identifier sequence to ``other``'s.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
@@ -224,7 +228,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__add__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L114">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L114">
       
       (source)
     </a>
@@ -232,7 +236,8 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Return a new <code>DottedName</code> whose identifier sequence is formed by adding <code>other</code>'s identifier sequence to <code>self</code>'s.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">other:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.dottedname.DottedName.html">DottedName</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr>...]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Return a new ``DottedName`` whose identifier sequence is formed
+by adding ``other``'s identifier sequence to ``self``'s.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">other:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.dottedname.DottedName.html">DottedName</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr>...]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -246,7 +251,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__cmp__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L185">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L185">
       
       (source)
     </a>
@@ -254,7 +259,10 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Compare this dotted name to <code>other</code>.  Two dotted names are considered equal if their identifier subsequences are equal. Ordering between dotted names is lexicographic, in order of identifier from left to right.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">other:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Compare this dotted name to ``other``.  Two dotted names are
+considered equal if their identifier subsequences are equal.
+Ordering between dotted names is lexicographic, in order of
+identifier from left to right.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">other:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -268,7 +276,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__eq__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L203">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L203">
       
       (source)
     </a>
@@ -290,7 +298,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__ge__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L209">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L209">
       
       (source)
     </a>
@@ -312,7 +320,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__getitem__</span>(self, i):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L140">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L140">
       
       (source)
     </a>
@@ -320,7 +328,10 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Return the <code>i</code>th identifier in this <code>DottedName</code>.  If <code>i</code> is a non-empty slice, then return a <code>DottedName</code> built from the identifiers selected by the slice.  If <code>i</code> is an empty slice, return an empty tuple (since empty <code>DottedName</code>s are not valid).</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">i:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#slice">slice</a>, <wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.dottedname.DottedName.html">DottedName</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Return the ``i``th identifier in this ``DottedName``.  If ``i`` is
+a non-empty slice, then return a ``DottedName`` built from the
+identifiers selected by the slice.  If ``i`` is an empty slice,
+return an empty tuple (since empty ``DottedName``s are not valid).</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">i:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#slice">slice</a>, <wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.dottedname.DottedName.html">DottedName</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -334,7 +345,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__gt__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L212">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L212">
       
       (source)
     </a>
@@ -356,7 +367,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__hash__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L182">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L182">
       
       (source)
     </a>
@@ -378,7 +389,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, *pieces, strict=False):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L53">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L53">
       
       (source)
     </a>
@@ -386,7 +397,21 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Construct a new dotted name from the given sequence of pieces, each of which can be either a <code>string</code> or a <code>DottedName</code>. Each piece is divided into a sequence of identifiers, and these sequences are combined together (in order) to form the identifier sequence for the new <code>DottedName</code>.  If a piece contains a string, then it is divided into substrings by splitting on periods, and each substring is checked to see if it is a valid identifier. As an optimization, <code>pieces</code> may also contain a single tuple of values.  In that case, that tuple will be used as the <code>DottedName</code>'s identifiers; it will <i>not</i> be checked to see if it's valid.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">pieces:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.dottedname.DottedName.html">DottedName</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr>...]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">strict:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc">if true, then raise an <code><a href="pydocspec.dottedname.DottedName.InvalidDottedName.html">InvalidDottedName</a></code> if the given name is invalid.</td></tr></table></div>
+    <div><p class="pre">Construct a new dotted name from the given sequence of pieces,
+each of which can be either a ``string`` or a ``DottedName``.
+Each piece is divided into a sequence of identifiers, and
+these sequences are combined together (in order) to form the
+identifier sequence for the new ``DottedName``.  If a piece
+contains a string, then it is divided into substrings by
+splitting on periods, and each substring is checked to see if
+it is a valid identifier.
+As an optimization, ``pieces`` may also contain a single tuple
+of values.  In that case, that tuple will be used as the
+``DottedName``'s identifiers; it will *not* be checked to
+see if it's valid.
+
+:param strict: if true, then raise an `InvalidDottedName`
+    if the given name is invalid.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">pieces:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.dottedname.DottedName.html">DottedName</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr>...]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">strict:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -400,7 +425,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__iter__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L221">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L221">
       
       (source)
     </a>
@@ -422,7 +447,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__le__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L200">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L200">
       
       (source)
     </a>
@@ -444,7 +469,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__len__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L215">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L215">
       
       (source)
     </a>
@@ -452,7 +477,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Return the number of identifiers in this dotted name.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Return the number of identifiers in this dotted name.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -466,7 +491,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__lt__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L197">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L197">
       
       (source)
     </a>
@@ -488,7 +513,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__ne__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L206">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L206">
       
       (source)
     </a>
@@ -510,7 +535,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__radd__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L124">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L124">
       
       (source)
     </a>
@@ -518,7 +543,8 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Return a new <code>DottedName</code> whose identifier sequence is formed by adding <code>self</code>'s identifier sequence to <code>other</code>'s.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">other:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.dottedname.DottedName.html">DottedName</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr>...]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Return a new ``DottedName`` whose identifier sequence is formed
+by adding ``self``'s identifier sequence to ``other``'s.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">other:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.dottedname.DottedName.html">DottedName</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr>...]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -532,7 +558,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__repr__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L101">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L101">
       
       (source)
     </a>
@@ -554,7 +580,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__str__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L105">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L105">
       
       (source)
     </a>
@@ -562,10 +588,10 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Return the dotted name as a string formed by joining its identifiers with periods:</p><pre class="py-doctest">
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-builtin">print</span>(DottedName(<span class="py-string">'epydoc'</span>, <span class="py-string">'api_doc'</span>, <span class="py-string">'DottedName'</span>))
-<span class="py-output">epydoc.api_doc.DottedName</span>
-</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Return the dotted name as a string formed by joining its
+identifiers with periods:
+    &gt;&gt;&gt; print(DottedName('epydoc', 'api_doc', 'DottedName'))
+    epydoc.api_doc.DottedName</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -579,7 +605,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">container</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L224">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L224">
       
       (source)
     </a>
@@ -587,7 +613,10 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Return the DottedName formed by removing the last identifier from this dotted name's identifier sequence.  If this dotted name only has one name in its identifier sequence, return <code>None</code> instead.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.dottedname.DottedName.html">DottedName</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Return the DottedName formed by removing the last identifier
+from this dotted name's identifier sequence.  If this dotted
+name only has one name in its identifier sequence, return
+``None`` instead.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.dottedname.DottedName.html">DottedName</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -601,7 +630,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">contextualize</span>(self, context):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L254">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L254">
       
       (source)
     </a>
@@ -609,7 +638,15 @@
   <div class="docstring functionBody">
     
     
-    <div><p>If <code>self</code> and <code>context</code> share a common ancestor, then return a name for <code>self</code>, relative to that ancestor.  If they do not share a common ancestor (or if <code>context</code> is <code>UNREACHABLE</code>), then simply return <code>self</code>. This is used to generate shorter versions of dotted names in cases where users can infer the intended target from the context.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">context:</span><code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">If ``self`` and ``context`` share a common ancestor, then return
+a name for ``self``, relative to that ancestor.  If they do not
+share a common ancestor (or if ``context`` is ``UNREACHABLE``), then
+simply return ``self``.
+This is used to generate shorter versions of dotted names in
+cases where users can infer the intended target from the
+context.
+:type context: `DottedName`
+:rtype: `DottedName`</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">context:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -623,7 +660,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">dominates</span>(self, name, strict=False):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L236">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L236">
       
       (source)
     </a>
@@ -631,10 +668,11 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Return true if this dotted name is equal to a prefix of <code>name</code>.  If <code>strict</code> is true, then also require that <code>self!=name</code>.</p><pre class="py-doctest">
-<span class="py-prompt">&gt;&gt;&gt; </span>DottedName(<span class="py-string">'a.b'</span>).dominates(DottedName(<span class="py-string">'a.b.c.d'</span>))
-<span class="py-output">True</span>
-</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">strict:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Return true if this dotted name is equal to a prefix of
+``name``.  If ``strict`` is true, then also require that
+``self!=name``.
+    &gt;&gt;&gt; DottedName('a.b').dominates(DottedName('a.b.c.d'))
+    True</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">strict:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="baseclassvariable">
   
@@ -648,7 +686,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">UNREACHABLE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L32">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L32">
       
       (source)
     </a>
@@ -670,7 +708,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_IDENTIFIER_RE</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L33">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L33">
       
       (source)
     </a>
@@ -692,7 +730,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_ok_identifiers</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Set">Set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L49">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L49">
       
       (source)
     </a>
@@ -700,7 +738,8 @@
   <div class="functionBody">
     
     
-    <div><p>A cache of identifier strings that have been checked against _IDENTIFIER_RE and found to be acceptable.</p></div>
+    <div><p class="pre">A cache of identifier strings that have been checked against
+_IDENTIFIER_RE and found to be acceptable.</p></div>
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -714,7 +753,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_identifiers</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr>...]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/dottedname.py#L99">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/dottedname.py#L99">
       
       (source)
     </a>
@@ -734,7 +773,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-30 20:52:36.
+    21.2.2 at 2021-09-01 20:40:05.
   </div>
 </footer>
 

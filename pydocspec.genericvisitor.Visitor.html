@@ -65,16 +65,28 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Visitor</span>(<span title="Generic[T]">Generic[T]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/genericvisitor.py#L12" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Visitor</span>(<span title="Generic[T]">Generic[T]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/genericvisitor.py#L12" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.genericvisitor.Visitor">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>"Visitor" pattern abstract superclass implementation for tree traversals.</p><p>Each class has corresponding methods, doing nothing by default; override individual methods for specific and useful behaviour.  The `visit()` method is called by `walk()` upon entering a object.  `walkabout()` also calls the `depart()` method before exiting a object.</p><p>The generic methods call "``visit_`` + objet class name" or "``depart_`` + objet class name", resp.</p><p>This is a base class for visitors whose ``visit_...`` &amp; ``depart_...`` methods should be implemented for *all* concrete objets types encountered.</p></div>
+        <div><p class="pre">"Visitor" pattern abstract superclass implementation for tree traversals.
+
+Each class has corresponding methods, doing nothing by
+default; override individual methods for specific and useful
+behaviour.  The `visit()` method is called by
+`walk()` upon entering a object.  `walkabout()` also calls
+the `depart()` method before exiting a object.
+
+The generic methods call "``visit_`` + objet class name" or
+"``depart_`` + objet class name", resp.
+
+This is a base class for visitors whose ``visit_...`` &amp; ``depart_...``
+methods should be implemented for *all* concrete objets types encountered. </p></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id46">
+        <table class="children sortable" id="id50">
   
   
   <tr class="method">
@@ -118,7 +130,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">depart</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/genericvisitor.py#L35">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/genericvisitor.py#L35">
       
       (source)
     </a>
@@ -126,7 +138,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Depart an object.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Depart an object.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -140,7 +152,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_departure</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/genericvisitor.py#L51">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/genericvisitor.py#L51">
       
       (source)
     </a>
@@ -148,7 +160,9 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Called before exiting unknown object types.</p><p>Raise exception unless overridden.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Called before exiting unknown object types.
+
+Raise exception unless overridden.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -162,7 +176,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_visit</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/genericvisitor.py#L41">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/genericvisitor.py#L41">
       
       (source)
     </a>
@@ -170,7 +184,9 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Called when entering unknown object types.</p><p>Raise an exception unless overridden.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Called when entering unknown object types.
+
+Raise an exception unless overridden.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -184,7 +200,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/genericvisitor.py#L29">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/genericvisitor.py#L29">
       
       (source)
     </a>
@@ -192,7 +208,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Visit an object.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="pre">Visit an object.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -204,7 +220,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-30 20:52:36.
+    21.2.2 at 2021-09-01 20:40:05.
   </div>
 </footer>
 

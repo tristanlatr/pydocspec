@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Class</span>(<a href="docspec.HasMembers.html" title="docspec.HasMembers">HasMembers</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/docspec.py#L283" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Class.html">pydocspec.Class</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Class</span>(<a href="docspec.HasMembers.html" title="docspec.HasMembers">HasMembers</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L366" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#docspec.Class">View In Hierarchy</a></p>
       </div>
 
@@ -74,10 +74,15 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id16">
+        <table class="children sortable" id="id18">
   
   
-  <tr class="classvariable">
+  <tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.Class.Semantic.html">Semantic</a></code></td>
+    <td><span>A list of well-known properties and behaviour that can be attributed to a class.</span></td>
+  </tr><tr class="classvariable">
     
     <td>Class Variable</td>
     <td><code><a href="#bases">bases</a></code></td>
@@ -97,13 +102,23 @@
     <td>Class Variable</td>
     <td><code><a href="#metaclass">metaclass</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#modifiers">modifiers</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#semantic_hints">semantic_hints</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
           <p class="inheritedFrom">
             Inherited from <code><a href="docspec.HasMembers.html">HasMembers</a></code>:
           </p>
-          <table class="children sortable" id="id17">
+          <table class="children sortable" id="id19">
   
   
   <tr class="basemethod">
@@ -122,7 +137,7 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="docspec.ApiObject.html">ApiObject</a></code> (via <code><a href="docspec.HasMembers.html">HasMembers</a></code>):
           </p>
-          <table class="children sortable" id="id18">
+          <table class="children sortable" id="id20">
   
   
   <tr class="basemethod">
@@ -181,7 +196,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">bases</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/docspec.py#L293">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L393">
       
       (source)
     </a>
@@ -203,13 +218,13 @@
   <div class="functionHeader">
     
     <span class="py-defname">decorations</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="docspec.Decoration.html">Decoration</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/docspec.py#L296">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L396">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overridden in <code><a href="pydocspec.Class.html">pydocspec.Class</a></code></div>
+    
     
     <div><p class="undocumented">Undocumented</p></div>
   </div>
@@ -225,13 +240,13 @@
   <div class="functionHeader">
     
     <span class="py-defname">members</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="docspec.html#_MemberType">_MemberType</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/docspec.py#L300">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L400">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overrides <code><a href="docspec.HasMembers.html#members">docspec.HasMembers.members</a></code></div><div class="interfaceinfo">overridden in <code><a href="pydocspec.Class.html">pydocspec.Class</a></code></div>
+    <div class="interfaceinfo">overrides <code><a href="docspec.HasMembers.html#members">docspec.HasMembers.members</a></code></div>
     
     <div><p class="undocumented">Undocumented</p></div>
   </div>
@@ -247,7 +262,51 @@
   <div class="functionHeader">
     
     <span class="py-defname">metaclass</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/docspec.py#L290">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L390">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="docspec.Class.modifiers">
+    
+  </a>
+  <a name="modifiers">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">modifiers</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L403">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="docspec.Class.semantic_hints">
+    
+  </a>
+  <a name="semantic_hints">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">semantic_hints</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="docspec.Class.Semantic.html">Semantic</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/docspec.py#L406">
       
       (source)
     </a>
@@ -267,7 +326,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-30 20:52:36.
+    21.2.2 at 2021-09-01 20:40:05.
   </div>
 </footer>
 

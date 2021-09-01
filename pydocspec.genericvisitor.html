@@ -65,16 +65,16 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/genericvisitor.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/genericvisitor.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>General purpose visitor pattern implementation.</p></div>
+        <div><p class="pre">General purpose visitor pattern implementation. </p></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id45">
+        <table class="children sortable" id="id49">
   
   
   <tr class="class">
@@ -118,7 +118,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walk</span>(ob, visitor, get_children):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/genericvisitor.py#L61">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/genericvisitor.py#L61">
       
       (source)
     </a>
@@ -126,7 +126,21 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Traverse a tree of objects, calling the `visit()` method of `visitor` when entering each node.  (The `walkabout()` method is similar, except it also calls the `depart()` method before exiting each objects.)</p><p>This tree traversal supports limited in-place tree modifications.  Replacing one node with one or more nodes is OK, as is removing an element.  However, if the node removed or replaced occurs after the current node, the old node will still be traversed, and any new nodes will not.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="#T">T</a></code></td><td class="fieldArgDesc">An object to walk.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a>[<wbr></wbr><a href="#T">T</a>]</code></td><td class="fieldArgDesc">A `Visitor` object, containing a ``visit`` implementation for each object type encountered.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">get_children:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a>[<wbr></wbr>[<wbr></wbr><a href="#T">T</a>], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="#T">T</a>]]</code></td><td class="fieldArgDesc">A callable that returns the children of an object.</td></tr></table></div>
+    <div><p class="pre">Traverse a tree of objects, calling the
+`visit()` method of `visitor` when entering each
+node.  (The `walkabout()` method is similar, except it also
+calls the `depart()` method before exiting each objects.)
+
+This tree traversal supports limited in-place tree
+modifications.  Replacing one node with one or more nodes is
+OK, as is removing an element.  However, if the node removed
+or replaced occurs after the current node, the old node will
+still be traversed, and any new nodes will not.
+
+:param ob: An object to walk.
+:param visitor: A `Visitor` object, containing a
+    ``visit`` implementation for each object type encountered.
+:param get_children: A callable that returns the children of an object. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a>[<wbr></wbr><a href="#T">T</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">get_children:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a>[<wbr></wbr>[<wbr></wbr><a href="#T">T</a>], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="#T">T</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -140,7 +154,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walkabout</span>(ob, visitor, get_children):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/genericvisitor.py#L84">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/genericvisitor.py#L84">
       
       (source)
     </a>
@@ -148,7 +162,13 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Perform a tree traversal similarly to `walk()` (which see), except also call the `depart()` method before exiting each node.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="#T">T</a></code></td><td class="fieldArgDesc">An object to walk.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a>[<wbr></wbr><a href="#T">T</a>]</code></td><td class="fieldArgDesc">A `Visitor` object, containing a ``visit`` and ``depart`` implementation for each concrete object type encountered.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">get_children:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a>[<wbr></wbr>[<wbr></wbr><a href="#T">T</a>], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="#T">T</a>]]</code></td><td class="fieldArgDesc">A callable that returns the children of an object.</td></tr></table></div>
+    <div><p class="pre">Perform a tree traversal similarly to `walk()` (which
+see), except also call the `depart()` method before exiting each node.
+
+:param ob: An object to walk.
+:param visitor: A `Visitor` object, containing a
+    ``visit`` and ``depart`` implementation for each concrete object type encountered.
+:param get_children: A callable that returns the children of an object. </p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a>[<wbr></wbr><a href="#T">T</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">get_children:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a>[<wbr></wbr>[<wbr></wbr><a href="#T">T</a>], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="#T">T</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basevariable">
   
@@ -162,7 +182,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">T</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/6a9297c028540ef562c56b53243dd76421ebcce3/pydocspec/genericvisitor.py#L6">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/186b42f607ad75e5ae75867d551f2736fd8c7695/pydocspec/genericvisitor.py#L6">
       
       (source)
     </a>
@@ -182,7 +202,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-30 20:52:36.
+    21.2.2 at 2021-09-01 20:40:05.
   </div>
 </footer>
 
