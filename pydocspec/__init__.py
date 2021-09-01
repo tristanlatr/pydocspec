@@ -49,6 +49,7 @@ from .dupsafedict import DuplicateSafeDict
 if TYPE_CHECKING:
     from . import specfactory
 
+__docformat__ = 'restrucuturedtext'
 __all__ = [
   'ApiObjectsRoot',
   'Location',
@@ -68,8 +69,9 @@ __all__ = [
 #   'get_member',
 ]
 
-# TODO: Create a customizable Location attribute.
+# Those classes are customizable brain modules, even if they are not customize here.
 Location = docspec.Location
+Docstring = docspec.Docstring
 
 _RESOLVE_ALIAS_MAX_RECURSE = 5
 
@@ -475,6 +477,15 @@ class Class(docspec.Class, ApiObject):
         self.parent: Union['Class', 'Module']
         self.members: List['ApiObject'] # type:ignore[assignment]
     
+    @cached_property
+    def bases_ast(self) -> Optional[List[ast.expr]]:
+        if not self.bases:
+            return None
+        bases_ast = []
+        for str_base in self.bases:
+            bases_ast.append(astutils.unstring_annotation(
+                        astutils.extract_expr(str_base, filename=self.location.filename), self))
+        return bases_ast
 
     @cached_property
     def resolved_bases(self) -> List[Union['ApiObject', 'str']]:
@@ -773,13 +784,35 @@ class Argument(docspec.Argument):
 class Decoration(docspec.Decoration):
     """
     Represents a decorator on a L{Class} or L{Function}.
+
+    +---------------------------------------+-------------------------+---------------------+-----------------+
+    | Code                                  | Decorator.name          | Decorator.args      | Notes           |
+    +=======================================+=========================+=====================+=================+
+    | ``@property``                         | ``property``            | `None`              |                 |
+    +---------------------------------------+-------------------------+---------------------+-----------------+
+    | ``@functools.lru_cache(max_size=10)`` | ``functools.lru_cache`` | ``["max_size=10"]``	|                 |
+    +---------------------------------------+-------------------------+---------------------+-----------------+
+    | ``@dec['name']``                      | ``dec['name']``         | `None`              |since Python 3.9 |
+    +---------------------------------------+-------------------------+-+-------------------+-----------------+
+    | ``@(decorators().name)(a, b=c)``      | ``(decorators().name)`` | ``["a", "b=c"]``    |since Python 3.9 |
+    +---------------------------------------+-------------------------+---------------------+-----------------+
+
     """
     @cached_property
     def name_ast(self) -> ast.expr:
+        """The name of the deocration as AST, this can be any kind of expression."""
         return astutils.extract_expr(self.name)
+    
+    @cached_property
+    def args_ast(self) -> Optional[List[ast.expr]]:
+        """The arguments of the deocration AST, if the decoration was called like a function."""
+        if self.args:
+            return [astutils.extract_expr(expr) for expr in self.args]
+        return None
 
     @cached_property
     def expr_ast(self) -> ast.expr:
+        """The full decoration AST's"""
         return astutils.extract_expr(self.name + (self.args or ''))
 
 class Module(docspec.Module, ApiObject):
@@ -792,7 +825,7 @@ class Module(docspec.Module, ApiObject):
     @cached_property
     def is_package(self) -> bool:
         """
-        @note: Currently, packages without submodules will be considered as regular modules.
+        Whether this module is a package.
         """
         return any(isinstance(o, docspec.Module) for o in self.members)
 

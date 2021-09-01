@@ -1,7 +1,7 @@
 """
 Create customizable docspec classes. 
 """
-from typing import List, Type, Any, Union, Sequence
+from typing import Dict, List, Type, Any, Union, Sequence
 from typing_extensions import Literal
 from importlib import import_module
 import attr
@@ -14,42 +14,43 @@ class Factory:
     """
     Classes are created dynamically with C{type} such that they can inherith from customizable mixin classes. 
     """
-
-    _ApiObjectsRoot_mixins: List[Type[Any]] = attr.ib(factory=list)
-    _Class_mixins: List[Type[Any]] = attr.ib(factory=list)
-    _Function_mixins: List[Type[Any]] = attr.ib(factory=list)
-    _Module_mixins: List[Type[Any]] = attr.ib(factory=list)
-    _Data_mixins: List[Type[Any]] = attr.ib(factory=list)
-    _Indirection_mixins: List[Type[Any]] = attr.ib(factory=list)
-    _Decoration_mixins: List[Type[Any]] = attr.ib(factory=list)
-    _Argument_mixins: List[Type[Any]] = attr.ib(factory=list)
-
-    _ApiObjectsRoot_base: Type[pydocspec.ApiObjectsRoot] = attr.ib(default=pydocspec.ApiObjectsRoot)
-    _Class_base: Type[pydocspec.Class] = attr.ib(default=pydocspec.Class)
-    _Function_base: Type[pydocspec.Function] = attr.ib(default=pydocspec.Function)
-    _Module_base: Type[pydocspec.Module] = attr.ib(default=pydocspec.Module)
-    _Data_base: Type[pydocspec.Data] = attr.ib(default=pydocspec.Data)
-    _Indirection_base: Type[pydocspec.Indirection] = attr.ib(default=pydocspec.Indirection)
-    _Decoration_base: Type[pydocspec.Decoration] = attr.ib(default=pydocspec.Decoration)
-    _Argument_base: Type[pydocspec.Argument] = attr.ib(default=pydocspec.Argument)
+    bases: Dict[str, Type[Any]] = attr.ib(factory=dict)
+    mixins: Dict[str, List[Type[Any]]] = attr.ib(factory=dict)
 
     @classmethod
-    def default(cls) -> 'Factory':
-        factory = cls()
-        for mod in brains.get_all_brain_modules():
-            factory.import_mixins_from(mod)
+    def default(cls, load_brains:bool=True) -> 'Factory':
+        factory = cls(bases={
+            'ApiObjectsRoot': pydocspec.ApiObjectsRoot,
+            'Class': pydocspec.Class,
+            'Function': pydocspec.Function,
+            'Module': pydocspec.Module,
+            'Data': pydocspec.Data,
+            'Indirection': pydocspec.Indirection,
+            'Decoration': pydocspec.Decoration,
+            'Argument': pydocspec.Argument,
+            'Docstring': pydocspec.Docstring,
+            'Location': pydocspec.Location,
+        })
+        if load_brains:
+            for mod in brains.get_all_brain_modules():
+                factory.import_mixins_from(mod)
         return factory
 
-    def _add_mixin(self, for_class: Literal['ApiObjectsRoot', 'Class', 'Function', 'Module', 'Data', 
-                                           'Indirection', 'Decoration', 'Argument'], 
-                  mixin:Type[Any]) -> None:
+    def _add_mixin(self, for_class: str, mixin:Type[Any]) -> None:
         """
         Add a mixin class to the specied object in the factory. 
         """
+        if for_class not in list(self.bases):
+            import warnings
+            warnings.warn(f"Invalid class name. Cannot add mixin class {mixin!r} on class '{for_class}'. Possible classes are {', '.join(self.bases.keys())}")
+            return
+        
         try:
-            mixins = getattr(self, f"_{for_class}_mixins")
-        except AttributeError as e:
-            raise AttributeError(f'Class name "{for_class}" is invalid. Please double check the documentation.') from e
+            mixins = self.mixins[for_class]
+        except KeyError:
+            mixins = []
+            self.mixins[for_class] = mixins
+        
         assert isinstance(mixins, list)
         mixins.append(mixin)
 
@@ -65,6 +66,8 @@ class Factory:
         @keyword Indirection: Mixin types to apply to the indirection object.
         @keyword Decoration: Mixin types to apply to the decoration object.
         @keyword Argument: Mixin types to apply to the argument object.
+        @keyword Docstring: Mixin types to apply to the docstring object.
+        @keyword Location: Mixin types to apply to the location object.
         """
         for key,value in kwargs.items():
             if isinstance(value, Sequence):
@@ -91,9 +94,15 @@ class Factory:
             import warnings
             warnings.warn(f"No mixin classes added for module {mod}, check the validity of the MIXIN_CLASSES attribute.")
 
+    def _get_class(self, name:str) -> Type[Any]:
+        try:
+            return type(name, tuple([self.bases[name]]+self.mixins.get(name, [])), {})
+        except KeyError as e:
+            raise ValueError(f"Invalid class name {name}") from e
+    
     @property
     def ApiObjectsRoot(self) -> Type[pydocspec.ApiObjectsRoot]:
-        root = type('ApiObjectsRoot', tuple([self._ApiObjectsRoot_base]+self._ApiObjectsRoot_mixins), {})
+        root = self._get_class('ApiObjectsRoot')
         # set the ApiObjectsRoot.factory class variable.
         assert issubclass(root, pydocspec.ApiObjectsRoot)
         root.factory = self
@@ -101,43 +110,55 @@ class Factory:
     
     @property
     def Class(self) -> Type[pydocspec.Class]:
-        klass = type('Class', tuple([self._Class_base]+self._Class_mixins), {})
+        klass = self._get_class('Class')
         assert issubclass(klass, pydocspec.Class)
         return klass
 
     @property
     def Function(self) -> Type[pydocspec.Function]:
-        func = type('Function', tuple([self._Function_base]+self._Function_mixins), {})
+        func = self._get_class('Function')
         assert issubclass(func, pydocspec.Function)
         return func
 
     @property
     def Module(self) -> Type[pydocspec.Module]:
-        mod = type('Module', tuple([self._Module_base]+self._Module_mixins), {})
+        mod = self._get_class('Module')
         assert issubclass(mod, pydocspec.Module)
         return mod
 
     @property
     def Data(self) -> Type[pydocspec.Data]:
-        data = type('Data', tuple([self._Data_base]+self._Data_mixins), {})
+        data = self._get_class('Data')
         assert issubclass(data, pydocspec.Data)
         return data
 
     @property
     def Indirection(self) -> Type[pydocspec.Indirection]:
-        indirection = type('Indirection', tuple([self._Indirection_base]+self._Indirection_mixins), {})
+        indirection = self._get_class('Indirection')
         assert issubclass(indirection, pydocspec.Indirection)
         return indirection
 
     @property
     def Decoration(self) -> Type[pydocspec.Decoration]:
-        deco = type('Decoration', tuple([self._Decoration_base]+self._Decoration_mixins), {})
+        deco = self._get_class('Decoration')
         assert issubclass(deco, pydocspec.Decoration)
         return deco
 
     @property
     def Argument(self) -> Type[pydocspec.Argument]:
-        arg = type('Argument', tuple([self._Argument_base]+self._Argument_mixins), {})
+        arg = self._get_class('Argument')
         assert issubclass(arg, pydocspec.Argument)
+        return arg
+    
+    @property
+    def Docstring(self) -> Type[pydocspec.Docstring]:
+        arg = self._get_class('Docstring')
+        assert issubclass(arg, pydocspec.Docstring)
+        return arg
+    
+    @property
+    def Location(self) -> Type[pydocspec.Location]:
+        arg = self._get_class('Location')
+        assert issubclass(arg, pydocspec.Location)
         return arg
 
