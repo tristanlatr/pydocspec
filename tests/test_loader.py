@@ -80,6 +80,29 @@ def test_class_docstring(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:
     assert m.docstring is not None
     assert m.docstring.content == 'my class'
 
+
+@rootcls_param
+def test_class_decos_and_bases(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:
+    # test if we catch the bases and decorations for a class
+    mod = mod_from_text('''
+    @property
+    @attr.s
+    class C(str, pkg.MyBase):
+        """my class"""
+    ''', modname='test', rootcls=rootcls)
+    m = mod.get_member('C')
+    assert m is not None
+    assert isinstance(m, pydocspec.Class)
+    decorations = m.decorations
+    assert decorations is not None
+    assert len(decorations) == 2
+    assert [d.name for d in decorations] == ["property", "attr.s"]
+    bases = m.bases
+    assert bases is not None
+    assert len(bases) == 2
+    assert bases == ["str", "pkg.MyBase"]
+
+
 # def test_no_docstring(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:
 #     # Inheritance of the docstring of an overridden method depends on
 #     # methods with no docstring having None in their 'docstring' field.
