@@ -14,14 +14,14 @@ if TYPE_CHECKING:
 
 class ValueFormatter:
     """
-    Formats values stored in AST expressions.
+    Formats values stored in AST expressions back to sourcecode.
     Used for presenting default values of parameters and annotations. 
 
     @note: The default behaviour defers to L{astor.to_source}. 
         This should be overriden if you want more formatting functions, like outputing HTML tags. 
     """
 
-    def __init__(self, value: ast.expr):
+    def __init__(self, value: ast.AST):
         self.value = value
     def __repr__(self) -> str:
         value = self.value
@@ -64,6 +64,10 @@ class SignatureBuilder:
 
     def get_signature(self) -> inspect.Signature:
         return self.signature_class(self._parameters, return_annotation=self._return_annotation)
+
+def to_source(expr: ast.AST) -> str:
+    """This function convert a node tree back into python sourcecode."""
+    return repr(ValueFormatter(expr))
 
 _attrs_decorator_signature = inspect.signature(attr.s)
 """Signature of the L{attr.s} class decorator."""
