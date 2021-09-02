@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Module</span>(<a href="docspec.Module.html" title="docspec.Module">docspec.Module</a>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/__init__.py#L822" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Module</span>(<span title="docspec.Module">docspec.Module</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/__init__.py#L827" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.Module">View In Hierarchy</a></p>
       </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id92">
+        <table class="children sortable" id="id76">
   
   
   <tr class="classvariable">
@@ -101,72 +101,9 @@
 </table>
         
           <p class="inheritedFrom">
-            Inherited from <code><a href="docspec.HasMembers.html">HasMembers</a></code> (via <code><a href="docspec.Module.html">Module</a></code>):
-          </p>
-          <table class="children sortable" id="id93">
-  
-  
-  <tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="docspec.HasMembers.html#sync_hierarchy">sync_hierarchy</a></code></td>
-    <td><span class="undocumented">No summary</span></td>
-  </tr><tr class="baseinstancevariable">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="docspec.HasMembers.html#parent">parent</a></code></td>
-    <td><span>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</span></td>
-  </tr>
-</table>
-          
-          <p class="inheritedFrom">
-            Inherited from <code><a href="docspec.ApiObject.html">ApiObject</a></code> (via <code><a href="docspec.Module.html">Module</a></code>, <code><a href="docspec.HasMembers.html">HasMembers</a></code>):
-          </p>
-          <table class="children sortable" id="id94">
-  
-  
-  <tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="docspec.ApiObject.html#__post_init__">__post_init__</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="docspec.ApiObject.html#parent.setter">parent.setter</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="docspec.ApiObject.html#docstring">docstring</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="docspec.ApiObject.html#location">location</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="docspec.ApiObject.html#name">name</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseproperty">
-    
-    <td>Property</td>
-    <td><code><a href="docspec.ApiObject.html#path">path</a></code></td>
-    <td><span>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</span></td>
-  </tr><tr class="baseinstancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="docspec.ApiObject.html#_parent">_parent</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr>
-</table>
-          
-          <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>:
           </p>
-          <table class="children sortable" id="id95">
+          <table class="children sortable" id="id77">
   
   
   <tr class="basemethod">
@@ -199,6 +136,11 @@
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#walkabout">walkabout</a></code></td>
     <td><span>Perform a tree traversal similarly to <code>walk()</code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.ApiObject.html#warn">warn</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="baseclassvariable">
     
     <td>Class Variable</td>
@@ -208,7 +150,7 @@
     
     <td>Class Variable</td>
     <td><code><a href="pydocspec.ApiObject.html#parent">parent</a></code></td>
-    <td><span>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</span></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="baseclassvariable">
     
     <td>Class Variable</td>
@@ -254,55 +196,6 @@
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#_resolve_indirection">_resolve_indirection</a></code></td>
     <td><span>If the object is an alias or an indirection, then follow it and return the supposed full name fo the origin object, or return the passed object's full name.</span></td>
-  </tr><tr class="basemethod private">
-    
-    <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#_warns">_warns</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr>
-</table>
-          
-          <p class="inheritedFrom">
-            Inherited from <code><a href="docspec.ApiObject.html">ApiObject</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>):
-          </p>
-          <table class="children sortable" id="id96">
-  
-  
-  <tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="docspec.ApiObject.html#__post_init__">__post_init__</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="docspec.ApiObject.html#parent.setter">parent.setter</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="docspec.ApiObject.html#sync_hierarchy">sync_hierarchy</a></code></td>
-    <td><span class="undocumented">No summary</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="docspec.ApiObject.html#docstring">docstring</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="docspec.ApiObject.html#name">name</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseproperty">
-    
-    <td>Property</td>
-    <td><code><a href="docspec.ApiObject.html#path">path</a></code></td>
-    <td><span>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</span></td>
-  </tr><tr class="baseinstancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="docspec.ApiObject.html#_parent">_parent</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
           
@@ -324,13 +217,13 @@
   <div class="functionHeader">
     
     <span class="py-defname">members</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/__init__.py#L827">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/__init__.py#L832">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overrides <code><a href="docspec.Module.html#members">docspec.Module.members</a></code></div>
+    
     
     <div><p class="undocumented">Undocumented</p></div>
   </div>
@@ -346,7 +239,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">all</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/__init__.py#L836">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/__init__.py#L841">
       
       (source)
     </a>
@@ -368,7 +261,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">docformat</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/__init__.py#L864">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/__init__.py#L869">
       
       (source)
     </a>
@@ -390,7 +283,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_package</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/__init__.py#L829">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/__init__.py#L834">
       
       (source)
     </a>
@@ -410,7 +303,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-01 20:56:03.
+    21.2.2 at 2021-09-02 04:50:43.
   </div>
 </footer>
 

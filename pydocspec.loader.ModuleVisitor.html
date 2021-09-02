@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">ModuleVisitor</span>(<a href="https://docs.python.org/3/library/ast.html#ast.NodeVisitor" title="ast.NodeVisitor">ast.NodeVisitor</a>, <a href="pydocspec.loader.Collector.html" title="pydocspec.loader.Collector">Collector</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/loader.py#L110" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ModuleVisitor</span>(<a href="https://docs.python.org/3/library/ast.html#ast.NodeVisitor" title="ast.NodeVisitor">ast.NodeVisitor</a>, <a href="pydocspec.loader.Collector.html" title="pydocspec.loader.Collector">Collector</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L115" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.loader.ModuleVisitor">View In Hierarchy</a></p>
       </div>
 
@@ -100,6 +100,16 @@
   </tr><tr class="method">
     
     <td>Method</td>
+    <td><code><a href="#visit_Import">visit_Import</a></code></td>
+    <td><span>Process an import statement.</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#visit_ImportFrom">visit_ImportFrom</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
     <td><code><a href="#visit_Module">visit_Module</a></code></td>
     <td><span>Visit an {ast.Module}.</span></td>
   </tr><tr class="classvariable">
@@ -112,6 +122,16 @@
     <td>Instance Variable</td>
     <td><code><a href="#loader">loader</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_import_all">_import_all</a></code></td>
+    <td><span>Handle a <tt class="rst-docutils literal">from &lt;modname&gt; import *</tt> statement.</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_import_names">_import_names</a></code></td>
+    <td><span>Handle a C{from &lt;modname&gt; import &lt;names&gt;} statement.</span></td>
   </tr><tr class="method private">
     
     <td>Method</td>
@@ -130,7 +150,7 @@
     
     <td>Method</td>
     <td><code><a href="pydocspec.loader.Collector.html#add_object">add_object</a></code></td>
-    <td><span>Add a newly created object to the tree, and enter it.</span></td>
+    <td><span>Add a newly created object to the tree, and enter it (expect if <tt class="rst-docutils literal">push=False</tt>). Responsible to add the object to the current namespace, sync the hierarchy, setup the new object to the root instance and respectively.</span></td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
@@ -182,7 +202,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, loader, module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/loader.py#L114">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L119">
       
       (source)
     </a>
@@ -204,7 +224,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">default</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/loader.py#L118">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L123">
       
       (source)
     </a>
@@ -226,7 +246,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_ClassDef</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/loader.py#L178">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L183">
       
       (source)
     </a>
@@ -248,7 +268,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Expr</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/loader.py#L149">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L154">
       
       (source)
     </a>
@@ -257,6 +277,58 @@
     
     
     <div>Handles the inline attribute docstrings.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Expr">ast.Expr</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec.loader.ModuleVisitor.visit_Import">
+    
+  </a>
+  <a name="visit_Import">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">visit_Import</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L369">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Process an import statement.</p>
+<p>The grammar for the statement is roughly:</p>
+<p>mod_as := DOTTEDNAME ['as' NAME]
+import_stmt := 'import' mod_as (',' mod_as)*</p>
+<p>and this is translated into a node which is an instance of Import wih
+an attribute 'names', which is in turn a list of 2-tuples
+(dotted_name, as_name) where as_name is None if there was no 'as foo'
+part of the statement.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.Import">ast.Import</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec.loader.ModuleVisitor.visit_ImportFrom">
+    
+  </a>
+  <a name="visit_ImportFrom">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">visit_ImportFrom</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L275">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/ast.html#ast.ImportFrom">ast.ImportFrom</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -270,7 +342,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Module</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/loader.py#L161">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L166">
       
       (source)
     </a>
@@ -292,7 +364,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">module</span>: <code><a href="pydocspec.Module.html">pydocspec.Module</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/loader.py#L112">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L117">
       
       (source)
     </a>
@@ -314,7 +386,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">loader</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/loader.py#L116">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L121">
       
       (source)
     </a>
@@ -323,6 +395,50 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.loader.ModuleVisitor._import_all">
+    
+  </a>
+  <a name="_import_all">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_import_all</span>(self, modname, lineno):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L318">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Handle a <tt class="rst-docutils literal">from &lt;modname&gt; import *</tt> statement.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modname:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.loader.ModuleVisitor._import_names">
+    
+  </a>
+  <a name="_import_names">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_import_names</span>(self, modname, names, lineno):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L348">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Handle a C{from &lt;modname&gt; import &lt;names&gt;} statement.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modname:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">names:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/ast.html#ast.alias">ast.alias</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod private">
   
@@ -336,7 +452,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_set_docstring</span>(self, ob, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/db4a0b21470ad463c8d0391c47fa859f765349b5/pydocspec/loader.py#L127">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L132">
       
       (source)
     </a>
@@ -356,7 +472,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-01 20:56:03.
+    21.2.2 at 2021-09-02 04:50:43.
   </div>
 </footer>
 
