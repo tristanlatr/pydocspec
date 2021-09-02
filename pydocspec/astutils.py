@@ -86,7 +86,7 @@ def uses_auto_attribs(call: ast.Call, ctx: 'ApiObject') -> bool:
         args = bind_args(_attrs_decorator_signature, call)
     except TypeError as ex:
         message = str(ex).replace("'", '"')
-        ctx._warns(f"Invalid arguments for attr.s(): {message}")
+        ctx.warn(f"Invalid arguments for attr.s(): {message}")
         return False
 
     auto_attribs_expr = args.arguments.get('auto_attribs')
@@ -96,13 +96,13 @@ def uses_auto_attribs(call: ast.Call, ctx: 'ApiObject') -> bool:
     try:
         value = ast.literal_eval(auto_attribs_expr)
     except ValueError:
-        ctx._warns(
+        ctx.warn(
             'Unable to figure out value for "auto_attribs" argument '
             'to attr.s(), maybe too complex')
         return False
 
     if not isinstance(value, bool):
-        ctx._warns(
+        ctx.warn(
             f'Value for "auto_attribs" argument to attr.s() '
             f'has type "{type(value).__name__}", expected "bool"')
         return False
@@ -188,7 +188,7 @@ def unstring_annotation(node: ast.expr, ctx: Optional['ApiObject']=None) -> ast.
     try:
         expr = _AnnotationStringParser().visit(node)
     except SyntaxError as ex:
-        if ctx: ctx._warns(f'syntax error in annotation: {ex}')
+        if ctx: ctx.warn(f'syntax error in annotation: {ex}')
         return node
     else:
         assert isinstance(expr, ast.expr), expr

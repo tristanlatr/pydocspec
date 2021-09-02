@@ -80,7 +80,6 @@ class PostProcessor:
     def default(cls) -> 'PostProcessor':
         processor = cls(post_processes={0.1: default_post_process})
 
-
         for mod in brains.get_all_brain_modules():
             processor.import_post_processes_from(mod)
         return processor

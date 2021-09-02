@@ -30,8 +30,6 @@ def test_root_property(mod1: docspec.Module) -> None:
     root = converter.convert_docspec_modules([mod1])[0].root
 
     assert root.all_objects['a'].root is root
-    root.all_objects['a'].get_member('foo').root is root
-    root.all_objects['a'].get_member('Union').root is root
     assert root.all_objects['a.Union'].root is root
     assert root.all_objects['a.foo'].root is root
     assert root.all_objects['a.foo.val'].root is root

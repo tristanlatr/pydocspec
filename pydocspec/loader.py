@@ -6,10 +6,11 @@ Our own version of the docspec loader.
     Except for type comments, that are supported by the AST module. 
 
 """
-from typing import Iterator, List, Dict, Optional, Sequence, Set, Union
+from typing import Iterable, Iterator, List, Dict, Optional, Sequence, Set, Union, cast
 from pathlib import Path
 from enum import Enum
 from functools import partial
+from itertools import chain
 import sys
 import ast
 import platform
@@ -66,15 +67,15 @@ class Collector:
         The new module.
         """
 
-        self._current: Optional[pydocspec.ApiObject] = None # the current object context 
+        self._current: pydocspec.ApiObject = cast(pydocspec.ApiObject, None) # the current object context 
         self._last: Optional[pydocspec.ApiObject] = None # the last exited object
-        self._stack: List[Optional[pydocspec.ApiObject]] = []
+        self._stack: List[pydocspec.ApiObject] = []
 
     def push(self, ob: pydocspec.ApiObject) -> None:
         """
         Enter an object.
         """
-        self._stack.append(self._current)
+        self._stack.append(self._current) # the stack is initiated with a None value
         self._current = ob
 
     def pop(self, ob: pydocspec.ApiObject) -> None:
@@ -85,16 +86,19 @@ class Collector:
         self._last = self._current
         self._current = self._stack.pop()
     
-    def add_object(self, ob: pydocspec.ApiObject) -> None:
+    def add_object(self, ob: pydocspec.ApiObject, push: bool = True) -> None:
         """
-        Add a newly created object to the tree, and enter it.
+        Add a newly created object to the tree, and enter it (expect if ``push=False``). 
+        Responsible to add the object to the current namespace, sync the hierarchy, setup 
+        the new object to the root instance and respectively.
         """
         if self._current is not None:
             assert isinstance(self._current, pydocspec.HasMembers)
             self._current.members.append(ob)
             ob.sync_hierarchy(self._current)
         else:
-            assert isinstance(ob, pydocspec.Module)
+            # yes, it's reachable, when first adding a module.
+            assert isinstance(ob, pydocspec.Module) #type:ignore[unreachable]
             if self.module is None:
                 self.module = ob
             else:
@@ -105,7 +109,8 @@ class Collector:
         self.root.all_objects[ob.full_name] = ob
         # set the ApiObject.root attribute right away.
         ob.root = self.root
-        self.push(ob)
+        if push:
+            self.push(ob)
 
 class ModuleVisitor(ast.NodeVisitor, Collector):
     # help mypy
@@ -187,7 +192,7 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
         if node.bases:
             bases_str = []
             bases_ast = []
-            
+
         # compute the Class.bases attribute
         for n in node.bases:
             dotted_name = astutils.node2dottedname(n)
@@ -247,7 +252,7 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
                     # From Python3.9, any kind of expressions can be used as decorators, so we don't warn anymore.
                     # See Relaxing Grammar Restrictions On Decorators: https://www.python.org/dev/peps/pep-0614/
                     if sys.version_info < (3,9):
-                        cls._warns("Cannot make sense of class decorator: '{name}'")
+                        cls.warn("Cannot make sense of class decorator: '{name}'")
                 else:
                     name = '.'.join(dotted_name)
 
@@ -266,6 +271,130 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
         self.add_object(cls)
         self.default(node)
         self.pop(cls)
+
+    def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
+        ctx = self._current
+        if not isinstance(ctx, pydocspec.HasMembers):
+            assert ctx is not None, "processing import statement with no current context: {node!r}"
+            ctx.module.warn("processing import statement ({node!r}) in odd context: {ctx!r}",
+                            lineno_offset=node.lineno)
+            return
+
+        modname = node.module
+        level = node.level
+        if level:
+            # Relative import, we should have the module in the system.
+            parent: Optional[Union[pydocspec.Class, pydocspec.Module]] = ctx.module
+            
+            if ctx.module.is_package:
+                level -= 1
+            
+            for _ in range(level):
+                if parent is None:
+                    break
+                parent = parent.parent
+            
+            # Walking up the tree to find the module that import statement imports.
+            if parent is None:
+                assert ctx.module is not None
+                ctx.module.warn(
+                    "relative import level (%d) too high" % node.level,
+                    lineno_offset=node.lineno) 
+                return
+            
+            if modname is None:
+                modname = parent.full_name
+            else:
+                modname = f'{parent.full_name}.{modname}'
+        else:
+            # The module name can only be omitted on relative imports.
+            assert modname is not None
+
+        if node.names[0].name == '*':
+            self._import_all(modname, lineno=node.lineno)
+        else:
+            self._import_names(modname, node.names, lineno=node.lineno)
+
+    def _import_all(self, modname: str, lineno: int) -> None:
+        """Handle a ``from <modname> import *`` statement."""
+
+        mod = self.loader.get_processed_module(modname)
+        if mod is None:
+            # We don't have any information about the module, so we don't know
+            # what names to import.
+            self._current.module.warn("import * from unknown module: '{modname}'. Cannot trace all indirections.", 
+                                       lineno_offset=lineno)
+            return
+
+        # Get names to import: use __all__ if available, otherwise take all
+        # names that are not private.
+        names = mod.all
+        if names is None:
+            names = [
+                name
+                for name in (m.name for m in mod.members)
+                if not name.startswith('_')
+                ]
+
+        # Add imported names to our module namespace.
+        assert isinstance(self._current, pydocspec.HasMembers)
+        
+        for name in names:
+            indirection = self.root.factory.Indirection(name=name, 
+                location=self.root.factory.Location(filename=None, lineno=lineno), docstring=None, 
+                target=mod.expand_name(name))
+            self.add_object(indirection, push=False)
+
+    def _import_names(self, modname: str, names: Iterable[ast.alias], lineno: int) -> None:
+        """Handle a C{from <modname> import <names>} statement."""
+
+        # Process the module we're importing from.
+        mod = self.loader.get_processed_module(modname)
+
+        for al in names:
+            orgname, asname = al.name, al.asname
+            if asname is None:
+                asname = orgname
+
+            # If we're importing from a package, make sure imported modules
+            # are processed (get_processed_module() ignores non-modules).
+            if mod is not None and mod.is_package:
+                self.loader.get_processed_module(f'{modname}.{orgname}')
+
+            indirection = self.root.factory.Indirection(name=asname, 
+                location=self.root.factory.Location(filename=None, lineno=lineno), docstring=None, 
+                target=f'{modname}.{orgname}')
+            self.add_object(indirection, push=False)
+
+    def visit_Import(self, node: ast.Import) -> None:
+        """Process an import statement.
+
+        The grammar for the statement is roughly:
+
+        mod_as := DOTTEDNAME ['as' NAME]
+        import_stmt := 'import' mod_as (',' mod_as)*
+
+        and this is translated into a node which is an instance of Import wih
+        an attribute 'names', which is in turn a list of 2-tuples
+        (dotted_name, as_name) where as_name is None if there was no 'as foo'
+        part of the statement.
+        """
+        ctx = self._current
+        if not isinstance(ctx, pydocspec.HasMembers):
+            assert ctx is not None, "processing import statement with no current context: {node!r}"
+            ctx.module.warn("processing import statement ({node!r}) in odd context: {ctx!r}",
+                            lineno_offset=node.lineno)
+            return
+        
+        for al in node.names:
+            fullname, asname = al.name, al.asname
+            if asname is not None:
+                indirection = self.root.factory.Indirection(name=asname, 
+                    location=self.root.factory.Location(filename=None, lineno=node.lineno), docstring=None, 
+                    target=fullname)
+                self.add_object(indirection, push=False)
+            # Do not create an indirection with the same name and target, this is pointless and it will
+            # make the ApiObject._resolve_indirection() method reccurse one time more than needed.
 
     # TODO: Code the rest of it!
 
@@ -422,7 +551,7 @@ class Loader:
         # Already add it to the root modules as well as all_objects. 
         if parent:
             parent.members.append(mod)
-            mod.sync_hierarchy(parent)
+            mod.parent = parent
         else:
             self.root.root_modules.append(mod)
         
@@ -470,11 +599,11 @@ class Loader:
         
         if mod is None: return None
         if not isinstance(mod, pydocspec.Module): return None
-        
-        if self._processing_map[mod.full_name] is ProcessingState.UNPROCESSED:
+                
+        if self._processing_map.get(mod.full_name) is ProcessingState.UNPROCESSED:
             self._process_module(mod)
-
-        assert self._processing_map[mod.full_name] in (ProcessingState.PROCESSING, ProcessingState.PROCESSED)
+            assert self._processing_map[mod.full_name] in (ProcessingState.PROCESSING, ProcessingState.PROCESSED)
+        
         return mod
 
     

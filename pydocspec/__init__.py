@@ -75,14 +75,17 @@ Docstring = docspec.Docstring
 
 _RESOLVE_ALIAS_MAX_RECURSE = 5
 
+class Warning(RuntimeWarning):
+    """Warning class used for pydocspec related warnings."""
+
 @attr.s(auto_attribs=True)
 class ApiObjectsRoot:
     """
-    Root of the tree. Special object that provides a single view on all `ApiObject`s in the tree and root modules.
+    A collection of related documentable objects, also known as "the system".
+    
+    Special object that provides a single view on all referencable objects in the tree and root modules.
 
-    A reference to the root instance is kept on all `pydocspec` API objects as `ApiObject.root`.
-
-    :note: `pydocspec`'s tree contains a hiearchy of packages.
+    :note: A reference to the root instance is kept on all API objects as `ApiObject.root`.
     """
 
     root_modules: List['Module'] = attr.ib(factory=list, init=False)
@@ -118,7 +121,7 @@ class ApiObject(docspec.ApiObject):
     `ApiObjectsRoot` instance holding references to all objects in the tree.
     """
     
-    @cached_property
+    @property
     def root_module(self) -> 'Module':
         """
         The root module of this object.
@@ -128,14 +131,14 @@ class ApiObject(docspec.ApiObject):
         assert self.parent is not None
         return self.parent.root_module # type:ignore[no-any-return]
 
-    @cached_property
+    @property
     def dotted_name(self) -> DottedName:
         """
         The fully qualified dotted name of this object, as `DottedName` instance.
         """
         return DottedName(*(ob.name for ob in self.path))
 
-    @cached_property
+    @property
     def full_name(self) -> str:
         """
         The fully qualified dotted name of this object, as string. 
@@ -310,7 +313,7 @@ class ApiObject(docspec.ApiObject):
         Resolve the alias value to it's target full name.
         Or fall back to original alias full name if we know we've exhausted the max recursions.
 
-        :param alias: an ALIAS object.
+        :param alias: an `Indirection` object.
         :param indirections: Chain of alias objects followed. 
             This variable is used to prevent infinite loops when doing the lookup.
         :note: It can return None in exceptionnal cases if an indirection cannot be resolved. 
@@ -326,12 +329,13 @@ class ApiObject(docspec.ApiObject):
         ctx = indirection.parent
         assert ctx is not None
 
-        # This checks avoids infinite recursion error when a indirection has the same name as it's value
+        # This checks avoids infinite recursion error when a indirection's has the same name as it's value
         if _indirections and _indirections[-1] != indirection or not _indirections:
             # We redirect to the original object instead!
             return ctx.expand_name(target, _indirections=(_indirections or [])+[indirection])
-        else:
+        else: 
             # Issue tracing the alias back to it's original location, found the same indirection again.
+            # Meaning: _indirections[-1] == indirection
             if ctx.parent is not None and ctx.module == ctx.parent.module:
                 # We try with the parent scope, only if the parent is in the same module, otherwise fail. 
                 # This is used in situations like in the pydoctor.model.System class and it's aliases, 
@@ -340,9 +344,10 @@ class ApiObject(docspec.ApiObject):
         
         return None
 
-    def _warns(self, msg: str) -> None:
+    def warn(self, msg: str, lineno_offset: int = 0) -> None:
         # TODO: find another way to report warnings.
-        warnings.warn(f'{self.full_name}:{self.location.lineno} - {msg}')
+        lineno = self.location.lineno + lineno_offset
+        warnings.warn(f'[{self.full_name}] {self.location.filename}:{lineno}: {msg}')
     
     def _members(self) -> Iterable['ApiObject']:
         if isinstance(self, HasMembers): return self.members
@@ -763,7 +768,7 @@ class Function(docspec.Function, ApiObject):
         try:
             signature = signature_builder.get_signature()
         except ValueError as ex:
-            self._warns(f'Function "{self.full_name}" has invalid parameters: {ex}')
+            self.warn(f'Function "{self.full_name}" has invalid parameters: {ex}')
             signature = inspect.Signature()
         
         return signature
@@ -843,7 +848,7 @@ class Module(docspec.Module, ApiObject):
         value = var.value_ast
 
         if not isinstance(value, (ast.List, ast.Tuple)):
-            self._warns('Cannot parse value assigned to "__all__", must be a list or tuple.')
+            self.warn('Cannot parse value assigned to "__all__", must be a list or tuple.')
             return None
 
         names = []
@@ -851,12 +856,12 @@ class Module(docspec.Module, ApiObject):
             try:
                 name: object = ast.literal_eval(item)
             except ValueError:
-                self._warns(f'Cannot parse element {idx} of "__all__"')
+                self.warn(f'Cannot parse element {idx} of "__all__"')
             else:
                 if isinstance(name, str):
                     names.append(name)
                 else:
-                    self._warns(f'Element {idx} of "__all__" has '
+                    self.warn(f'Element {idx} of "__all__" has '
                         f'type "{type(name).__name__}", expected "str"')
 
         return names
@@ -873,15 +878,15 @@ class Module(docspec.Module, ApiObject):
         try:
             value = ast.literal_eval(var.value_ast)
         except ValueError:
-            var._warns('Cannot parse value assigned to "__docformat__": not a string')
+            var.warn('Cannot parse value assigned to "__docformat__": not a string')
             return None
         
         if not isinstance(value, str):
-            var._warns('Cannot parse value assigned to "__docformat__": not a string')
+            var.warn('Cannot parse value assigned to "__docformat__": not a string')
             return None
             
         if not value.strip():
-            var._warns('Cannot parse value assigned to "__docformat__": empty value')
+            var.warn('Cannot parse value assigned to "__docformat__": empty value')
             return None
         
         return value

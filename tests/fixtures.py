@@ -6,7 +6,7 @@ from pydocspec import converter
 
 _mod1 = module = docspec.Module('a', docspec.Location('test.py', 0), None, [
     docspec.Indirection('Union', docspec.Location('test.py', 1), None, 'typing.Union'),
-    docspec.Class('foo', docspec.Location('test.py', 2), 'This is class foo.', None, None, None, [
+    docspec.Class('foo', docspec.Location('test.py', 2), docspec.Docstring('This is class foo.', docspec.Location('test.py', 3)), None, None, None, [
       docspec.Data('val', docspec.Location('test.py', 4), None, 'Union[int, float]', '42'),
       docspec.Data('alias', docspec.Location('test.py', 5), None, None, 'val'),
       docspec.Function('__init__', docspec.Location('test.py', 6), None, None, [
@@ -19,15 +19,15 @@ _mod1.sync_hierarchy()
 
 _mod2 = module = docspec.Module('a', docspec.Location('test.py', 0), None, [
     docspec.Indirection('Union', docspec.Location('test.py', 1), None, 'typing.Union'),
-    docspec.Class('foo', docspec.Location('test.py', 2), 'This is class foo.', None, None, None, [
+    docspec.Class('foo', docspec.Location('test.py', 2), docspec.Docstring('This is class foo.', docspec.Location('test.py', 3)), None, None, None, [
       docspec.Data('val', docspec.Location('test.py', 4), None, 'Union[int, float]', '42'),
       docspec.Data('alias', docspec.Location('test.py', 5), None, None, 'val'),
       docspec.Function('__init__', docspec.Location('test.py', 6), None, None, [
         docspec.Argument('self', docspec.Argument.Type.Positional, None, None, None)
       ], None, None),
     ]),
-    docspec.Class('foosub', docspec.Location('test.py', 8), 'This is a subclass of class foo.', None, ['foo'], None, [
-      docspec.Function('__init__', docspec.Location('test.py', 9), None, None, [
+    docspec.Class('foosub', docspec.Location('test.py', 8), docspec.Docstring('This is subclass of class foo.', docspec.Location('test.py', 9)), None, ['foo'], None, [
+      docspec.Function('__init__', docspec.Location('test.py', 10), None, None, [
         docspec.Argument('self', docspec.Argument.Type.Positional, None, None, None)
       ], None, None),
     ]),
@@ -37,7 +37,7 @@ _mod2.sync_hierarchy()
 
 _mod3 = module = docspec.Module('a', docspec.Location('test.py', 0), None, [
     docspec.Indirection('Union', docspec.Location('test.py', 1), None, 'typing.Union'),
-    docspec.Class('foo', docspec.Location('test.py', 2), 'This is class foo.', None, None, None, [
+    docspec.Class('foo', docspec.Location('test.py', 2), docspec.Docstring('This is class foo.', docspec.Location('test.py', 3)), None, None, None, [
       docspec.Data('_val', docspec.Location('test.py', 4), None, 'Union[int, float]', '42'),
       docspec.Data('_alias', docspec.Location('test.py', 5), None, None, '_val'),
       docspec.Function('__init__', docspec.Location('test.py', 6), None, None, [
@@ -62,7 +62,7 @@ _mod4 = module = docspec.Module('a', docspec.Location('test.py', 0), None, [
       return_type='None',
       decorations=[],
     ),
-    docspec.Class('foo', docspec.Location('test.py', 2), 'This is class foo.', None, None, None, [
+    docspec.Class('foo', docspec.Location('test.py', 2), docspec.Docstring('This is class foo.', docspec.Location('test.py', 3)), None, None, None, [
       docspec.Function('__init__', docspec.Location('test.py', 6), None, None, [
         docspec.Argument('self', docspec.Argument.Type.Positional, None, None, None),
         docspec.Argument('port', docspec.Argument.Type.Positional, None, None, '8001'),

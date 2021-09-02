@@ -28,10 +28,15 @@ import pydocspec
 from pydocspec import dottedname, genericvisitor, specfactory, postprocessor, loader
 
 @overload
-def convert_docspec_modules(modules: Iterable[docspec.Module], root:Literal[True], additional_brain_modules:Optional[List[str]]=None) -> pydocspec.ApiObjectsRoot: ... # type:ignore[invalid-annotation]
+def convert_docspec_modules(modules: Iterable[docspec.Module], 
+                            root:Literal[True], 
+                            additional_brain_modules:Optional[List[str]]=None) -> pydocspec.ApiObjectsRoot:  # type:ignore[invalid-annotation]
+    ...
 @overload
-def convert_docspec_modules(modules: Iterable[docspec.Module], root:Literal[False], additional_brain_modules:Optional[List[str]]=None) -> List[pydocspec.Module]: ... # type:ignore
-
+def convert_docspec_modules(modules: Iterable[docspec.Module], 
+                            root:Literal[False]=False,
+                            additional_brain_modules:Optional[List[str]]=None) -> List[pydocspec.Module]: # type:ignore[invalid-annotation]
+    ... 
 def convert_docspec_modules(modules: Iterable[docspec.Module], root:bool=False, additional_brain_modules:Optional[List[str]]=None) -> Union[List[pydocspec.Module], pydocspec.ApiObjectsRoot]:
     """
     Convert a list of `docspec.Module` instances into a list of `pydocspec.Module`. 
