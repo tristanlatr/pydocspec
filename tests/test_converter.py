@@ -7,7 +7,9 @@ from .fixtures import mod1
 
 def test_converter_object_types(mod1: docspec.Module) -> None:
 
-    root = converter.convert_docspec_modules([mod1])[0].root
+    mods = converter.convert_docspec_modules([mod1])
+    assert len(mods) == 1
+    root = mods[0].root
     
     assert isinstance(root.all_objects['a'], pydocspec.Module)
     assert isinstance(root.all_objects['a.Union'], pydocspec.Indirection)
@@ -27,7 +29,10 @@ def test_converter_object_types(mod1: docspec.Module) -> None:
 
 
 def test_root_property(mod1: docspec.Module) -> None:
-    root = converter.convert_docspec_modules([mod1])[0].root
+    
+    mods = converter.convert_docspec_modules([mod1])
+    assert len(mods) == 1
+    root = mods[0].root
 
     assert root.all_objects['a'].root is root
     assert root.all_objects['a.Union'].root is root

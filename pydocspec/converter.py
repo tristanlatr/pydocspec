@@ -157,18 +157,17 @@ class _Converter:
         """
         _modules = list(modules)
         for mod in _nest_docspec_python_modules(_modules) if len(_modules)>1 else _modules:
-            new_mod = self._convert_docspec_module(mod)
-            self.root.root_modules.append(new_mod)
+            self._convert_docspec_module(mod)
 
-
-    def _convert_docspec_module(self, mod: docspec.Module) -> pydocspec.Module:
-        v = _ConverterVisitor(self.root, module=None)
+    def _convert_docspec_module(self, mod: docspec.Module) -> None:
+        v = _ConverterVisitor(self.root)
         
         genericvisitor.walkabout(mod, v, 
             get_children=lambda ob: ob.members if isinstance(ob, docspec.HasMembers) else ())
         
         assert v.module is not None
-        return v.module
+        assert v.module in self.root.root_modules
+
 
 #
 # Code for nesting docspec modules

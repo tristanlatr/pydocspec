@@ -2,7 +2,7 @@
 Our own version of the docspec loader. 
 
 :note: The current implementation is largely adapted from pydoctor's AST builder, simply based on the `ast` module. 
-    Because of that, it is very fast. But single line comments (starting by "``#``") are ignored. 
+    Because of that, it is very fast. But single line comments (starting by ``"#"``) are ignored. 
     Except for type comments, that are supported by the AST module. 
 
 """
@@ -47,21 +47,19 @@ class Collector:
     
     Maintains a stack of objects and incrementally build **one** `Module` instance.
 
-    :note: This object does not add root modules to the ``root.root_modules`` attribute. 
-        This is either the responsibility of the converter or the loader, depending on how you built the tree.
-        Nevertheless, it does register the object in the ``root.all_objects`` mapping and set the ``ob.root`` attribute.
+    :see: `loader.add_object`
     """
     #TODO: add objects to the root in the Collector. 
 
     def __init__(self, root: pydocspec.ApiObjectsRoot, 
-                 module: Optional[pydocspec.Module]) -> None:
+                 module: Optional[pydocspec.Module]=None) -> None:
         self.root = root
         """
         The root of the tree. 
         
         Can be used to access the ``root.factory`` attribute and create new classes.
         """
-        # pytype comlains because module id defined as non-optional in ModuleVisitor.module.
+        # pytype complains because module it's defined as non-optional in ModuleVisitor.module.
         self.module = module #type:ignore[annotation-type-mismatch]
         """
         The new module.
@@ -69,13 +67,19 @@ class Collector:
 
         self._current: pydocspec.ApiObject = cast(pydocspec.ApiObject, None) # the current object context 
         self._last: Optional[pydocspec.ApiObject] = None # the last exited object
-        self._stack: List[pydocspec.ApiObject] = []
+        # we can push attributes, but we can't push other stuff inside it.
+        self._stack: List[Union[pydocspec.Module, pydocspec.Class]] = []
 
     def push(self, ob: pydocspec.ApiObject) -> None:
         """
         Enter an object.
         """
-        self._stack.append(self._current) # the stack is initiated with a None value
+        # Note: the stack is initiated with a None value.
+        ctx = self._current
+        if ctx is not None: 
+            assert isinstance(ctx, pydocspec.HasMembers), (f"Cannot add new object ({ob!r}) inside {ctx.__class__.__name__}. "
+                                                           f"{ctx.full_name} is not namespace.")
+        self._stack.append(ctx)
         self._current = ob
 
     def pop(self, ob: pydocspec.ApiObject) -> None:
@@ -88,29 +92,48 @@ class Collector:
     
     def add_object(self, ob: pydocspec.ApiObject, push: bool = True) -> None:
         """
-        Add a newly created object to the tree, and enter it (expect if ``push=False``). 
-        Responsible to add the object to the current namespace, sync the hierarchy, setup 
-        the new object to the root instance and respectively.
+        See `loader.add_object`.
         """
-        if self._current is not None:
-            assert isinstance(self._current, pydocspec.HasMembers)
-            self._current.members.append(ob)
-            ob.sync_hierarchy(self._current)
-        else:
+        add_object(self.root, ob, self._current)
+        
+        if self._current is None:
             # yes, it's reachable, when first adding a module.
             assert isinstance(ob, pydocspec.Module) #type:ignore[unreachable]
             if self.module is None:
                 self.module = ob
             else:
+                # just do some assertion.
                 assert self.module is ob, f"{ob!r} is not {self.module!r}"
         
-        # Add object to the root.all_objects. 
-        # If the object is a root module, it's either going to be added in by the converter or by the loader.
-        self.root.all_objects[ob.full_name] = ob
-        # set the ApiObject.root attribute right away.
-        ob.root = self.root
         if push:
             self.push(ob)
+
+def add_object(root: pydocspec.ApiObjectsRoot, 
+               ob: pydocspec.ApiObject, 
+               parent: Optional[pydocspec.ApiObject]) -> None:
+    """
+    Add a newly created object to the tree. 
+    Responsible to add the object to the current namespace, setup parent attribute, setup 
+    the new object to the root instance and respectively.
+
+    :note: This does add root modules (if ``parent=None``) to the `ApiObjectsRoot.root_modules` attribute. 
+    """
+    if parent is not None:
+        assert isinstance(parent, pydocspec.HasMembers), (f"Cannot add new object ({ob!r}) inside {parent.__class__.__name__}. "
+                                                          f"{parent.full_name} is not namespace.")
+        # setup child
+        parent.members.append(ob)
+        ob.parent = parent
+    else:
+        assert isinstance(ob, pydocspec.Module)
+        # add root modules to root.root_modules attribute
+        root.root_modules.append(ob)
+    
+    # Add object to the root.all_objects. 
+    # If the object is a root module, it's either going to be added in by the converter or by the loader.
+    root.all_objects[ob.full_name] = ob
+    # set the ApiObject.root attribute right away.
+    ob.root = root
 
 class ModuleVisitor(ast.NodeVisitor, Collector):
     # help mypy
@@ -406,9 +429,12 @@ class ProcessingState(Enum):
 @attr.s(auto_attribs=True)
 class Loader:
     """
-    This loader's approach is to proceed incrementally, and outside-in. 
-    First, you add the top-level directory structure, this computes the whole package/module structure. 
-    Then, each modules are parse, then it does some analysis on what we’ve found in post-processing. 
+    Coordinate the process of parsing and analysing the ast trees. 
+    
+    :note: The approach is to proceed incrementally, and outside-in. 
+        First, you add the top-level directory structure, this computes the whole package/module structure. 
+        Then, each modules are parse, it creates all object instances, then it does some analysis on what 
+        we’ve found in post-processing. 
     """
 
     root: pydocspec.ApiObjectsRoot
@@ -527,10 +553,10 @@ class Loader:
         # We check if that's a duplicate module name.
         older_mod = self.root.all_objects.get(mod.full_name)
         if older_mod:
-            warnings.warn(f"Duplicate module name: '{mod.full_name}', the package wins.")
             assert isinstance(older_mod, pydocspec.Module)
 
             if is_package:
+                older_mod.warn(f"Duplicate module name: '{mod.full_name}', the package/directory wins.")
                 # The package wins, we remove the older module from the tree and we continue with the 
                 # addition of the package.
                 try:
@@ -542,23 +568,15 @@ class Loader:
                 del self.root.all_objects[mod.full_name]
                 del older_mod
             else:
+                mod.warn(f"Duplicate module name: '{mod.full_name}', the package/directory wins.")
                 del mod
                 return older_mod
         
         # Set is_package such that we have the right information.
         mod.is_package = is_package
 
-        # Already add it to the root modules as well as all_objects. 
-        if parent:
-            parent.members.append(mod)
-            mod.parent = parent
-        else:
-            self.root.root_modules.append(mod)
-        
-        # Manually add object to the root.all_objects. 
-        self.root.all_objects[mod.full_name] = mod
-        # Set the ApiObject.root attribute right away.
-        mod.root = self.root
+        add_object(self.root, mod, parent=parent)
+
         self._processing_map[mod.full_name] = ProcessingState.UNPROCESSED
 
         return mod
