@@ -65,13 +65,13 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
         <div>Our own version of the docspec loader.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">The current implementation is largely adapted from pydoctor's AST builder, simply based on the <code><a href="https://docs.python.org/3/library/ast.html#module-ast">ast</a></code> module.
-Because of that, it is very fast. But single line comments (starting by "<tt class="rst-docutils literal">#</tt>") are ignored.
+Because of that, it is very fast. But single line comments (starting by <tt class="rst-docutils literal">"#"</tt>) are ignored.
 Except for type comments, that are supported by the AST module.</td></tr></table></div>
       </div>
 
@@ -88,7 +88,7 @@ Except for type comments, that are supported by the AST module.</td></tr></table
     
     <td>Class</td>
     <td><code><a href="pydocspec.loader.Loader.html">Loader</a></code></td>
-    <td><span>This loader's approach is to proceed incrementally, and outside-in. First, you add the top-level directory structure, this computes the whole package/module structure. Then, each modules are parse, then it does some analysis on what we’ve found in post-processing.</span></td>
+    <td><span>Coordinate the process of parsing and analysing the ast trees.</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -99,6 +99,11 @@ Except for type comments, that are supported by the AST module.</td></tr></table
     <td>Class</td>
     <td><code><a href="pydocspec.loader.ProcessingState.html">ProcessingState</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#add_object">add_object</a></code></td>
+    <td><span>Add a newly created object to the tree. Responsible to add the object to the current namespace, setup parent attribute, setup the new object to the root instance and respectively.</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
@@ -123,7 +128,31 @@ Except for type comments, that are supported by the AST module.</td></tr></table
 
       <div id="childList">
 
-        <div class="basefunction private">
+        <div class="basefunction">
+  
+  
+  <a name="pydocspec.loader.add_object">
+    
+  </a>
+  <a name="add_object">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">add_object</span>(root, ob, parent):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L111">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Add a newly created object to the tree.
+Responsible to add the object to the current namespace, setup parent attribute, setup
+the new object to the root instance and respectively.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">This does add root modules (if <tt class="rst-docutils literal">parent=None</tt>) to the <code><a href="pydocspec.ApiObjectsRoot.html#root_modules">ApiObjectsRoot.root_modules</a></code> attribute.</td></tr></table></div>
+  </div>
+</div><div class="basefunction private">
   
   
   <a name="pydocspec.loader._parse_file">
@@ -135,7 +164,7 @@ Except for type comments, that are supported by the AST module.</td></tr></table
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_parse_file</span>(path):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L27">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L27">
       
       (source)
     </a>
@@ -157,7 +186,7 @@ Except for type comments, that are supported by the AST module.</td></tr></table
   <div class="functionHeader">
     
     <span class="py-defname">_parse</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L34">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L34">
       
       (source)
     </a>
@@ -179,7 +208,7 @@ Except for type comments, that are supported by the AST module.</td></tr></table
   <div class="functionHeader">
     
     <span class="py-defname">_string_lineno_is_end</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L38">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L38">
       
       (source)
     </a>
@@ -200,7 +229,7 @@ line in the string, rather than the first line.</div>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-02 04:50:43.
+    21.2.2 at 2021-09-02 18:17:36.
   </div>
 </footer>
 

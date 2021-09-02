@@ -65,16 +65,14 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Collector</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L44" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.loader.ModuleVisitor.html">pydocspec.loader.ModuleVisitor</a></code>, <code><a href="pydocspec.converter._ConverterVisitor.html">pydocspec.converter._ConverterVisitor</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Collector</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L44" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.loader.ModuleVisitor.html">pydocspec.loader.ModuleVisitor</a></code>, <code><a href="pydocspec.converter._ConverterVisitor.html">pydocspec.converter._ConverterVisitor</a></code></p>
         <p><a href="classIndex.html#pydocspec.loader.Collector">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
         <div><p>Base class to organize a tree of <code><a href="pydocspec.html">pydocspec</a></code> objects.</p>
 <p>Maintains a stack of objects and incrementally build <strong>one</strong> <code><a href="pydocspec.Module.html">Module</a></code> instance.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">This object does not add root modules to the <tt class="rst-docutils literal">root.root_modules</tt> attribute.
-This is either the responsibility of the converter or the loader, depending on how you built the tree.
-Nevertheless, it does register the object in the <tt class="rst-docutils literal">root.all_objects</tt> mapping and set the <tt class="rst-docutils literal">ob.root</tt> attribute.</td></tr></table></div>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">See Also</td></tr><tr><td colspan="2"><code><a href="pydocspec.loader.html#add_object">loader.add_object</a></code></td></tr></table></div>
       </div>
 
       <div id="splitTables">
@@ -90,7 +88,7 @@ Nevertheless, it does register the object in the <tt class="rst-docutils literal
     
     <td>Method</td>
     <td><code><a href="#add_object">add_object</a></code></td>
-    <td><span>Add a newly created object to the tree, and enter it (expect if <tt class="rst-docutils literal">push=False</tt>). Responsible to add the object to the current namespace, sync the hierarchy, setup the new object to the root instance and respectively.</span></td>
+    <td><span>See <code><a href="pydocspec.loader.html#add_object">loader.add_object</a></code>.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
@@ -146,8 +144,8 @@ Nevertheless, it does register the object in the <tt class="rst-docutils literal
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, root, module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L56">
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, root, module=None):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L54">
       
       (source)
     </a>
@@ -169,7 +167,7 @@ Nevertheless, it does register the object in the <tt class="rst-docutils literal
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">add_object</span>(self, ob, push=True):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L89">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L93">
       
       (source)
     </a>
@@ -177,9 +175,7 @@ Nevertheless, it does register the object in the <tt class="rst-docutils literal
   <div class="docstring functionBody">
     
     
-    <div>Add a newly created object to the tree, and enter it (expect if <tt class="rst-docutils literal">push=False</tt>).
-Responsible to add the object to the current namespace, sync the hierarchy, setup
-the new object to the root instance and respectively.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">push:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>See <code><a href="pydocspec.loader.html#add_object">loader.add_object</a></code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">push:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -193,7 +189,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">pop</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L81">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L85">
       
       (source)
     </a>
@@ -215,7 +211,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">push</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L74">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L73">
       
       (source)
     </a>
@@ -237,7 +233,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   <div class="functionHeader">
     
     <span class="py-defname">module</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L65">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L63">
       
       (source)
     </a>
@@ -259,7 +255,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   <div class="functionHeader">
     
     <span class="py-defname">root</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L58">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L56">
       
       (source)
     </a>
@@ -283,7 +279,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   <div class="functionHeader">
     
     <span class="py-defname">_current</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L70">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L68">
       
       (source)
     </a>
@@ -305,7 +301,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   <div class="functionHeader">
     
     <span class="py-defname">_last</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L71">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L69">
       
       (source)
     </a>
@@ -326,8 +322,8 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">_stack</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L72">
+    <span class="py-defname">_stack</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>, <wbr></wbr><a href="pydocspec.Class.html">pydocspec.Class</a>]]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L71">
       
       (source)
     </a>
@@ -347,7 +343,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-02 04:50:43.
+    21.2.2 at 2021-09-02 18:17:36.
   </div>
 </footer>
 

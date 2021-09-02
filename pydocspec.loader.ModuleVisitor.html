@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">ModuleVisitor</span>(<a href="https://docs.python.org/3/library/ast.html#ast.NodeVisitor" title="ast.NodeVisitor">ast.NodeVisitor</a>, <a href="pydocspec.loader.Collector.html" title="pydocspec.loader.Collector">Collector</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L115" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ModuleVisitor</span>(<a href="https://docs.python.org/3/library/ast.html#ast.NodeVisitor" title="ast.NodeVisitor">ast.NodeVisitor</a>, <a href="pydocspec.loader.Collector.html" title="pydocspec.loader.Collector">Collector</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L138" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.loader.ModuleVisitor">View In Hierarchy</a></p>
       </div>
 
@@ -150,7 +150,7 @@
     
     <td>Method</td>
     <td><code><a href="pydocspec.loader.Collector.html#add_object">add_object</a></code></td>
-    <td><span>Add a newly created object to the tree, and enter it (expect if <tt class="rst-docutils literal">push=False</tt>). Responsible to add the object to the current namespace, sync the hierarchy, setup the new object to the root instance and respectively.</span></td>
+    <td><span>See <code><a href="pydocspec.loader.html#add_object">loader.add_object</a></code>.</span></td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
@@ -202,7 +202,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, loader, module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L119">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L142">
       
       (source)
     </a>
@@ -224,7 +224,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">default</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L123">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L146">
       
       (source)
     </a>
@@ -246,7 +246,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_ClassDef</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L183">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L206">
       
       (source)
     </a>
@@ -268,7 +268,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Expr</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L154">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L177">
       
       (source)
     </a>
@@ -290,7 +290,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Import</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L369">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L392">
       
       (source)
     </a>
@@ -320,7 +320,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_ImportFrom</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L275">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L298">
       
       (source)
     </a>
@@ -342,7 +342,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Module</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L166">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L189">
       
       (source)
     </a>
@@ -364,7 +364,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-defname">module</span>: <code><a href="pydocspec.Module.html">pydocspec.Module</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L117">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L140">
       
       (source)
     </a>
@@ -386,7 +386,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-defname">loader</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L121">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L144">
       
       (source)
     </a>
@@ -408,7 +408,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_import_all</span>(self, modname, lineno):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L318">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L341">
       
       (source)
     </a>
@@ -430,7 +430,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_import_names</span>(self, modname, names, lineno):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L348">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L371">
       
       (source)
     </a>
@@ -452,7 +452,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_set_docstring</span>(self, ob, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4bbfe2a04224d002f2d8fcfa7088f5a6c2a29a94/pydocspec/loader.py#L132">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/676d2150701fda302ac466116fef369ebc2ef8dc/pydocspec/loader.py#L155">
       
       (source)
     </a>
@@ -472,7 +472,7 @@ part of the statement.</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-02 04:50:43.
+    21.2.2 at 2021-09-02 18:17:36.
   </div>
 </footer>
 
