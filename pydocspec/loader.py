@@ -578,7 +578,8 @@ class Loader:
         add_object(self.root, mod, parent=parent)
 
         self._processing_map[mod.full_name] = ProcessingState.UNPROCESSED
-
+        self._source_path_map[mod.full_name] = path
+        
         return mod
 
     def _process_module(self, mod:pydocspec.Module) -> None:
