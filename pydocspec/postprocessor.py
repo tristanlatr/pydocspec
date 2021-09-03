@@ -49,6 +49,8 @@ class _PostProcessVisitor(genericvisitor.Visitor[pydocspec.ApiObject]):
 
         # TODO: Populate a list of aliases for each objects.
 
+        # TODO: names defined in the __init__.py of a package should shadow the submodules with the same name in all_objects.
+
 def default_post_process(root: pydocspec.ApiObjectsRoot) -> None:
     for mod in root.root_modules:
         mod.walk(_PostProcessVisitor())

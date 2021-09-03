@@ -49,7 +49,6 @@ def mod_from_ast(
     _loader._process_module_ast(ast, mod)
 
     _loader._processing_map[mod.full_name] = loader.ProcessingState.PROCESSED
-    assert mod in _loader.processed_modules
 
     if root is None:
         # Assume that an implicit system will only contain one module,
@@ -114,6 +113,44 @@ def test_class_decos_and_bases(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:
     assert bases == ["str", "pkg.MyBase"]
     for b in m.bases_ast:
         assert isinstance(b, (ast.Name, ast.Attribute))
+
+@pytest.mark.xfail
+@rootcls_param
+def test_function_name_dulpicate_module(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:
+    """
+    It's possible that a function or class name is the same as a module's. 
+    The loader should not crash.
+    """
+
+    top_src = '''
+    class mod: pass # this names shadows the module "mod".
+    '''
+
+    mod_src = '''
+    from .. import mod
+    '''
+
+    system = rootcls()
+    
+    top = mod_from_text(top_src, modname='top', is_package=True, root=system)
+    mod = mod_from_text(mod_src, modname='mod', parent_name='top', root=system)
+
+    assert top.expand_name('mod') == 'top.mod'
+    
+    all_mod = system.all_objects.getall('top.mod')
+    assert all_mod is not None
+    assert len(all_mod) == 2
+
+    assert isinstance(top.get_member('mod'), pydocspec.Class) # we get the module currently.
+    assert list(top.get_members('mod')) == [all_mod[0], all_mod[1]]
+    assert isinstance(mod.get_member('mod'), pydocspec.Indirection)
+    assert mod.resolve_name('mod') is top.resolve_name('mod')
+
+    # This is most likely to surprise you when in an __init__.py and you are importing or 
+    # defining a value that has the same name as a submodule of the current package. 
+    # If the submodule is loaded by any module at any point after the import or definition 
+    # of the same name, it will shadow the imported or defined name in the __init__.py’s global namespace.
+    # http://python-notes.curiousefficiency.org/en/latest/python_concepts/import_traps.html?highlight=same%20name#the-submodules-are-added-to-the-package-namespace-trap
 
 @rootcls_param
 def test_relative_import_in_package(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:

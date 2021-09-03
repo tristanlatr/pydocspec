@@ -480,17 +480,13 @@ class Loader:
     def unprocessed_modules(self) -> Iterator[pydocspec.Module]:
         for mod_name, state in self._processing_map.items():
             if state is ProcessingState.UNPROCESSED:
-                mod = self.root.all_objects[mod_name]
-                assert isinstance(mod, pydocspec.Module)
-                yield mod
-
-    @property
-    def processed_modules(self) -> Iterator[pydocspec.Module]:
-        for mod_name, state in self._processing_map.items():
-            if state is ProcessingState.PROCESSED:
-                mod = self.root.all_objects[mod_name]
-                assert isinstance(mod, pydocspec.Module)
-                yield mod
+                # Support that function/class overrides a module name, but still process the module ;-)
+                mods = self.root.all_objects.getall(mod_name)
+                assert mods is not None, "Cannot find module '{mod_name}' in {root.all_objects!r}."
+                for mod in mods:
+                    assert isinstance(mod, pydocspec.Module)
+                    yield mod
+                    break
 
     def add_module(self, path: Path) -> None:
         """
@@ -579,7 +575,7 @@ class Loader:
 
         self._processing_map[mod.full_name] = ProcessingState.UNPROCESSED
         self._source_path_map[mod.full_name] = path
-        
+
         return mod
 
     def _process_module(self, mod:pydocspec.Module) -> None:
