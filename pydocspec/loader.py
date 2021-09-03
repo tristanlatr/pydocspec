@@ -487,6 +487,8 @@ class Loader:
                     assert isinstance(mod, pydocspec.Module)
                     yield mod
                     break
+                else:
+                    raise RuntimeError(f"No module found for name '{mod_name}', though it appears in the processing map: {self._processing_map!r}.")
 
     def add_module(self, path: Path) -> None:
         """
