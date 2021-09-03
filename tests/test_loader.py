@@ -3,14 +3,10 @@ import ast
 import textwrap
 import pytest
 
-from pydocspec import loader, specfactory, postprocessor
+from pydocspec import loader, postprocessor
 import pydocspec
 
-default_factory = specfactory.Factory.default()
-no_brain_factory = specfactory.Factory.default(load_brains=False)
-rootcls_param = pytest.mark.parametrize(
-    'rootcls', (no_brain_factory.ApiObjectsRoot, default_factory.ApiObjectsRoot)
-    )
+from tests import rootcls_param
 
 def mod_from_ast(
         ast: ast.Module,
@@ -19,10 +15,11 @@ def mod_from_ast(
         parent_name: Optional[str] = None,
         root: Optional[pydocspec.ApiObjectsRoot] = None,
         loadercls: Type[loader.Loader] = loader.Loader,
-        rootcls: Type[pydocspec.ApiObjectsRoot] = default_factory.ApiObjectsRoot,
+        rootcls: Optional[Type[pydocspec.ApiObjectsRoot]] = None,
         ) -> pydocspec.Module:
 
     if root is None:
+        assert rootcls is not None, "rootcls must be defined if root is not passed."
         _root = rootcls()
     else:
         _root = root
@@ -63,17 +60,18 @@ def mod_from_ast(
 
 def mod_from_text(
         text: str,
-        *,
         modname: str = '<test>',
         is_package: bool = False,
         parent_name: Optional[str] = None,
         root: Optional[pydocspec.ApiObjectsRoot] = None,
         loadercls: Type[loader.Loader] = loader.Loader,
-        rootcls: Type[pydocspec.ApiObjectsRoot] = default_factory.ApiObjectsRoot,
+        rootcls: Optional[Type[pydocspec.ApiObjectsRoot]] = None,
         ) -> pydocspec.Module:
     
     ast = loader._parse(textwrap.dedent(text))
-    return mod_from_ast(ast, modname, is_package, parent_name, root, loadercls, rootcls)
+    return mod_from_ast(ast=ast, modname=modname, is_package=is_package, 
+                        parent_name=parent_name, root=root, loadercls=loadercls, 
+                        rootcls=rootcls)
 
 @rootcls_param
 def test_class_docstring(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:
@@ -195,6 +193,44 @@ def test_relative_import_in_package_star_import(rootcls: Type[pydocspec.ApiObjec
     assert isinstance(pkg.get_member('j'), pydocspec.Indirection)
     assert isinstance(pkg.get_member('h'), pydocspec.Indirection)
     assert isinstance(pkg.get_member('g'), pydocspec.Indirection)
+
+@rootcls_param
+def test_aliasing(rootcls: Type[pydocspec.ApiObjectsRoot]) -> None:
+    def addsrc(root: pydocspec.ApiObjectsRoot) -> None:
+        src_private = '''
+        class A:
+            pass
+        '''
+        src_export = '''
+        from _private import A as B
+        # __all__ = ['B'] # This is not actually needed for the test to pass.
+        '''
+        src_user = '''
+        from public import B
+        class C(B):
+            pass
+        '''
+        mod_from_text(src_private, modname='_private', root=root)
+        mod_from_text(src_export, modname='public', root=root)
+        mod_from_text(src_user, modname='app', root=root)
+
+    root = rootcls()
+    addsrc(root)
+    C = root.all_objects['app.C']
+    assert isinstance(C, pydocspec.Class)
+
+    assert C.bases == ['B']
+    assert C.resolved_bases == [root.all_objects['_private.A']] 
+
+    # The pydoctor's version of this test expected ['public.B'] as the result, this because
+    # of the reparenting process applied to objects re-exported by __all__ variable. 
+    # pydocspec does not do that, it will return the "true" python name of the origin class.
+    # Note1: The initial version (2006) of this test expected ['_private.A'] as the result, too. 
+    # Note2:
+    # - relying on on-demand processing of other modules is unreliable when
+    #   there are cyclic imports: expand_name() on a module that is still being
+    #   processed can return the not-found result for a name that does exist. 
+    #   This is why we do not rely on expand_name() in the implementation of indirections creation.
 
 # TODO: Do a test with __all__variable re-export and assert that no exported members 
 # do not get an indirection object created.
