@@ -365,7 +365,7 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
         for name in names:
             indirection = self.root.factory.Indirection(name=name, 
                 location=self.root.factory.Location(filename=None, lineno=lineno), docstring=None, 
-                target=mod.expand_name(name))
+                target=f'{modname}.{name}')
             self.add_object(indirection, push=False)
 
     def _import_names(self, modname: str, names: Iterable[ast.alias], lineno: int) -> None:
