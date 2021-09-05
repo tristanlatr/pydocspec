@@ -65,15 +65,12 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">DuplicateSafeDict</span>(<span title="MutableMapping[str, _VT]">MutableMapping[str, _VT]</span>, <span title="Generic[_VT]">Generic[_VT]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L13" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">DuplicateSafeDict</span>(<span title="MutableMapping[str, _VT]">MutableMapping[str, _VT]</span>, <span title="Generic[_VT]">Generic[_VT]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L13" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.dupsafedict.DuplicateSafeDict">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>Dictionnary that do not discard old objects when they are overriden, but instead,
-only updates a reference to the new object.</p>
-<p>Duplicate values can be fetched with methods <code><a href="#getall">getall</a></code>, <code><a href="#getdup">getdup</a></code> and <code><a href="#allitems">allitems</a></code>.</p>
-<pre class="py-doctest">
+        <div><p>Dictionnary that do not discard old objects when they are overriden, but instead, only updates a reference to the new object.</p><p>Duplicate values can be fetched with methods `getall`, `getdup` and `allitems`.</p><pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>d = DuplicateSafeDict(me=<span class="py-string">'bob'</span>, you=<span class="py-string">'claudia'</span>)
 <span class="py-prompt">&gt;&gt;&gt; </span>d[<span class="py-string">'me'</span>] = <span class="py-string">'james'</span>
 <span class="py-prompt">&gt;&gt;&gt; </span>d[<span class="py-string">'me'</span>] = <span class="py-string">'james'</span>
@@ -192,7 +189,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__delitem__</span>(self, key):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L67">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L67">
       
       (source)
     </a>
@@ -214,7 +211,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__eq__</span>(self, other):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L117">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L117">
       
       (source)
     </a>
@@ -236,7 +233,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__getitem__</span>(self, key):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L61">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L61">
       
       (source)
     </a>
@@ -258,7 +255,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, data=None, **kwargs):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L42">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L42">
       
       (source)
     </a>
@@ -280,7 +277,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__iter__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L77">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L77">
       
       (source)
     </a>
@@ -302,7 +299,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__len__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L80">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L80">
       
       (source)
     </a>
@@ -324,7 +321,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__repr__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L132">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L132">
       
       (source)
     </a>
@@ -346,7 +343,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__setitem__</span>(self, key, value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L50">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L50">
       
       (source)
     </a>
@@ -368,7 +365,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">allitems</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L109">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L109">
       
       (source)
     </a>
@@ -390,7 +387,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">copy</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L126">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L126">
       
       (source)
     </a>
@@ -412,7 +409,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">getall</span>(self, key):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L96">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L96">
       
       (source)
     </a>
@@ -434,7 +431,7 @@ only updates a reference to the new object.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">getdup</span>(self, key):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L102">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L102">
       
       (source)
     </a>
@@ -457,7 +454,7 @@ Raise key error if the name doesn't exist.<table class="fieldTable"><tr class="f
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">rmvalue</span>(self, key, value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L83">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L83">
       
       (source)
     </a>
@@ -483,7 +480,7 @@ Raise value error if the value if not present.</p>
   <div class="functionHeader">
     
     <span class="py-defname">_store</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.dupsafedict.html#_VT">_VT</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1d3afa07620e7943d5e3e98e8f9af3de2f581ad9/pydocspec/dupsafedict.py#L44">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/dupsafedict.py#L44">
       
       (source)
     </a>
@@ -503,7 +500,7 @@ Raise value error if the value if not present.</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-03 20:32:14.
+    21.2.2 at 2021-09-05 09:32:11.
   </div>
 </footer>
 
