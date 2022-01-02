@@ -7,7 +7,7 @@
   <head>
     
     <title>pydocspec.loader</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -76,24 +76,24 @@ Except for type comments, that are supported by the AST module.</td></tr></table
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id51">
+        <table class="children sortable" id="id75">
   
   
   <tr class="class">
     
     <td>Class</td>
     <td><code><a href="pydocspec.loader.Collector.html">Collector</a></code></td>
-    <td><span>Base class to organize a tree of <code><a href="pydocspec.html">pydocspec</a></code> objects.</span></td>
+    <td>Base class to organize a tree of <code><a href="pydocspec.html">pydocspec</a></code> objects.</td>
   </tr><tr class="class">
     
     <td>Class</td>
     <td><code><a href="pydocspec.loader.Loader.html">Loader</a></code></td>
-    <td><span>Coordinate the process of parsing and analysing the ast trees.</span></td>
+    <td>Coordinate the process of parsing and analysing the ast trees.</td>
   </tr><tr class="class">
     
     <td>Class</td>
     <td><code><a href="pydocspec.loader.ModuleVisitor.html">ModuleVisitor</a></code></td>
-    <td><span class="undocumented">No class docstring; 0/1 instance variable, 0/1 class variable, 6/10 methods documented</span></td>
+    <td><span class="undocumented">No class docstring; 0/2 instance variable, 0/1 class variable, 9/24 methods documented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -103,12 +103,17 @@ Except for type comments, that are supported by the AST module.</td></tr></table
     
     <td>Function</td>
     <td><code><a href="#add_object">add_object</a></code></td>
-    <td><span>Add a newly created object to the tree. Responsible to add the object to the current namespace, setup parent attribute, setup the new object to the root instance and respectively.</span></td>
+    <td>Add a newly created object to the tree. Responsible to add the object to the current namespace, setup parent attribute, setup the new object to the root instance and respectively.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#is_attribute_overridden">is_attribute_overridden</a></code></td>
+    <td>Detect if the optional C{new_value} expression override the one already stored in the L{pydocspec.Data.value} attribute.</td>
   </tr><tr class="function private">
     
     <td>Function</td>
     <td><code><a href="#_parse_file">_parse_file</a></code></td>
-    <td><span>Parse the contents of a Python source file.</span></td>
+    <td>Parse the contents of a Python source file.</td>
   </tr><tr class="variable private">
     
     <td>Variable</td>
@@ -118,7 +123,7 @@ Except for type comments, that are supported by the AST module.</td></tr></table
     
     <td>Variable</td>
     <td><code><a href="#_string_lineno_is_end">_string_lineno_is_end</a></code></td>
-    <td><span>True iff the 'lineno' attribute of an AST string node points to the last line in the string, rather than the first line.</span></td>
+    <td>True iff the 'lineno' attribute of an AST string node points to the last line in the string, rather than the first line.</td>
   </tr>
 </table>
         
@@ -140,7 +145,7 @@ Except for type comments, that are supported by the AST module.</td></tr></table
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">add_object</span>(root, ob, parent):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L111">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L117">
       
       (source)
     </a>
@@ -150,7 +155,29 @@ Except for type comments, that are supported by the AST module.</td></tr></table
     
     <div>Add a newly created object to the tree.
 Responsible to add the object to the current namespace, setup parent attribute, setup
-the new object to the root instance and respectively.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">This does add root modules (if <tt class="rst-docutils literal">parent=None</tt>) to the <code><a href="pydocspec.ApiObjectsRoot.html#root_modules">ApiObjectsRoot.root_modules</a></code> attribute.</td></tr></table></div>
+the new object to the root instance and respectively.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec._model.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">This does add root modules (if <tt class="rst-docutils literal">parent=None</tt>) to the <code><a href="pydocspec._model.ApiObjectsRoot.html#root_modules">ApiObjectsRoot.root_modules</a></code> attribute.</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.loader.is_attribute_overridden">
+    
+  </a>
+  <a name="is_attribute_overridden">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">is_attribute_overridden</span>(obj, new_value):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L44">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Detect if the optional C{new_value} expression override the one already stored in the L{pydocspec.Data.value} attribute.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj:</span><code><a href="pydocspec.Data.html">pydocspec.Data</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">new_value:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
@@ -164,7 +191,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_parse_file</span>(path):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L27">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L27">
       
       (source)
     </a>
@@ -186,7 +213,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   <div class="functionHeader">
     
     <span class="py-defname">_parse</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L34">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L34">
       
       (source)
     </a>
@@ -195,6 +222,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="basevariable private">
   
@@ -208,7 +236,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
   <div class="functionHeader">
     
     <span class="py-defname">_string_lineno_is_end</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L38">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L38">
       
       (source)
     </a>
@@ -218,6 +246,7 @@ the new object to the root instance and respectively.<table class="fieldTable"><
     
     <div>True iff the 'lineno' attribute of an AST string node points to the last
 line in the string, rather than the first line.</div>
+    
   </div>
 </div>
 
@@ -229,7 +258,7 @@ line in the string, rather than the first line.</div>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-05 09:32:11.
+    21.12.0.dev0 at 2022-01-02 22:00:41.
   </div>
 </footer>
 

@@ -6,8 +6,8 @@
 
   <head>
     
-    <title>pydocspec.ApiObjectsRoot</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <title>pydocspec._model.ApiObjectsRoot</title>
+    <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code></code></h1>
+        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec._model.html">_model</a></code><wbr></wbr>.<code><a href="pydocspec._model.ApiObjectsRoot.html">ApiObjectsRoot</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,35 +65,35 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">ApiObjectsRoot</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L81" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#pydocspec.ApiObjectsRoot">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ApiObjectsRoot</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/_model.py#L49" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#pydocspec._model.ApiObjectsRoot">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
         <div><p>A collection of related documentable objects, also known as "the system".</p>
-<p>Special object that provides a single view on all referencable objects in the tree and root modules.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">A reference to the root instance is kept on all API objects as <code><a href="pydocspec.ApiObject.html#root">ApiObject.root</a></code>.</td></tr></table></div>
+<p>This special object provides a single view on all referencable objects in the tree and root modules.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">A reference to the root instance is kept on all API objects as <code><a href="pydocspec._model.ApiObject.html#root">ApiObject.root</a></code>.</td></tr></table></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id65">
+        <table class="children sortable" id="id30">
   
   
   <tr class="classvariable">
     
     <td>Class Variable</td>
     <td><code><a href="#factory">factory</a></code></td>
-    <td><span>The factory used to create this collection of objects.</span></td>
+    <td>The factory used to create this collection of objects. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> if the root has been created manually.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="#all_objects">all_objects</a></code></td>
-    <td><span>All objects of the tree in a mapping <tt class="rst-docutils literal">full_name</tt> -&gt; <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>.</span></td>
+    <td>All objects of the tree in a mapping <tt class="rst-docutils literal">full_name</tt> -&gt; <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="#root_modules">root_modules</a></code></td>
-    <td><span>The root modules of the tree.</span></td>
+    <td>The root modules of the tree.</td>
   </tr>
 </table>
         
@@ -106,7 +106,7 @@
         <div class="baseclassvariable">
   
   
-  <a name="pydocspec.ApiObjectsRoot.factory">
+  <a name="pydocspec._model.ApiObjectsRoot.factory">
     
   </a>
   <a name="factory">
@@ -115,7 +115,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">factory</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.ClassVar">ClassVar</a>[<wbr></wbr><a href="pydocspec.specfactory.Factory.html">specfactory.Factory</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L104">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/_model.py#L72">
       
       (source)
     </a>
@@ -123,12 +123,13 @@
   <div class="functionBody">
     
     
-    <div>The factory used to create this collection of objects.</div>
+    <div>The factory used to create this collection of objects. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> if the root has been created manually.</div>
+    
   </div>
 </div><div class="baseinstancevariable">
   
   
-  <a name="pydocspec.ApiObjectsRoot.all_objects">
+  <a name="pydocspec._model.ApiObjectsRoot.all_objects">
     
   </a>
   <a name="all_objects">
@@ -136,8 +137,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">all_objects</span>: <code><a href="pydocspec.dupsafedict.DuplicateSafeDict.html">DuplicateSafeDict</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L96">
+    <span class="py-defname">all_objects</span>: <code><a href="pydocspec.dupsafedict.DuplicateSafeDict.html">DuplicateSafeDict</a>[<wbr></wbr><a href="pydocspec._model.ApiObject.html">ApiObject</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/_model.py#L64">
       
       (source)
     </a>
@@ -145,12 +146,13 @@
   <div class="functionBody">
     
     
-    <div>All objects of the tree in a mapping <tt class="rst-docutils literal">full_name</tt> -&gt; <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">Special care is taken in order no to shadow objects with duplicate names, see <code><a href="pydocspec.dupsafedict.DuplicateSafeDict.html">DuplicateSafeDict</a></code>.</td></tr></table></div>
+    <div>All objects of the tree in a mapping <tt class="rst-docutils literal">full_name</tt> -&gt; <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">Special care is taken in order no to shadow objects with duplicate names, see <code><a href="pydocspec.dupsafedict.DuplicateSafeDict.html">DuplicateSafeDict</a></code>.</td></tr></table></div>
+    
   </div>
 </div><div class="baseinstancevariable">
   
   
-  <a name="pydocspec.ApiObjectsRoot.root_modules">
+  <a name="pydocspec._model.ApiObjectsRoot.root_modules">
     
   </a>
   <a name="root_modules">
@@ -158,8 +160,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">root_modules</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Module.html">Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L91">
+    <span class="py-defname">root_modules</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec._model.Module.html">Module</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/_model.py#L59">
       
       (source)
     </a>
@@ -168,6 +170,7 @@
     
     
     <div>The root modules of the tree.</div>
+    
   </div>
 </div>
 
@@ -179,7 +182,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-05 09:32:11.
+    21.12.0.dev0 at 2022-01-02 22:00:41.
   </div>
 </footer>
 

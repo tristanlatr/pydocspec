@@ -7,7 +7,7 @@
   <head>
     
     <title>docspec.Argument.Type</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -65,27 +65,42 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Type</span>(<a href="https://docs.python.org/3/library/enum.html#enum.Enum" title="enum.Enum">enum.Enum</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L121" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Type</span>(<a href="https://docs.python.org/3/library/enum.html#enum.Enum" title="enum.Enum">enum.Enum</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L126" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#docspec.Argument.Type">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>The type of the argument. This is currently very Python-centric, however most other languages should be able to represent the various argument types with a subset of these types without additions (e.g. Java or TypeScript only support #Positional and #PositionalRemainder arguments).</p></div>
+        <div>The type of the argument. This is currently very Python-centric, however most other languages should be able to represent the various argument types with a subset of these types without additions (e.g. Java or TypeScript only support #Positional and #PositionalRemainder arguments).</div>
       </div>
 
       <div id="splitTables">
         <table class="children sortable" id="id6">
   
   
-  <tr class="classvariable">
+  <tr class="constant">
     
-    <td>Class Variable</td>
+    <td>Constant</td>
     <td><code><a href="#KEYWORD_ONLY">KEYWORD_ONLY</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
+  </tr><tr class="constant">
     
-    <td>Class Variable</td>
+    <td>Constant</td>
     <td><code><a href="#KEYWORD_REMAINDER">KEYWORD_REMAINDER</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#POSITIONAL">POSITIONAL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#POSITIONAL_ONLY">POSITIONAL_ONLY</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#POSITIONAL_REMAINDER">POSITIONAL_REMAINDER</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
@@ -100,22 +115,7 @@
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#POSITIONAL">POSITIONAL</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
-    
-    <td>Class Variable</td>
     <td><code><a href="#Positional">Positional</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#POSITIONAL_ONLY">POSITIONAL_ONLY</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#POSITIONAL_REMAINDER">POSITIONAL_REMAINDER</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
@@ -136,7 +136,7 @@
 
       <div id="childList">
 
-        <div class="baseclassvariable">
+        <div class="baseconstant">
   
   
   <a name="docspec.Argument.Type.KEYWORD_ONLY">
@@ -147,8 +147,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">KEYWORD_ONLY</span>: <code>te.Annotated[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>, <wbr></wbr>alias(KEYWORD_ONLY, KeywordOnly)]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L139">
+    <span class="py-defname">KEYWORD_ONLY</span>: <code>te.Annotated[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>, <wbr></wbr>alias(<wbr></wbr><a href="#KEYWORD_ONLY">KEYWORD_ONLY</a>, <wbr></wbr><a href="#KeywordOnly">KeywordOnly</a>)]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L144">
       
       (source)
     </a>
@@ -157,8 +157,9 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>3</code></pre></td></tr></table>
   </div>
-</div><div class="baseclassvariable">
+</div><div class="baseconstant">
   
   
   <a name="docspec.Argument.Type.KEYWORD_REMAINDER">
@@ -169,8 +170,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">KEYWORD_REMAINDER</span>: <code>te.Annotated[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>, <wbr></wbr>alias(KEYWORD_REMAINDER, KeywordRemainder)]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L142">
+    <span class="py-defname">KEYWORD_REMAINDER</span>: <code>te.Annotated[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>, <wbr></wbr>alias(<wbr></wbr><a href="#KEYWORD_REMAINDER">KEYWORD_REMAINDER</a>, <wbr></wbr><a href="#KeywordRemainder">KeywordRemainder</a>)]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L147">
       
       (source)
     </a>
@@ -179,6 +180,76 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>4</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="docspec.Argument.Type.POSITIONAL">
+    
+  </a>
+  <a name="POSITIONAL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">POSITIONAL</span>: <code>te.Annotated[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>, <wbr></wbr>alias(<wbr></wbr><a href="#POSITIONAL">POSITIONAL</a>, <wbr></wbr><a href="#Positional">Positional</a>)]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L138">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>1</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="docspec.Argument.Type.POSITIONAL_ONLY">
+    
+  </a>
+  <a name="POSITIONAL_ONLY">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">POSITIONAL_ONLY</span>: <code>te.Annotated[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>, <wbr></wbr>alias(<wbr></wbr><a href="#POSITIONAL_ONLY">POSITIONAL_ONLY</a>, <wbr></wbr><a href="#PositionalOnly">PositionalOnly</a>)]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L134">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>0</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="docspec.Argument.Type.POSITIONAL_REMAINDER">
+    
+  </a>
+  <a name="POSITIONAL_REMAINDER">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">POSITIONAL_REMAINDER</span>: <code>te.Annotated[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>, <wbr></wbr>alias(<wbr></wbr><a href="#POSITIONAL_REMAINDER">POSITIONAL_REMAINDER</a>, <wbr></wbr><a href="#PositionalRemainder">PositionalRemainder</a>)]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L141">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>2</code></pre></td></tr></table>
   </div>
 </div><div class="baseclassvariable">
   
@@ -192,7 +263,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">KeywordOnly</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.ClassVar">t.ClassVar</a>[<wbr></wbr><a href="docspec.Argument.Type.html">Argument.Type</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L148">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L153">
       
       (source)
     </a>
@@ -201,6 +272,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseclassvariable">
   
@@ -214,7 +286,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">KeywordRemainder</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.ClassVar">t.ClassVar</a>[<wbr></wbr><a href="docspec.Argument.Type.html">Argument.Type</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L149">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L154">
       
       (source)
     </a>
@@ -223,28 +295,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="docspec.Argument.Type.POSITIONAL">
     
-  </a>
-  <a name="POSITIONAL">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">POSITIONAL</span>: <code>te.Annotated[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>, <wbr></wbr>alias(POSITIONAL, Positional)]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L133">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
   
@@ -258,7 +309,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">Positional</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.ClassVar">t.ClassVar</a>[<wbr></wbr><a href="docspec.Argument.Type.html">Argument.Type</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L146">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L151">
       
       (source)
     </a>
@@ -267,50 +318,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="docspec.Argument.Type.POSITIONAL_ONLY">
     
-  </a>
-  <a name="POSITIONAL_ONLY">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">POSITIONAL_ONLY</span>: <code>te.Annotated[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>, <wbr></wbr>alias(POSITIONAL_ONLY, PositionalOnly)]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L129">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="docspec.Argument.Type.POSITIONAL_REMAINDER">
-    
-  </a>
-  <a name="POSITIONAL_REMAINDER">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">POSITIONAL_REMAINDER</span>: <code>te.Annotated[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int">int</a>, <wbr></wbr>alias(POSITIONAL_REMAINDER, PositionalRemainder)]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L136">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
   
@@ -324,7 +332,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">PositionalOnly</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.ClassVar">t.ClassVar</a>[<wbr></wbr><a href="docspec.Argument.Type.html">Argument.Type</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L145">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L150">
       
       (source)
     </a>
@@ -333,6 +341,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseclassvariable">
   
@@ -346,7 +355,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">PositionalRemainder</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.ClassVar">t.ClassVar</a>[<wbr></wbr><a href="docspec.Argument.Type.html">Argument.Type</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L147">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L152">
       
       (source)
     </a>
@@ -355,6 +364,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div>
 
@@ -366,7 +376,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-05 09:32:11.
+    21.12.0.dev0 at 2022-01-02 22:00:41.
   </div>
 </footer>
 

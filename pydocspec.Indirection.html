@@ -7,7 +7,7 @@
   <head>
     
     <title>pydocspec.Indirection</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Indirection</span>(<span title="docspec.Indirection">docspec.Indirection</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L466" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Indirection</span>(<span title="docspec.Indirection">docspec.Indirection</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L413" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.Indirection">View In Hierarchy</a></p>
       </div>
 
@@ -80,84 +80,69 @@ find the full name target of a link written with a local name.</div>
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>:
           </p>
-          <table class="children sortable" id="id69">
+          <table class="children sortable" id="id96">
   
   
   <tr class="basemethod">
     
     <td>Method</td>
+    <td><code><a href="pydocspec.ApiObject.html#__post_init__">__post_init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#expand_name">expand_name</a></code></td>
-    <td><span>Return a fully qualified name for the possibly-dotted <code>name</code>.</span></td>
+    <td>Return a fully qualified name for the possibly-dotted <code>name</code>.</td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#get_member">get_member</a></code></td>
-    <td><span>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for objects that don't support members (eg. <code><a href="pydocspec.Function.html">Function</a></code> and <code><a href="pydocspec.Data.html">Data</a></code>).</span></td>
+    <td>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for objects that don't support members (eg. <code><a href="pydocspec.Function.html">Function</a></code> and <code><a href="pydocspec.Data.html">Data</a></code>).</td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#get_members">get_members</a></code></td>
-    <td><span>Like <code><a href="#get_member">get_member</a></code> but can return several items with the same name.</span></td>
+    <td>Like <code><a href="#get_member">get_member</a></code> but can return several items with the same name.</td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#resolve_name">resolve_name</a></code></td>
-    <td><span>Return the object named by "name" (using Python's lookup rules) in this context.</span></td>
-  </tr><tr class="basemethod">
+    <td>Return the object named by "name" (using Python's lookup rules) in this context.</td>
+  </tr><tr class="baseinstancevariable">
     
-    <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#walk">walk</a></code></td>
-    <td><span>Traverse a tree of objects, calling the <code><a href="pydocspec.genericvisitor.Visitor.html#visit">genericvisitor.Visitor.visit</a></code> method of <code>visitor</code> when entering each node.</span></td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#walkabout">walkabout</a></code></td>
-    <td><span>Perform a tree traversal similarly to <code>walk()</code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</span></td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#warn">warn</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
+    <td>Instance Variable</td>
     <td><code><a href="pydocspec.ApiObject.html#location">location</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseclassvariable">
+  </tr><tr class="baseinstancevariable">
     
-    <td>Class Variable</td>
+    <td>Instance Variable</td>
     <td><code><a href="pydocspec.ApiObject.html#parent">parent</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="pydocspec.ApiObject.html#root">root</a></code></td>
-    <td><span><code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance holding references to all objects in the tree.</span></td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#doc_sources">doc_sources</a></code></td>
-    <td><span>Objects that can be considered as a source of documentation.</span></td>
+    <td>Objects that can be considered as a source of documentation.</td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#dotted_name">dotted_name</a></code></td>
-    <td><span>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> instance.</span></td>
+    <td>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> instance.</td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#full_name">full_name</a></code></td>
-    <td><span>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</span></td>
+    <td>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#module">module</a></code></td>
-    <td><span>The <code><a href="pydocspec.Module.html">Module</a></code> instance that contains this object.</span></td>
+    <td>The <code><a href="pydocspec.Module.html">Module</a></code> instance that contains this object.</td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#root_module">root_module</a></code></td>
-    <td><span>The root module of this object.</span></td>
+    <td>The root module of this object.</td>
   </tr><tr class="basemethod private">
     
     <td>Method</td>
@@ -166,13 +151,51 @@ find the full name target of a link written with a local name.</div>
   </tr><tr class="basemethod private">
     
     <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#_members">_members</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><code><a href="pydocspec.ApiObject.html#_resolve_indirection">_resolve_indirection</a></code></td>
+    <td>Follow an indirection and return the <em>supposed</em> full name of the origin object.</td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
+            Inherited from <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>):
+          </p>
+          <table class="children sortable" id="id97">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#walk">walk</a></code></td>
+    <td>Traverse a tree of objects, calling the <code><a href="pydocspec.genericvisitor.Visitor.html#visit">genericvisitor.Visitor.visit</a></code> method of <code>visitor</code> when entering each node.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#walkabout">walkabout</a></code></td>
+    <td>Perform a tree traversal similarly to <code><a href="#walk">walk()</a></code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#root">root</a></code></td>
+    <td><code><a href="pydocspec._model.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance holding references to all objects in the tree.</td>
   </tr><tr class="basemethod private">
     
     <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#_resolve_indirection">_resolve_indirection</a></code></td>
-    <td><span>If the object is an alias or an indirection, then follow it and return the supposed full name fo the origin object, or return the passed object's full name.</span></td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_members">_members</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
+            Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html">CanTriggerWarnings</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>, <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>):
+          </p>
+          <table class="children sortable" id="id98">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.CanTriggerWarnings.html#warn">warn</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
           
@@ -192,7 +215,7 @@ find the full name target of a link written with a local name.</div>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-05 09:32:11.
+    21.12.0.dev0 at 2022-01-02 22:00:41.
   </div>
 </footer>
 

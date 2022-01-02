@@ -7,7 +7,7 @@
   <head>
     
     <title>pydocspec.loader.Collector</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Collector</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L44" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.loader.ModuleVisitor.html">pydocspec.loader.ModuleVisitor</a></code>, <code><a href="pydocspec.converter._ConverterVisitor.html">pydocspec.converter._ConverterVisitor</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Collector</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L50" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.loader.ModuleVisitor.html">pydocspec.loader.ModuleVisitor</a></code>, <code><a href="pydocspec.converter._ConverterVisitor.html">pydocspec.converter._ConverterVisitor</a></code></p>
         <p><a href="classIndex.html#pydocspec.loader.Collector">View In Hierarchy</a></p>
       </div>
 
@@ -76,7 +76,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id52">
+        <table class="children sortable" id="id76">
   
   
   <tr class="method">
@@ -88,27 +88,27 @@
     
     <td>Method</td>
     <td><code><a href="#add_object">add_object</a></code></td>
-    <td><span>See <code><a href="pydocspec.loader.html#add_object">loader.add_object</a></code>.</span></td>
+    <td>See <code><a href="pydocspec.loader.html#add_object">loader.add_object</a></code>.</td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#pop">pop</a></code></td>
-    <td><span>Exit an object.</span></td>
+    <td>Exit an object.</td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#push">push</a></code></td>
-    <td><span>Enter an object.</span></td>
+    <td>Enter an object.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="#module">module</a></code></td>
-    <td><span>The new module.</span></td>
+    <td>The new module.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="#root">root</a></code></td>
-    <td><span>The root of the tree.</span></td>
+    <td>The root of the tree.</td>
   </tr><tr class="instancevariable private">
     
     <td>Instance Variable</td>
@@ -144,8 +144,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, root, module=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L54">
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, root, module=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L59">
       
       (source)
     </a>
@@ -153,7 +153,7 @@
   <div class="docstring functionBody">
     <div class="interfaceinfo">overridden in <code><a href="pydocspec.loader.ModuleVisitor.html">pydocspec.loader.ModuleVisitor</a></code></div>
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec._model.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -166,8 +166,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">add_object</span>(self, ob, push=True):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L93">
+    <span class="py-keyword">def</span> <span class="py-defname">add_object</span>(self, ob, push=<a href="https://docs.python.org/3/library/constants.html#True">True</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L99">
       
       (source)
     </a>
@@ -189,7 +189,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">pop</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L85">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L91">
       
       (source)
     </a>
@@ -211,7 +211,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">push</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L73">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L79">
       
       (source)
     </a>
@@ -233,7 +233,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">module</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L63">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L69">
       
       (source)
     </a>
@@ -242,6 +242,7 @@
     <div class="interfaceinfo">overridden in <code><a href="pydocspec.loader.ModuleVisitor.html">pydocspec.loader.ModuleVisitor</a></code></div>
     
     <div>The new module.</div>
+    
   </div>
 </div><div class="baseinstancevariable">
   
@@ -255,7 +256,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">root</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L56">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L61">
       
       (source)
     </a>
@@ -266,6 +267,7 @@
     <div><p>The root of the tree.</p>
 <p>Can be used to access the <tt class="rst-docutils literal">root.factory</tt> attribute and create new classes.</p>
 </div>
+    
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -279,7 +281,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_current</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L68">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L74">
       
       (source)
     </a>
@@ -288,6 +290,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -301,7 +304,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_last</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L69">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L75">
       
       (source)
     </a>
@@ -310,6 +313,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -323,7 +327,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_stack</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>, <wbr></wbr><a href="pydocspec.Class.html">pydocspec.Class</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L71">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L77">
       
       (source)
     </a>
@@ -332,6 +336,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div>
 
@@ -343,7 +348,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-05 09:32:11.
+    21.12.0.dev0 at 2022-01-02 22:00:41.
   </div>
 </footer>
 

@@ -7,7 +7,7 @@
   <head>
     
     <title>docspec.Function</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -65,12 +65,12 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Function</span>(<a href="docspec.ApiObject.html" title="docspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L292" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Function</span>(<a href="docspec.ApiObject.html" title="docspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L297" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#docspec.Function">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>Represents a function definition. This can be in a #Module for plain functions or in a #Class for methods. The #decorations need to be introspected to understand if the function has a special purpose (e.g. is it a `@property`, `@classmethod` or `@staticmethod`?).</p></div>
+        <div>Represents a function definition. This can be in a #Module for plain functions or in a #Class for methods. The #decorations need to be introspected to understand if the function has a special purpose (e.g. is it a `@property`, `@classmethod` or `@staticmethod`?).</div>
       </div>
 
       <div id="splitTables">
@@ -81,7 +81,7 @@
     
     <td>Class</td>
     <td><code><a href="docspec.Function.Semantic.html">Semantic</a></code></td>
-    <td><span>A list of well-known properties and behaviour that can be attributed to a function.</span></td>
+    <td>A list of well-known properties and behaviour that can be attributed to a function.</td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
@@ -150,12 +150,12 @@
     
     <td>Instance Variable</td>
     <td><code><a href="docspec.ApiObject.html#parent">parent</a></code></td>
-    <td><span>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</span></td>
+    <td>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="docspec.ApiObject.html#path">path</a></code></td>
-    <td><span>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</span></td>
+    <td>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</td>
   </tr><tr class="baseinstancevariable private">
     
     <td>Instance Variable</td>
@@ -182,7 +182,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">args</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="docspec.Argument.html">Argument</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L340">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L345">
       
       (source)
     </a>
@@ -191,6 +191,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseclassvariable">
   
@@ -204,7 +205,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">decorations</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="docspec.Decoration.html">Decoration</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L346">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L351">
       
       (source)
     </a>
@@ -213,6 +214,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseclassvariable">
   
@@ -226,7 +228,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">modifiers</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L337">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L342">
       
       (source)
     </a>
@@ -235,6 +237,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseclassvariable">
   
@@ -248,7 +251,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">return_type</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L343">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L348">
       
       (source)
     </a>
@@ -257,6 +260,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseclassvariable">
   
@@ -270,7 +274,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">semantic_hints</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="docspec.Function.Semantic.html">Semantic</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L349">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L354">
       
       (source)
     </a>
@@ -279,6 +283,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div>
 
@@ -290,7 +295,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-05 09:32:11.
+    21.12.0.dev0 at 2022-01-02 22:00:41.
   </div>
 </footer>
 

@@ -7,7 +7,7 @@
   <head>
     
     <title>docspec.ApiObject</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -65,12 +65,12 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">ApiObject</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L177" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="docspec.Data.html">docspec.Data</a></code>, <code><a href="docspec.Function.html">docspec.Function</a></code>, <code><a href="docspec.HasMembers.html">docspec.HasMembers</a></code>, <code><a href="docspec.Indirection.html">docspec.Indirection</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ApiObject</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L182" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="docspec.Data.html">docspec.Data</a></code>, <code><a href="docspec.Function.html">docspec.Function</a></code>, <code><a href="docspec.HasMembers.html">docspec.HasMembers</a></code>, <code><a href="docspec.Indirection.html">docspec.Indirection</a></code></p>
         <p><a href="classIndex.html#docspec.ApiObject">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>The base class for representing "API Objects". Any API object is any addressable entity in code, be that a variable/constant, function, class or module.</p></div>
+        <div>The base class for representing "API Objects". Any API object is any addressable entity in code, be that a variable/constant, function, class or module.</div>
       </div>
 
       <div id="splitTables">
@@ -111,12 +111,12 @@
     
     <td>Instance Variable</td>
     <td><code><a href="#parent">parent</a></code></td>
-    <td><span>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</span></td>
+    <td>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#path">path</a></code></td>
-    <td><span>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</span></td>
+    <td>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</td>
   </tr><tr class="instancevariable private">
     
     <td>Instance Variable</td>
@@ -143,7 +143,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__post_init__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L196">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L201">
       
       (source)
     </a>
@@ -163,9 +163,9 @@
     
   </a>
   <div class="functionHeader">
-    @parent.setter<br />
+    @<a href="#parent.setter">parent.setter</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">parent</span>(self, parent):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L215">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L220">
       
       (source)
     </a>
@@ -186,8 +186,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">sync_hierarchy</span>(self, parent=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L237">
+    <span class="py-keyword">def</span> <span class="py-defname">sync_hierarchy</span>(self, parent=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L242">
       
       (source)
     </a>
@@ -195,7 +195,7 @@
   <div class="docstring functionBody">
     <div class="interfaceinfo">overridden in <code><a href="docspec.HasMembers.html">docspec.HasMembers</a></code></div>
     
-    <div><p>Synchronize the hierarchy of this API object and all of it's children. This should be called when the #HasMembers.members are updated to ensure that all child objects reference the right #parent. Loaders are expected to return #ApiObject#s in a fully synchronized state such that the user does not have to call this method unless they are doing modifications to the tree.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="docspec.HasMembers.html">HasMembers</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Synchronize the hierarchy of this API object and all of it's children. This should be called when the #HasMembers.members are updated to ensure that all child objects reference the right #parent. Loaders are expected to return #ApiObject#s in a fully synchronized state such that the user does not have to call this method unless they are doing modifications to the tree.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="docspec.HasMembers.html">HasMembers</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="baseclassvariable">
   
@@ -209,7 +209,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">docstring</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="docspec.Docstring.html">Docstring</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L194">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L199">
       
       (source)
     </a>
@@ -218,6 +218,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseclassvariable">
   
@@ -231,7 +232,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">location</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">t.Optional</a>[<wbr></wbr><a href="docspec.Location.html">Location</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L191">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L196">
       
       (source)
     </a>
@@ -240,6 +241,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseclassvariable">
   
@@ -253,7 +255,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">name</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L188">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L193">
       
       (source)
     </a>
@@ -262,6 +264,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseinstancevariable">
   
@@ -273,9 +276,9 @@
     
   </a>
   <div class="functionHeader">
-    @property<br />
+    @<a href="https://docs.python.org/3/library/functions.html#property">property</a><br />
     <span class="py-defname">parent</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L199">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L204">
       
       (source)
     </a>
@@ -283,7 +286,8 @@
   <div class="functionBody">
     <div class="interfaceinfo">overridden in <code><a href="docspec.HasMembers.html">docspec.HasMembers</a></code></div>
     
-    <div><p>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</p></div>
+    <div>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</div>
+    
   </div>
 </div><div class="baseproperty">
   
@@ -295,9 +299,9 @@
     
   </a>
   <div class="functionHeader">
-    @property<br />
+    @<a href="https://docs.python.org/3/library/functions.html#property">property</a><br />
     <span class="py-defname">path</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">t.List</a>[<wbr></wbr><a href="docspec.ApiObject.html">ApiObject</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L222">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L227">
       
       (source)
     </a>
@@ -305,7 +309,8 @@
   <div class="functionBody">
     
     
-    <div><p>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</p></div>
+    <div>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</div>
+    
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -319,7 +324,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_parent</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/docspec.py#L197">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/docspec.py#L202">
       
       (source)
     </a>
@@ -328,6 +333,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div>
 
@@ -339,7 +345,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-05 09:32:11.
+    21.12.0.dev0 at 2022-01-02 22:00:41.
   </div>
 </footer>
 

@@ -7,7 +7,7 @@
   <head>
     
     <title>pydocspec.loader.Loader</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Loader</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L429" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Loader</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L767" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.loader.Loader">View In Hierarchy</a></p>
       </div>
 
@@ -77,24 +77,24 @@ we’ve found in post-processing.</td></tr></table></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id56">
+        <table class="children sortable" id="id80">
   
   
   <tr class="method">
     
     <td>Method</td>
     <td><code><a href="#add_module">add_module</a></code></td>
-    <td><span>Add a module or package from a system path. If the path is pointing to a directory, reccursively add all submodules.</span></td>
+    <td>Add a module or package from a system path. If the path is pointing to a directory, reccursively add all submodules.</td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#get_processed_module">get_processed_module</a></code></td>
-    <td><span>Returns the processed module or None if the name cannot be found.</span></td>
+    <td>Returns the processed module or None if the name cannot be found.</td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#process_modules">process_modules</a></code></td>
-    <td><span>Process unprocessed modules.</span></td>
+    <td>Process unprocessed modules.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
@@ -109,27 +109,27 @@ we’ve found in post-processing.</td></tr></table></div>
     
     <td>Method</td>
     <td><code><a href="#_add_module">_add_module</a></code></td>
-    <td><span>Create a new empty module and add it to the tree. Initiate it's state in the processing map.</span></td>
+    <td>Create a new empty module and add it to the tree. Initiate it's state in the processing map.</td>
   </tr><tr class="method private">
     
     <td>Method</td>
     <td><code><a href="#_add_package">_add_package</a></code></td>
-    <td><span>Handles '__init__.py' files and reccursively calls itself when traversing subdirectories.</span></td>
+    <td>Handles '__init__.py' files and reccursively calls itself when traversing subdirectories.</td>
   </tr><tr class="method private">
     
     <td>Method</td>
     <td><code><a href="#_maybe_add_module">_maybe_add_module</a></code></td>
-    <td><span>Ignores the files that are not recognized as python files.</span></td>
+    <td>Ignores the files that are not recognized as python files.</td>
   </tr><tr class="method private">
     
     <td>Method</td>
     <td><code><a href="#_parse_file">_parse_file</a></code></td>
-    <td><span>Exceptionnaly returns None if there was an error.</span></td>
+    <td>Exceptionnaly returns None if there was an error.</td>
   </tr><tr class="method private">
     
     <td>Method</td>
     <td><code><a href="#_process_module">_process_module</a></code></td>
-    <td><span>Parse the module file to an AST and create it's members. At the time this method is called, not all objects are created. But all module instances already exist and are added to <code>root.all_objects</code>, including nested modules.</span></td>
+    <td>Parse the module file to an AST and create it's members. At the time this method is called, not all objects are created. But all module instances already exist and are added to <code>root.all_objects</code>, including nested modules.</td>
   </tr><tr class="method private">
     
     <td>Method</td>
@@ -144,12 +144,12 @@ we’ve found in post-processing.</td></tr></table></div>
     
     <td>Instance Variable</td>
     <td><code><a href="#_ast_cache">_ast_cache</a></code></td>
-    <td><span>Provides caching for ast modules.</span></td>
+    <td>Provides caching for ast modules.</td>
   </tr><tr class="instancevariable private">
     
     <td>Instance Variable</td>
     <td><code><a href="#_processing_map">_processing_map</a></code></td>
-    <td><span>Mapping from module's full_name to the processing state</span></td>
+    <td>Mapping from module's full_name to the processing state</td>
   </tr><tr class="instancevariable private">
     
     <td>Instance Variable</td>
@@ -159,7 +159,7 @@ we’ve found in post-processing.</td></tr></table></div>
     
     <td>Instance Variable</td>
     <td><code><a href="#_source_path_map">_source_path_map</a></code></td>
-    <td><span>Mapping from module's full_name to it's real path</span></td>
+    <td>Mapping from module's full_name to it's real path</td>
   </tr>
 </table>
         
@@ -181,7 +181,7 @@ we’ve found in post-processing.</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">add_module</span>(self, path):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L493">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L834">
       
       (source)
     </a>
@@ -203,7 +203,7 @@ we’ve found in post-processing.</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_processed_module</span>(self, modname):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L613">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L954">
       
       (source)
     </a>
@@ -225,7 +225,7 @@ we’ve found in post-processing.</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">process_modules</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L605">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L946">
       
       (source)
     </a>
@@ -246,8 +246,8 @@ we’ve found in post-processing.</td></tr></table></div>
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">root</span>: <code><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L440">
+    <span class="py-defname">root</span>: <code><a href="pydocspec._model.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L778">
       
       (source)
     </a>
@@ -256,6 +256,7 @@ we’ve found in post-processing.</td></tr></table></div>
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseproperty">
   
@@ -267,9 +268,9 @@ we’ve found in post-processing.</td></tr></table></div>
     
   </a>
   <div class="functionHeader">
-    @property<br />
+    @<a href="https://docs.python.org/3/library/functions.html#property">property</a><br />
     <span class="py-defname">unprocessed_modules</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L479">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L817">
       
       (source)
     </a>
@@ -278,6 +279,7 @@ we’ve found in post-processing.</td></tr></table></div>
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="basemethod private">
   
@@ -290,8 +292,8 @@ we’ve found in post-processing.</td></tr></table></div>
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_add_module</span>(self, path, modname, parent, is_package=False):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L539">
+    <span class="py-keyword">def</span> <span class="py-defname">_add_module</span>(self, path, modname, parent, is_package=<a href="https://docs.python.org/3/library/constants.html#False">False</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L880">
       
       (source)
     </a>
@@ -312,8 +314,8 @@ we’ve found in post-processing.</td></tr></table></div>
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_add_package</span>(self, path, parent=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L511">
+    <span class="py-keyword">def</span> <span class="py-defname">_add_package</span>(self, path, parent=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L852">
       
       (source)
     </a>
@@ -334,8 +336,8 @@ we’ve found in post-processing.</td></tr></table></div>
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_maybe_add_module</span>(self, path, parent=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L523">
+    <span class="py-keyword">def</span> <span class="py-defname">_maybe_add_module</span>(self, path, parent=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L864">
       
       (source)
     </a>
@@ -357,7 +359,7 @@ we’ve found in post-processing.</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_parse_file</span>(self, path):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L457">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L795">
       
       (source)
     </a>
@@ -379,7 +381,7 @@ we’ve found in post-processing.</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_process_module</span>(self, mod):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L583">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L924">
       
       (source)
     </a>
@@ -402,7 +404,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_process_module_ast</span>(self, mod_ast, mod):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L475">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L813">
       
       (source)
     </a>
@@ -424,7 +426,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="functionHeader">
     
     <span class="py-defname">_added_paths</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Set">Set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L442">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L780">
       
       (source)
     </a>
@@ -433,6 +435,7 @@ But all module instances already exist and are added to <code>root.all_objects</
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -446,7 +449,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="functionHeader">
     
     <span class="py-defname">_ast_cache</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.Module]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L452">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L790">
       
       (source)
     </a>
@@ -455,6 +458,7 @@ But all module instances already exist and are added to <code>root.all_objects</
     
     
     <div>Provides caching for ast modules.</div>
+    
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -468,7 +472,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="functionHeader">
     
     <span class="py-defname">_processing_map</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.loader.ProcessingState.html">ProcessingState</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L447">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L785">
       
       (source)
     </a>
@@ -477,6 +481,7 @@ But all module instances already exist and are added to <code>root.all_objects</
     
     
     <div>Mapping from module's full_name to the processing state</div>
+    
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -490,7 +495,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="functionHeader">
     
     <span class="py-defname">_processing_mod_stack</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L451">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L789">
       
       (source)
     </a>
@@ -499,6 +504,7 @@ But all module instances already exist and are added to <code>root.all_objects</
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseinstancevariable private">
   
@@ -512,7 +518,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="functionHeader">
     
     <span class="py-defname">_source_path_map</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/loader.py#L449">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/loader.py#L787">
       
       (source)
     </a>
@@ -521,6 +527,7 @@ But all module instances already exist and are added to <code>root.all_objects</
     
     
     <div>Mapping from module's full_name to it's real path</div>
+    
   </div>
 </div>
 
@@ -532,7 +539,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-05 09:32:11.
+    21.12.0.dev0 at 2022-01-02 22:00:41.
   </div>
 </footer>
 

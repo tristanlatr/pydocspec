@@ -7,7 +7,7 @@
   <head>
     
     <title>pydocspec.converter</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/converter.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/converter.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -85,24 +85,24 @@ I should write an efficient builder soon. For now, we can use the <tt class="rst
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id41">
+        <table class="children sortable" id="id65">
   
   
   <tr class="function">
     
     <td>Function</td>
     <td><code><a href="#convert_docspec_modules">convert_docspec_modules</a></code></td>
-    <td><span>Convert a list of <code><a href="docspec.Module.html">docspec.Module</a></code> instances into a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>. Alternatively, you can also request the <code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance by passing <tt class="rst-docutils literal">root=True</tt>.</span></td>
+    <td>Convert a list of <code><a href="docspec.Module.html">docspec.Module</a></code> instances into a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>. Alternatively, you can also request the <code><a href="pydocspec._model.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance by passing <tt class="rst-docutils literal">root=True</tt>.</td>
   </tr><tr class="class private">
     
     <td>Class</td>
     <td><code><a href="pydocspec.converter._Converter.html">_Converter</a></code></td>
-    <td><span>Converts <code><a href="docspec.html">docspec</a></code> objects to their <code><a href="pydocspec.html">pydocspec</a></code> augmented version.</span></td>
+    <td>Converts <code><a href="docspec.html">docspec</a></code> objects to their <code><a href="pydocspec.html">pydocspec</a></code> augmented version.</td>
   </tr><tr class="class private">
     
     <td>Class</td>
     <td><code><a href="pydocspec.converter._ConverterVisitor.html">_ConverterVisitor</a></code></td>
-    <td><span>Visit each <tt class="rst-docutils literal">docspec</tt> objects of a module and create their <tt class="rst-docutils literal">pydocspec</tt> augmented counterparts.</span></td>
+    <td>Visit each <tt class="rst-docutils literal">docspec</tt> objects of a module and create their <tt class="rst-docutils literal">pydocspec</tt> augmented counterparts.</td>
   </tr><tr class="function private">
     
     <td>Function</td>
@@ -112,7 +112,7 @@ I should write an efficient builder soon. For now, we can use the <tt class="rst
     
     <td>Function</td>
     <td><code><a href="#_nest_docspec_python_modules">_nest_docspec_python_modules</a></code></td>
-    <td><span>Reparent modules to their respective parent packages such that we have an actual hiearchy of packages.</span></td>
+    <td>Reparent modules to their respective parent packages such that we have an actual hiearchy of packages.</td>
   </tr>
 </table>
         
@@ -133,8 +133,8 @@ I should write an efficient builder soon. For now, we can use the <tt class="rst
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">convert_docspec_modules</span>(modules, root=False, additional_brain_modules=None):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/converter.py#L40">
+    <span class="py-keyword">def</span> <span class="py-defname">convert_docspec_modules</span>(modules, root=<a href="https://docs.python.org/3/library/constants.html#False">False</a>, additional_brain_modules=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/converter.py#L40">
       
       (source)
     </a>
@@ -143,7 +143,7 @@ I should write an efficient builder soon. For now, we can use the <tt class="rst
     
     
     <div>Convert a list of <code><a href="docspec.Module.html">docspec.Module</a></code> instances into a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>.
-Alternatively, you can also request the <code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance by passing <tt class="rst-docutils literal">root=True</tt>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="docspec.Module.html">docspec.Module</a>]</code></td><td class="fieldArgDesc">Modules to convert.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc">Whether to return the <code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> or the list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">additional_brain_modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code></td><td class="fieldArgDesc">Custom brain modules to import into the system.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>], <wbr></wbr><a href="pydocspec.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a>]</code></td><td class="fieldArgDesc">A list of the root modules of the tree or the <code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance if <tt class="rst-docutils literal">root=True</tt>.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">It will transform the tree such that we have an actual hiearchy of packages.</td></tr></table></div>
+Alternatively, you can also request the <code><a href="pydocspec._model.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance by passing <tt class="rst-docutils literal">root=True</tt>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="docspec.Module.html">docspec.Module</a>]</code></td><td class="fieldArgDesc">Modules to convert.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc">Whether to return the <code><a href="pydocspec._model.ApiObjectsRoot.html">ApiObjectsRoot</a></code> or the list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">additional_brain_modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code></td><td class="fieldArgDesc">Custom brain modules to import into the system.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>], <wbr></wbr><a href="pydocspec._model.ApiObjectsRoot.html">pydocspec.ApiObjectsRoot</a>]</code></td><td class="fieldArgDesc">A list of the root modules of the tree or the <code><a href="pydocspec._model.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance if <tt class="rst-docutils literal">root=True</tt>.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">It will transform the tree such that we have an actual hiearchy of packages.</td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
@@ -157,7 +157,7 @@ Alternatively, you can also request the <code><a href="pydocspec.ApiObjectsRoot.
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_object_by_name</span>(relativeroots, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/converter.py#L177">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/converter.py#L177">
       
       (source)
     </a>
@@ -179,7 +179,7 @@ Alternatively, you can also request the <code><a href="pydocspec.ApiObjectsRoot.
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_nest_docspec_python_modules</span>(modules):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/converter.py#L187">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/converter.py#L187">
       
       (source)
     </a>
@@ -199,7 +199,7 @@ Alternatively, you can also request the <code><a href="pydocspec.ApiObjectsRoot.
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-05 09:32:11.
+    21.12.0.dev0 at 2022-01-02 22:00:41.
   </div>
 </footer>
 

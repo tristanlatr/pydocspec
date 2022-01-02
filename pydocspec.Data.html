@@ -7,7 +7,7 @@
   <head>
     
     <title>pydocspec.Data</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Data</span>(<span title="docspec.Data">docspec.Data</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L374" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Data</span>(<span title="docspec.Data">docspec.Data</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L315" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.Data">View In Hierarchy</a></p>
       </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id67">
+        <table class="children sortable" id="id92">
   
   
   <tr class="classvariable">
@@ -86,37 +86,42 @@
     
     <td>Property</td>
     <td><code><a href="#datatype_ast">datatype_ast</a></code></td>
-    <td><span>The AST expresssion of the annotation of this data.</span></td>
+    <td>The AST expresssion of the annotation of this data.</td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#is_alias">is_alias</a></code></td>
-    <td><span>Whether this Data is an alias. Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.html#expand_name">ApiObject.expand_name</a></code>.</span></td>
+    <td>Whether this Data is an alias. Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.html#expand_name">ApiObject.expand_name</a></code>.</td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#is_class_variable">is_class_variable</a></code></td>
-    <td><span>Whether this Data is a class variable.</span></td>
+    <td>Whether this Data is a class variable.</td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#is_constant">is_constant</a></code></td>
-    <td><span>Whether this Data is a constant.</span></td>
+    <td>Whether this Data is a constant.</td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#is_instance_variable">is_instance_variable</a></code></td>
-    <td><span>Whether this Data is an instance variable.</span></td>
+    <td>Whether this Data is an instance variable.</td>
+  </tr><tr class="property">
+    
+    <td>Property</td>
+    <td><code><a href="#is_module_variable">is_module_variable</a></code></td>
+    <td>Whether this Data is a module variable.</td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#is_using_typing_final">is_using_typing_final</a></code></td>
-    <td><span>Detect if this object is using <code><a href="https://docs.python.org/3/library/typing.html#typing.Final">typing.Final</a></code> as annotation.</span></td>
+    <td>Detect if this object is using <code><a href="https://docs.python.org/3/library/typing.html#typing.Final">typing.Final</a></code> as annotation.</td>
   </tr><tr class="property">
     
     <td>Property</td>
     <td><code><a href="#value_ast">value_ast</a></code></td>
-    <td><span>The AST expresssion of the value assigned to this Data.</span></td>
+    <td>The AST expresssion of the value assigned to this Data.</td>
   </tr><tr class="property private">
     
     <td>Property</td>
@@ -128,79 +133,64 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>:
           </p>
-          <table class="children sortable" id="id68">
+          <table class="children sortable" id="id93">
   
   
   <tr class="basemethod">
     
     <td>Method</td>
+    <td><code><a href="pydocspec.ApiObject.html#__post_init__">__post_init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#expand_name">expand_name</a></code></td>
-    <td><span>Return a fully qualified name for the possibly-dotted <code>name</code>.</span></td>
+    <td>Return a fully qualified name for the possibly-dotted <code>name</code>.</td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#get_member">get_member</a></code></td>
-    <td><span>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for objects that don't support members (eg. <code><a href="pydocspec.Function.html">Function</a></code> and <code><a href="pydocspec.Data.html">Data</a></code>).</span></td>
+    <td>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for objects that don't support members (eg. <code><a href="pydocspec.Function.html">Function</a></code> and <code><a href="pydocspec.Data.html">Data</a></code>).</td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#get_members">get_members</a></code></td>
-    <td><span>Like <code><a href="#get_member">get_member</a></code> but can return several items with the same name.</span></td>
+    <td>Like <code><a href="#get_member">get_member</a></code> but can return several items with the same name.</td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#resolve_name">resolve_name</a></code></td>
-    <td><span>Return the object named by "name" (using Python's lookup rules) in this context.</span></td>
-  </tr><tr class="basemethod">
+    <td>Return the object named by "name" (using Python's lookup rules) in this context.</td>
+  </tr><tr class="baseinstancevariable">
     
-    <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#walk">walk</a></code></td>
-    <td><span>Traverse a tree of objects, calling the <code><a href="pydocspec.genericvisitor.Visitor.html#visit">genericvisitor.Visitor.visit</a></code> method of <code>visitor</code> when entering each node.</span></td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#walkabout">walkabout</a></code></td>
-    <td><span>Perform a tree traversal similarly to <code>walk()</code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</span></td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#warn">warn</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
+    <td>Instance Variable</td>
     <td><code><a href="pydocspec.ApiObject.html#location">location</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseclassvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="pydocspec.ApiObject.html#root">root</a></code></td>
-    <td><span><code><a href="pydocspec.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance holding references to all objects in the tree.</span></td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#doc_sources">doc_sources</a></code></td>
-    <td><span>Objects that can be considered as a source of documentation.</span></td>
+    <td>Objects that can be considered as a source of documentation.</td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#dotted_name">dotted_name</a></code></td>
-    <td><span>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> instance.</span></td>
+    <td>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> instance.</td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#full_name">full_name</a></code></td>
-    <td><span>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</span></td>
+    <td>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#module">module</a></code></td>
-    <td><span>The <code><a href="pydocspec.Module.html">Module</a></code> instance that contains this object.</span></td>
+    <td>The <code><a href="pydocspec.Module.html">Module</a></code> instance that contains this object.</td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
     <td><code><a href="pydocspec.ApiObject.html#root_module">root_module</a></code></td>
-    <td><span>The root module of this object.</span></td>
+    <td>The root module of this object.</td>
   </tr><tr class="basemethod private">
     
     <td>Method</td>
@@ -209,13 +199,51 @@
   </tr><tr class="basemethod private">
     
     <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#_members">_members</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><code><a href="pydocspec.ApiObject.html#_resolve_indirection">_resolve_indirection</a></code></td>
+    <td>Follow an indirection and return the <em>supposed</em> full name of the origin object.</td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
+            Inherited from <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>):
+          </p>
+          <table class="children sortable" id="id94">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#walk">walk</a></code></td>
+    <td>Traverse a tree of objects, calling the <code><a href="pydocspec.genericvisitor.Visitor.html#visit">genericvisitor.Visitor.visit</a></code> method of <code>visitor</code> when entering each node.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#walkabout">walkabout</a></code></td>
+    <td>Perform a tree traversal similarly to <code><a href="#walk">walk()</a></code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#root">root</a></code></td>
+    <td><code><a href="pydocspec._model.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance holding references to all objects in the tree.</td>
   </tr><tr class="basemethod private">
     
     <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#_resolve_indirection">_resolve_indirection</a></code></td>
-    <td><span>If the object is an alias or an indirection, then follow it and return the supposed full name fo the origin object, or return the passed object's full name.</span></td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_members">_members</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
+            Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html">CanTriggerWarnings</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>, <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>):
+          </p>
+          <table class="children sortable" id="id95">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.CanTriggerWarnings.html#warn">warn</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
           
@@ -237,7 +265,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">parent</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>, <wbr></wbr><a href="pydocspec.Module.html">Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L378">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L319">
       
       (source)
     </a>
@@ -246,6 +274,7 @@
     <div class="interfaceinfo">overrides <code><a href="pydocspec.ApiObject.html#parent">pydocspec.ApiObject.parent</a></code></div>
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div><div class="baseproperty">
   
@@ -259,7 +288,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">datatype_ast</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L380">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L321">
       
       (source)
     </a>
@@ -268,6 +297,7 @@
     
     
     <div>The AST expresssion of the annotation of this data.</div>
+    
   </div>
 </div><div class="baseproperty">
   
@@ -281,7 +311,7 @@
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_alias</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L414">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L361">
       
       (source)
     </a>
@@ -291,6 +321,7 @@
     
     <div>Whether this Data is an alias.
 Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.html#expand_name">ApiObject.expand_name</a></code>.</div>
+    
   </div>
 </div><div class="baseproperty">
   
@@ -304,7 +335,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_class_variable</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L407">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L348">
       
       (source)
     </a>
@@ -313,6 +344,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
     
     
     <div>Whether this Data is a class variable.</div>
+    
   </div>
 </div><div class="baseproperty">
   
@@ -326,7 +358,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_constant</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L432">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L379">
       
       (source)
     </a>
@@ -344,6 +376,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
 </dd>
 </dl>
 </div>
+    
   </div>
 </div><div class="baseproperty">
   
@@ -357,7 +390,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_instance_variable</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L400">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L341">
       
       (source)
     </a>
@@ -366,6 +399,30 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
     
     
     <div>Whether this Data is an instance variable.</div>
+    
+  </div>
+</div><div class="baseproperty">
+  
+  
+  <a name="pydocspec.Data.is_module_variable">
+    
+  </a>
+  <a name="is_module_variable">
+    
+  </a>
+  <div class="functionHeader">
+    @cached_property<br />
+    <span class="py-defname">is_module_variable</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L354">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>Whether this Data is a module variable.</div>
+    
   </div>
 </div><div class="baseproperty">
   
@@ -379,7 +436,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">is_using_typing_final</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L443">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L390">
       
       (source)
     </a>
@@ -388,6 +445,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
     
     
     <div>Detect if this object is using <code><a href="https://docs.python.org/3/library/typing.html#typing.Final">typing.Final</a></code> as annotation.</div>
+    
   </div>
 </div><div class="baseproperty">
   
@@ -401,7 +459,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">value_ast</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L391">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L332">
       
       (source)
     </a>
@@ -410,6 +468,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
     
     
     <div>The AST expresssion of the value assigned to this Data.</div>
+    
   </div>
 </div><div class="baseproperty private">
   
@@ -423,7 +482,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
   <div class="functionHeader">
     @cached_property<br />
     <span class="py-defname">_alias_indirection</span>: <code><a href="pydocspec.Indirection.html">Indirection</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/1efc4261a83c306391a97a61112d88b4beef7488/pydocspec/__init__.py#L422">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L369">
       
       (source)
     </a>
@@ -432,6 +491,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div>
 
@@ -443,7 +503,7 @@ Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.htm
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-09-05 09:32:11.
+    21.12.0.dev0 at 2022-01-02 22:00:41.
   </div>
 </footer>
 

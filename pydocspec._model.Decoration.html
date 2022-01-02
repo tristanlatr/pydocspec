@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>pydocspec.Decoration</title>
+    <title>pydocspec._model.Decoration</title>
     <meta name="generator" content="pydoctor 21.12.0.dev0"> 
         
     </meta>
@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.Decoration.html">Decoration</a></code></code></h1>
+        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec._model.html">_model</a></code><wbr></wbr>.<code><a href="pydocspec._model.Decoration.html">Decoration</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,55 +65,69 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Decoration</span>(<span title="docspec.Decoration">docspec.Decoration</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L740" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#pydocspec.Decoration">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Decoration</span>(<span title="docspec.Decoration">docspec.Decoration</span>, <a href="pydocspec._model.CanTriggerWarnings.html" title="pydocspec._model.CanTriggerWarnings">CanTriggerWarnings</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/_model.py#L169" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#pydocspec._model.Decoration">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div>Represents a decorator on a <code><a href="pydocspec.Class.html">Class</a></code> or <code><a href="pydocspec.Function.html">Function</a></code>.</div>
+        <div><p class="undocumented">Undocumented</p></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id108">
+        <table class="children sortable" id="id46">
   
   
-  <tr class="property">
+  <tr class="classvariable">
     
-    <td>Property</td>
+    <td>Class Variable</td>
     <td><code><a href="#args_ast">args_ast</a></code></td>
     <td>The arguments of the deocration AST, if the decoration was called like a function.</td>
-  </tr><tr class="property">
+  </tr><tr class="classvariable">
     
-    <td>Property</td>
+    <td>Class Variable</td>
     <td><code><a href="#expr_ast">expr_ast</a></code></td>
     <td>The full decoration AST's</td>
-  </tr><tr class="property">
+  </tr><tr class="classvariable">
     
-    <td>Property</td>
+    <td>Class Variable</td>
     <td><code><a href="#name_ast">name_ast</a></code></td>
     <td>The name of the deocration as AST, this can be any kind of expression.</td>
   </tr>
 </table>
         
+          <p class="inheritedFrom">
+            Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html">CanTriggerWarnings</a></code>:
+          </p>
+          <table class="children sortable" id="id47">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.CanTriggerWarnings.html#warn">warn</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
 
           
       </div>
 
       <div id="childList">
 
-        <div class="baseproperty">
+        <div class="baseclassvariable">
   
   
-  <a name="pydocspec.Decoration.args_ast">
+  <a name="pydocspec._model.Decoration.args_ast">
     
   </a>
   <a name="args_ast">
     
   </a>
   <div class="functionHeader">
-    @cached_property<br />
+    
     <span class="py-defname">args_ast</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr>ast.expr]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L762">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/_model.py#L175">
       
       (source)
     </a>
@@ -124,19 +138,19 @@
     <div>The arguments of the deocration AST, if the decoration was called like a function.</div>
     
   </div>
-</div><div class="baseproperty">
+</div><div class="baseclassvariable">
   
   
-  <a name="pydocspec.Decoration.expr_ast">
+  <a name="pydocspec._model.Decoration.expr_ast">
     
   </a>
   <a name="expr_ast">
     
   </a>
   <div class="functionHeader">
-    @cached_property<br />
+    
     <span class="py-defname">expr_ast</span>: <code>ast.expr</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L769">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/_model.py#L178">
       
       (source)
     </a>
@@ -147,19 +161,19 @@
     <div>The full decoration AST's</div>
     
   </div>
-</div><div class="baseproperty">
+</div><div class="baseclassvariable">
   
   
-  <a name="pydocspec.Decoration.name_ast">
+  <a name="pydocspec._model.Decoration.name_ast">
     
   </a>
   <a name="name_ast">
     
   </a>
   <div class="functionHeader">
-    @cached_property<br />
+    
     <span class="py-defname">name_ast</span>: <code>ast.expr</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/__init__.py#L757">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aa9892618f14bb7226fe359d26e624a6abb10767/pydocspec/_model.py#L172">
       
       (source)
     </a>
