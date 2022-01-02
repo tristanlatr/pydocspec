@@ -12,6 +12,9 @@ import astor
 if TYPE_CHECKING:
     from pydocspec import ApiObject
 
+def is_alias(value: Optional[ast.expr]) -> bool:
+    return node2dottedname(value) is not None
+
 class ValueFormatter:
     """
     Formats values stored in AST expressions back to sourcecode.

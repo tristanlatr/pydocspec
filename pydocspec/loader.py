@@ -41,6 +41,12 @@ _string_lineno_is_end = sys.version_info < (3,8) \
 line in the string, rather than the first line.
 """
 
+def is_attribute_overridden(obj: pydocspec.Data, new_value: Optional[ast.expr]) -> bool:
+    """
+    Detect if the optional C{new_value} expression override the one already stored in the L{pydocspec.Data.value} attribute.
+    """
+    return obj.value_ast is not None and new_value is not None
+
 class Collector:
     """
     Base class to organize a tree of `pydocspec` objects. 
@@ -49,7 +55,6 @@ class Collector:
 
     :see: `loader.add_object`
     """
-    #TODO: add objects to the root in the Collector. 
 
     def __init__(self, root: pydocspec.ApiObjectsRoot, 
                  module: Optional[pydocspec.Module]=None) -> None:
@@ -59,6 +64,7 @@ class Collector:
         
         Can be used to access the ``root.factory`` attribute and create new classes.
         """
+        
         # pytype complains because module it's defined as non-optional in ModuleVisitor.module.
         self.module = module #type:ignore[annotation-type-mismatch]
         """
@@ -130,9 +136,9 @@ def add_object(root: pydocspec.ApiObjectsRoot,
         root.root_modules.append(ob)
     
     # Add object to the root.all_objects. 
-    # If the object is a root module, it's either going to be added in by the converter or by the loader.
     root.all_objects[ob.full_name] = ob
-    # set the ApiObject.root attribute right away.
+
+    # Set the ApiObject.root attribute right away.
     ob.root = root
 
 class ModuleVisitor(ast.NodeVisitor, Collector):
@@ -151,8 +157,12 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
         if body is not None:
             for child in body:
                 self.visit(child)
+    
+    ### DOCSTRING ###
 
     def _set_docstring(self, ob: pydocspec.ApiObject, node: ast.Str) -> None:
+        """
+        Set the docstring of a object from a L{ast.Str} node. """
         doc = inspect.cleandoc(node.s)
         docstring_lineno = node.lineno
         
@@ -173,7 +183,7 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
         
         ob.docstring = self.root.factory.Docstring(content=doc, 
                         location=self.root.factory.Location(None, lineno=docstring_lineno))
-   
+
     def visit_Expr(self, node: ast.Expr) -> None:
         """
         Handles the inline attribute docstrings.
@@ -185,6 +195,8 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
                 self._set_docstring(attr, value)
 
         self.generic_visit(node)
+
+    ### MODULE ###
 
     def visit_Module(self, node: ast.Module) -> None:
         """
@@ -203,7 +215,12 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
         self.default(node)
         self.pop(self.module)
     
+    ### CLASSES ###
+
     def visit_ClassDef(self, node: ast.ClassDef) -> None:
+        """
+        Visit a class. 
+        """
         # Ignore classes within functions.
         parent = self._current
         if isinstance(parent, pydocspec.Function):
@@ -294,6 +311,8 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
         self.add_object(cls)
         self.default(node)
         self.pop(cls)
+
+    ### IMPORTS ###
 
     def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
         ctx = self._current
@@ -421,6 +440,325 @@ class ModuleVisitor(ast.NodeVisitor, Collector):
 
     # TODO: Code the rest of it!
 
+    ### ATTRIBUTES ###
+
+    def visit_Assign(self, node: ast.Assign) -> None:
+        lineno = node.lineno
+        expr = node.value
+
+        type_comment: Optional[str] = getattr(node, 'type_comment', None)
+        if type_comment is None:
+            annotation = None
+        else:
+            annotation = astutils.unstring_annotation(ast.Str(type_comment, lineno=lineno))
+
+        for target in node.targets:
+            if isinstance(target, ast.Tuple):
+                for elem in target.elts:
+                    # Note: We skip type and aliasing analysis for this case, (why?)
+                    #       but we do record line numbers.
+                    self._handleAssignment(elem, None, None, lineno)
+            else:
+                self._handleAssignment(target, annotation, expr, lineno)
+
+    def visit_AnnAssign(self, node: ast.AnnAssign) -> None:
+        annotation = astutils.unstring_annotation(node.annotation)
+        self._handleAssignment(node.target, annotation, node.value, node.lineno)
+    
+    def _handleAssignment(self,
+            target_node: ast.expr,
+            annotation: Optional[ast.expr],
+            expr: Optional[ast.expr],
+            lineno: int
+            ) -> None:
+        if isinstance(target_node, ast.Name):
+            target = target_node.id
+            scope = self._current
+            if isinstance(scope, pydocspec.Module):
+                self._handleAssignmentInModule(target, annotation, expr, lineno)
+            elif isinstance(scope, pydocspec.Class):
+                if not self._handleOldSchoolMethodDecoration(target, expr):
+                    self._handleAssignmentInClass(target, annotation, expr, lineno)
+        elif isinstance(target_node, ast.Attribute):
+            value = target_node.value
+            if target_node.attr == '__doc__':
+                self._handleDocstringUpdate(value, expr, lineno)
+            elif isinstance(value, ast.Name) and value.id == 'self':
+                self._handleInstanceVar(target_node.attr, annotation, expr, lineno)
+            # TODO: Fix https://github.com/twisted/pydoctor/issues/13
+    
+    def _handleOldSchoolMethodDecoration(self, target: str, expr: Optional[ast.expr]) -> bool:
+        #TODO: handle property()
+
+        if not isinstance(expr, ast.Call):
+            return False
+        func = expr.func
+        if not isinstance(func, ast.Name):
+            return False
+        func_name = func.id
+        args = expr.args
+        if len(args) != 1:
+            return False
+        arg, = args
+        if not isinstance(arg, ast.Name):
+            return False
+        if target == arg.id and func_name in ['staticmethod', 'classmethod']:
+            target_obj = self._current.get_member(target)
+            if isinstance(target_obj, pydocspec.Function):
+
+                # _handleOldSchoolMethodDecoration must only be called in a class scope.
+                assert target_obj.is_method
+
+                if func_name == 'staticmethod':
+                    target_obj.is_staticmethod = True
+
+                elif func_name == 'classmethod':
+                    target_obj.is_classmethod = True
+                return True
+        return False
+    
+    def _warnsConstantAssigmentOverride(self, obj: pydocspec.Data, lineno_offset: int) -> None:
+        obj.report(f'Assignment to constant "{obj.name}" overrides previous assignment '
+                    f'at line {obj.location.lineno}, the original value will not be part of the docs.', 
+                            section='ast', lineno_offset=lineno_offset)
+                            
+    def _warnsConstantReAssigmentInInstance(self, obj: pydocspec.Data, lineno_offset: int = 0) -> None:
+        obj.report(f'Assignment to constant "{obj.name}" inside an instance is ignored, this value will not be part of the docs.', 
+                        section='ast', lineno_offset=lineno_offset)
+
+    def _handleConstant(self, obj: pydocspec.Data, value: Optional[ast.expr], lineno: int) -> None:
+        
+        if is_attribute_overridden(obj, value):
+            
+            if obj.is_constant or obj.is_class_variable or obj.is_module_variable:
+                # Module/Class level warning, regular override.
+                self._warnsConstantAssigmentOverride(obj=obj, lineno_offset=lineno-obj.location.lineno)
+            else:
+                # Instance level warning caught at the time of the constant detection.
+                self._warnsConstantReAssigmentInInstance(obj)
+
+        obj.value_ast = value
+        
+        obj.is_constant = True
+
+        # A hack to to display variables annotated with Final with the real type instead.
+        if obj.is_using_typing_final:
+            if isinstance(obj.datatype_ast, ast.Subscript):
+                try:
+                    annotation = astutils.extract_final_subscript(obj.datatype_ast)
+                except ValueError as e:
+                    obj.warn(str(e), lineno_offset=lineno-obj.location.lineno)
+                    obj.datatype_ast = astutils.infer_type(value) if value else None
+                else:
+                    # Will not display as "Final[str]" but rather only "str"
+                    obj.datatype_ast = annotation
+            else:
+                # Just plain "Final" annotation.
+                # Simply ignore it because it's duplication of information.
+                obj.datatype_ast = astutils.infer_type(value) if value else None
+    
+    def _handleAlias(self, obj: pydocspec.Data, value: Optional[ast.expr], lineno: int) -> None:
+        """
+        Must be called after obj.setLineNumber() to have the right line number in the warning.
+
+        Create an alias or update an alias.
+        """
+        
+        if is_attribute_overridden(obj, value) and astutils.is_alias(obj.value_ast):
+            obj.report(f'Assignment to alias "{obj.name}" overrides previous alias '
+                    f'at line {obj.location.lineno}.', 
+                            section='ast', lineno_offset=lineno-obj.location.lineno)
+
+        obj.kind = model.DocumentableKind.ALIAS
+        # This will be used for HTML repr of the alias.
+        obj.value = value
+        dottedname = node2dottedname(value)
+        # It cannot be None, because we call _handleAlias() only if is_alias() is True.
+        assert dottedname is not None
+        name = '.'.join(dottedname)
+        # Store the alias value as string now, this avoids doing it in _resolveAlias().
+        obj._alias_to = name
+
+
+    def _handleModuleVar(self,
+            target: str,
+            annotation: Optional[ast.expr],
+            expr: Optional[ast.expr],
+            lineno: int
+            ) -> None:
+        if target in MODULE_VARIABLES_META_PARSERS:
+            # This is metadata, not a variable that needs to be documented,
+            # and therefore doesn't need an Attribute instance.
+            return
+        parent = self.builder.current
+        obj = parent.resolveName(target)
+        
+        if obj is None:
+            obj = self.builder.addAttribute(name=target, kind=None, parent=parent)
+        
+        if isinstance(obj, pydocspec.Data):
+            
+            if annotation is None and expr is not None:
+                annotation = astutils.infer_type(expr)
+            
+            obj.annotation = annotation
+            obj.setLineNumber(lineno)
+            if is_alias(expr):
+                self._handleAlias(obj=obj, value=expr, lineno=lineno)
+            elif is_constant(obj):
+                self._handleConstant(obj=obj, value=expr, lineno=lineno)
+            else:
+                obj.kind = model.DocumentableKind.VARIABLE
+                # We store the expr value for all Attribute in order to be able to 
+                # check if they have been initialized or not.
+                obj.value = expr
+
+            self.newAttr = obj
+
+    def _handleAssignmentInModule(self,
+            target: str,
+            annotation: Optional[ast.expr],
+            expr: Optional[ast.expr],
+            lineno: int
+            ) -> None:
+        module = self.builder.current
+        assert isinstance(module, model.Module)
+        self._handleModuleVar(target, annotation, expr, lineno)
+
+    def _handleClassVar(self,
+            name: str,
+            annotation: Optional[ast.expr],
+            expr: Optional[ast.expr],
+            lineno: int
+            ) -> None:
+        cls = self.builder.current
+        assert isinstance(cls, model.Class)
+        if not _maybeAttribute(cls, name):
+            return
+        obj: Optional[pydocspec.Data] = cls.contents.get(name)
+        
+        if obj is None:
+            obj = self.builder.addAttribute(name=name, kind=None, parent=cls)
+
+        if obj.kind is None:
+            instance = is_attrib(expr, cls) or (
+                cls.auto_attribs and annotation is not None and not (
+                    isinstance(annotation, ast.Subscript) and
+                    node2fullname(annotation.value, cls) == 'typing.ClassVar'
+                    )
+                )
+            obj.kind = model.DocumentableKind.INSTANCE_VARIABLE if instance else model.DocumentableKind.CLASS_VARIABLE
+
+        if expr is not None:
+            if annotation is None:
+                annotation = self._annotation_from_attrib(expr, cls)
+            if annotation is None:
+                annotation = astutils.infer_type(expr)
+        
+        obj.annotation = annotation
+        obj.setLineNumber(lineno)
+
+        if is_alias(expr):
+            self._handleAlias(obj=obj, value=expr, lineno=lineno)
+        elif is_constant(obj):
+            self._handleConstant(obj=obj, value=expr, lineno=lineno)
+        else:
+            obj.value = expr
+
+        self.newAttr = obj
+
+    def _handleInstanceVar(self,
+            name: str,
+            annotation: Optional[ast.expr],
+            expr: Optional[ast.expr],
+            lineno: int
+            ) -> None:
+        func = self.builder.current
+        if not isinstance(func, model.Function):
+            return
+        cls = func.parent
+        if not isinstance(cls, model.Class):
+            return
+        if not _maybeAttribute(cls, name):
+            return
+
+        obj = cls.contents.get(name)
+        if obj is None:
+            obj = self.builder.addAttribute(name=name, kind=None, parent=cls)
+
+        if annotation is None and expr is not None:
+            annotation = astutils.infer_type(expr)
+        
+        obj.annotation = annotation
+        obj.setLineNumber(lineno)
+
+        # Maybe an instance variable overrides a constant, 
+        # so we check before setting the kind to INSTANCE_VARIABLE.
+        if obj.kind is model.DocumentableKind.CONSTANT:
+            self._warnsConstantReAssigmentInInstance(obj, lineno_offset=lineno-obj.location.lineno)
+        else:
+            obj.kind = model.DocumentableKind.INSTANCE_VARIABLE
+            obj.value = expr
+        self.newAttr = obj
+
+    def _handleAssignmentInClass(self,
+            target: str,
+            annotation: Optional[ast.expr],
+            expr: Optional[ast.expr],
+            lineno: int
+            ) -> None:
+        cls = self.builder.current
+        assert isinstance(cls, model.Class)
+        self._handleClassVar(target, annotation, expr, lineno)
+
+    def _handleDocstringUpdate(self,
+            targetNode: ast.expr,
+            expr: Optional[ast.expr],
+            lineno: int
+            ) -> None:
+        def warn(msg: str) -> None:
+            module = self.builder.currentMod
+            assert module is not None
+            module.report(msg, section='ast', lineno_offset=lineno)
+
+        # Ignore docstring updates in functions.
+        scope = self.builder.current
+        if isinstance(scope, model.Function):
+            return
+
+        # Figure out target object.
+        full_name = node2fullname(targetNode, scope)
+        if full_name is None:
+            warn("Unable to figure out target for __doc__ assignment")
+            # Don't return yet: we might have to warn about the value too.
+            obj = None
+        else:
+            obj = self.system.objForFullName(full_name)
+            if obj is None:
+                warn("Unable to figure out target for __doc__ assignment: "
+                     "computed full name not found: " + full_name)
+
+        # Determine docstring value.
+        try:
+            if expr is None:
+                # The expr is None for detupling assignments, which can
+                # be described as "too complex".
+                raise ValueError()
+            docstring: object = ast.literal_eval(expr)
+        except ValueError:
+            warn("Unable to figure out value for __doc__ assignment, "
+                 "maybe too complex")
+            return
+        if not isinstance(docstring, str):
+            warn("Ignoring value assigned to __doc__: not a string")
+            return
+
+        if obj is not None:
+            obj.docstring = docstring
+            # TODO: It might be better to not perform docstring parsing until
+            #       we have the final docstrings for all objects.
+            obj.parsed_docstring = None
+
 class ProcessingState(Enum):
     UNPROCESSED = 0
     PROCESSING = 1
@@ -480,10 +818,13 @@ class Loader:
     def unprocessed_modules(self) -> Iterator[pydocspec.Module]:
         for mod_name, state in self._processing_map.items():
             if state is ProcessingState.UNPROCESSED:
-                # Support that function/class overrides a module name, but still process the module ;-)
+                
                 mods = self.root.all_objects.getall(mod_name)
                 assert mods is not None, "Cannot find module '{mod_name}' in {root.all_objects!r}."
+                
                 for mod in mods:
+                    # Support that function/class overrides a module name, but still process the module ;-)
+                    # This returns the firstly added object macthing the name, and it must be a module. 
                     assert isinstance(mod, pydocspec.Module)
                     yield mod
                     break

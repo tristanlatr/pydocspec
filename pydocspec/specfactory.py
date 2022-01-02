@@ -98,7 +98,7 @@ class Factory:
         try:
             return type(name, tuple([self.bases[name]]+self.mixins.get(name, [])), {})
         except KeyError as e:
-            raise ValueError(f"Invalid class name {name}") from e
+            raise ValueError(f"Invalid class name: '{name}'") from e
     
     @property
     def ApiObjectsRoot(self) -> Type[pydocspec.ApiObjectsRoot]:
@@ -152,13 +152,13 @@ class Factory:
     
     @property
     def Docstring(self) -> Type[pydocspec.Docstring]:
-        arg = self._get_class('Docstring')
-        assert issubclass(arg, pydocspec.Docstring)
-        return arg
+        doc = self._get_class('Docstring')
+        assert issubclass(doc, pydocspec.Docstring)
+        return doc
     
     @property
     def Location(self) -> Type[pydocspec.Location]:
-        arg = self._get_class('Location')
-        assert issubclass(arg, pydocspec.Location)
-        return arg
+        loc = self._get_class('Location')
+        assert issubclass(loc, pydocspec.Location)
+        return loc
 

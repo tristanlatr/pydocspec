@@ -45,9 +45,8 @@ import docspec
 from . import astutils, genericvisitor
 from .dottedname import DottedName
 from .dupsafedict import DuplicateSafeDict
+from . import _model
 
-if TYPE_CHECKING:
-    from . import specfactory
 
 __docformat__ = 'restructuredtext'
 __all__ = [
@@ -71,56 +70,26 @@ __all__ = [
 
 # Those classes are customizable brain modules, even if they are not customize here.
 Location = docspec.Location
-Docstring = docspec.Docstring
+
+ApiObjectsRoot = _model.ApiObjectsRoot
+"""
+The root object do not have a higher level version.
+"""
 
 _RESOLVE_ALIAS_MAX_RECURSE = 5
 
-class Warning(RuntimeWarning):
-    """Warning class used for pydocspec related warnings."""
-
-@attr.s(auto_attribs=True)
-class ApiObjectsRoot:
-    """
-    A collection of related documentable objects, also known as "the system".
-    
-    Special object that provides a single view on all referencable objects in the tree and root modules.
-
-    :note: A reference to the root instance is kept on all API objects as `ApiObject.root`.
-    """
-
-    root_modules: List['Module'] = attr.ib(factory=list, init=False)
-    """
-    The root modules of the tree.
-    """
-    
-    all_objects: DuplicateSafeDict['ApiObject'] = attr.ib(factory=DuplicateSafeDict, init=False)
-    """
-    All objects of the tree in a mapping ``full_name`` -> `ApiObject`.
-    
-    :note: Special care is taken in order no to shadow objects with duplicate names, see `DuplicateSafeDict`.
-    """
-
-    # This class variable is set from Factory itself.
-    factory: ClassVar['specfactory.Factory'] = cast('specfactory.Factory', None)
-    """
-    The factory used to create this collection of objects.
-    """
-
-class ApiObject(docspec.ApiObject):
+class ApiObject(_model.ApiObject):
     """
     An augmented `docspec.ApiObject`, with functionalities to resolve names for the python language.
     """
 
-    # help mypy
-    parent: Optional[Union['Class', 'Module']] # type: ignore[assignment]
-    location: Location
+    def __post_init__(self) -> None:
+        docspec.ApiObject.__post_init__(self)
+        
+        # help mypy
+        self.parent: Optional[Union['Class', 'Module']] # type: ignore[assignment]
+        self.location: Location
 
-    # this attribute needs to be manually set from the converter/loader.
-    root: ApiObjectsRoot
-    """
-    `ApiObjectsRoot` instance holding references to all objects in the tree.
-    """
-    
     @property
     def root_module(self) -> 'Module':
         """
@@ -146,7 +115,7 @@ class ApiObject(docspec.ApiObject):
         """
         return str(self.dotted_name)
     
-    @cached_property
+    @property
     def doc_sources(self) -> List['ApiObject']:
         """Objects that can be considered as a source of documentation.
 
@@ -164,7 +133,7 @@ class ApiObject(docspec.ApiObject):
                     sources.append(base)
         return sources
     
-    @cached_property
+    @property
     def module(self) -> 'Module':
         """
         The `Module` instance that contains this object.
@@ -307,13 +276,12 @@ class ApiObject(docspec.ApiObject):
     
     def _resolve_indirection(self, indirection: 'Indirection', _indirections: Optional[List['Indirection']]=None) -> Optional[str]:
         """
-        If the object is an alias or an indirection, then follow it and return the supposed full name fo the origin object,
-        or return the passed object's full name.
+        Follow an indirection and return the *supposed* full name of the origin object.
 
         Resolve the alias value to it's target full name.
         Or fall back to original alias full name if we know we've exhausted the max recursions.
 
-        :param alias: an `Indirection` object.
+        :param indirection: an `Indirection` object.
         :param indirections: Chain of alias objects followed. 
             This variable is used to prevent infinite loops when doing the lookup.
         :note: It can return None in exceptionnal cases if an indirection cannot be resolved. 
@@ -343,33 +311,6 @@ class ApiObject(docspec.ApiObject):
                 return ctx.parent.expand_name(target, _indirections=(_indirections or [])+[indirection])
         
         return None
-
-    def warn(self, msg: str, lineno_offset: int = 0) -> None:
-        # TODO: find another way to report warnings.
-        lineno = self.location.lineno + lineno_offset
-        warnings.warn(f'[{self.full_name}] {self.location.filename}:{lineno}: {msg}')
-    
-    def _members(self) -> Iterable['ApiObject']:
-        if isinstance(self, HasMembers): return self.members
-        else: return ()
-
-    def walk(self, visitor: genericvisitor.Visitor['ApiObject']) -> None:
-        """
-        Traverse a tree of objects, calling the `genericvisitor.Visitor.visit` 
-        method of `visitor` when entering each node.
-
-        :see: `genericvisitor.walk` for more details.
-        """
-        genericvisitor.walk(self, visitor, ApiObject._members)
-        
-    def walkabout(self, visitor: genericvisitor.Visitor['ApiObject']) -> None:
-        """
-        Perform a tree traversal similarly to `walk()`, except also call the `genericvisitor.Visitor.depart` 
-        method before exiting each node.
-
-        :see: `genericvisitor.walkabout` for more details.
-        """
-        genericvisitor.walkabout(self, visitor, ApiObject._members)
 
 class Data(docspec.Data, ApiObject):
     """
@@ -410,6 +351,12 @@ class Data(docspec.Data, ApiObject):
         Whether this Data is a class variable.
         """
         ...
+    @cached_property
+    def is_module_variable(self) -> bool:
+        """
+        Whether this Data is a module variable.
+        """
+        ...
     
     @cached_property
     def is_alias(self) -> bool:
@@ -425,7 +372,7 @@ class Data(docspec.Data, ApiObject):
         assert self.is_alias
         assert self.value is not None
         indirection = Indirection(self.name, self.location, None, self.value)
-        indirection.sync_hierarchy(self.parent)
+        indirection.parent = self.parent
         indirection.root = self.root
         return indirection
     
