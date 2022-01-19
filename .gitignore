@@ -1,3 +1,6 @@
+# pytype folder
+.pytype
+
 # API docs
 apidocs
 
