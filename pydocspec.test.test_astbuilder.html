@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>pydocspec.test.test_astbuilder</title>
+    <meta name="generator" content="pydoctor 21.12.1.dev0"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default">
+  
+  <div class="container">
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+          <span class="navbar-brand">
+            <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a> <a href="index.html">API Documentation</a>
+          </span>
+
+          <a href="moduleIndex.html">
+            Modules
+          </a>
+
+          <a href="classIndex.html">
+            Classes
+          </a>
+
+          <a href="nameIndex.html">
+            Names
+          </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+    
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.test.html">test</a></code><wbr></wbr>.<code><a href="pydocspec.test.test_astbuilder.html">test_astbuilder</a></code></code></h1>
+        <div id="showPrivate">
+          <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+        </div>
+      </div>
+
+      <div class="categoryHeader">
+        module documentation
+      </div>
+
+      <div class="extrasDocstring">
+        <a href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py" class="sourceLink">(source)</a>
+        <p></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p class="undocumented">Undocumented</p></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id121">
+  
+  
+  <tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#mod_from_ast">mod_from_ast</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#mod_from_text">mod_from_text</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_aliasing">test_aliasing</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_class_decos_and_bases">test_class_decos_and_bases</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_class_docstring">test_class_docstring</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_class_with_base_from_module">test_class_with_base_from_module</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_class_with_base_from_module_alt">test_class_with_base_from_module_alt</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_function_name_dulpicate_module">test_function_name_dulpicate_module</a></code></td>
+    <td>It's possible that a function or class name is the same as a module's. The builder should not crash.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_relative_import_in_package">test_relative_import_in_package</a></code></td>
+    <td>Relative imports in a package must be resolved by going up one level less, since we don't count "__init__.py" as a level.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_relative_import_in_package_star_import">test_relative_import_in_package_star_import</a></code></td>
+    <td>Relative imports in a package must be resolved by going up one level less, since we don't count "__init__.py" as a level.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_relative_import_past_top">test_relative_import_past_top</a></code></td>
+    <td>A warning is logged when a relative import goes beyond the top-level package.</td>
+  </tr><tr class="variable private">
+    
+    <td>Variable</td>
+    <td><code><a href="#_parse_mod_str">_parse_mod_str</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+        
+
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.mod_from_ast">
+    
+  </a>
+  <a name="mod_from_ast">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">mod_from_ast</span>(ast, modname=<span class="rst-variable-quote">'</span><span class="rst-variable-string">test</span><span class="rst-variable-quote">'</span>, is_package=<a href="https://docs.python.org/3/library/constants.html#False">False</a>, parent_name=<a href="https://docs.python.org/3/library/constants.html#None">None</a>, root=<a href="https://docs.python.org/3/library/constants.html#None">None</a>, rootcls=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L16">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ast:</span><code>astroid.nodes.Module</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modname:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">is_package:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent_name:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.Module.html">pydocspec.Module</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.mod_from_text">
+    
+  </a>
+  <a name="mod_from_text">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">mod_from_text</span>(text, modname=<span class="rst-variable-quote">'</span><span class="rst-variable-string">test</span><span class="rst-variable-quote">'</span>, is_package=<a href="https://docs.python.org/3/library/constants.html#False">False</a>, parent_name=<a href="https://docs.python.org/3/library/constants.html#None">None</a>, root=<a href="https://docs.python.org/3/library/constants.html#None">None</a>, rootcls=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L64">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">text:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modname:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">is_package:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent_name:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.Module.html">pydocspec.Module</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_aliasing">
+    
+  </a>
+  <a name="test_aliasing">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#rootcls_param">rootcls_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_aliasing</span>(rootcls):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L269">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_class_decos_and_bases">
+    
+  </a>
+  <a name="test_class_decos_and_bases">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#rootcls_param">rootcls_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_class_decos_and_bases</span>(rootcls):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L93">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_class_docstring">
+    
+  </a>
+  <a name="test_class_docstring">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#rootcls_param">rootcls_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_class_docstring</span>(rootcls):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L77">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_class_with_base_from_module">
+    
+  </a>
+  <a name="test_class_with_base_from_module">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#rootcls_param">rootcls_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_class_with_base_from_module</span>(rootcls):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L336">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_class_with_base_from_module_alt">
+    
+  </a>
+  <a name="test_class_with_base_from_module_alt">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#rootcls_param">rootcls_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_class_with_base_from_module_alt</span>(rootcls):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L367">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_function_name_dulpicate_module">
+    
+  </a>
+  <a name="test_function_name_dulpicate_module">
+    
+  </a>
+  <div class="functionHeader">
+    @pytest.mark.xfail<br />@<a href="pydocspec.test.html#rootcls_param">rootcls_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_function_name_dulpicate_module</span>(rootcls):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L121">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>It's possible that a function or class name is the same as a module's.
+The builder should not crash.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_relative_import_in_package">
+    
+  </a>
+  <a name="test_relative_import_in_package">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#rootcls_param">rootcls_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_relative_import_in_package</span>(rootcls):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L161">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Relative imports in a package must be resolved by going up one level
+less, since we don't count "__init__.py" as a level.</p>
+<p>Hierarchy:</p>
+<pre class="rst-literal-block">
+top: def f
+ - pkg: imports f and g
+    - mod: def g
+</pre>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_relative_import_in_package_star_import">
+    
+  </a>
+  <a name="test_relative_import_in_package_star_import">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#rootcls_param">rootcls_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_relative_import_in_package_star_import</span>(rootcls):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L209">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Relative imports in a package must be resolved by going up one level
+less, since we don't count "__init__.py" as a level.</p>
+<p>Hierarchy:</p>
+<pre class="rst-literal-block">
+top: class f
+ - pkg: imports f and * from mod
+    - mod: class g, e, h, j
+</pre>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_relative_import_past_top">
+    
+  </a>
+  <a name="test_relative_import_past_top">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#rootcls_param">rootcls_param</a><br />@pytest.mark.parametrize(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">level</span><span class="rst-variable-quote">'</span>, <wbr></wbr>(<wbr></wbr>1, <wbr></wbr>2, <wbr></wbr>3, <wbr></wbr>4))<br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_relative_import_past_top</span>(rootcls, level, caplog):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L312">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>A warning is logged when a relative import goes beyond the top-level
+package.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rootcls:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">level:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">caplog</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basevariable private">
+  
+  
+  <a name="pydocspec.test.test_astbuilder._parse_mod_str">
+    
+  </a>
+  <a name="_parse_mod_str">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_parse_mod_str</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_astbuilder.py#L14">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    21.12.1.dev0 at 2022-01-19 19:52:05.
+  </div>
+</footer>
+
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>

@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Class</span>(<span title="docspec.Class">docspec.Class</span>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L419" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Class</span>(<a href="pydocspec._model.Class.html" title="pydocspec._model.Class">_model.Class</a>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L344" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.Class">View In Hierarchy</a></p>
       </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id99">
+        <table class="children sortable" id="id161">
   
   
   <tr class="method">
@@ -85,18 +85,38 @@
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#all_base_classes">all_base_classes</a></code></td>
-    <td>Reccursively returns all bases that are resolved to a <code><a href="pydocspec.Class.html">Class</a></code>.</td>
-  </tr><tr class="method">
-    
-    <td>Method</td>
-    <td><code><a href="#all_bases">all_bases</a></code></td>
+    <td><code><a href="#ancestors">ancestors</a></code></td>
     <td>Reccursively returns <code><a href="#resolved_bases">resolved_bases</a></code> for all bases.</td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#find">find</a></code></td>
     <td>Look up a name in this class and its base classes.</td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#constructor_method">constructor_method</a></code></td>
+    <td>The constructor method of this class.</td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#is_exception">is_exception</a></code></td>
+    <td>Whether this class extends one of the standard library exceptions.</td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#mro">mro</a></code></td>
+    <td>The method resoltion order of this class.</td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#resolved_bases">resolved_bases</a></code></td>
+    <td>For each bases, try to resolve the name to an <code><a href="pydocspec.ApiObject.html">ApiObject</a></code> or fallback to the expanded name.</td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#subclasses">subclasses</a></code></td>
+    <td>The direct subclasses of this class.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
@@ -112,48 +132,145 @@
     <td>Instance Variable</td>
     <td><code><a href="#parent">parent</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#sub_classes">sub_classes</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="property">
-    
-    <td>Property</td>
-    <td><code><a href="#bases_ast">bases_ast</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="property">
-    
-    <td>Property</td>
-    <td><code><a href="#constructor_method">constructor_method</a></code></td>
-    <td>Get the constructor method of this class.</td>
-  </tr><tr class="property">
-    
-    <td>Property</td>
-    <td><code><a href="#constructor_params">constructor_params</a></code></td>
-    <td>A mapping of constructor parameter names to their type annotation. If a parameter is not annotated, its value is <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code>.</td>
-  </tr><tr class="property">
-    
-    <td>Property</td>
-    <td><code><a href="#is_exception">is_exception</a></code></td>
-    <td>Return <code><a href="https://docs.python.org/3/library/constants.html#True">True</a></code> if this class extends one of the standard library exceptions.</td>
-  </tr><tr class="property">
-    
-    <td>Property</td>
-    <td><code><a href="#resolved_bases">resolved_bases</a></code></td>
-    <td>For each bases, try to resolve the name to an <code><a href="pydocspec.ApiObject.html">ApiObject</a></code> or fallback to the expanded name.</td>
-  </tr><tr class="classvariable private">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#_exceptions">_exceptions</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
           <p class="inheritedFrom">
+            Inherited from <code><a href="pydocspec._model.Class.html">Class</a></code>:
+          </p>
+          <table class="children sortable" id="id162">
+  
+  
+  <tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.Class.html#bases_ast">bases_ast</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.Class.html#is_type_guarged">is_type_guarged</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.Class.html#_ast">_ast</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.Class.html#_spec_fields">_spec_fields</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
+            Inherited from <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code> (via <code><a href="pydocspec._model.Class.html">Class</a></code>):
+          </p>
+          <table class="children sortable" id="id163">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#add_siblings">add_siblings</a></code></td>
+    <td>A new nodes to the tree, siblings to this node.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#get_member">get_member</a></code></td>
+    <td>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for objects that don't support members (eg. <code><a href="pydocspec._model.Function.html">Function</a></code> and <code><a href="pydocspec._model.Data.html">Data</a></code>).</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#get_members">get_members</a></code></td>
+    <td>Like <code><a href="#get_member">get_member</a></code> but can return several items with the same name.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#remove">remove</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#replace">replace</a></code></td>
+    <td>Replace this object by one or more objects.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#walk">walk</a></code></td>
+    <td>Traverse a tree of objects, calling the <code><a href="pydocspec.genericvisitor.Visitor.html#visit">genericvisitor.Visitor.visit</a></code> method of <code>visitor</code> when entering each node.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#walkabout">walkabout</a></code></td>
+    <td>Perform a tree traversal similarly to <code><a href="#walk">walk()</a></code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#location">location</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#root">root</a></code></td>
+    <td><code><a href="pydocspec._model.TreeRoot.html">TreeRoot</a></code> instance holding references to all objects in the tree.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#source_path">source_path</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#dotted_name">dotted_name</a></code></td>
+    <td>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> instance.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#full_name">full_name</a></code></td>
+    <td>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#module">module</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#scope">scope</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_members">_members</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_remove_self">_remove_self</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
+            Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html">CanTriggerWarnings</a></code> (via <code><a href="pydocspec._model.Class.html">Class</a></code>, <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>):
+          </p>
+          <table class="children sortable" id="id164">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.CanTriggerWarnings.html#warn">warn</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>:
           </p>
-          <table class="children sortable" id="id100">
+          <table class="children sortable" id="id165">
   
   
   <tr class="basemethod">
@@ -164,48 +281,33 @@
   </tr><tr class="basemethod">
     
     <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#get_member">get_member</a></code></td>
-    <td>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for objects that don't support members (eg. <code><a href="pydocspec.Function.html">Function</a></code> and <code><a href="pydocspec.Data.html">Data</a></code>).</td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="pydocspec.ApiObject.html#get_members">get_members</a></code></td>
-    <td>Like <code><a href="#get_member">get_member</a></code> but can return several items with the same name.</td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
     <td><code><a href="pydocspec.ApiObject.html#resolve_name">resolve_name</a></code></td>
     <td>Return the object named by "name" (using Python's lookup rules) in this context.</td>
   </tr><tr class="baseinstancevariable">
     
     <td>Instance Variable</td>
-    <td><code><a href="pydocspec.ApiObject.html#location">location</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseproperty">
+    <td><code><a href="pydocspec.ApiObject.html#aliases">aliases</a></code></td>
+    <td>Aliases to this object.</td>
+  </tr><tr class="baseinstancevariable">
     
-    <td>Property</td>
+    <td>Instance Variable</td>
     <td><code><a href="pydocspec.ApiObject.html#doc_sources">doc_sources</a></code></td>
     <td>Objects that can be considered as a source of documentation.</td>
-  </tr><tr class="baseproperty">
+  </tr><tr class="baseinstancevariable">
     
-    <td>Property</td>
-    <td><code><a href="pydocspec.ApiObject.html#dotted_name">dotted_name</a></code></td>
-    <td>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> instance.</td>
-  </tr><tr class="baseproperty">
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec.ApiObject.html#location">location</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseinstancevariable">
     
-    <td>Property</td>
-    <td><code><a href="pydocspec.ApiObject.html#full_name">full_name</a></code></td>
-    <td>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</td>
-  </tr><tr class="baseproperty">
-    
-    <td>Property</td>
+    <td>Instance Variable</td>
     <td><code><a href="pydocspec.ApiObject.html#module">module</a></code></td>
-    <td>The <code><a href="pydocspec.Module.html">Module</a></code> instance that contains this object.</td>
-  </tr><tr class="baseproperty">
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseinstancevariable">
     
-    <td>Property</td>
-    <td><code><a href="pydocspec.ApiObject.html#root_module">root_module</a></code></td>
-    <td>The root module of this object.</td>
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec.ApiObject.html#root">root</a></code></td>
+    <td><code><a href="pydocspec._model.TreeRoot.html">TreeRoot</a></code> instance holding references to all objects in the tree.</td>
   </tr><tr class="basemethod private">
     
     <td>Method</td>
@@ -222,10 +324,35 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id101">
+          <table class="children sortable" id="id166">
   
   
   <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#add_siblings">add_siblings</a></code></td>
+    <td>A new nodes to the tree, siblings to this node.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#get_member">get_member</a></code></td>
+    <td>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for objects that don't support members (eg. <code><a href="pydocspec._model.Function.html">Function</a></code> and <code><a href="pydocspec._model.Data.html">Data</a></code>).</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#get_members">get_members</a></code></td>
+    <td>Like <code><a href="#get_member">get_member</a></code> but can return several items with the same name.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#remove">remove</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#replace">replace</a></code></td>
+    <td>Replace this object by one or more objects.</td>
+  </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec._model.ApiObject.html#walk">walk</a></code></td>
@@ -235,15 +362,40 @@
     <td>Method</td>
     <td><code><a href="pydocspec._model.ApiObject.html#walkabout">walkabout</a></code></td>
     <td>Perform a tree traversal similarly to <code><a href="#walk">walk()</a></code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</td>
-  </tr><tr class="baseclassvariable">
+  </tr><tr class="baseinstancevariable">
     
-    <td>Class Variable</td>
-    <td><code><a href="pydocspec._model.ApiObject.html#root">root</a></code></td>
-    <td><code><a href="pydocspec._model.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance holding references to all objects in the tree.</td>
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#source_path">source_path</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#dotted_name">dotted_name</a></code></td>
+    <td>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html">DottedName</a></code> instance.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#full_name">full_name</a></code></td>
+    <td>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#scope">scope</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="basemethod private">
     
     <td>Method</td>
     <td><code><a href="pydocspec._model.ApiObject.html#_members">_members</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_remove_self">_remove_self</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_spec_fields">_spec_fields</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -251,7 +403,7 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html">CanTriggerWarnings</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>, <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id102">
+          <table class="children sortable" id="id167">
   
   
   <tr class="basemethod">
@@ -280,29 +432,29 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__post_init__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L425">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L376">
       
       (source)
     </a>
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">overrides <code><a href="pydocspec.ApiObject.html#__post_init__">pydocspec.ApiObject.__post_init__</a></code></div>
+    <div class="interfaceinfo">overrides <code><a href="pydocspec._model.Class.html#__post_init__">pydocspec._model.Class.__post_init__</a></code></div>
     
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.Class.all_base_classes">
+  <a name="pydocspec.Class.ancestors">
     
   </a>
-  <a name="all_base_classes">
+  <a name="ancestors">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">all_base_classes</span>(self, include_self=<a href="https://docs.python.org/3/library/constants.html#False">False</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L468">
+    <span class="py-keyword">def</span> <span class="py-defname">ancestors</span>(self, include_self=<a href="https://docs.python.org/3/library/constants.html#False">False</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L384">
       
       (source)
     </a>
@@ -310,29 +462,7 @@
   <div class="docstring functionBody">
     
     
-    <div>Reccursively returns all bases that are resolved to a <code><a href="pydocspec.Class.html">Class</a></code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">include_self:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basemethod">
-  
-  
-  <a name="pydocspec.Class.all_bases">
-    
-  </a>
-  <a name="all_bases">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">all_bases</span>(self, include_self=<a href="https://docs.python.org/3/library/constants.html#False">False</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L458">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div>Reccursively returns <code><a href="#resolved_bases">resolved_bases</a></code> for all bases.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">include_self:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Reccursively returns <code><a href="#resolved_bases">resolved_bases</a></code> for all bases.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">include_self:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -346,7 +476,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">find</span>(self, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L530">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L394">
       
       (source)
     </a>
@@ -354,8 +484,122 @@
   <div class="docstring functionBody">
     
     
-    <div>Look up a name in this class and its base classes.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc">the object with the given name, or <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> if there isn't one</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">This does not currently comply with the python method resolution
-order. We would need to implement C3Linearization algorithm with Class objects.</td></tr></table></div>
+    <div>Look up a name in this class and its base classes.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code></td><td class="fieldArgDesc">The object with the given name, or <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> if there isn't one.</td></tr></table></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="pydocspec.Class.constructor_method">
+    
+  </a>
+  <a name="constructor_method">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">constructor_method</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.Function.html">Function</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L371">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>The constructor method of this class.</div>
+    
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="pydocspec.Class.is_exception">
+    
+  </a>
+  <a name="is_exception">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">is_exception</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L351">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>Whether this class extends one of the standard library exceptions.</div>
+    
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="pydocspec.Class.mro">
+    
+  </a>
+  <a name="mro">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">mro</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L361">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>The method resoltion order of this class.</div>
+    
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="pydocspec.Class.resolved_bases">
+    
+  </a>
+  <a name="resolved_bases">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">resolved_bases</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L354">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>For each bases, try to resolve the name to an <code><a href="pydocspec.ApiObject.html">ApiObject</a></code> or fallback to the expanded name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">See Also</td></tr><tr><td colspan="2"><code><a href="pydocspec.ApiObject.html#resolve_name">resolve_name</a></code> and <code><a href="pydocspec.ApiObject.html#expand_name">expand_name</a></code></td></tr></table></div>
+    
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="pydocspec.Class.subclasses">
+    
+  </a>
+  <a name="subclasses">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">subclasses</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L366">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>The direct subclasses of this class.</div>
+    
   </div>
 </div><div class="baseinstancevariable">
   
@@ -368,14 +612,14 @@ order. We would need to implement C3Linearization algorithm with Class objects.<
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">decorations</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Decoration.html">Decoration</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L432">
+    <span class="py-defname">decorations</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec._model.Decoration.html">Decoration</a>]]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L380">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    
+    <div class="interfaceinfo">overrides <code><a href="pydocspec._model.Class.html#decorations">pydocspec._model.Class.decorations</a></code></div>
     
     <div><p class="undocumented">Undocumented</p></div>
     
@@ -392,13 +636,13 @@ order. We would need to implement C3Linearization algorithm with Class objects.<
   <div class="functionHeader">
     
     <span class="py-defname">members</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L434">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L382">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    
+    <div class="interfaceinfo">overrides <code><a href="pydocspec._model.Class.html#members">pydocspec._model.Class.members</a></code></div>
     
     <div><p class="undocumented">Undocumented</p></div>
     
@@ -415,176 +659,13 @@ order. We would need to implement C3Linearization algorithm with Class objects.<
   <div class="functionHeader">
     
     <span class="py-defname">parent</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>, <wbr></wbr><a href="pydocspec.Module.html">Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L433">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L381">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overrides <code><a href="pydocspec.ApiObject.html#parent">pydocspec.ApiObject.parent</a></code></div>
-    
-    <div><p class="undocumented">Undocumented</p></div>
-    
-  </div>
-</div><div class="baseinstancevariable">
-  
-  
-  <a name="pydocspec.Class.sub_classes">
-    
-  </a>
-  <a name="sub_classes">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">sub_classes</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.Class.html">Class</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L429">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-    
-  </div>
-</div><div class="baseproperty">
-  
-  
-  <a name="pydocspec.Class.bases_ast">
-    
-  </a>
-  <a name="bases_ast">
-    
-  </a>
-  <div class="functionHeader">
-    @cached_property<br />
-    <span class="py-defname">bases_ast</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr>ast.expr]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L436">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-    
-  </div>
-</div><div class="baseproperty">
-  
-  
-  <a name="pydocspec.Class.constructor_method">
-    
-  </a>
-  <a name="constructor_method">
-    
-  </a>
-  <div class="functionHeader">
-    @cached_property<br />
-    <span class="py-defname">constructor_method</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.Function.html">Function</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L560">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div>Get the constructor method of this class.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">The implementation currently returns the <tt class="rst-docutils literal">__init__</tt> method only.
-If <tt class="rst-docutils literal">__new__</tt> or <code>__call__</code> methods are defined, this information might be incorrect.</td></tr></table></div>
-    
-  </div>
-</div><div class="baseproperty">
-  
-  
-  <a name="pydocspec.Class.constructor_params">
-    
-  </a>
-  <a name="constructor_params">
-    
-  </a>
-  <div class="functionHeader">
-    @cached_property<br />
-    <span class="py-defname">constructor_params</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>ast.expr]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L543">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div>A mapping of constructor parameter names to their type annotation.
-If a parameter is not annotated, its value is <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">The implementation relies on inspecting the <code><a href="#constructor_method">constructor_method</a></code> object.</td></tr></table></div>
-    
-  </div>
-</div><div class="baseproperty">
-  
-  
-  <a name="pydocspec.Class.is_exception">
-    
-  </a>
-  <a name="is_exception">
-    
-  </a>
-  <div class="functionHeader">
-    @cached_property<br />
-    <span class="py-defname">is_exception</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L596">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div>Return <code><a href="https://docs.python.org/3/library/constants.html#True">True</a></code> if this class extends one of the standard library exceptions.</div>
-    
-  </div>
-</div><div class="baseproperty">
-  
-  
-  <a name="pydocspec.Class.resolved_bases">
-    
-  </a>
-  <a name="resolved_bases">
-    
-  </a>
-  <div class="functionHeader">
-    @cached_property<br />
-    <span class="py-defname">resolved_bases</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L446">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div>For each bases, try to resolve the name to an <code><a href="pydocspec.ApiObject.html">ApiObject</a></code> or fallback to the expanded name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">See Also</td></tr><tr><td colspan="2"><code><a href="pydocspec.ApiObject.html#resolve_name">resolve_name</a></code> and <code><a href="pydocspec.ApiObject.html#expand_name">expand_name</a></code></td></tr></table></div>
-    
-  </div>
-</div><div class="baseclassvariable private">
-  
-  
-  <a name="pydocspec.Class._exceptions">
-    
-  </a>
-  <a name="_exceptions">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_exceptions</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L575">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
+    <div class="interfaceinfo">overrides <code><a href="pydocspec._model.Class.html#parent">pydocspec._model.Class.parent</a></code></div>
     
     <div><p class="undocumented">Undocumented</p></div>
     
@@ -599,7 +680,7 @@ If a parameter is not annotated, its value is <code><a href="https://docs.python
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-19 19:43:21.
+    21.12.1.dev0 at 2022-01-19 19:52:05.
   </div>
 </footer>
 

@@ -65,13 +65,18 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/_model.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/_model.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
         <div>Just like the <code><a href="docspec.html">docspec</a></code> classes, but with ast attributes and few goodies added such that efficient
-processing can be done on these objects afterwards.</div>
+processing can be done on these objects afterwards.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Notes</td></tr><tr><td colspan="2">This part of the model is never instanciated as-is, the pydocspec.* classes are always used.
+The attributes in the pydocspec.* classes are not initialized by default (they are populated by the processor),
+whereas the attributes listed in this module's classes that re initialized directly by the builder. This
+is why we maintain a separation between the two models. This way. we can use stricter typing information in the processor
+and avoid relying on features that are not yet ready.</td></tr><tr><td colspan="2">Some attributes are implemented as <code><a href="https://docs.python.org/3/library/functions.html#property">property</a></code> in this package. These attributes depends on the object place in the tree, so they are computed each time.
+Namely: <code><a href="pydocspec._model.ApiObject.html#full_name">ApiObject.full_name</a></code>, <code><a href="pydocspec.dottedname.html">ApiObject.dottedname</a></code>, <code><a href="pydocspec._model.ApiObject.html#module">ApiObject.module</a></code>, <code><a href="pydocspec._model.ApiObject.html#scope">ApiObject.scope</a></code>.</td></tr></table></div>
       </div>
 
       <div id="splitTables">
@@ -82,12 +87,7 @@ processing can be done on these objects afterwards.</div>
     
     <td>Class</td>
     <td><code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code></td>
-    <td><span class="undocumented">No class docstring; 1/1 class variable, 2/3 methods documented</span></td>
-  </tr><tr class="class">
-    
-    <td>Class</td>
-    <td><code><a href="pydocspec._model.ApiObjectsRoot.html">ApiObjectsRoot</a></code></td>
-    <td>A collection of related documentable objects, also known as "the system".</td>
+    <td><span class="undocumented">No class docstring; 2/4 properties, 1/4 instance variable, 0/1 class variable, 6/10 methods documented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -112,7 +112,7 @@ processing can be done on these objects afterwards.</div>
     
     <td>Class</td>
     <td><code><a href="pydocspec._model.Decoration.html">Decoration</a></code></td>
-    <td><span class="undocumented">No class docstring; 3/3 class variables documented</span></td>
+    <td>Represents a decorator on a <code><a href="pydocspec._model.Class.html">Class</a></code> or <code><a href="pydocspec._model.Function.html">Function</a></code>.</td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -132,16 +132,36 @@ processing can be done on these objects afterwards.</div>
     
     <td>Class</td>
     <td><code><a href="pydocspec._model.Module.html">Module</a></code></td>
-    <td>Represents a module, basically a named container for code/API objects. Modules may be nested in other modules</td>
+    <td>Represents a module, basically a named container for code/API objects. Modules may be nested in other modules.</td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec._model.Warning.html">Warning</a></code></td>
-    <td>Warning class used for pydocspec related warnings.</td>
+    <td><code><a href="pydocspec._model.TreeRoot.html">TreeRoot</a></code></td>
+    <td>A collection of related documentable objects, also known as "the system".</td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec._model.UnknownFieldValue.html">UnknownFieldValue</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec._model.UnknownList.html">UnknownList</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#HasMembers">HasMembers</a></code></td>
+    <td>Alias to use with <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">`</span></a>isinstance`()</td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#Inheritable">Inheritable</a></code></td>
+    <td>Alias to use with <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">`</span></a>isinstance`()</td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><code><a href="pydocspec._model._sentinel.html">_sentinel</a></code></td>
+    <td><code><a href="pydocspec._model._DefaultDocstring.html">_DefaultDocstring</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -152,7 +172,53 @@ processing can be done on these objects afterwards.</div>
 
       <div id="childList">
 
-        
+        <div class="basevariable">
+  
+  
+  <a name="pydocspec._model.HasMembers">
+    
+  </a>
+  <a name="HasMembers">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">HasMembers</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/_model.py#L458">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>Alias to use with <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">`</span></a>isinstance`()</div>
+    
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="pydocspec._model.Inheritable">
+    
+  </a>
+  <a name="Inheritable">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">Inheritable</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/_model.py#L463">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>Alias to use with <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">`</span></a>isinstance`()</div>
+    
+  </div>
+</div>
 
       </div>
     </div>
@@ -162,7 +228,7 @@ processing can be done on these objects afterwards.</div>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-19 19:43:21.
+    21.12.1.dev0 at 2022-01-19 19:52:05.
   </div>
 </footer>
 

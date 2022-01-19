@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>pydocspec.test.test_packages</title>
+    <meta name="generator" content="pydoctor 21.12.1.dev0"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default">
+  
+  <div class="container">
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+          <span class="navbar-brand">
+            <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a> <a href="index.html">API Documentation</a>
+          </span>
+
+          <a href="moduleIndex.html">
+            Modules
+          </a>
+
+          <a href="classIndex.html">
+            Classes
+          </a>
+
+          <a href="nameIndex.html">
+            Names
+          </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+    
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.test.html">test</a></code><wbr></wbr>.<code><a href="pydocspec.test.test_packages.html">test_packages</a></code></code></h1>
+        <div id="showPrivate">
+          <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+        </div>
+      </div>
+
+      <div class="categoryHeader">
+        module documentation
+      </div>
+
+      <div class="extrasDocstring">
+        <a href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_packages.py" class="sourceLink">(source)</a>
+        <p></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p class="undocumented">Undocumented</p></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id133">
+  
+  
+  <tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_astroid_test_wildcard">test_astroid_test_wildcard</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_cyclic_imports">test_cyclic_imports</a></code></td>
+    <td><span class="undocumented">No summary</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_cyclic_imports_all">test_cyclic_imports_all</a></code></td>
+    <td><span class="undocumented">No summary</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_cyclic_imports_all_many_level">test_cyclic_imports_all_many_level</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_imports_all_many_level">test_imports_all_many_level</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#testpackages">testpackages</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+        
+
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_packages.test_astroid_test_wildcard">
+    
+  </a>
+  <a name="test_astroid_test_wildcard">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">test_astroid_test_wildcard</span>():
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_packages.py#L14">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_packages.test_cyclic_imports">
+    
+  </a>
+  <a name="test_cyclic_imports">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#builderfunc_param">builderfunc_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_cyclic_imports</span>(builderfunc):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_packages.py#L103">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Test whether names are resolved correctly when we have import cycles.
+The test package contains module 'a' that defines class 'A' and module 'b'
+that defines class 'B'; each module imports the other. Since the test data
+is symmetrical, we will at some point be importing a module that has not
+been fully processed yet, no matter which module gets processed first.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">builderfunc:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a>[<wbr></wbr>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>]], <wbr></wbr><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_packages.test_cyclic_imports_all">
+    
+  </a>
+  <a name="test_cyclic_imports_all">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">test_cyclic_imports_all</span>(caplog):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_packages.py#L144">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Test whether names are resolved correctly when we have import cycles.
+The test package contains module 'a' that defines class 'A' and module 'b'
+that defines class 'B'; each module imports the other. Since the test data
+is symmetrical, we will at some point be importing a module that has not
+been fully processed yet, no matter which module gets processed first.</div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_packages.test_cyclic_imports_all_many_level">
+    
+  </a>
+  <a name="test_cyclic_imports_all_many_level">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">test_cyclic_imports_all_many_level</span>(caplog):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_packages.py#L206">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_packages.test_imports_all_many_level">
+    
+  </a>
+  <a name="test_imports_all_many_level">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">test_imports_all_many_level</span>(caplog):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_packages.py#L182">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="pydocspec.test.test_packages.testpackages">
+    
+  </a>
+  <a name="testpackages">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">testpackages</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/test/test_packages.py#L12">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    21.12.1.dev0 at 2022-01-19 19:52:05.
+  </div>
+</footer>
+
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>

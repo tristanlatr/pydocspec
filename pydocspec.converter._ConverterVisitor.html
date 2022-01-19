@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">_ConverterVisitor</span>(<a href="pydocspec.loader.Collector.html" title="pydocspec.loader.Collector">loader.Collector</a>, <span title="pydocspec.genericvisitor.Visitor[docspec.ApiObject]">genericvisitor.Visitor[docspec.ApiObject]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/converter.py#L68" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">_ConverterVisitor</span>(<a href="pydocspec.basebuilder.Collector.html" title="pydocspec.basebuilder.Collector">basebuilder.Collector</a>, <span title="pydocspec.genericvisitor.Visitor[docspec.ApiObject]">genericvisitor.Visitor[docspec.ApiObject]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/converter.py#L65" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.converter._ConverterVisitor">View In Hierarchy</a></p>
       </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id66">
+        <table class="children sortable" id="id86">
   
   
   <tr class="method">
@@ -111,55 +111,70 @@
 </table>
         
           <p class="inheritedFrom">
-            Inherited from <code><a href="pydocspec.loader.Collector.html">Collector</a></code>:
+            Inherited from <code><a href="pydocspec.basebuilder.Collector.html">Collector</a></code>:
           </p>
-          <table class="children sortable" id="id67">
+          <table class="children sortable" id="id87">
   
   
   <tr class="basemethod">
     
     <td>Method</td>
-    <td><code><a href="pydocspec.loader.Collector.html#__init__">__init__</a></code></td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#__init__">__init__</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
-    <td><code><a href="pydocspec.loader.Collector.html#add_object">add_object</a></code></td>
-    <td>See <code><a href="pydocspec.loader.html#add_object">loader.add_object</a></code>.</td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#add_object">add_object</a></code></td>
+    <td>See <code><a href="pydocspec._model.TreeRoot.html#add_object">TreeRoot.add_object</a></code>.</td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
-    <td><code><a href="pydocspec.loader.Collector.html#pop">pop</a></code></td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#current.setter">current.setter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#last.setter">last.setter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#pop">pop</a></code></td>
     <td>Exit an object.</td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
-    <td><code><a href="pydocspec.loader.Collector.html#push">push</a></code></td>
-    <td>Enter an object.</td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#push">push</a></code></td>
+    <td>Enter an object. We can push attributes, but we can't push other stuff inside it.</td>
   </tr><tr class="baseinstancevariable">
     
     <td>Instance Variable</td>
-    <td><code><a href="pydocspec.loader.Collector.html#module">module</a></code></td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#current">current</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#last">last</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#module">module</a></code></td>
     <td>The new module.</td>
   </tr><tr class="baseinstancevariable">
     
     <td>Instance Variable</td>
-    <td><code><a href="pydocspec.loader.Collector.html#root">root</a></code></td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#root">root</a></code></td>
     <td>The root of the tree.</td>
-  </tr><tr class="baseinstancevariable private">
+  </tr><tr class="baseinstancevariable">
     
     <td>Instance Variable</td>
-    <td><code><a href="pydocspec.loader.Collector.html#_current">_current</a></code></td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#state">state</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseinstancevariable private">
+  </tr><tr class="baseproperty">
     
-    <td>Instance Variable</td>
-    <td><code><a href="pydocspec.loader.Collector.html#_last">_last</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="baseinstancevariable private">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="pydocspec.loader.Collector.html#_stack">_stack</a></code></td>
+    <td>Property</td>
+    <td><code><a href="pydocspec.basebuilder.Collector.html#stack">stack</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -182,7 +197,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_departure</span>(self, obj):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/converter.py#L73">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/converter.py#L70">
       
       (source)
     </a>
@@ -204,7 +219,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Class</span>(self, klass):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/converter.py#L107">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/converter.py#L110">
       
       (source)
     </a>
@@ -226,7 +241,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Data</span>(self, data):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/converter.py#L124">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/converter.py#L129">
       
       (source)
     </a>
@@ -248,7 +263,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Function</span>(self, function):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/converter.py#L79">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/converter.py#L76">
       
       (source)
     </a>
@@ -270,7 +285,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Indirection</span>(self, indirection):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/converter.py#L132">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/converter.py#L141">
       
       (source)
     </a>
@@ -292,7 +307,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Module</span>(self, module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/converter.py#L139">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/converter.py#L148">
       
       (source)
     </a>
@@ -312,7 +327,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-19 19:43:21.
+    21.12.1.dev0 at 2022-01-19 19:52:05.
   </div>
 </footer>
 

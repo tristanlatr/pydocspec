@@ -65,32 +65,38 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>This is <tt class="rst-docutils literal">pydocspec</tt>.</p>
+        <div><p>Pyocspec is a object specification for representing and loading API documentation
+of a collection of related python modules. It extends docspec for the python language,
+offers facility to resolve names and provides additional informations.</p>
 <p><strong>Warning</strong>:</p>
 <p>Work in progress... API might change without deprecation notice.</p>
 <p><strong>Usage</strong>:</p>
-<p>At the current stage of developments, the only entrypoint of <tt class="rst-docutils literal">pydocspec</tt> is <code><a href="pydocspec.converter.html#convert_docspec_modules">converter.convert_docspec_modules</a></code>.</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> pydocspec
+<span class="py-prompt">&gt;&gt;&gt; </span>root = pydocspec.load_python_modules([Path(<span class="py-string">'./pydocspec'</span>)])</pre><p><strong>How it works</strong></p>
+<p>First, a root object gets created with the <code><a href="pydocspec.specfactory.html">specfactory</a></code>, then the <code>builder</code> creates all the other objects
+and populate the strict-minimum attributes. Then the <code><a href="pydocspec.processor.html">processor</a></code> takes that tree and populated all other attributes.</p>
 <p><strong>Extensibility</strong>:</p>
 <p>The core of the logic is design to be extensible with plugins modules, called "brain" modules. One can define custom
-mixin classes and post-processes in a new module, add the special <tt class="rst-docutils literal">MIXIN_CLASSES</tt> and/or <tt class="rst-docutils literal">POST_PROCESSES</tt> module
+mixin classes and post-processes in a new module, add the special <tt class="rst-docutils literal">pydocspec_mixin</tt> and/or <tt class="rst-docutils literal">pydocspec_processes</tt> module
 variables, then include the module's full name as part of the <tt class="rst-docutils literal">additional_brain_modules</tt> argument of function <code><a href="pydocspec.converter.html#convert_docspec_modules">converter.convert_docspec_modules</a></code>.</p>
 <p>Discovered mixin classes are going to be dynamically added to the list of bases when creating the new objects with the
 <code><a href="pydocspec.specfactory.Factory.html">specfactory.Factory</a></code>. Because of that, the documentation of the classes listed in this module are incomplete, properties
 and methods provided by mixin classes can be review in their respective documentation, under the package <code><a href="pydocspec.brains.html">brains</a></code>.</p>
-<p>The <tt class="rst-docutils literal">MIXIN_CLASSES</tt> variable holds a dictionary from the name of the base class to a list of mixin classes
+<p>The <tt class="rst-docutils literal">pydocspec_mixin</tt> variable holds a dictionary from the name of the base class to a list of mixin classes
 (or only one mixin class):</p>
 <pre class="rst-literal-block">
-MIXIN_CLASSES: Dict[str, Union[Sequence[Type], Type]]
+pydocspec_mixin: Dict[str, Union[Sequence[Type], Type]]
 </pre>
-<p>The <tt class="rst-docutils literal">POST_PROCESSES</tt> variable holds a dictionary from the priority of execution of the post process (should be greater than 1.0)
-to a post-process. A post-process beeing a one-argument callable taking a <code><a href="pydocspec._model.ApiObjectsRoot.html">ApiObjectsRoot</a></code> instance:</p>
+<p>The <tt class="rst-docutils literal">pydocspec_processes</tt> variable holds a dictionary from the priority of execution of the post process (should be greater than 0)
+to a post-process. A post-process beeing a one-argument callable taking a <code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code> instance:</p>
 <pre class="rst-literal-block">
-POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
+pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
 </pre>
 </div>
       </div>
@@ -104,11 +110,26 @@ POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
     <td>Package</td>
     <td><code><a href="pydocspec.brains.html">brains</a></code></td>
     <td>Submodules contains sets of mixin classes aplied to L{ApiObject}, in order to extends the functionalities for specific libraries.</td>
+  </tr><tr class="package">
+    
+    <td>Package</td>
+    <td><code><a href="pydocspec.test.html">test</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="module">
     
     <td>Module</td>
-    <td><code><a href="pydocspec.astutils.html">astutils</a></code></td>
-    <td>Various bits of reusable code related to <code><a href="https://docs.python.org/3/library/ast.html#ast.AST">ast.AST</a></code> node processing.</td>
+    <td><code><a href="pydocspec.astbuilder.html">astbuilder</a></code></td>
+    <td>Traverse module/packages directories, build and transform <code>astroid</code> AST into <code><a href="pydocspec.ApiObject.html">ApiObject</a></code> instances.</td>
+  </tr><tr class="module">
+    
+    <td>Module</td>
+    <td><code><a href="pydocspec.astroidutils.html">astroidutils</a></code></td>
+    <td>Various bits of reusable code related to <code>astroid.nodes.NodeNG</code> node processing.</td>
+  </tr><tr class="module">
+    
+    <td>Module</td>
+    <td><code><a href="pydocspec.basebuilder.html">basebuilder</a></code></td>
+    <td><span class="undocumented">No module docstring; 1/2 class documented</span></td>
   </tr><tr class="module">
     
     <td>Module</td>
@@ -118,7 +139,7 @@ POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
     
     <td>Module</td>
     <td><code><a href="pydocspec.dottedname.html">dottedname</a></code></td>
-    <td><span class="undocumented">No module docstring; 1/1 class documented</span></td>
+    <td><span class="undocumented">No module docstring; 3/3 functions, 1/1 class documented</span></td>
   </tr><tr class="module">
     
     <td>Module</td>
@@ -132,18 +153,18 @@ POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
   </tr><tr class="module">
     
     <td>Module</td>
-    <td><code><a href="pydocspec.loader.html">loader</a></code></td>
-    <td>Our own version of the docspec loader.</td>
+    <td><code><a href="pydocspec.introspect.html">introspect</a></code></td>
+    <td>Build an <code><a href="pydocspec.ApiObject.html">ApiObject</a></code> tree from live objects.</td>
   </tr><tr class="module">
     
     <td>Module</td>
-    <td><code><a href="pydocspec.postprocessor.html">postprocessor</a></code></td>
-    <td>Post processor and default post-processes.</td>
+    <td><code><a href="pydocspec.mro.html">mro</a></code></td>
+    <td>Compute method resolution order. Implements <code><a href="pydocspec.Class.html#mro">Class.mro</a></code> attribute.</td>
   </tr><tr class="module">
     
     <td>Module</td>
     <td><code><a href="pydocspec.processor.html">processor</a></code></td>
-    <td>Processes the half baked model created by the loader to add buch of fancy attributes and provide <code><a href="pydocspec.html">pydocspec</a></code> magic.</td>
+    <td>Processes the half baked model created by the builder to populate buch of fancy attributes.</td>
   </tr><tr class="module">
     
     <td>Module</td>
@@ -174,11 +195,6 @@ POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.Argument.html">Argument</a></code></td>
-    <td>Represents a <code><a href="pydocspec.Function.html">Function</a></code> argument.</td>
-  </tr><tr class="class">
-    
-    <td>Class</td>
     <td><code><a href="pydocspec.Class.html">Class</a></code></td>
     <td>Represents a class definition.</td>
   </tr><tr class="class">
@@ -186,11 +202,6 @@ POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
     <td>Class</td>
     <td><code><a href="pydocspec.Data.html">Data</a></code></td>
     <td>Represents a variable assignment.</td>
-  </tr><tr class="class">
-    
-    <td>Class</td>
-    <td><code><a href="pydocspec.Decoration.html">Decoration</a></code></td>
-    <td>Represents a decorator on a <code><a href="pydocspec.Class.html">Class</a></code> or <code><a href="pydocspec.Function.html">Function</a></code>.</td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -206,16 +217,31 @@ POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
     <td>Class</td>
     <td><code><a href="pydocspec.Module.html">Module</a></code></td>
     <td>Represents a module, basically a named container for code/API objects. Modules may be nested in other modules</td>
-  </tr><tr class="variable">
+  </tr><tr class="class">
     
-    <td>Variable</td>
-    <td><code><a href="#HasMembers">HasMembers</a></code></td>
-    <td>Alias to use with <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">`</span></a>isinstance`()</td>
-  </tr><tr class="variable">
+    <td>Class</td>
+    <td><code><a href="pydocspec.Options.html">Options</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
     
-    <td>Variable</td>
-    <td><code><a href="#Inheritable">Inheritable</a></code></td>
-    <td>Alias to use with <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">`</span></a>isinstance`()</td>
+    <td>Class</td>
+    <td><code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#load_python_modules">load_python_modules</a></code></td>
+    <td>Load packages or modules with pydocspec's builder.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#load_python_modules_with_docspec_python">load_python_modules_with_docspec_python</a></code></td>
+    <td>Load packages or modules with docspec_python and then convert them to pydocspec objects.</td>
+  </tr><tr class="function private">
+    
+    <td>Function</td>
+    <td><code><a href="#_setup_stdout_logger">_setup_stdout_logger</a></code></td>
+    <td>Utility to create a logger.</td>
   </tr><tr class="constant private">
     
     <td>Constant</td>
@@ -239,7 +265,7 @@ POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
   <div class="functionHeader">
     
     <span class="py-defname">_RESOLVE_ALIAS_MAX_RECURSE</span>: <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L79">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L79">
       
       (source)
     </a>
@@ -248,53 +274,74 @@ POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
     
     
     <div><p class="undocumented">Undocumented</p></div>
-    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>5</code></pre></td></tr></table>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>10</code></pre></td></tr></table>
   </div>
-</div><div class="basevariable">
+</div><div class="basefunction">
   
   
-  <a name="pydocspec.HasMembers">
+  <a name="pydocspec.load_python_modules">
     
   </a>
-  <a name="HasMembers">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">HasMembers</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L842">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div>Alias to use with <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">`</span></a>isinstance`()</div>
-    
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="pydocspec.Inheritable">
-    
-  </a>
-  <a name="Inheritable">
+  <a name="load_python_modules">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">Inheritable</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/3c66f1d22ebe116a9772b4504b3292ab30210224/pydocspec/__init__.py#L847">
+    <span class="py-keyword">def</span> <span class="py-defname">load_python_modules</span>(files, options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L559">
       
       (source)
     </a>
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     
-    <div>Alias to use with <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">`</span></a>isinstance`()</div>
+    <div>Load packages or modules with pydocspec's builder.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">files:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>]</code></td><td class="fieldArgDesc">A list of <code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code> instances pointing to filenames/directory to parse.
+Directories will be added recursively.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">options:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.load_python_modules_with_docspec_python">
     
+  </a>
+  <a name="load_python_modules_with_docspec_python">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">load_python_modules_with_docspec_python</span>(files, options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L588">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Load packages or modules with docspec_python and then convert them to pydocspec objects.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">files:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">options:</span><code>docspec_python.ParserOptions</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction private">
+  
+  
+  <a name="pydocspec._setup_stdout_logger">
+    
+  </a>
+  <a name="_setup_stdout_logger">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_setup_stdout_logger</span>(name, verbose=<a href="https://docs.python.org/3/library/constants.html#False">False</a>, quiet=<a href="https://docs.python.org/3/library/constants.html#False">False</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/559ec61ccc4f4c8c46c8e951e0aee10499c8b7d5/pydocspec/__init__.py#L649">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Utility to create a logger.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">quiet:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/logging.html#logging.Logger">logging.Logger</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -306,7 +353,7 @@ POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-19 19:43:21.
+    21.12.1.dev0 at 2022-01-19 19:52:05.
   </div>
 </footer>
 
