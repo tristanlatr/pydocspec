@@ -28,13 +28,13 @@ class Visitor(Generic[T]):
 
   def visit(self, ob: T) -> None:
     """Visit an object."""
-    method = 'visit_' + ob.__class__.__name__ # type:ignore[attribute-error]
+    method = 'visit_' + ob.__class__.__name__
     visitor = getattr(self, method, self.unknown_visit)
     visitor(ob)
   
   def depart(self, ob: T) -> None:
     """Depart an object."""
-    method = 'depart_' + ob.__class__.__name__ # type:ignore[attribute-error]
+    method = 'depart_' + ob.__class__.__name__
     visitor = getattr(self, method, self.unknown_departure)
     visitor(ob)
   
@@ -46,7 +46,7 @@ class Visitor(Generic[T]):
     """
     raise NotImplementedError(
         '%s visiting unknown object type: %s'
-        % (self.__class__, ob.__class__.__name__)) # type:ignore[attribute-error]
+        % (self.__class__, ob.__class__.__name__))
 
   def unknown_departure(self, ob: T) -> None:
     """
@@ -56,7 +56,7 @@ class Visitor(Generic[T]):
     """
     raise NotImplementedError(
         '%s departing unknown object type: %s'
-        % (self.__class__, ob.__class__.__name__)) # type:ignore[attribute-error]
+        % (self.__class__, ob.__class__.__name__))
 
 def walk(ob: T, visitor: Visitor[T], get_children: Callable[[T], Iterable[T]]) -> None:
     """

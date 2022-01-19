@@ -7,7 +7,7 @@ setup(
     version='0.0.0',
     author='tristanlatr',
     author_email='trislatr@gmail.com',
-    description='Extends docspec for python specific usages.',
+    description='Pydocspec is a object specification for representing API documentation of a collection of related python modules.',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/tristanlatr/pydocspec',
@@ -17,7 +17,5 @@ setup(
     license='MIT',
     packages=['pydocspec'],
     include_package_data=True,
-    install_requires=['docspec @ git+https://github.com/NiklasRosenstein/docspec.git#subdirectory=docspec', 
-                      'docspec_python @ git+https://github.com/NiklasRosenstein/docspec.git#subdirectory=docspec-python', 
-                      'cached-property', 'astor', 'typing_extensions'], 
+    install_requires=['docspec', 'cached_property', 'typing_extensions', 'astroid'], 
 )

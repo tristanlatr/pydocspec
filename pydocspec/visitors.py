@@ -7,11 +7,23 @@ except ImportError as exc:
   def _colored(s, *args, **kwargs):  # type: ignore
     return str(s)
 
+import dataclasses
+import os
+from pathlib import Path
 import typing as t
 
-from pydocspec import ApiObject, HasMembers
+# should not import pydocspec
 
+from ._model import ApiObject, HasMembers
 from . import genericvisitor
+
+def iter_fields(ob: ApiObject) -> t.Iterator[t.Tuple[str, t.Any]]:
+  """
+  Iter each values of the object fields. Fields are listed in the _spec_fields class varaible.
+  """
+  for f in getattr(ob, '_spec_fields', tuple()):
+      assert hasattr(ob, f), f"No field {f!r} defined on {ob!r}"
+      yield f, getattr(ob, f)
 
 # visitors
 
@@ -44,12 +56,42 @@ class FilterVisitor(genericvisitor.Visitor[ApiObject]):
     new_members = [m for m in ob.members if bool(self.predicate(m))==True]
     deleted_members = [m for m in ob.members if m not in new_members]
 
-    # Remove the member from the ApiObjectsRoot as well
+    # Remove the member from the TreeRoot as well
     for m in deleted_members:
-      ob.root.all_objects.rmvalue(m.full_name, m)
-    
-    ob.members[:] = new_members
+      m.remove()
 
+class ReprVisitor(genericvisitor.Visitor[ApiObject]):
+  # for test purposes
+  def __init__(self):
+    self.repr: str = ''
+  def unknown_visit(self, ob: ApiObject) -> None:
+    depth = len(ob.path)-1
+    # dataclasses.asdict(ob) can't work on cycles references, so we iter the fields
+    other_fields = dict(list(iter_fields(ob)))
+    other_fields.pop('name')
+    other_fields.pop('location')
+    other_fields.pop('docstring')
+    try: other_fields.pop('members')
+    except KeyError: pass
+    other_fields_repr = ""
+    for k,v in other_fields.items():
+      if k.endswith('_ast'): # ignore ast fields
+        continue
+      if v: # not None, not empty list
+        other_fields_repr += ", "
+        _repr = repr(v) if isinstance(v, (str, bool)) else str(v)
+        if isinstance(v, Path):
+          _repr = f"{_repr.split(os.sep)[-1]}"
+        other_fields_repr += k + ": " + _repr
+    tokens = dict(
+      type = type(ob).__name__,
+      name = ob.name,
+      lineno = str(ob.location.lineno) if ob.location else 0,
+      filename = ob.location.filename or '' if ob.location else '',
+      other = other_fields_repr)
+    self.repr += '| ' * depth + "- {type} '{name}' at l.{lineno}{other}".format(**tokens) + "\n"
+  def unknown_departure(self, ob: ApiObject) -> None:
+    pass
 
 class PrintVisitor(genericvisitor.Visitor[ApiObject]):
   """

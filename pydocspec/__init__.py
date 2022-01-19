@@ -1,5 +1,7 @@
 """
-This is ``pydocspec``.
+Pyocspec is a object specification for representing and loading API documentation 
+of a collection of related python modules. It extends docspec for the python language, 
+offers facility to resolve names and provides additional informations.
 
 **Warning**:
 
@@ -7,50 +9,62 @@ Work in progress... API might change without deprecation notice.
 
 **Usage**:
 
-At the current stage of developments, the only entrypoint of ``pydocspec`` is `converter.convert_docspec_modules`. 
+>>> import pydocspec
+>>> root = pydocspec.load_python_modules([Path('./pydocspec')])
+
+**How it works**
+
+First, a root object gets created with the `specfactory`, then the `builder` creates all the other objects
+and populate the strict-minimum attributes. Then the `processor` takes that tree and populated all other attributes.
 
 **Extensibility**:
 
 The core of the logic is design to be extensible with plugins modules, called "brain" modules. One can define custom
-mixin classes and post-processes in a new module, add the special ``MIXIN_CLASSES`` and/or ``POST_PROCESSES`` module 
+mixin classes and post-processes in a new module, add the special ``pydocspec_mixin`` and/or ``pydocspec_processes`` module 
 variables, then include the module's full name as part of the ``additional_brain_modules`` argument of function `converter.convert_docspec_modules`. 
 
 Discovered mixin classes are going to be dynamically added to the list of bases when creating the new objects with the 
 `specfactory.Factory`. Because of that, the documentation of the classes listed in this module are incomplete, properties
 and methods provided by mixin classes can be review in their respective documentation, under the package `brains`.
 
-The ``MIXIN_CLASSES`` variable holds a dictionary from the name of the base class to a list of mixin classes 
+The ``pydocspec_mixin`` variable holds a dictionary from the name of the base class to a list of mixin classes 
 (or only one mixin class)::
 
-    MIXIN_CLASSES: Dict[str, Union[Sequence[Type], Type]]
+    pydocspec_mixin: Dict[str, Union[Sequence[Type], Type]]
 
-The ``POST_PROCESSES`` variable holds a dictionary from the priority of execution of the post process (should be greater than 1.0)
-to a post-process. A post-process beeing a one-argument callable taking a `ApiObjectsRoot` instance::
+The ``pydocspec_processes`` variable holds a dictionary from the priority of execution of the post process (should be greater than 0)
+to a post-process. A post-process beeing a one-argument callable taking a `TreeRoot` instance::
 
-    POST_PROCESSES: Dict[float, Callable[[ApiObjectsRoot], None]]
+    pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
 
 """
 
-from typing import ClassVar, Iterator, List, Mapping, Optional, Union, Type, Any, Iterable, TYPE_CHECKING, cast
-import ast
+import dataclasses
+from pathlib import Path
+from typing import TYPE_CHECKING, Callable, Iterable, Iterator, List, Optional, Sequence, TextIO, Tuple, Union, Type, Any, cast
+
 import inspect
-import warnings
+from typing_extensions import TypeAlias
 
 import attr
-
-from cached_property import cached_property
-
 import docspec
+import os.path
+import sys
+import logging
 
-from . import astutils, genericvisitor
+from . import astroidutils, dupsafedict
 from .dottedname import DottedName
-from .dupsafedict import DuplicateSafeDict
 from . import _model
+from ._model import Inheritable, HasMembers
 
+# should not import ast or astroid
+
+if TYPE_CHECKING:
+    import docspec_python
 
 __docformat__ = 'restructuredtext'
 __all__ = [
-  'ApiObjectsRoot',
+  'TreeRoot',
   'Location',
   'Decoration',
   'Argument',
@@ -59,24 +73,22 @@ __all__ = [
   'Function',
   'Class',
   'Module',
-#   'load_module',
-#   'load_modules',
-#   'dump_module',
-#   'filter_visit',
-#   'visit',
-#   'ReverseMap',
-#   'get_member',
+  'Docstring',
 ]
 
-# Those classes are customizable brain modules, even if they are not customize here.
-Location = docspec.Location
+_RESOLVE_ALIAS_MAX_RECURSE = 10
 
-ApiObjectsRoot = _model.ApiObjectsRoot
-"""
-The root object do not have a higher level version.
-"""
+Location = _model.Location
+Docstring = _model.Docstring
+Argument = _model.Argument
+Decoration = _model.Decoration
 
-_RESOLVE_ALIAS_MAX_RECURSE = 5
+class TreeRoot(_model.TreeRoot):
+    # see _model.TreeRoot for docs.
+
+    # help mypy
+    root_modules: List['Module'] # type: ignore[assignment]
+    all_objects: dupsafedict.DuplicateSafeDict[str, 'ApiObject'] # type: ignore[assignment]
 
 class ApiObject(_model.ApiObject):
     """
@@ -84,91 +96,35 @@ class ApiObject(_model.ApiObject):
     """
 
     def __post_init__(self) -> None:
-        docspec.ApiObject.__post_init__(self)
+        super().__post_init__()
         
         # help mypy
-        self.parent: Optional[Union['Class', 'Module']] # type: ignore[assignment]
+        self.root: TreeRoot
+        self.parent: Optional[Union['Class', 'Module']]
         self.location: Location
+        self.module: 'Module'
 
-    @property
-    def root_module(self) -> 'Module':
-        """
-        The root module of this object.
-        """
-        if isinstance(self, Module) and not self.parent:
-            return self
-        assert self.parent is not None
-        return self.parent.root_module # type:ignore[no-any-return]
+        # TODO: replace this by actual function overrides calling super().
+        self.get_member: Callable[[str], Optional['ApiObject']] # type:ignore[assignment]
+        self.get_members: Callable[[str], Iterator['ApiObject']] # type:ignore[assignment]
 
-    @property
-    def dotted_name(self) -> DottedName:
-        """
-        The fully qualified dotted name of this object, as `DottedName` instance.
-        """
-        return DottedName(*(ob.name for ob in self.path))
+        # new attributes
 
-    @property
-    def full_name(self) -> str:
-        """
-        The fully qualified dotted name of this object, as string. 
-        This value is used as the key in the `ApiObject.root.all_objects` dictionnary.
-        """
-        return str(self.dotted_name)
-    
-    @property
-    def doc_sources(self) -> List['ApiObject']:
+        self.doc_sources: List['ApiObject'] = []
         """Objects that can be considered as a source of documentation.
 
         The motivating example for having multiple sources is looking at a
         superclass' implementation of a method for documentation for a
         subclass'.
         """
-        sources = [self]
-        if isinstance(self, Inheritable):
-            if not isinstance(self.parent, Class):
-                return sources
-            for b in self.parent.all_base_classes(include_self=False):
-                base = b.get_member(self.name)
-                if base:
-                    sources.append(base)
-        return sources
-    
-    @property
-    def module(self) -> 'Module':
-        """
-        The `Module` instance that contains this object.
-        """
-        if isinstance(self, Module):
-            return self
-        else:
-            assert self.parent is not None
-            return self.parent.module # type:ignore[no-any-return]
-    
-    def get_member(self, name: str) -> Optional['ApiObject']:
-        """
-        Retrieve a member from the API object. This will always return `None` for
-        objects that don't support members (eg. `Function` and `Data`).
 
-        :note: Implementation relies on `ApiObject.root.all_objects` such that
-            it will return the last added object in case of duplicate names.
+        self.aliases: List['Data'] = []
         """
-        if isinstance(self, HasMembers):
-            member = self.root.all_objects.get(str(self.dotted_name+name))
-            if member is not None:
-                assert isinstance(member, ApiObject), (name, self, member)
-                return member
-        return None
-    
-    def get_members(self, name: str) -> Iterator['ApiObject']:
+        Aliases to this object.
         """
-        Like `get_member` but can return several items with the same name.
-        """
-        if isinstance(self, docspec.HasMembers):
-            for member in self.members:
-                if member.name == name:
-                    assert isinstance(member, ApiObject), (name, self, member)
-                    yield member
-    
+
+    # NAME RESOLVING LOGIC
+
     def expand_name(self, name: str, follow_aliases: bool = True, _indirections: Any=None) -> str:
         """
         Return a fully qualified name for the possibly-dotted `name`.
@@ -215,11 +171,14 @@ class ApiObject(_model.ApiObject):
             Lookup members in superclasses when possible and follows aliases and indirections. 
             This mean that `expand_name` will never return the name of an alias,
             it will always follow it's indirection to the origin. Except if ``follow_aliases=False``. 
+        :note: Supports relative dotted name like ``.foo.bar``.
         """
         parts = DottedName(name)
         ctx: 'ApiObject' = self # The context for the currently processed part of the name. 
         
         for i, part in enumerate(parts):
+            if not part and i==0 and ctx.module.parent is not None: # we got a relative dotted name
+                part = ctx.module.parent.name
             full_name = ctx._local_to_full_name(part, follow_aliases=follow_aliases, _indirections=_indirections)
             if full_name == part and i != 0:
                 # The local name was not found.
@@ -255,18 +214,18 @@ class ApiObject(_model.ApiObject):
         return self.root.all_objects.get(self.expand_name(name, follow_aliases=follow_aliases))
 
     def _local_to_full_name(self, name: str, follow_aliases: bool, _indirections:Any=None) -> str:
-        if not isinstance(self, HasMembers):
+        if not isinstance(self, HasMembers): # type:ignore[unreachable]
             assert self.parent is not None
             return self.parent._local_to_full_name(name, follow_aliases, _indirections)
         
         # Follows indirections and aliases
         member = self.get_member(name)
         if member:
-            if follow_aliases and isinstance(member, Data) and member.is_alias:
+            if follow_aliases and isinstance(member, Data) and astroidutils.is_name(member.value_ast):
                 return self._resolve_indirection(member._alias_indirection, _indirections) or member.full_name
             if isinstance(member, Indirection):
                 return self._resolve_indirection(member, _indirections) or member.full_name
-            return member.full_name # type:ignore[no-any-return]
+            return member.full_name
 
         elif isinstance(self, Class):
             assert self.parent is not None
@@ -289,7 +248,7 @@ class ApiObject(_model.ApiObject):
         """
 
         if _indirections and len(_indirections) > _RESOLVE_ALIAS_MAX_RECURSE:
-            return _indirections[0].full_name # type:ignore[no-any-return]
+            return _indirections[0].full_name
 
         target = indirection.target
         
@@ -298,12 +257,12 @@ class ApiObject(_model.ApiObject):
         assert ctx is not None
 
         # This checks avoids infinite recursion error when a indirection's has the same name as it's value
-        if _indirections and _indirections[-1] != indirection or not _indirections:
+        if (_indirections and indirection not in _indirections) or not _indirections:
             # We redirect to the original object instead!
             return ctx.expand_name(target, _indirections=(_indirections or [])+[indirection])
         else: 
             # Issue tracing the alias back to it's original location, found the same indirection again.
-            # Meaning: _indirections[-1] == indirection
+            # Meaning: indirection is in _indirections
             if ctx.parent is not None and ctx.module == ctx.parent.module:
                 # We try with the parent scope, only if the parent is in the same module, otherwise fail. 
                 # This is used in situations like in the pydoctor.model.System class and it's aliases, 
@@ -311,166 +270,139 @@ class ApiObject(_model.ApiObject):
                 return ctx.parent.expand_name(target, _indirections=(_indirections or [])+[indirection])
         
         return None
-
-class Data(docspec.Data, ApiObject):
+    
+@dataclasses.dataclass
+class Data(_model.Data, ApiObject):
     """
     Represents a variable assignment.
     """
-    parent: Union['Class', 'Module']
 
-    @cached_property
-    def datatype_ast(self) -> Optional[ast.expr]:
-        """
-        The AST expresssion of the annotation of this data.
-        """
-        if self.datatype:
-            return astutils.unstring_annotation(
-                    astutils.extract_expr(self.datatype, filename=self.location.filename), self)
-        # TODO: fetch datatype_ast from attrs defaut and factory args and dataclass default and default_factory args.
-        return None
+    is_instance_variable: bool = False
+    """
+    Whether this Data is an instance variable.
+    """
 
-    @cached_property
-    def value_ast(self) -> Optional[ast.expr]:
-        """
-        The AST expresssion of the value assigned to this Data.
-        """
-        if self.value:
-            return astutils.extract_expr(self.value, filename=self.location.filename)
-        return None
+    is_class_variable: bool = False
+    """
+    Whether this Data is a class variable.
+    """
 
-    @cached_property
-    def is_instance_variable(self) -> bool:
-        """
-        Whether this Data is an instance variable.
-        """
-        ...
-        # TODO: Think about how to differenciate beetwen instance and class variables ?
-    @cached_property
-    def is_class_variable(self) -> bool:
-        """
-        Whether this Data is a class variable.
-        """
-        ...
-    @cached_property
-    def is_module_variable(self) -> bool:
-        """
-        Whether this Data is a module variable.
-        """
-        ...
-    
-    @cached_property
-    def is_alias(self) -> bool:
-        """
-        Whether this Data is an alias.
-        Aliases are folowed by default when using `ApiObject.expand_name`. 
-        """
-        return astutils.node2dottedname(self.value_ast) is not None
-    
-    @cached_property
+    is_module_variable: bool = False
+    """
+    Whether this Data is a module variable.
+    """
+
+    is_alias: bool = False
+    """
+    Whether this Data is an alias.
+    Aliases are folowed by default when using `ApiObject.expand_name`. 
+    """
+
+    is_constant: bool = False
+    """
+    Whether this Data is a constant.
+    """
+
+    @property
     def _alias_indirection(self) -> 'Indirection':
-        # provided as a helper object to resolve names only.
-        assert self.is_alias
+        # private helper object to resolve names only.
         assert self.value is not None
         indirection = Indirection(self.name, self.location, None, self.value)
         indirection.parent = self.parent
         indirection.root = self.root
         return indirection
-    
-    @cached_property
-    def is_constant(self) -> bool:
-        """
-        Whether this Data is a constant. 
-        
-        This checks two things:
-            - all-caps variable name
-            - typing.Final annotation
-        """
-        return self.name.isupper() or self.is_using_typing_final
-    
-    @cached_property
-    def is_using_typing_final(self) -> bool:
-        """
-        Detect if this object is using `typing.Final` as annotation.
-        """
-        full_name = astutils.node2fullname(self.datatype_ast, self)
-        if full_name == "typing.Final":
-            return True
-        if isinstance(self.datatype_ast, ast.Subscript):
-            # Final[...] or typing.Final[...] expressions
-            if isinstance(self.datatype_ast.value, (ast.Name, ast.Attribute)):
-                value = self.datatype_ast.value
-                full_name = astutils.node2fullname(value, self)
-                if full_name == "typing.Final":
-                    return True
 
-        return False
+    def __post_init__(self) -> None:
+        super().__post_init__()
+        
+        # help mypy
+        self.parent: Union['Class', 'Module']
+
+    
+    # @cached_property
+    
 
     # TODO: Add type/docstring extraction from marshmallow attributes
     # https://github.com/mkdocstrings/mkdocstrings/issues/130
 
     # TODO: Always consider Enum values as constants. Maybe having a Class.is_enum property, similar to is_exception?
 
-class Indirection(docspec.Indirection, ApiObject):
+@dataclasses.dataclass
+class Indirection(_model.Indirection, ApiObject):
   """
   Represents an imported name. It can be used to properly 
   find the full name target of a link written with a local name. 
   """
+#   resolved_target: Optional[ApiObject] = None
 
-class Class(docspec.Class, ApiObject):
+  def __post_init__(self) -> None:
+        super().__post_init__()
+        
+        # help mypy
+        self.parent: Union['Class', 'Module']
+
+@dataclasses.dataclass
+class Class(_model.Class, ApiObject):
     """
     Represents a class definition.
     """
     # TODO: create property inherited_members
 
-    def __post_init__(self) -> None:
-        docspec.Class.__post_init__(self)
+    is_exception: bool = False
+    """Whether this class extends one of the standard library exceptions."""
 
-        # sub classes need to be manually added once the tree has been built, see _PostProcessVisitor.
-        self.sub_classes: List['Class'] = []
+    resolved_bases: List[Union['Class', 'str']] = dataclasses.field(default_factory=_model.UnknownList)
+    """
+    For each bases, try to resolve the name to an `ApiObject` or fallback to the expanded name.
+    
+    :see: `resolve_name` and `expand_name`
+    """
+
+    mro: List['Class'] = dataclasses.field(default_factory=_model.UnknownList)
+    """
+    The method resoltion order of this class.
+    """
+
+    subclasses: List['Class'] = dataclasses.field(default_factory=_model.UnknownList)
+    """
+    The direct subclasses of this class. 
+    """
+
+    constructor_method: Optional['Function'] = None
+    """
+    The constructor method of this class.
+    """
+        
+    def __post_init__(self) -> None:
+        super().__post_init__()
         
         # help mypy
         self.decorations: Optional[List['Decoration']] # type:ignore[assignment]
         self.parent: Union['Class', 'Module']
         self.members: List['ApiObject'] # type:ignore[assignment]
     
-    @cached_property
-    def bases_ast(self) -> Optional[List[ast.expr]]:
-        if not self.bases:
-            return None
-        bases_ast = []
-        for str_base in self.bases:
-            bases_ast.append(astutils.unstring_annotation(
-                        astutils.extract_expr(str_base, filename=self.location.filename), self))
-        return bases_ast
-
-    @cached_property
-    def resolved_bases(self) -> List[Union['ApiObject', 'str']]:
-        """
-        For each bases, try to resolve the name to an `ApiObject` or fallback to the expanded name.
-        
-        :see: `resolve_name` and `expand_name`
-        """
-        objs = []
-        for base in self.bases or ():
-            objs.append(self.parent.resolve_name(base) or self.parent.expand_name(base))
-        return objs
-    
-    def all_bases(self, include_self: bool = False) -> Iterator[Union['ApiObject', 'str']]:
+    def ancestors(self, include_self: bool = False) -> Iterator[Union['Class', 'str']]:
         """Reccursively returns `resolved_bases` for all bases."""
         if include_self:
             yield self
         for b in self.resolved_bases:
             if isinstance(b, Class):
-                yield from b.all_bases(True)
+                yield from b.ancestors(True)
             else:
                 yield b
-
-    def all_base_classes(self, include_self: bool = False) -> Iterator['Class']:
-        """Reccursively returns all bases that are resolved to a `Class`."""
-        for b in self.all_bases(include_self):
-            if isinstance(b, Class):
-                yield b
     
+    def find(self, name: str) -> Optional[ApiObject]:
+        """
+        Look up a name in this class and its base classes. 
+
+        :return: The object with the given name, or `None` if there isn't one.
+        """
+        for base in self.mro:
+            obj: Optional['ApiObject'] = base.get_member(name)
+            if obj is not None:
+                return obj
+        return None
+
     # TODO: adjust this code to provide inherited_members property
     # inherited_members : List[Documentable] = []
     #             for baselist in nested_bases(self.ob):
@@ -526,161 +458,38 @@ class Class(docspec.Class, ApiObject):
     #     return [o for o in baselist[0].contents.values()
     #             if o.isVisible and o.name not in maybe_masking]
 
-
-    def find(self, name: str) -> Optional[ApiObject]:
-        """Look up a name in this class and its base classes.
-
-        :return: the object with the given name, or `None` if there isn't one
-        :note: This does not currently comply with the python method resolution 
-            order. We would need to implement C3Linearization algorithm with Class objects. 
-        """
-        for base in self.all_base_classes(True):
-            obj: Optional['ApiObject'] = base.get_member(name)
-            if obj is not None:
-                return obj
-        return None
-    
-    @cached_property
-    def constructor_params(self) -> Mapping[str, Optional[ast.expr]]:
-        """
-        A mapping of constructor parameter names to their type annotation.
-        If a parameter is not annotated, its value is `None`.
-
-        :note: The implementation relies on inspecting the `constructor_method` object.
-        """
-        init_method = self.constructor_method
-        if init_method is not None:
-            args = {}
-            for arg in init_method.args:
-                args[arg.name] = arg.datatype_ast
-            return args
-        else:
-            return {'self': None}
-    
-    @cached_property
-    def constructor_method(self) -> Optional['Function']:
-        """
-        Get the constructor method of this class.
-
-        :note: The implementation currently returns the ``__init__`` method only.
-            If ``__new__`` or `__call__` methods are defined, this information might be incorrect.
-        """
-        init_method = self.get_member('__init__')
-        if isinstance(init_method, Function):
-            return init_method
-        else:
-            return None
-    
-    # List of exceptions class names in the standard library, Python 3.8.10
-    _exceptions = ('ArithmeticError', 'AssertionError', 'AttributeError', 
-        'BaseException', 'BlockingIOError', 'BrokenPipeError', 
-        'BufferError', 'BytesWarning', 'ChildProcessError', 
-        'ConnectionAbortedError', 'ConnectionError', 
-        'ConnectionRefusedError', 'ConnectionResetError', 
-        'DeprecationWarning', 'EOFError', 
-        'EnvironmentError', 'Exception', 'FileExistsError', 
-        'FileNotFoundError', 'FloatingPointError', 'FutureWarning', 
-        'GeneratorExit', 'IOError', 'ImportError', 'ImportWarning', 
-        'IndentationError', 'IndexError', 'InterruptedError', 
-        'IsADirectoryError', 'KeyError', 'KeyboardInterrupt', 'LookupError', 
-        'MemoryError', 'ModuleNotFoundError', 'NameError', 
-        'NotADirectoryError', 'NotImplementedError', 
-        'OSError', 'OverflowError', 'PendingDeprecationWarning', 'PermissionError', 
-        'ProcessLookupError', 'RecursionError', 'ReferenceError', 
-        'ResourceWarning', 'RuntimeError', 'RuntimeWarning', 'StopAsyncIteration', 
-        'StopIteration', 'SyntaxError', 'SyntaxWarning', 'SystemError', 
-        'SystemExit', 'TabError', 'TimeoutError', 'TypeError', 
-        'UnboundLocalError', 'UnicodeDecodeError', 'UnicodeEncodeError', 
-        'UnicodeError', 'UnicodeTranslateError', 'UnicodeWarning', 'UserWarning', 
-        'ValueError', 'Warning', 'ZeroDivisionError')
-    @cached_property
-    def is_exception(self) -> bool:
-        """Return `True` if this class extends one of the standard library exceptions."""
-        
-        for base in self.all_bases(True):
-            if base in self._exceptions:
-                return True
-        return False
-
-class Function(docspec.Function, ApiObject):
+@dataclasses.dataclass
+class Function(_model.Function, ApiObject):
     """
     Represents a function definition.
     """
-    # help mypy
-    decorations: Optional[List['Decoration']] # type:ignore
-    args: List['Argument'] # type:ignore
-    parent: Union[Class, 'Module']
 
-    @cached_property
-    def return_type_ast(self) -> Optional[ast.expr]:
-        if self.return_type:
-            return astutils.unstring_annotation(
-                    astutils.extract_expr(self.return_type, filename=self.location.filename), self)
-        return None
+    is_property: bool = _model.UnknownFieldValue
+    is_property_setter: bool = _model.UnknownFieldValue
+    is_property_deleter: bool = _model.UnknownFieldValue
+    is_async: bool = _model.UnknownFieldValue
+    is_method: bool = _model.UnknownFieldValue
+    is_staticmethod: bool = _model.UnknownFieldValue
+    is_classmethod: bool = _model.UnknownFieldValue
+    is_abstractmethod: bool = _model.UnknownFieldValue
 
-    @cached_property
-    def is_property(self) -> bool:
-        for deco in self.decorations or ():
-            name = astutils.node2fullname(deco.name_ast, self.parent)
-            if name and name.endswith(('property', 'Property')):
-                return True
-        return False
-    
-    @cached_property
-    def is_property_setter(self) -> bool:
-        for deco in self.decorations or ():
-            name = astutils.node2dottedname(deco.name_ast)
-            if name and len(name) == 2 and name[0]==self.name and name[1] == 'setter':
-                return True
-        return False
-    
-    @cached_property
-    def is_property_deleter(self) -> bool:
-        for deco in self.decorations or ():
-            name = astutils.node2dottedname(deco.name_ast)
-            if name and len(name) == 2 and name[0]==self.name and name[1] == 'deleter':
-                return True
-        return False
-    
-    @cached_property
-    def is_async(self) -> bool:
-        return 'async' in (self.modifiers or ())
-    
-    @cached_property
-    def is_method(self) -> bool:
-        return isinstance(self.parent, Class)
-    
-    @cached_property
-    def is_classmethod(self) -> bool:
-        for deco in self.decorations or ():
-            if astutils.node2fullname(deco.name_ast, self.parent) == 'classmethod':
-                return True
-        return False
-    
-    @cached_property
-    def is_staticmethod(self) -> bool:
-        for deco in self.decorations or ():
-            if astutils.node2fullname(deco.name_ast, self.parent) == 'staticmethod':
-                return True
-        return False
-    
-    @cached_property
-    def is_abstractmethod(self) -> bool:
-        for deco in self.decorations or ():
-            if astutils.node2fullname(deco.name_ast, self.parent) in ['abc.abstractmethod', 'abc.abstractproperty']:
-                return True
-        return False
-    
+    def __post_init__(self) -> None:
+        super().__post_init__()
+        # help mypy
+        self.decorations: Optional[List['Decoration']] # type:ignore
+        self.args: List['Argument'] # type:ignore
+        self.parent: Union[Class, 'Module']
+
     def signature(self, include_types:bool=True, include_defaults:bool=True, 
                   include_return_type:bool=True, include_self:bool=True,
                   signature_class: Type[inspect.Signature] = inspect.Signature, 
-                  value_formatter_class: Type[astutils.ValueFormatter] = astutils.ValueFormatter) -> inspect.Signature:
+                  value_formatter_class: Type[astroidutils.ValueFormatter] = astroidutils.ValueFormatter) -> inspect.Signature:
         """
         Get the function's signature. 
         """
         
         # build the signature
-        signature_builder = astutils.SignatureBuilder(signature_class=signature_class, 
+        signature_builder = astroidutils.SignatureBuilder(signature_class=signature_class, 
                                         value_formatter_class=value_formatter_class)
 
         # filter args
@@ -688,28 +497,28 @@ class Function(docspec.Function, ApiObject):
         
         for argument in (a for a in args if a.type is docspec.Argument.Type.PositionalOnly):
             signature_builder.add_param(argument.name, inspect.Parameter.POSITIONAL_ONLY, 
-                default=argument.default_value_ast if argument.default_value and include_defaults else None,
-                annotation=argument.datatype_ast if argument.datatype and include_types else None)
+                default=argument.default_value_ast if argument.default_value_ast and include_defaults else None,
+                annotation=argument.datatype_ast if argument.datatype_ast and include_types else None)
         
         for argument in (a for a in args if a.type is docspec.Argument.Type.Positional):
             signature_builder.add_param(argument.name, inspect.Parameter.POSITIONAL_OR_KEYWORD, 
-                default=argument.default_value_ast if argument.default_value and include_defaults else None,
-                annotation=argument.datatype_ast if argument.datatype and include_types else None)
+                default=argument.default_value_ast if argument.default_value_ast and include_defaults else None,
+                annotation=argument.datatype_ast if argument.datatype_ast and include_types else None)
         
         for argument in (a for a in args if a.type is docspec.Argument.Type.PositionalRemainder):
             signature_builder.add_param(argument.name, inspect.Parameter.VAR_POSITIONAL, default=None,
-                annotation=argument.datatype_ast if argument.datatype and include_types else None)
+                annotation=argument.datatype_ast if argument.datatype_ast and include_types else None)
         
         for argument in (a for a in args if a.type is docspec.Argument.Type.KeywordOnly):
             signature_builder.add_param(argument.name, inspect.Parameter.KEYWORD_ONLY, 
-                default=argument.default_value_ast if argument.default_value and include_defaults else None,
-                annotation=argument.datatype_ast if argument.datatype and include_types else None)
+                default=argument.default_value_ast if argument.default_value_ast and include_defaults else None,
+                annotation=argument.datatype_ast if argument.datatype_ast and include_types else None)
         
         for argument in (a for a in args if a.type is docspec.Argument.Type.KeywordRemainder):
             signature_builder.add_param(argument.name, inspect.Parameter.VAR_KEYWORD, default=None,
-            annotation=argument.datatype_ast if argument.datatype and include_types else None)
+            annotation=argument.datatype_ast if argument.datatype_ast and include_types else None)
         
-        if include_return_type and self.return_type:
+        if include_return_type and self.return_type_ast:
             signature_builder.set_return_annotation(self.return_type_ast)
         
         try:
@@ -719,132 +528,142 @@ class Function(docspec.Function, ApiObject):
             signature = inspect.Signature()
         
         return signature
-
-class Argument(docspec.Argument):
-    """
-    Represents a `Function` argument.
-    """
-    @cached_property
-    def datatype_ast(self) -> Optional[ast.expr]:
-        if self.datatype:
-            return astutils.unstring_annotation(
-                    astutils.extract_expr(self.datatype)) # TODO find a way to report warnings correctly even if Argument is not an ApiObject.
-        return None
-
-    @cached_property
-    def default_value_ast(self) -> Optional[ast.expr]:
-        if self.default_value:
-            return astutils.extract_expr(self.default_value)
-        return None
-
-class Decoration(docspec.Decoration):
-    """
-    Represents a decorator on a `Class` or `Function`.
-
-    +---------------------------------------+-------------------------+---------------------+-----------------+
-    | Code                                  | Decorator.name          | Decorator.args      | Notes           |
-    +=======================================+=========================+=====================+=================+
-    | ``@property``                         | ``property``            | `None`              |                 |
-    +---------------------------------------+-------------------------+---------------------+-----------------+
-    | ``@functools.lru_cache(max_size=10)`` | ``functools.lru_cache`` | ``["max_size=10"]``	|                 |
-    +---------------------------------------+-------------------------+---------------------+-----------------+
-    | ``@dec['name']``                      | ``dec['name']``         | `None`              |since Python 3.9 |
-    +---------------------------------------+-------------------------+-+-------------------+-----------------+
-    | ``@(decorators().name)(a, b=c)``      | ``(decorators().name)`` | ``["a", "b=c"]``    |since Python 3.9 |
-    +---------------------------------------+-------------------------+---------------------+-----------------+
-
-    """
-    @cached_property
-    def name_ast(self) -> ast.expr:
-        """The name of the deocration as AST, this can be any kind of expression."""
-        return astutils.extract_expr(self.name)
     
-    @cached_property
-    def args_ast(self) -> Optional[List[ast.expr]]:
-        """The arguments of the deocration AST, if the decoration was called like a function."""
-        if self.args:
-            return [astutils.extract_expr(expr) for expr in self.args]
-        return None
-
-    @cached_property
-    def expr_ast(self) -> ast.expr:
-        """The full decoration AST's"""
-        return astutils.extract_expr(self.name + (self.args or ''))
-
-class Module(docspec.Module, ApiObject):
+@dataclasses.dataclass
+class Module(_model.Module, ApiObject):
     """
     Represents a module, basically a named container for code/API objects. Modules may be nested in other modules
     """
 
-    members: List['ApiObject'] # type:ignore[assignment]
+    docformat: Optional[str] = None # TODO: rename to dunder_docformat
+    """The module variable __docformat__ as string."""
 
-    @cached_property
-    def is_package(self) -> bool:
-        """
-        Whether this module is a package.
-        """
-        return any(isinstance(o, docspec.Module) for o in self.members)
+    def __post_init__(self) -> None:
+        super().__post_init__()
+        # help mypy
+        self.members: List['ApiObject'] #type:ignore[assignment]
+        self.parent: Optional['Module']
 
-    @cached_property
-    def all(self) -> Optional[List[str]]:
-        """Parse the module variable __all__ into a list of names."""
 
-        var = self.get_member('__all__')
-        if not var or not isinstance(var, Data):
-            return None
-        value = var.value_ast
+# API
 
-        if not isinstance(value, (ast.List, ast.Tuple)):
-            self.warn('Cannot parse value assigned to "__all__", must be a list or tuple.')
-            return None
+# loader function is a function of the following form: 
+#   (files: Sequence[Path], options: Any = None) -> TreeRoot
 
-        names = []
-        for idx, item in enumerate(value.elts):
-            try:
-                name: object = ast.literal_eval(item)
-            except ValueError:
-                self.warn(f'Cannot parse element {idx} of "__all__"')
-            else:
-                if isinstance(name, str):
-                    names.append(name)
-                else:
-                    self.warn(f'Element {idx} of "__all__" has '
-                        f'type "{type(name).__name__}", expected "str"')
+@attr.s(auto_attribs=True)
+class Options:
+    extensions: List[str] = attr.ib(factory=list)
+    prepended_package: Optional[str] = None
+    introspect_c_modules: bool = False
 
-        return names
+def load_python_modules(files: Sequence[Path], options: Any = None) -> TreeRoot:
+    """
+    Load packages or modules with pydocspec's builder. 
+
+    :param files: A list of `Path` instances pointing to filenames/directory to parse.
+        Directories will be added recursively. 
+    """
+    from . import specfactory, processor, astbuilder
+    factory = specfactory.Factory.default()
+    _processor = processor.Processor.default()
     
-    @cached_property
-    def docformat(self) -> Optional[str]:
+    if options:
+        for brain in getattr(options, 'brains', ()):
+            factory.import_mixins_from(brain)
+            _processor.import_processes_from(brain)
+    
+    root = factory.TreeRoot()
+
+    builder = astbuilder.Builder(root, options=options)
+
+    for f in files:
+        builder.add_module(f)
+
+    builder.process_modules()
+
+    _processor.process(root)
+
+    return root
+
+def load_python_modules_with_docspec_python(files: Sequence[Path], options: 'docspec_python.ParserOptions' = None, ) -> TreeRoot:
+    """
+    Load packages or modules with docspec_python and then convert them to pydocspec objects. 
+    """
+    from docspec_python import parse_python_module
+    from pydocspec import converter
+
+    def _find_module(module_name: str, in_folder: str ) -> str:
+
+        filenames = [
+            os.path.join(os.path.join(*module_name.split('.')), '__init__.py'),
+            os.path.join(*module_name.split('.')) + '.py',
+        ]
+
+        for choice in filenames:
+            abs_path = os.path.normpath(os.path.join(in_folder, choice))
+            if os.path.isfile(abs_path):
+                return abs_path
+
+        raise ImportError(module_name)
+
+    def _find_module_files(modpath: Path) -> Iterable[Tuple[str, str]]:
         """
-        Parses module's __docformat__ variable.
+        Returns an iterator for the Python source files in the specified module/package. The items returned
+        by the iterator are tuples of the module name and filename.
         """
-        var = self.get_member('__all__')
-        if not var or not isinstance(var, Data):
-            return None
 
-        try:
-            value = ast.literal_eval(var.value_ast)
-        except ValueError:
-            var.warn('Cannot parse value assigned to "__docformat__": not a string')
-            return None
-        
-        if not isinstance(value, str):
-            var.warn('Cannot parse value assigned to "__docformat__": not a string')
-            return None
-            
-        if not value.strip():
-            var.warn('Cannot parse value assigned to "__docformat__": empty value')
-            return None
-        
-        return value
+        def _recursive(module_name:str, path:str) -> Iterator[Tuple[str, str]]:
+            # pylint: disable=stop-iteration-return
+            if os.path.isfile(path):
+                yield module_name, path
+            elif os.path.isdir(path):
+                yield next(_recursive(module_name, os.path.join(path, '__init__.py')))
+                for item in os.listdir(path):
+                    if item == '__init__.py':
+                        continue
+                    item_abs = os.path.join(path, item)
+                    name = module_name + '.' + item
+                    if name.endswith('.py'):
+                        name = name[:-3]
+                    if os.path.isdir(item_abs) and os.path.isfile(os.path.join(item_abs, '__init__.py')):
+                        for x in _recursive(name, item_abs):
+                            yield x
+                    elif os.path.isfile(item_abs) and item_abs.endswith('.py'):
+                        yield next(_recursive(name, item_abs))
+            else:
+                raise RuntimeError('path "{}" does not exist'.format(path))
 
+        module_name = os.path.splitext(modpath.name)[0]
+        path = _find_module(module_name, str(modpath.parent))
+        if os.path.basename(path).startswith('__init__.'):
+            path = os.path.dirname(path)
+            yield from _recursive(module_name, path)
+    
+    modules = []
+    for path in files:
+        for module_name, filename in _find_module_files(path):
+            modules.append(parse_python_module(filename, module_name=module_name, options=options, encoding='utf-8'))
 
-HasMembers = (Module, Class)
-"""
-Alias to use with `isinstance`()
-"""
+    return converter.convert_docspec_modules(modules, root=True)
 
-Inheritable = (Indirection, Data, Function) 
-"""
-Alias to use with `isinstance`()
-"""
+def _setup_stdout_logger(
+    name: str,
+    verbose: bool = False,
+    quiet: bool = False,
+    ) -> logging.Logger:
+    """
+    Utility to create a logger.
+    """
+    # format_string = "%(asctime)s - %(levelname)s (%(name)s) - %(message)s"
+    format_string = "%(message)s"
+    if verbose: verb_level = logging.DEBUG
+    elif quiet: verb_level = logging.ERROR
+    else: verb_level = logging.INFO
+    log = logging.getLogger(name)
+    log.setLevel(verb_level)
+    std = logging.StreamHandler(sys.stdout)
+    std.setLevel(verb_level)
+    std.setFormatter(logging.Formatter(format_string))
+    log.addHandler(std)
+    return log
+_setup_stdout_logger('pydocspec')

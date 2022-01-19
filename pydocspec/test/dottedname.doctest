@@ -157,3 +157,17 @@ But a contextualization can't reduce to an empty DottedName:
 
     >>> DottedName('foo').contextualize(DottedName('foo'))
     DottedName('foo')
+
+Relative dotted name
+
+    >>> str(DottedName('.foo.bar'))
+    '.foo.bar'
+    >>> DottedName('.foo.bar')
+    DottedName('', 'foo', 'bar')
+
+Dot star dotted name
+
+    >>> str(DottedName('foo.bar.*'))
+    'foo.bar.*'
+    >>> DottedName('foo.bar.*')
+    DottedName('foo', 'bar', '*')

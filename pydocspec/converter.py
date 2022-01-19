@@ -10,71 +10,68 @@ Usage::
     from pydocspec.converter import convert_docspec_modules
     modules: List[pydocspec.Module] = convert_docspec_modules(load_python_modules(...))
 
-:note: By default, the ast properties are computed on demand and cached with ``@cached_property`` (creating ast nodes is expensive). 
-        This behaviour is highly inefficient if we have already parsed the whole module's AST. 
-        I should write an efficient builder soon. For now, we can use the ``convert_docspec_modules`` function. 
 """
 
 from typing import Iterable, Iterator, cast, List, Optional, Union, overload
 try:
-    from typing import Literal #type:ignore[attr-defined]
+    from typing import Literal
 except ImportError:
-    from typing_extensions import Literal #type:ignore[misc]
+    from typing_extensions import Literal
 
 import attr
 
 import docspec
 import pydocspec
-from pydocspec import dottedname, genericvisitor, specfactory, postprocessor, loader
+from pydocspec import dottedname, genericvisitor, specfactory, processor, basebuilder, astroidutils
 
 @overload
 def convert_docspec_modules(modules: Iterable[docspec.Module], 
                             root:Literal[True], 
-                            additional_brain_modules:Optional[List[str]]=None) -> pydocspec.ApiObjectsRoot:  # type:ignore[invalid-annotation]
+                            additional_brain_modules:Optional[List[str]]=None) -> pydocspec.TreeRoot: 
     ...
 @overload
 def convert_docspec_modules(modules: Iterable[docspec.Module], 
                             root:Literal[False]=False,
-                            additional_brain_modules:Optional[List[str]]=None) -> List[pydocspec.Module]: # type:ignore[invalid-annotation]
+                            additional_brain_modules:Optional[List[str]]=None) -> List[pydocspec.Module]:
     ... 
-def convert_docspec_modules(modules: Iterable[docspec.Module], root:bool=False, additional_brain_modules:Optional[List[str]]=None) -> Union[List[pydocspec.Module], pydocspec.ApiObjectsRoot]:
+def convert_docspec_modules(modules: Iterable[docspec.Module], root:bool=False, additional_brain_modules:Optional[List[str]]=None) -> Union[List[pydocspec.Module], pydocspec.TreeRoot]:
     """
     Convert a list of `docspec.Module` instances into a list of `pydocspec.Module`. 
-    Alternatively, you can also request the `ApiObjectsRoot` instance by passing ``root=True``. 
+    Alternatively, you can also request the `TreeRoot` instance by passing ``root=True``. 
 
     :param modules: Modules to convert.
-    :param root: Whether to return the `ApiObjectsRoot` or the list of `pydocspec.Module`. 
+    :param root: Whether to return the `TreeRoot` or the list of `pydocspec.Module`. 
     :param additional_brain_modules: Custom brain modules to import into the system.
-    :return: A list of the root modules of the tree or the `ApiObjectsRoot` instance if ``root=True``.
+    :return: A list of the root modules of the tree or the `TreeRoot` instance if ``root=True``.
     :note: It will transform the tree such that we have an actual hiearchy of packages. 
     """
     factory = specfactory.Factory.default()
-    post_processor = postprocessor.PostProcessor.default()
+    _processor = processor.Processor.default()
     
     if additional_brain_modules:
         for brain in additional_brain_modules:
             factory.import_mixins_from(brain)
-            post_processor.import_post_processes_from(brain)
+            _processor.import_processes_from(brain)
     
-    new_root = factory.ApiObjectsRoot()
+    new_root = factory.TreeRoot()
 
     converter = _Converter(new_root)
     converter.convert_docspec_modules(modules)
     
-    post_processor.post_process(new_root)
+    _processor.process(new_root)
 
-    return new_root.root_modules if not root else new_root # type:ignore[bad-return-type]
+    return new_root.root_modules if not root else new_root
 
-class _ConverterVisitor(loader.Collector, genericvisitor.Visitor[docspec.ApiObject]):
+class _ConverterVisitor(basebuilder.Collector, genericvisitor.Visitor[docspec.ApiObject]):
     """
     Visit each ``docspec`` objects of a module and create their ``pydocspec`` augmented counterparts.
     """
     
     def unknown_departure(self, obj: docspec.ApiObject) -> None:
         obj_full_name = str(dottedname.DottedName(*(o.name for o in obj.path)))
-        assert self._current is not None
-        assert self._current.full_name == obj_full_name , f"{obj!r} is not {self._current!r}"
-        self.pop(self._current)
+        assert self.current is not None
+        assert self.current.full_name == obj_full_name , f"{obj!r} is not {self.current!r}"
+        self.pop(self.current)
 
     def visit_Function(self, function: docspec.Function) -> None:
         # this ignores the Argument.decorations, it does not exist in python.
@@ -82,29 +79,36 @@ class _ConverterVisitor(loader.Collector, genericvisitor.Visitor[docspec.ApiObje
         # convert arguments
         args: List[docspec.Argument] = []
         for a in function.args:
+            
             new_arg = self.root.factory.Argument(name=a.name, type=a.type, 
                                         decorations=None, datatype=a.datatype, 
-                                        default_value=a.default_value, )
+                                        default_value=a.default_value, 
+                                        datatype_ast=astroidutils.unstring_annotation(astroidutils.extract_expr(a.datatype)) if a.datatype else None,
+                                        default_value_ast=astroidutils.unstring_annotation(astroidutils.extract_expr(a.default_value)) if a.default_value else None)
             args.append(new_arg)
         
         # convert decorators
         if function.decorations is not None:
+            
             decos: Optional[List[docspec.Decoration]] = []
             for d in function.decorations:
-                new_deco = self.root.factory.Decoration(d.name, d.args)
+                new_deco = self.root.factory.Decoration(name=d.name, args=d.args, arglist=d.arglist, 
+                    name_ast=astroidutils.extract_expr(d.name), ) #TODO: use args and arglist to compute the expr_ast and args_ast variables.
                 decos.append(new_deco) #type:ignore[union-attr]
         else:
             decos = None
-            
+    
         ob = self.root.factory.Function(name=function.name, location=function.location,
                                      docstring=function.docstring, 
                                      modifiers=function.modifiers,
                                      return_type=function.return_type,
                                      args=args,
-                                     decorations=decos, )
+                                     decorations=decos, 
+                                     return_type_ast=astroidutils.unstring_annotation(astroidutils.extract_expr(function.return_type)) if function.return_type else None)
         self.add_object(ob)
     
     def visit_Class(self, klass: docspec.Class) -> None:
+
         if klass.decorations is not None:
             decos: Optional[List[docspec.Decoration]] = []
             for d in klass.decorations:
@@ -118,15 +122,20 @@ class _ConverterVisitor(loader.Collector, genericvisitor.Visitor[docspec.ApiObje
             bases=klass.bases,
             decorations=decos,
             metaclass=klass.metaclass,
-            members=[], )
+            members=[], 
+            bases_ast=[astroidutils.unstring_annotation(astroidutils.extract_expr(str_base)) for str_base in klass.bases] if klass.bases else None)
         self.add_object(ob)
     
     def visit_Data(self, data: docspec.Data) -> None:
+
         ob = self.root.factory.Data(name=data.name, 
             location=data.location, 
             docstring=data.docstring, 
             datatype=data.datatype, 
-            value=data.value, )
+            value=data.value, 
+            datatype_ast=astroidutils.unstring_annotation(astroidutils.extract_expr(data.datatype)) if data.datatype else None,
+            value_ast=astroidutils.unstring_annotation(astroidutils.extract_expr(data.value)) if data.value else None
+            )
         self.add_object(ob)
     
     def visit_Indirection(self, indirection: docspec.Indirection) -> None:
@@ -149,11 +158,11 @@ class _Converter:
     """
     Converts `docspec` objects to their `pydocspec` augmented version.
     """
-    root: pydocspec.ApiObjectsRoot
+    root: pydocspec.TreeRoot
 
     def convert_docspec_modules(self, modules: Iterable[docspec.Module]) -> None:
         """
-        Convert `docspec.Module`s to the `ApiObjectsRoot` instance.
+        Convert `docspec.Module`s to the `TreeRoot` instance.
         """
         _modules = list(modules)
         for mod in _nest_docspec_python_modules(_modules) if len(_modules)>1 else _modules:

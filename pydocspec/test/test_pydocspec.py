@@ -1,16 +1,15 @@
 from typing import Optional
-import ast
 import io
 import textwrap
 
 import docspec
 from docspec_python import load_python_modules
-from pydocspec import converter, astutils
+from pydocspec import converter, astroidutils, processor
 import pydocspec
 
 from .fixtures import mod1, root2, root4
 
-def mod_from_text(text:str, modname:str='<test>') -> pydocspec.Module:
+def mod_from_text(text:str, modname:str='test') -> pydocspec.Module:
     docspec_modules = list(load_python_modules(
         files=[ (modname, io.StringIO(textwrap.dedent(text))) ]))
     pydocspec_mod = converter.convert_docspec_modules(docspec_modules).pop()
@@ -25,6 +24,8 @@ def test_expand_name(mod1: docspec.Module) -> None:
     assert isinstance(saila, pydocspec.Data)
     assert isinstance(alias, pydocspec.Data)
 
+    assert processor._data_helpers.is_alias(saila)
+    assert processor._data_helpers.is_alias(alias)
     assert saila.is_alias
     assert alias.is_alias
 
@@ -40,7 +41,7 @@ def test_expand_name(mod1: docspec.Module) -> None:
     assert klass.expand_name('saila') == 'a.foo.val'
     assert klass.expand_name('Union') == 'typing.Union'
 
-def test_expand_name_subclass(root2: pydocspec.ApiObjectsRoot) -> None:
+def test_expand_name_subclass(root2: pydocspec.TreeRoot) -> None:
     root = root2
 
     subklass = root.all_objects['a.foosub']
@@ -50,14 +51,14 @@ def test_expand_name_subclass(root2: pydocspec.ApiObjectsRoot) -> None:
 
     klass = root.all_objects['a.foo']
     assert isinstance(klass, pydocspec.Class)
-    assert klass.sub_classes[0] == subklass
+    assert klass.subclasses[0] == subklass
 
     assert subklass.expand_name('foosub.alias') == 'a.foo.val'
     assert subklass.expand_name('foo.alias') == 'a.foo.val'
     assert subklass.expand_name('saila') == 'a.foo.val'
     assert subklass.expand_name('Union') == 'typing.Union'
 
-def test_signature(root4: pydocspec.ApiObjectsRoot) -> None:
+def test_signature(root4: pydocspec.TreeRoot) -> None:
     root = root4
 
     func = root.all_objects['a.f']
@@ -90,9 +91,7 @@ def test_node2fullname() -> None:
         ''', modname='test')
 
     def lookup(expr: str) -> Optional[str]:
-        node = ast.parse(expr, mode='eval')
-        assert isinstance(node, ast.Expression)
-        return astutils.node2fullname(node.body, mod)
+        return astroidutils.node2fullname(astroidutils.extract_expr(expr), mod)
 
     # None is returned for non-name nodes.
     assert lookup('123') is None

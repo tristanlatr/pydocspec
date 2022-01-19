@@ -1,8 +1,7 @@
-import ast
 from typing import Optional, TYPE_CHECKING
 from cached_property import cached_property
-
-from .. import astutils
+import astroid.nodes
+from .. import astroidutils
 
 if TYPE_CHECKING:
     import pydocspec
@@ -13,8 +12,8 @@ class DataClassesDataMixin:
         """
         Whether this Data is a L{dataclasses.field} attribute.
         """
-        return isinstance(self.value_ast, ast.Call) and \
-            astutils.node2fullname(self.value_ast.func, self) in (
+        return isinstance(self.value_ast, astroid.nodes.Call) and \
+            astroidutils.node2fullname(self.value_ast.func, self) in (
                 'dataclasses.field',
                 )
 
@@ -23,11 +22,11 @@ class DataClassesClassMixin:
     def dataclass_decoration(self: 'pydocspec.Class') -> Optional['pydocspec.Decoration']: #type:ignore[misc]
         """The L{dataclass} decoration of this class, if any."""
         for deco in self.decorations or ():
-            if astutils.node2fullname(deco.name_ast, self.parent) in ('dataclasses.dataclass',):
+            if astroidutils.node2fullname(deco.name_ast, self.parent) in ('dataclasses.dataclass',):
                 return deco
         return None
 
-MIXIN_CLASSES = {
+pydocspec_mixin = {
     'Data': DataClassesDataMixin,
     'Class': DataClassesClassMixin,
 }

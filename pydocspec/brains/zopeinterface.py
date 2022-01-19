@@ -1,10 +1,10 @@
 import pydocspec
 from pydocspec import visitors
 
-def dump(root:pydocspec.ApiObjectsRoot) -> None:
+def dump(root:pydocspec.TreeRoot) -> None:
     for mod in root.root_modules:
         mod.walk(visitors.PrintVisitor())
 
-# POST_PROCESSES = {
+# pydocspec_processes = {
 #     90: dump
 # }

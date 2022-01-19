@@ -16,7 +16,7 @@ def get_all_brain_modules() -> Iterator[str]:
     """
     Get the full names of all the "brain" modules included in L{pydocspec}.
     """
-    for name in importlib_resources.contents('pydocspec.brains'):
-        if (not name.startswith('_') and importlib_resources.is_resource('pydocspec.brains', name)) and name.endswith('.py'):
-            yield f"pydocspec.brains.{name.rstrip('.py')}"
+    for name in importlib_resources.contents(__name__):
+        if (not name.startswith('_') and importlib_resources.is_resource(__name__, name)) and name.endswith('.py'):
+            yield f"{__name__}.{name.rstrip('.py')}"
 

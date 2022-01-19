@@ -12,7 +12,7 @@
 
 from typing import Any, Iterator, Optional, Sequence, Set, Tuple, Union, overload, List
 import re
-import warnings
+import logging
 
 #TODO: Would be good that DottedName fully implements MutableSequence[str]
 class DottedName:
@@ -30,7 +30,7 @@ class DottedName:
     unreachable or unknown names.
     """
     UNREACHABLE = "??"
-    _IDENTIFIER_RE = re.compile("""(?x)
+    _IDENTIFIER_RE = re.compile(r"""(?x)
         (%s |             # UNREACHABLE marker, or..
          (script-)?       #   Prefix: script (not a module)
          \w+              #   Identifier (yes, identifiers starting with a
@@ -38,7 +38,7 @@ class DottedName:
          '?)              #   Suffix: submodule that is shadowed by a var
         (-\d+)?           # Suffix: unreachable vals with the same name
         $"""
-        % re.escape(UNREACHABLE))
+        % re.escape(UNREACHABLE), re.VERBOSE)
 
     class InvalidDottedName(ValueError):
         """
@@ -88,7 +88,7 @@ class DottedName:
                                     raise DottedName.InvalidDottedName(
                                         'Bad identifier %r' % (piece,))
                                 else:
-                                    warnings.warn("Identifier %s looks suspicious; "
+                                    logging.getLogger('pydocspec').warning("Identifier %s looks suspicious; "
                                                 "using it anyway." % repr(piece))
                             self._ok_identifiers.add(piece)
                         identifiers.append(subpiece)
@@ -131,7 +131,7 @@ class DottedName:
         else:
             return DottedName(*(list(other)+[self])) # type: ignore[list-item]
     
-    @overload # type:ignore[override]
+    @overload
     def __getitem__(self, i: int) -> str:
         ...
     @overload
@@ -271,3 +271,14 @@ class DottedName:
             return self[1:].contextualize(context[1:]) # type: ignore[union-attr]
         else:
             return self
+
+def container(name:str) -> Optional[str]:
+    """See `DottedName.container`."""
+    c = DottedName(name).container()
+    return str(c) if c else None
+def dominates(container:str, name:str) -> bool:
+    """See `DottedName.dominates`."""
+    return DottedName(container).dominates(DottedName(name))
+def contextualize(name:str, context:str) -> str:
+    """See `DottedName.contextualize`."""
+    return str(DottedName(name).contextualize(context))
