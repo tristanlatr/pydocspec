@@ -30,7 +30,7 @@ A process is simply a function that modify/populate attributes of the objects in
 def _ast2apiobject(root: pydocspec.TreeRoot, node: 'astroid.nodes.ClassDef') -> Optional['pydocspec.Class']:
     ...
 @overload
-def _ast2apiobject(root: pydocspec.TreeRoot, node: 'astroid.nodes.Module') -> Optional['pydocspec.AnyModule']:
+def _ast2apiobject(root: pydocspec.TreeRoot, node: 'astroid.nodes.Module') -> Optional['pydocspec.Module']:
     ...
 def _ast2apiobject(root: pydocspec.TreeRoot, node: Union['astroid.nodes.ClassDef', 
                                         'astroid.nodes.Module']) -> Optional[Union['pydocspec.Class', 'pydocspec.Module']]:
