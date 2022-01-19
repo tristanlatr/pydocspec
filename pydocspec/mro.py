@@ -9,13 +9,13 @@ Implements `Class.mro` attribute.
 import abc
 from collections import deque
 from itertools import islice
-from typing import Generic, List, Tuple, Optional, TypeVar, TYPE_CHECKING
+from typing import Generic, List, Tuple, Optional, TypeVar, Deque
 
 T = TypeVar('T')
 
 class GenericMRO(Generic[T], abc.ABC):
 
-    class Dependency(deque):
+    class Dependency(Deque[Optional['T']]):
         @property
         def head(self) -> Optional['T']:
             try:
@@ -39,7 +39,7 @@ class GenericMRO(Generic[T], abc.ABC):
         It's needed  to the merge process preserves the local
         precedence order of direct parent classes.
         """
-        def __init__(self, *lists: Tuple[List['T']]) -> None:
+        def __init__(self, *lists: List[Optional['T']]) -> None:
             self._lists = [GenericMRO.Dependency(i) for i in lists]
 
         def __contains__(self, item: 'T') -> bool:
@@ -84,7 +84,7 @@ class GenericMRO(Generic[T], abc.ABC):
                 if i and i.head == item:
                     i.popleft()
 
-    def _merge(self, *lists: List['T']) -> List[Optional['T']]:
+    def _merge(self, *lists: List[Optional['T']]) -> List[Optional['T']]:
 
         result: List[Optional['T']] = []
         linearizations = GenericMRO.DependencyList(*lists)
@@ -94,8 +94,8 @@ class GenericMRO(Generic[T], abc.ABC):
                 return result
 
             for head in linearizations.heads:
-                if head and (head not in linearizations.tails):  # type: ignore
-                    result.append(head)
+                if head and (head not in linearizations.tails): 
+                    result.append(head) # type: ignore
                     linearizations.remove(head)
 
                     # Once candidate is found, continue iteration
@@ -112,16 +112,16 @@ class GenericMRO(Generic[T], abc.ABC):
         """
         raise NotImplementedError()
 
-    def mro(self, cls: 'T') -> List['T']:
+    def mro(self, cls: 'T') -> List[Optional['T']]:
         """
         Return a list of classes in order corresponding to Python's MRO.
         """
         
-        result = [cls]
+        result: List[Optional['T']] = [cls]
         _bases = self.bases(cls)
         
         if not _bases:
             return result
         else:
-            return result + self._merge(*[self.mro(kls) for kls in _bases], _bases)
+            return result + self._merge(*[self.mro(kls) for kls in _bases], _bases) # type: ignore
 
