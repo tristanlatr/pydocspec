@@ -8,10 +8,6 @@ Processes the half baked model created by the builder to populate buch of fancy 
 from importlib import import_module
 import logging
 from typing import Any, Callable, Dict, Iterable, Iterator, Sequence, cast, List, Optional, Union, Tuple, overload
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal #type:ignore[misc]
 
 import attr
 
@@ -41,6 +37,7 @@ def _ast2apiobject(root: pydocspec.TreeRoot, node: Union['astroid.nodes.ClassDef
         lambda ob: ob.location is not None \
             and ob.location.lineno is not None \
                 and ob.location.lineno==node.lineno, values):
+        assert isinstance(sameloc, (pydocspec.Class, pydocspec.Module))
         return sameloc
     return None
 
@@ -180,7 +177,7 @@ class _class_helpers:
                     cast(pydocspec.Class, ob).ancestors(True)))
 
     @staticmethod
-    def resolved_bases(ob: _model.Class) -> List[Union['pydocspec.ApiObject', 'str']]: 
+    def resolved_bases(ob: _model.Class) -> List[Union['pydocspec.Class', 'str']]: 
         # Uses the name resolving feature, but the name resolving feature also depends on Class.find, wich depends on resolved_bases.
         # So this is a source of potentially subtle bugs in the name resolving when there is a base class that is actually defined 
         # in the base class of another class accessed with the subclass name.
@@ -215,6 +212,7 @@ class _class_helpers:
             objs.append(cast(pydocspec.ApiObject, ob.parent).resolve_name(base) or \
                 cast(pydocspec.ApiObject, ob.parent).expand_name(base))
         return objs
+    
     @staticmethod
     def process_subclasses(ob: _model.Class) -> None:
         # for all resolved_bases classes, add ob to the subclasses list
@@ -343,7 +341,7 @@ class _AstMroVisitor(genericvisitor.Visitor[_model.ApiObject]):
     correctly populate the resolved_bases attribute."""
     def unknown_visit(self, ob: _model.ApiObject) -> None: ...
     def visit_Class(self, ob: _model.Class) -> None:
-        cast(pydocspec.Class, ob).mro = _class_helpers.mro_from_astroid(ob)
+        cast(pydocspec.Class, ob).mro = cast(List[pydocspec.Class], _class_helpers.mro_from_astroid(ob))
 
 class _ProcessorVisitor1(genericvisitor.Visitor[_model.ApiObject]):
 

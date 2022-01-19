@@ -3,12 +3,10 @@ Various bits of reusable code related to `astroid.nodes.NodeNG` node processing.
 """
 
 import functools
-from typing import Any, Callable, Dict, Iterable, Iterator, Optional, List, TYPE_CHECKING, Tuple, Type, Union, cast, overload
+from typing import Any, Dict, Iterable, Optional, List, TYPE_CHECKING, Tuple, Type, Union, cast, overload
 import inspect
 import re
 import attr
-import sys
-from functools import partial
 
 import astroid.nodes
 import astroid.builder
@@ -16,7 +14,10 @@ import astroid.builder
 from pydocspec.dottedname import DottedName
 
 if TYPE_CHECKING:
-    from pydocspec import ApiObject
+    from pydocspec import ApiObject, _model
+    from typing_extensions import Protocol
+    class _NodeConstructorMethod(Protocol): # for mypy
+        def __call__(self, *args: Any, **kwargs:Any) -> astroid.nodes.NodeNG: ...
 
 # TODO: add license information to code copied from python
 
@@ -229,6 +230,7 @@ class _NodeFactory:
 
     Acts like every node arguments can be passed to the constructor method and calls `postinit` automatically with the required value.
     """
+
     _sig_cache: Dict[Type[astroid.nodes.NodeNG], inspect.Signature] = {}
     
     def __create_node(self, node_type: Type[astroid.nodes.NodeNG], *args: Any, **kwargs: Any) -> astroid.nodes.NodeNG:
@@ -249,7 +251,7 @@ class _NodeFactory:
 
         return node
 
-    def __getattr__(self, name: str) -> Callable[[Any], astroid.nodes.NodeNG]:
+    def __getattr__(self, name: str) -> '_NodeConstructorMethod':
         if not name in astroid.nodes.__dict__:
             raise AttributeError("unknown node {!r}".format(name))
         node_type = astroid.nodes.__dict__[name]
@@ -379,7 +381,7 @@ def is_name(value: Optional[astroid.nodes.NodeNG]) -> bool:
     """
     return node2dottedname(value) is not None
 
-def is_type_guarded(node: Optional[astroid.nodes.NodeNG], ctx: 'ApiObject') -> bool:
+def is_type_guarded(node: Optional[astroid.nodes.NodeNG], ctx: '_model.ApiObject') -> bool:
     """Return True if one of the parent(s) of a node is a typing guard."""
     if getattr(ctx, 'is_type_guarded', None) is True:
         return True

@@ -49,7 +49,10 @@ class Collector:
         self.state = TreeWalkingState(
             cast(_model.ApiObject, None), 
             cast(_model.ApiObject, None), [])
-
+    
+    # current = property(fget=lambda self: self.state.current, 
+    #                    fset=lambda self, current: setattr(self.state.current, 'current', current))
+    
     @property
     def current(self) -> _model.ApiObject:
         return self.state.current

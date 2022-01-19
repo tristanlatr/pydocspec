@@ -71,7 +71,7 @@ class _IntrospectModuleBuilder(Collector):
         return py_mod
 
     def _parameter2argument(self, param: inspect.Parameter) -> _model.Argument:
-        kindmap: Mapping[inspect.Parameter, docspec.Argument.Type] = {
+        kindmap = {
             inspect.Parameter.POSITIONAL_ONLY: docspec.Argument.Type.POSITIONAL_ONLY,
             inspect.Parameter.POSITIONAL_OR_KEYWORD: docspec.Argument.Type.POSITIONAL,
             inspect.Parameter.VAR_POSITIONAL: docspec.Argument.Type.POSITIONAL_REMAINDER,

@@ -62,7 +62,7 @@ class FilterVisitor(genericvisitor.Visitor[ApiObject]):
 
 class ReprVisitor(genericvisitor.Visitor[ApiObject]):
   # for test purposes
-  def __init__(self):
+  def __init__(self) -> None:
     self.repr: str = ''
   def unknown_visit(self, ob: ApiObject) -> None:
     depth = len(ob.path)-1
@@ -90,8 +90,6 @@ class ReprVisitor(genericvisitor.Visitor[ApiObject]):
       filename = ob.location.filename or '' if ob.location else '',
       other = other_fields_repr)
     self.repr += '| ' * depth + "- {type} '{name}' at l.{lineno}{other}".format(**tokens) + "\n"
-  def unknown_departure(self, ob: ApiObject) -> None:
-    pass
 
 class PrintVisitor(genericvisitor.Visitor[ApiObject]):
   """

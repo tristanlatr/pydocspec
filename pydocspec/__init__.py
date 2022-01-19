@@ -44,7 +44,6 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Iterable, Iterator, List, Optional, Sequence, TextIO, Tuple, Union, Type, Any, cast
 
 import inspect
-from typing_extensions import TypeAlias
 
 import attr
 import docspec
@@ -464,14 +463,14 @@ class Function(_model.Function, ApiObject):
     Represents a function definition.
     """
 
-    is_property: bool = _model.UnknownFieldValue
-    is_property_setter: bool = _model.UnknownFieldValue
-    is_property_deleter: bool = _model.UnknownFieldValue
-    is_async: bool = _model.UnknownFieldValue
-    is_method: bool = _model.UnknownFieldValue
-    is_staticmethod: bool = _model.UnknownFieldValue
-    is_classmethod: bool = _model.UnknownFieldValue
-    is_abstractmethod: bool = _model.UnknownFieldValue
+    is_property: bool = False
+    is_property_setter: bool = False
+    is_property_deleter: bool = False
+    is_async: bool = False
+    is_method: bool = False
+    is_staticmethod: bool = False
+    is_classmethod: bool = False
+    is_abstractmethod: bool = False
 
     def __post_init__(self) -> None:
         super().__post_init__()

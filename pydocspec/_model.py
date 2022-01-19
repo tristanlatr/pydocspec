@@ -152,7 +152,7 @@ class TreeRoot:
 # must not use dataclasses
 class ApiObject(docspec.ApiObject, CanTriggerWarnings):
 
-    _spec_fields = (
+    _spec_fields: Iterable[str] = (
         # defaults
         "name", "location", "docstring", 
         # added

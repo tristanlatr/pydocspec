@@ -345,6 +345,7 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
         if self.builder.processing_map.get(from_module.full_name) == ProcessingState.PROCESSING:
             # there is a cyclic import, we can't rely on our module visitor to have 
             # collected all the objects in the module, so we use astroid instead.
+            assert from_module._ast is not None
             names = from_module._ast.wildcard_import_names()
             self.current.module.warn("Can't resolve cyclic wildcard imports", lineno_offset=lineno)
         else:

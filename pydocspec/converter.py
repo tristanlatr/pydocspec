@@ -12,10 +12,8 @@ Usage::
 
 """
 
-from typing import Iterable, Iterator, cast, List, Optional, Union, overload
-try:
-    from typing import Literal
-except ImportError:
+from typing import Iterable, Iterator, cast, List, Optional, Union, overload, TYPE_CHECKING
+if TYPE_CHECKING:
     from typing_extensions import Literal
 
 import attr
@@ -26,12 +24,12 @@ from pydocspec import dottedname, genericvisitor, specfactory, processor, basebu
 
 @overload
 def convert_docspec_modules(modules: Iterable[docspec.Module], 
-                            root:Literal[True], 
+                            root:'Literal[True]', 
                             additional_brain_modules:Optional[List[str]]=None) -> pydocspec.TreeRoot: 
     ...
 @overload
 def convert_docspec_modules(modules: Iterable[docspec.Module], 
-                            root:Literal[False]=False,
+                            root:'Literal[False]'=False,
                             additional_brain_modules:Optional[List[str]]=None) -> List[pydocspec.Module]:
     ... 
 def convert_docspec_modules(modules: Iterable[docspec.Module], root:bool=False, additional_brain_modules:Optional[List[str]]=None) -> Union[List[pydocspec.Module], pydocspec.TreeRoot]:

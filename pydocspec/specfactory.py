@@ -2,8 +2,7 @@
 Create customizable docspec classes. 
 """
 import logging
-from typing import Dict, Generic, List, Type, Any, Union, Sequence, TypeVar
-from typing_extensions import Literal
+from typing import Dict, List, Type, Any, Union, Sequence
 from importlib import import_module
 import attr
 
