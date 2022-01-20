@@ -79,7 +79,7 @@ class _IntrospectModuleBuilder(Collector):
             inspect.Parameter.VAR_KEYWORD: docspec.Argument.Type.KEYWORD_REMAINDER,
         }
         return self.root.factory.Argument(name=param.name, 
-            type=kindmap[param.kind], 
+            type=kindmap[param.kind], #type:ignore[index]
             datatype=str(param.annotation), 
             default_value=str(param.default),
             datatype_ast=None,

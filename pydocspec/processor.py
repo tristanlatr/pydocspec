@@ -4,7 +4,7 @@ Processes the half baked model created by the builder to populate buch of fancy 
 
 from importlib import import_module
 import logging
-from typing import Any, Callable, Dict, Iterable, Iterator, Sequence, cast, List, Optional, Union, Tuple, overload
+from typing import Any, Callable, Dict, Iterable, Iterator, Sequence, List, Optional, Union, Tuple, overload
 
 import attr
 
@@ -19,12 +19,6 @@ A process is simply a function that modify/populate attributes of the objects in
 
 # PROCESSING FUNCTION HELPERS
 
-@overload
-def _ast2apiobject(root: pydocspec.TreeRoot, node: 'astroid.nodes.ClassDef') -> Optional['pydocspec.Class']:
-    ...
-@overload
-def _ast2apiobject(root: pydocspec.TreeRoot, node: 'astroid.nodes.Module') -> Optional['pydocspec.Module']:
-    ...
 def _ast2apiobject(root: pydocspec.TreeRoot, node: Union['astroid.nodes.ClassDef', 
                                         'astroid.nodes.Module']) -> Optional[Union['pydocspec.Class', 'pydocspec.Module']]:
     values = root.all_objects.getall(node.qname())
@@ -40,10 +34,9 @@ def _ast2apiobject(root: pydocspec.TreeRoot, node: Union['astroid.nodes.ClassDef
 
 class _ast_helpers:
     @staticmethod
-    def is_using_typing_final(expr: Optional[astroid.nodes.NodeNG], ctx: _model.ApiObject) -> bool:
+    def is_using_typing_final(expr: Optional[astroid.nodes.NodeNG], ctx: pydocspec.ApiObject) -> bool:
         return _ast_helpers.is_using_annotations(expr, 
-                ("typing.Final", "typing_extensions.Final"), 
-                cast(pydocspec.ApiObject, ctx))
+                ("typing.Final", "typing_extensions.Final"), ctx)
     @staticmethod
     def is_using_annotations(expr: Optional[astroid.nodes.NodeNG], annotations:Sequence[str], ctx: pydocspec.ApiObject) -> bool:
         """
@@ -63,9 +56,9 @@ class _ast_helpers:
 
 class _function_helper:
     @staticmethod
-    def is_property(ob: _model.Function) -> bool:
+    def is_property(ob: pydocspec.Function) -> bool:
         for deco in ob.decorations or ():
-            name = astroidutils.node2fullname(deco.name_ast, cast(pydocspec.ApiObject, ob.parent))
+            name = astroidutils.node2fullname(deco.name_ast, ob.parent)
             if name and name.endswith(('property', 'Property')):
                 return True
         return False
@@ -90,27 +83,27 @@ class _function_helper:
     def is_method(ob: _model.Function) -> bool:
         return isinstance(ob.parent, _model.Class)
     @staticmethod
-    def is_classmethod(ob: _model.Function) -> bool:
+    def is_classmethod(ob: pydocspec.Function) -> bool:
         for deco in ob.decorations or ():
-            if astroidutils.node2fullname(deco.name_ast, cast(pydocspec.ApiObject, ob.parent)) == 'classmethod':
+            if astroidutils.node2fullname(deco.name_ast, ob.parent) == 'classmethod':
                 return True
         return False
     @staticmethod
-    def is_staticmethod(ob: _model.Function) -> bool:
+    def is_staticmethod(ob: pydocspec.Function) -> bool:
         for deco in ob.decorations or ():
-            if astroidutils.node2fullname(deco.name_ast, cast(pydocspec.ApiObject, ob.parent)) == 'staticmethod':
+            if astroidutils.node2fullname(deco.name_ast, ob.parent) == 'staticmethod':
                 return True
         return False
     @staticmethod
-    def is_abstractmethod(ob: _model.Function) -> bool:
+    def is_abstractmethod(ob: pydocspec.Function) -> bool:
         for deco in ob.decorations or ():
-            if astroidutils.node2fullname(deco.name_ast, cast(pydocspec.ApiObject, ob.parent)) in ['abc.abstractmethod', 'abc.abstractproperty']:
+            if astroidutils.node2fullname(deco.name_ast, ob.parent) in ['abc.abstractmethod', 'abc.abstractproperty']:
                 return True
         return False
 
-class MRO(mro.GenericMRO[_model.Class]):
-    def bases(self, cls: _model.Class) -> List[_model.Class]:
-        return [b for b in cast(pydocspec.Class, cls).resolved_bases if isinstance(b, _model.Class)]
+class MRO(mro.GenericMRO[pydocspec.Class]):
+    def bases(self, cls: pydocspec.Class) -> List[pydocspec.Class]:
+        return [b for b in cls.resolved_bases if isinstance(b, pydocspec.Class)]
 
 class _class_helpers:
     # List of exceptions class names in the standard library, Python 3.8.10
@@ -136,15 +129,15 @@ class _class_helpers:
         'UnicodeError', 'UnicodeTranslateError', 'UnicodeWarning', 'UserWarning', 
         'ValueError', 'Warning', 'ZeroDivisionError')
     @staticmethod
-    def is_exception(ob: _model.Class) -> bool: 
+    def is_exception(ob: pydocspec.Class) -> bool: 
         # must be set after resolved_bases
-        for base in cast(pydocspec.Class, ob).ancestors(True):
+        for base in ob.ancestors(True):
             if base in _class_helpers._exceptions:
                 return True
         return False
     
     @staticmethod
-    def mro_from_astroid(ob: _model.Class) -> List[_model.Class]:
+    def mro_from_astroid(ob: _model.Class) -> List[pydocspec.Class]:
         # this does not support objects loaded from other places than astroid, 
         # for instance coming from introspection of a c-module.  
         # This is why we need to re-compute the MRO after.
@@ -163,18 +156,18 @@ class _class_helpers:
             return [o for o in (_ast2apiobject(ob.root, node) for node in node_mro) if o] # type:ignore
     
     @staticmethod # must be set after resolved_bases
-    def mro(ob: _model.Class) -> List[_model.Class]:
+    def mro(ob: pydocspec.Class) -> List[pydocspec.Class]:
         # we currently process the MRO twice for objects comming from ast
         try: 
             return MRO().mro(ob)
         except ValueError as e:
             ob.warn(str(e))
             return list(
-                filter(lambda ob: isinstance(ob, _model.Class), 
-                    cast(pydocspec.Class, ob).ancestors(True)))
+                filter(lambda ob: isinstance(ob, pydocspec.Class), 
+                       ob.ancestors(True)))
 
     @staticmethod
-    def resolved_bases(ob: _model.Class) -> List[Union['pydocspec.Class', 'str']]: 
+    def resolved_bases(ob: pydocspec.Class) -> List[Union['pydocspec.Class', 'str']]: 
         # Uses the name resolving feature, but the name resolving feature also depends on Class.find, wich depends on resolved_bases.
         # So this is a source of potentially subtle bugs in the name resolving when there is a base class that is actually defined 
         # in the base class of another class accessed with the subclass name.
@@ -194,7 +187,7 @@ class _class_helpers:
         # SOLUTION: Populate the Class.mro attribute from astroid 
         # OR use this utility method from sphinx-autoapi resolve_qualname(ctx: NodeNG, name:str) -> str
         # https://github.com/readthedocs/sphinx-autoapi/blob/71c6ceebe0b02c34027fcd3d56c8641e9b94c7af/autoapi/mappers/python/astroid_utils.py#L64
-        objs = []
+        objs: List[Union['pydocspec.Class', 'str']] = []
         for base in ob.bases or ():
             # it makes 
             # resolve_qualname() is an alternative for expand_name() that is only based on astroid
@@ -206,20 +199,25 @@ class _class_helpers:
             #     objs.append(resolved_obj)
             # else:
             #     objs.append(resolved)
-            objs.append(cast(pydocspec.ApiObject, ob.parent).resolve_name(base) or \
-                cast(pydocspec.ApiObject, ob.parent).expand_name(base))
+            resolved = ob.parent.resolve_name(base)
+            if isinstance(resolved, pydocspec.Class):
+                objs.append(resolved)
+            elif resolved is not None:
+                objs.append(resolved.full_name)
+            else:
+                objs.append(ob.parent.expand_name(base))
         return objs
     
     @staticmethod
-    def process_subclasses(ob: _model.Class) -> None:
+    def process_subclasses(ob: pydocspec.Class) -> None:
         # for all resolved_bases classes, add ob to the subclasses list
-        for b in cast(pydocspec.Class, ob).resolved_bases:
+        for b in ob.resolved_bases:
             if isinstance(b, pydocspec.Class):
-                b.subclasses.append(cast(pydocspec.Class, ob))
+                b.subclasses.append(ob)
     @staticmethod
-    def constructor_method(ob: _model.Class) -> Optional['_model.Function']:
+    def constructor_method(ob: _model.Class) -> Optional['pydocspec.Function']:
         init_method = ob.get_member('__init__')
-        if isinstance(init_method, _model.Function):
+        if isinstance(init_method, pydocspec.Function):
             return init_method
         else:
             return None
@@ -238,15 +236,15 @@ class _data_helpers:
     def is_alias(ob: _model.Data) -> bool:
         return astroidutils.is_name(ob.value_ast)
     @staticmethod
-    def is_constant(ob: _model.Data) -> bool: # uses the name resolving feature
+    def is_constant(ob: pydocspec.Data) -> bool: # uses the name resolving feature
         return ob.name.isupper() or _ast_helpers.is_using_typing_final(ob.datatype_ast, ob)
     @staticmethod
-    def process_aliases(ob: _model.Data) -> None:
-        if cast(pydocspec.Data, ob).is_alias:
+    def process_aliases(ob: pydocspec.Data) -> None:
+        if ob.is_alias:
             assert ob.value is not None
-            alias_to = cast(pydocspec.ApiObject, ob).resolve_name(ob.value)
+            alias_to = ob.resolve_name(ob.value)
             if alias_to is not None:
-                alias_to.aliases.append(cast(pydocspec.Data, ob))
+                alias_to.aliases.append(ob)
 
 class _module_helpers:
     @staticmethod
@@ -321,98 +319,95 @@ class _module_helpers:
 class _apiobject_helpers:
     
     @staticmethod
-    def doc_sources(ob: _model.ApiObject) -> List[pydocspec.ApiObject]:
+    def doc_sources(ob: pydocspec.ApiObject) -> List[pydocspec.ApiObject]:
         # must be called after mro()
         sources = [ob]
-        if isinstance(ob, _model.Inheritable):
-            if isinstance(ob.parent, _model.Class):
-                for b in cast(pydocspec.Class, ob.parent).mro:
+        if isinstance(ob, pydocspec.Inheritable): # type:ignore[unreachable]
+            if isinstance(ob.parent, pydocspec.Class):
+                for b in ob.parent.mro:
                     base = b.get_member(ob.name)
                     if base:
                         sources.append(base)
-        return cast(List[pydocspec.ApiObject], sources)
+        return sources
 
-class _AstMroVisitor(genericvisitor.Visitor[_model.ApiObject]):
+class _AstMroVisitor(genericvisitor.Visitor[pydocspec.ApiObject]):
     """
     Set Class.mro attribute based on astroid to be able to
     correctly populate the resolved_bases attribute."""
-    def unknown_visit(self, ob: _model.ApiObject) -> None: ...
-    def visit_Class(self, ob: _model.Class) -> None:
-        cast(pydocspec.Class, ob).mro = cast(List[pydocspec.Class], _class_helpers.mro_from_astroid(ob))
+    def unknown_visit(self, ob: pydocspec.ApiObject) -> None: ...
+    def visit_Class(self, ob: pydocspec.Class) -> None:
+        ob.mro = _class_helpers.mro_from_astroid(ob)
 
-class _ProcessorVisitor1(genericvisitor.Visitor[_model.ApiObject]):
+class _ProcessorVisitor1(genericvisitor.Visitor[pydocspec.ApiObject]):
 
     _default_location = _model.Location(filename='<unknown>', lineno=-1)
 
-    def unknown_departure(self, obj: _model.ApiObject) -> None:
+    def unknown_departure(self, obj: pydocspec.ApiObject) -> None:
         ...
     
-    def unknown_visit(self, ob: _model.ApiObject) -> None:
+    def unknown_visit(self, ob: pydocspec.ApiObject) -> None:
         # Make the location attribute non-optional, reduces annoyance.
         # TODO: Be smarter and use parents location when possible. Fill the filename attribute on object thatt have only the lineno.
         if ob.location is None:
             ob.location = self._default_location #type:ignore[unreachable]
 
-    def visit_Function(self, ob: _model.Function) -> None:
+    def visit_Function(self, ob: pydocspec.Function) -> None:
         self.unknown_visit(ob)
-        cast(pydocspec.Function, ob).is_property = _function_helper.is_property(ob)
-        cast(pydocspec.Function, ob).is_property_setter = _function_helper.is_property_setter(ob)
-        cast(pydocspec.Function, ob).is_property_deleter = _function_helper.is_property_deleter(ob)
-        cast(pydocspec.Function, ob).is_async = _function_helper.is_async(ob)
-        cast(pydocspec.Function, ob).is_method = _function_helper.is_method(ob)
-        cast(pydocspec.Function, ob).is_classmethod = _function_helper.is_classmethod(ob)
-        cast(pydocspec.Function, ob).is_staticmethod = _function_helper.is_staticmethod(ob)
-        cast(pydocspec.Function, ob).is_abstractmethod = _function_helper.is_abstractmethod(ob)
+        ob.is_property = _function_helper.is_property(ob)
+        ob.is_property_setter = _function_helper.is_property_setter(ob)
+        ob.is_property_deleter = _function_helper.is_property_deleter(ob)
+        ob.is_async = _function_helper.is_async(ob)
+        ob.is_method = _function_helper.is_method(ob)
+        ob.is_classmethod = _function_helper.is_classmethod(ob)
+        ob.is_staticmethod = _function_helper.is_staticmethod(ob)
+        ob.is_abstractmethod = _function_helper.is_abstractmethod(ob)
     
-    def visit_Class(self, ob: _model.Class) -> None:
+    def visit_Class(self, ob: pydocspec.Class) -> None:
         self.unknown_visit(ob)
         # .mro attribute is set in _AstMroVisitor()
-        cast(pydocspec.Class, ob).resolved_bases = _class_helpers.resolved_bases(ob)
-        cast(pydocspec.Class, ob).constructor_method = cast(pydocspec.Function, _class_helpers.constructor_method(ob))
+        ob.resolved_bases = _class_helpers.resolved_bases(ob)
+        ob.constructor_method = _class_helpers.constructor_method(ob)
     
-    def visit_Data(self, ob: _model.Data) -> None:
+    def visit_Data(self, ob: pydocspec.Data) -> None:
         self.unknown_visit(ob)
-        cast(pydocspec.Data, ob).is_instance_variable = _data_helpers.is_instance_variable(ob)
-        cast(pydocspec.Data, ob).is_class_variable = _data_helpers.is_class_variable(ob)
-        cast(pydocspec.Data, ob).is_module_variable = _data_helpers.is_module_variable(ob)
-        cast(pydocspec.Data, ob).is_alias = _data_helpers.is_alias(ob)
-        cast(pydocspec.Data, ob).is_constant = _data_helpers.is_constant(ob)
+        ob.is_instance_variable = _data_helpers.is_instance_variable(ob)
+        ob.is_class_variable = _data_helpers.is_class_variable(ob)
+        ob.is_module_variable = _data_helpers.is_module_variable(ob)
+        ob.is_alias = _data_helpers.is_alias(ob)
+        ob.is_constant = _data_helpers.is_constant(ob)
     
-    def visit_Indirection(self, ob: _model.Indirection) -> None:
+    def visit_Indirection(self, ob: pydocspec.Indirection) -> None:
         self.unknown_visit(ob)
     
-    def visit_Module(self, ob: _model.Module) -> None:
+    def visit_Module(self, ob: pydocspec.Module) -> None:
         self.unknown_visit(ob)
         if not ob.dunder_all:
-            cast(pydocspec.Module, ob).dunder_all = _module_helpers.dunder_all(ob)
-        cast(pydocspec.Module, ob).docformat = _module_helpers.docformat(ob)
-        cast(pydocspec.Module, ob).is_package = _module_helpers.is_package(ob)
+            ob.dunder_all = _module_helpers.dunder_all(ob)
+        ob.docformat = _module_helpers.docformat(ob)
+        ob.is_package = _module_helpers.is_package(ob)
 
-class _ProcessorVisitor2(genericvisitor.Visitor[_model.ApiObject]):
+class _ProcessorVisitor2(genericvisitor.Visitor[pydocspec.ApiObject]):
     # post-processor
     
-    def unknown_departure(self, ob: _model.ApiObject) -> None:
-        ...
-    
-    def unknown_visit(self, ob: _model.ApiObject) -> None:
-        cast(pydocspec.ApiObject, ob).doc_sources = _apiobject_helpers.doc_sources(ob)
+    def unknown_visit(self, ob: pydocspec.ApiObject) -> None:
+        ob.doc_sources = _apiobject_helpers.doc_sources(ob)
 
-    def visit_Class(self, ob: _model.Class) -> None:
+    def visit_Class(self, ob: pydocspec.Class) -> None:
         self.unknown_visit(ob)
         
         # we don't need to re compute the MRO if the tree has beed created from astroid and there is
         # no extensions.
-        cast(pydocspec.Class, ob).mro = _class_helpers.mro(ob)
+        ob.mro = _class_helpers.mro(ob)
         
-        cast(pydocspec.Class, ob).is_exception = _class_helpers.is_exception(ob)
+        ob.is_exception = _class_helpers.is_exception(ob)
         _class_helpers.process_subclasses(ob) # Setup the `pydocspec.Class.subclasses` attribute.
     
-    def visit_Function(self, ob: _model.Function) -> None:
+    def visit_Function(self, ob: pydocspec.Function) -> None:
         self.unknown_visit(ob)
 
         # Ensures that property setter and deleters do not shadow the getter.
-        if cast(pydocspec.Function, ob).is_property_deleter or \
-           cast(pydocspec.Function, ob).is_property_setter:
+        if ob.is_property_deleter or \
+           ob.is_property_setter:
             for dup in ob.root.all_objects.getdup(ob.full_name):
                 if isinstance(dup, pydocspec.Function) and dup.is_property:
                     ob.root.all_objects[ob.full_name] = dup
@@ -421,7 +416,7 @@ class _ProcessorVisitor2(genericvisitor.Visitor[_model.ApiObject]):
 
         # TODO: names defined in the __init__.py of a package should shadow the submodules with the same name in all_objects.
 
-    def visit_Data(self, ob: _model.Data) -> None:
+    def visit_Data(self, ob: pydocspec.Data) -> None:
         self.unknown_visit(ob)
         # Populate a list of aliases for each objects.
         _data_helpers.process_aliases(ob)

@@ -348,14 +348,6 @@ def uses_auto_attribs(call: astroid.nodes.Call, ctx: 'ApiObject') -> bool:
 
     return value
 
-@overload
-def node2dottedname(node: None) -> None:...
-@overload
-def node2dottedname(node: astroid.nodes.NodeNG) -> Optional[List[str]]:...
-@overload
-def node2dottedname(node: astroid.nodes.Attribute) -> List[str]: ...
-@overload
-def node2dottedname(node: astroid.nodes.Name) -> List[str]: ...
 def node2dottedname(node: Optional[astroid.nodes.NodeNG]) -> Optional[List[str]]:
     """
     Resove expression composed by `astroid.nodes.Attribute` and `astroid.nodes.Name` nodes to a list of names. 
@@ -395,9 +387,9 @@ def is_type_guarded(node: Optional[astroid.nodes.NodeNG], ctx: '_model.ApiObject
     if node is None or isinstance(node, astroid.nodes.Module):
         return False
     maybe_ifstmt = node.parent
-    type_guarded = isinstance(maybe_ifstmt, astroid.nodes.If) and isinstance(
+    type_guarded = True if isinstance(maybe_ifstmt, astroid.nodes.If) and isinstance(
             maybe_ifstmt.test, (astroid.nodes.Name, astroid.nodes.Attribute)
-        ) and node2dottedname(maybe_ifstmt.test)[-1] == "TYPE_CHECKING"
+        ) and node2dottedname(maybe_ifstmt.test)or(None,)[-1] == "TYPE_CHECKING" else False
     return type_guarded or is_type_guarded(maybe_ifstmt.parent, ctx)
 
 # not used right now
@@ -406,7 +398,7 @@ def is_type_guard(node: astroid.nodes.If) -> bool:
     ifstmt = node
     return isinstance(ifstmt, astroid.nodes.If) and isinstance(
             ifstmt.test, (astroid.nodes.Name, astroid.nodes.Attribute)
-        ) and node2dottedname(ifstmt.test)[-1] == "TYPE_CHECKING"
+        ) and node2dottedname(ifstmt.test)[-1]or(None,) == "TYPE_CHECKING"
 
 def bind_args(sig: inspect.Signature, call: astroid.nodes.Call) -> inspect.BoundArguments:
     """

@@ -205,6 +205,7 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
             if self.parent is not None:
                 self.parent.members.remove(self)
             else:
+                assert isinstance(self, Module)
                 self.root.root_modules.remove(self)
         except ValueError:
             pass
@@ -237,8 +238,8 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
         """
         if not obs: return None
         assert self.parent is not None, "Cannot add siblings on a root module"
-        obs = obs if isinstance(obs, list) else (obs,)
-        for ob in obs:
+        obslist = obs if isinstance(obs, list) else (obs,)
+        for ob in obslist:
             obj_dup_name = self.parent.get_member(ob.name)
             if obj_dup_name is None or allow_dup:
                 self.root.add_object(ob, self.parent)
@@ -249,7 +250,7 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
         else: 
             return ()
 
-    def walk(self, visitor: genericvisitor.Visitor['ApiObject']) -> None:
+    def walk(self, visitor: genericvisitor.Visitor['pydocspec.ApiObject']) -> None:
         """
         Traverse a tree of objects, calling the `genericvisitor.Visitor.visit` 
         method of `visitor` when entering each node.
@@ -258,7 +259,7 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
         """
         genericvisitor.walk(self, visitor, ApiObject._members)
         
-    def walkabout(self, visitor: genericvisitor.Visitor['ApiObject']) -> None:
+    def walkabout(self, visitor: genericvisitor.Visitor['pydocspec.ApiObject']) -> None:
         """
         Perform a tree traversal similarly to `walk()`, except also call the `genericvisitor.Visitor.depart` 
         method before exiting each node.
@@ -487,7 +488,7 @@ HasMembers = (Module, Class)
 Alias to use with `isinstance`()
 """
 
-Inheritable = (Indirection, Data, Function) 
+Inheritable = (Data, Function) 
 """
 Alias to use with `isinstance`()
 """

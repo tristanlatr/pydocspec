@@ -218,7 +218,7 @@ class ApiObject(_model.ApiObject):
             return self.parent._local_to_full_name(name, follow_aliases, _indirections)
         
         # Follows indirections and aliases
-        member = self.get_member(name)
+        member = self.get_member(name) # type:ignore[unreachable]
         if member:
             if follow_aliases and isinstance(member, Data) and astroidutils.is_name(member.value_ast):
                 return self._resolve_indirection(member._alias_indirection, _indirections) or member.full_name
