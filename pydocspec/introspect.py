@@ -3,7 +3,7 @@ Build an `ApiObject` tree from live objects.
 
 Used to inspect c-extentions only.
 """
-from typing import Mapping, Tuple, Type, Any, Optional
+from typing import Mapping, Tuple, Type, Any, Optional, cast
 import types
 import importlib.util
 from pathlib import Path
@@ -37,6 +37,16 @@ def introspect_module(root: _model.TreeRoot, path: Path,
     _builder = _IntrospectModuleBuilder(root, path, module_name, parent=parent)
     return _builder.introspect_py_module()
 
+def _import_module(path: Path, module_full_name:str) -> types.ModuleType:
+    spec = importlib.util.spec_from_file_location(module_full_name, path)
+    if spec is None: 
+        raise RuntimeError(f"Cannot find spec for module {module_full_name} at {path}")
+    py_mod = importlib.util.module_from_spec(spec)
+    loader = spec.loader
+    assert isinstance(loader, importlib.abc.Loader), loader
+    loader.exec_module(py_mod)
+    return py_mod
+
 class _IntrospectModuleBuilder(Collector):
     """
     One instance of this class should be used per module, it does not recurse in submodules. 
@@ -45,30 +55,20 @@ class _IntrospectModuleBuilder(Collector):
     def __init__(self, root: _model.TreeRoot, path: Path, module_name:str, parent: Optional[_model.Module]) -> None:
         super().__init__(root, module=None)
         # set required current attribute for Collector.add_object() 
-        # method to work as expected.
-        self.current = parent
+        # method to work as expected. 
+        self.current = cast(_model.ApiObject, parent) # it's ok to initiate the stack with a None value.
 
         self.path = path
         self.module_name = module_name
         self.parent = parent
 
-        self.py_mod = self._import_module()
-    
-    def _import_module(self) -> types.ModuleType:
-
         if self.parent is None:
             module_full_name = self.module_name
         else:
             module_full_name = f'{self.parent.full_name}.{self.module_name}'
-
-        spec = importlib.util.spec_from_file_location(module_full_name, self.path)
-        if spec is None: 
-            raise RuntimeError(f"Cannot find spec for module {module_full_name} at {self.path}")
-        py_mod = importlib.util.module_from_spec(spec)
-        loader = spec.loader
-        assert isinstance(loader, importlib.abc.Loader), loader
-        loader.exec_module(py_mod)
-        return py_mod
+        
+        self.py_mod = _import_module(self.path, module_full_name)
+    
 
     def _parameter2argument(self, param: inspect.Parameter) -> _model.Argument:
         kindmap = {

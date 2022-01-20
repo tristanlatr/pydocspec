@@ -3,7 +3,7 @@ Various bits of reusable code related to `astroid.nodes.NodeNG` node processing.
 """
 
 import functools
-from typing import Any, Dict, Iterable, Optional, List, TYPE_CHECKING, Tuple, Type, Union, cast, overload
+from typing import Any, Dict, Iterable, Iterator, Optional, List, TYPE_CHECKING, Tuple, Type, Union, cast, overload
 import inspect
 import re
 import attr
@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 
 # TODO: add license information to code copied from python
 
-def iter_fields(node: astroid.nodes.NodeNG) -> Tuple[str, Union[Iterable[astroid.nodes.NodeNG], astroid.nodes.NodeNG]]:
+def iter_fields(node: astroid.nodes.NodeNG) -> Iterator[Tuple[str, Any]]:
     """Given a node, get the fields names and their values. We need the fields names in NodeTransformer."""
     for field in node._astroid_fields:
         try:
@@ -95,7 +95,7 @@ class NodeTransformer(NodeVisitor):
     .. note:: Barely adapted from Python standard's library `ast` module.
     """
 
-    def generic_visit(self, node: astroid.nodes.NodeNG):
+    def generic_visit(self, node: astroid.nodes.NodeNG) -> astroid.nodes.NodeNG:
         for field, old_value in iter_fields(node):
             if isinstance(old_value, list):
                 new_values = []
@@ -131,17 +131,17 @@ def literal_eval(node_or_string: Union[str, astroid.nodes.NodeNG]) -> Any:
         node_or_string = _node[0]
     if isinstance(node_or_string, astroid.nodes.Expr):
         node_or_string = node_or_string.value
-    def _raise_malformed_node(node):
+    def _raise_malformed_node(node: astroid.nodes.NodeNG) -> None:
         msg = "malformed node or string"
         lno = node.lineno
         if lno:
             msg += f' on line {lno}'
         raise ValueError(msg + f': {node!r}')
-    def _convert_num(node):
+    def _convert_num(node: astroid.nodes.NodeNG) -> Any:
         if not isinstance(node, astroid.nodes.Const) or type(node.value) not in (int, float, complex):
             _raise_malformed_node(node)
         return node.value
-    def _convert_signed_num(node):
+    def _convert_signed_num(node: astroid.nodes.NodeNG) -> Any:
         if isinstance(node, astroid.nodes.UnaryOp) and node.op in ("+", "-"):
             operand = _convert_num(node.operand)
             if node.op == "+":
@@ -149,7 +149,7 @@ def literal_eval(node_or_string: Union[str, astroid.nodes.NodeNG]) -> Any:
             else:
                 return - operand
         return _convert_num(node)
-    def _convert(node):
+    def _convert(node:astroid.nodes.NodeNG) -> Any:
         if isinstance(node, astroid.nodes.Const):
             return node.value
         elif isinstance(node, astroid.nodes.Tuple):
@@ -174,7 +174,7 @@ def literal_eval(node_or_string: Union[str, astroid.nodes.NodeNG]) -> Any:
         return _convert_signed_num(node)
     return _convert(node_or_string)
 
-def copy_location(new_node:astroid.nodes.NodeNG, old_node:astroid.nodes.NodeNG):
+def copy_location(new_node:astroid.nodes.NodeNG, old_node:astroid.nodes.NodeNG) -> astroid.nodes.NodeNG:
     """
     Copy source location (`lineno`, `col_offset`, `end_lineno`, and `end_col_offset`
     attributes) from *old_node* to *new_node* if possible, and return *new_node*.
@@ -185,7 +185,7 @@ def copy_location(new_node:astroid.nodes.NodeNG, old_node:astroid.nodes.NodeNG):
             setattr(new_node, attr, value)
     return new_node
 
-def fix_missing_locations(node:astroid.nodes.NodeNG):
+def fix_missing_locations(node:astroid.nodes.NodeNG) -> astroid.nodes.NodeNG:
     """
     When you compile a node tree with compile(), the compiler expects lineno and
     col_offset attributes for every node that supports them.  This is rather
@@ -193,7 +193,7 @@ def fix_missing_locations(node:astroid.nodes.NodeNG):
     recursively where not already set, by setting them to the values of the
     parent node.  It works recursively starting at *node*.
     """
-    def _fix(node:astroid.nodes.NodeNG, lineno:int, col_offset:int, end_lineno:int, end_col_offset:int):
+    def _fix(node:astroid.nodes.NodeNG, lineno:int, col_offset:int, end_lineno:int, end_col_offset:int) -> None:
         
         # a particularity in astroid is that Module instances are initiated with a linenumber of 0,
         # so we don't store linenumbers if equal to zero, we use default value which is 1.
@@ -275,7 +275,8 @@ class ValueFormatter:
     def __init__(self, value: astroid.nodes.NodeNG):
         self.value = value
     def __repr__(self) -> str:
-        return self.value.as_string()
+        # Since astroid do not expose the typing information yet.
+        return cast(str, self.value.as_string())
 
 @attr.s(auto_attribs=True)
 class SignatureBuilder:
@@ -346,6 +347,11 @@ def uses_auto_attribs(call: astroid.nodes.Call, ctx: 'ApiObject') -> bool:
         return False
 
     return value
+
+@overload
+def node2dottedname(node: None) -> None:...
+@overload
+def node2dottedname(node: astroid.nodes.NodeNG) -> Optional[List[str]]:...
 @overload
 def node2dottedname(node: astroid.nodes.Attribute) -> List[str]: ...
 @overload
@@ -354,6 +360,7 @@ def node2dottedname(node: Optional[astroid.nodes.NodeNG]) -> Optional[List[str]]
     """
     Resove expression composed by `astroid.nodes.Attribute` and `astroid.nodes.Name` nodes to a list of names. 
     """
+    #TODO: should this support the astroid node AssignName, too?
     parts = []
     while isinstance(node, astroid.nodes.Attribute):
         parts.append(node.attrname)

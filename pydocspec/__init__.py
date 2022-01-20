@@ -350,19 +350,19 @@ class Class(_model.Class, ApiObject):
     is_exception: bool = False
     """Whether this class extends one of the standard library exceptions."""
 
-    resolved_bases: List[Union['Class', 'str']] = dataclasses.field(default_factory=_model.UnknownList)
+    resolved_bases: List[Union['Class', 'str']] = dataclasses.field(default_factory=list)
     """
     For each bases, try to resolve the name to an `ApiObject` or fallback to the expanded name.
     
     :see: `resolve_name` and `expand_name`
     """
 
-    mro: List['Class'] = dataclasses.field(default_factory=_model.UnknownList)
+    mro: List['Class'] = dataclasses.field(default_factory=list)
     """
     The method resoltion order of this class.
     """
 
-    subclasses: List['Class'] = dataclasses.field(default_factory=_model.UnknownList)
+    subclasses: List['Class'] = dataclasses.field(default_factory=list)
     """
     The direct subclasses of this class. 
     """
