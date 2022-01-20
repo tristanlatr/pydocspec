@@ -54,11 +54,6 @@ __all__ = [
   'Docstring',
 ]
 
-class UnknownFieldValue:
-    ...
-class UnknownList(UnknownFieldValue, list):
-    ...
-
 # BASE MODEL CLASSES
 
 Location = docspec.Location
