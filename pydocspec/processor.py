@@ -1,8 +1,5 @@
 """
 Processes the half baked model created by the builder to populate buch of fancy attributes.
-
-:note: The code in the module should use as little as possible the features offered by `pydocspec`.* classes. 
-    This is why the code is annotated with `_model`.* classes and `cast` is used when necessary.
 """
 
 from importlib import import_module
@@ -160,10 +157,10 @@ class _class_helpers:
             return []
         try:
             node_mro = ob._ast.mro()
-            return [o for o in (_ast2apiobject(ob.root, node) for node in node_mro) if o]
+            return [o for o in (_ast2apiobject(ob.root, node) for node in node_mro) if o] # type:ignore
         except Exception:
             node_mro = ob._ast.ancestors()
-            return [o for o in (_ast2apiobject(ob.root, node) for node in node_mro) if o]
+            return [o for o in (_ast2apiobject(ob.root, node) for node in node_mro) if o] # type:ignore
     
     @staticmethod # must be set after resolved_bases
     def mro(ob: _model.Class) -> List[_model.Class]:

@@ -112,7 +112,7 @@ class _IntrospectModuleBuilder(Collector):
                 rtype = None if sig.return_annotation is inspect.Signature.empty else str(sig.return_annotation)
                 
                 f = self.root.factory.Function(k, None, 
-                        self.root.factory.Docstring(v.__doc__, None), 
+                        cast(docspec.Docstring, self.root.factory.Docstring(v.__doc__, None)) if v.__doc__ is not None else None, 
                         modifiers=None, 
                         args=args, 
                         return_type = rtype,
@@ -124,7 +124,8 @@ class _IntrospectModuleBuilder(Collector):
             elif isinstance(v, type):
                 c = self.root.factory.Class(name=k, 
                         location=None, 
-                        docstring=self.root.factory.Docstring(v.__doc__, None),
+                        # use cast while https://github.com/NiklasRosenstein/docspec/pull/50 is not merged.
+                        docstring=cast(docspec.Docstring, self.root.factory.Docstring(v.__doc__, None)) if v.__doc__ is not None else None,
                         metaclass=None, bases=[], decorations=[],
                         members=[],
                         )
@@ -139,7 +140,7 @@ class _IntrospectModuleBuilder(Collector):
         module = self.root.factory.Module(
             name=self.module_name, 
             location=self.root.factory.Location(str(self.path), 0),
-            docstring=self.root.factory.Docstring(self.py_mod.__doc__, None), 
+            docstring=cast(docspec.Docstring, self.root.factory.Docstring(self.py_mod.__doc__, None)) if self.py_mod.__doc__ is not None else None, 
             is_package=is_package,
             members=[])
         

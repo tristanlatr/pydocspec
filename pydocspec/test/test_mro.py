@@ -74,7 +74,7 @@ def test_mro(rootcls: Type[TreeRoot]) -> None:
     )
 
     assert_mro_equals(
-        mod.get_member("OuterD").get_member("Inner"), 
+        mod["OuterD.Inner"],
         ['mro.OuterD.Inner', 
         'mro.OuterC.Inner',
         'mro.OuterB.Inner', 
@@ -82,8 +82,8 @@ def test_mro(rootcls: Type[TreeRoot]) -> None:
     )
 
     with pytest.raises(ValueError, match="Cannot compute c3 linearization"):
-        processor.MRO().mro(mod.get_member("F1"))
+        processor.MRO().mro(mod["F1"])
     with pytest.raises(ValueError, match="Cannot compute c3 linearization"):
-        processor.MRO().mro(mod.get_member("G1"))
+        processor.MRO().mro(mod["G1"])
     with pytest.raises(ValueError, match="Cannot compute c3 linearization"):
-        processor.MRO().mro(mod.get_member("Duplicates"))
+        processor.MRO().mro(mod["Duplicates"])

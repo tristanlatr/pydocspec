@@ -203,8 +203,8 @@ def test_relative_import_in_package(rootcls: Type[pydocspec.TreeRoot]) -> None:
     assert pkg.expand_name('f') == top.expand_name('f')
     assert pkg.expand_name('g') == mod.expand_name('g')
 
-    assert pkg.resolve_name('f') == top.get_member('f')
-    assert pkg.resolve_name('g') == mod.get_member('g')
+    assert pkg.resolve_name('f') == top['f']
+    assert pkg.resolve_name('g') == mod['g']
 
 @rootcls_param
 def test_relative_import_in_package_star_import(rootcls: Type[pydocspec.TreeRoot]) -> None:

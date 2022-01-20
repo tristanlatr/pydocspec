@@ -12,7 +12,7 @@ Traverse module/packages directories, build and transform `astroid` AST into `Ap
 import abc
 import re
 import dataclasses
-from typing import Any, Callable, ClassVar, Iterable, Iterator, List, Dict, Optional, Sequence, Set, Tuple, Union, cast
+from typing import TYPE_CHECKING, Any, Callable, ClassVar, Iterable, Iterator, List, Dict, Optional, Sequence, Set, Tuple, Union, cast
 from pathlib import Path
 from enum import Enum
 from functools import partial
@@ -37,6 +37,8 @@ from pydocspec import (_model, astroidutils, introspect, processor,
                        basebuilder, genericvisitor, 
                        dottedname, visitors)
 
+if TYPE_CHECKING:
+    import docspec
 
 _string_lineno_is_end = sys.version_info < (3,8) \
                     and platform.python_implementation() != 'PyPy'
@@ -122,8 +124,8 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
         docstring = inspect.cleandoc(doc)
         docstring_lineno = lineno
         
-        ob.docstring = self.root.factory.Docstring(docstring, 
-            self.root.factory.Location(None, lineno=docstring_lineno))
+        ob.docstring = cast('docspec.Docstring', self.root.factory.Docstring(docstring, 
+            self.root.factory.Location(None, lineno=docstring_lineno)))
     
     # Handles type guard, not working for some reason...
     # def visitIf(self, node: astroid.nodes.If) -> None:

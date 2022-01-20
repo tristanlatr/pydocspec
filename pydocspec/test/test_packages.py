@@ -176,7 +176,7 @@ def test_cyclic_imports_all(caplog) -> None:
     assert mod_b.expand_name('A') == 'cyclic_imports_all.a.A'
 
     # assert that Class 'B' exists
-    assert isinstance(mod_b.get_member("B"), pydocspec.Class)
+    assert isinstance(mod_b["B"], pydocspec.Class)
 
 # Works only with pydocspec.astbuilder
 def test_imports_all_many_level(caplog) -> None:

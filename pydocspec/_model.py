@@ -12,7 +12,7 @@ processing can be done on these objects afterwards.
     Namely: `ApiObject.full_name`, `ApiObject.dottedname`, `ApiObject.module`, `ApiObject.scope`.
 """
 
-from typing import Any, Callable, Iterator, List, Optional, Union, Iterable, ClassVar, cast, TYPE_CHECKING, overload
+from typing import Any, Callable, Iterator, List, Optional, Tuple, Union, Iterable, ClassVar, cast, TYPE_CHECKING, overload
 import astroid.nodes
 import dataclasses
 import attr
@@ -29,6 +29,7 @@ from .dottedname import DottedName
 
 if TYPE_CHECKING:
     from . import specfactory
+    import pydocspec
     import astroid.nodes
 
 # Remove when https://github.com/NiklasRosenstein/docspec/pull/50 is merged.
@@ -69,6 +70,36 @@ class CanTriggerWarnings:
             lineno = self.location.lineno + lineno_offset
             filename = self.location.filename or filename
         logging.getLogger('pydocspec').warning(f'{filename}:{lineno}: {msg}')
+
+# Adapted from https://github.com/pawamoy/griffe
+# Copyright (c) 2021, Timothée Mazzucotelli
+class GetMembersMixin:
+    """
+    This mixin adds a `__getitem__` method to a class or module.
+    It makes it easier to access members of an object.
+
+    Returns `self` on an empty key.
+    Raises `KeyError` if name cannot be found. 
+
+    :note: Relies on  `ApiObject.get_member`.
+    """
+
+    def __getitem__(self: 'pydocspec.ApiObject', 
+                    key: Union[str, Iterable[str]]) -> 'pydocspec.ApiObject':
+        if isinstance(key, str):
+            if not key:
+                return self
+            parts = key.split(".", 1)
+        else:
+            parts = list(key)
+        if not parts:
+            return self
+        if len(parts) == 1:
+            ob = self.get_member(parts[0])
+            if not ob:
+                raise KeyError(f"Object named {parts[0]!r} not found in {self.full_name!r}")
+            return ob
+        return self[parts[0]][parts[1:]]
 
 @attr.s
 class TreeRoot:
@@ -145,9 +176,9 @@ class TreeRoot:
             self.add_object(child, ob)
 
 # must not use dataclasses
-class ApiObject(docspec.ApiObject, CanTriggerWarnings):
+class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
 
-    _spec_fields: Iterable[str] = (
+    _spec_fields: Tuple[str, ...] = (
         # defaults
         "name", "location", "docstring", 
         # added
@@ -353,7 +384,8 @@ class Class(docspec.Class, ApiObject):
         # help mypy
         self.decorations: Optional[List['Decoration']] # type:ignore[assignment]
         self.parent: Union['Class', 'Module']
-        self.members: List['ApiObject'] # the real type is Union['Data', 'Function', 'Class', 'Indirection']
+        self.members: List['ApiObject'] #type:ignore 
+        # the real type is Union['Data', 'Function', 'Class', 'Indirection']
 
 @dataclasses.dataclass
 class Function(docspec.Function, ApiObject):

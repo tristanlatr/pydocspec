@@ -52,16 +52,16 @@ class Collector:
     
     # current = property(fget=lambda self: self.state.current, 
     #                    fset=lambda self, current: setattr(self.state.current, 'current', current))
-    
+
     @property
     def current(self) -> _model.ApiObject:
         return self.state.current
-    @property
-    def last(self) -> _model.ApiObject:
-        return self.state.last
     @current.setter
     def current(self, ob: _model.ApiObject) -> None:
         self.state.current = ob
+    @property
+    def last(self) -> _model.ApiObject:
+        return self.state.last
     @last.setter
     def last(self, ob: _model.ApiObject) -> None:
         self.state.last = ob
