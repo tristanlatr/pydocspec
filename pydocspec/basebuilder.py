@@ -78,7 +78,7 @@ class Collector:
         ctx = self.current
         if ctx is not None: 
             assert isinstance(ctx, _model.HasMembers), (f"Cannot add new object ({ob!r}) inside {ctx.__class__.__name__}. "
-                                                           f"{ctx.full_name} is not namespace.")
+                                                           f"{ctx.full_name} must be a class or a module.")
         self.stack.append(ctx)
         self.current = ob
 
@@ -94,6 +94,10 @@ class Collector:
         """
         See `TreeRoot.add_object`.
         """
+        # Do assertion to make sure we don't add an object that requires a parent as root module
+        if not isinstance(ob, (_model.Module,)):
+            assert self.current is not None
+        
         self.root.add_object(ob, self.current)
         
         if self.current is None:
@@ -107,3 +111,5 @@ class Collector:
         
         if push:
             self.push(ob)
+        else:
+            self.last = ob # save new object in .last attribute

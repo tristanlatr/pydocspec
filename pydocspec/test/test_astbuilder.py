@@ -3,7 +3,7 @@ import ast
 import textwrap
 import pytest
 
-from pydocspec import astbuilder, processor, visitors
+from pydocspec import astbuilder, processor, specfactory, visitors
 import pydocspec
 
 import astroid.builder
@@ -23,8 +23,10 @@ def mod_from_ast(
         ) -> pydocspec.Module:
 
     if root is None:
-        assert rootcls is not None, "rootcls must be defined if root is not passed."
-        _root = rootcls()
+        if rootcls is None:
+            _root = specfactory.Factory.default().TreeRoot()
+        else:
+            _root = rootcls()
     else:
         _root = root
 
@@ -147,7 +149,8 @@ def test_function_name_dulpicate_module(rootcls: Type[pydocspec.TreeRoot]) -> No
     assert all_mod is not None
     assert len(all_mod) == 2
 
-    assert isinstance(top.get_member('mod'), pydocspec.Class) # we get the module currently.
+     #FIXME: we get the module currently.
+    assert isinstance(top.get_member('mod'), pydocspec.Class)
     assert list(top.get_members('mod')) == [all_mod[0], all_mod[1]]
     assert isinstance(mod.get_member('mod'), pydocspec.Indirection)
     assert mod.resolve_name('mod') is top.resolve_name('mod')
@@ -306,6 +309,20 @@ def test_aliasing(rootcls: Type[pydocspec.TreeRoot]) -> None:
     #   processed can return the not-found result for a name that does exist. 
     #   This is why we do not rely on expand_name() in the implementation of indirections creation.
 
+@rootcls_param
+def test_aliasing_recursion(rootcls: Type[pydocspec.TreeRoot]) -> None:
+    src = '''
+    class C:
+        pass
+    from mod import C
+    class D(C):
+        pass
+    '''
+    mod = mod_from_text(src, modname='mod', rootcls=rootcls)
+    D = mod['D']
+    assert isinstance(D, pydocspec.Class)
+    assert D.resolved_bases == ['mod.C'], D.resolved_bases
+
 # TODO: Do a test with __all__variable re-export and assert that no exported members 
 # do not get an indirection object created.
 
@@ -411,3 +428,85 @@ def test_class_with_base_from_module_alt(rootcls: Type[pydocspec.TreeRoot]) -> N
 #     m = mod.resolve_name('C.m')
 #     assert m is not None
 #     assert m.docstring is None
+
+@rootcls_param
+def test_all_recognition(rootcls: Type[pydocspec.TreeRoot]) -> None:
+    """The value assigned to __all__ is parsed to Module.all."""
+    mod = mod_from_text('''
+    def f():
+        pass
+    __all__ = ['f']
+    ''', rootcls=rootcls)
+    assert mod.dunder_all == ['f']
+    assert '__all__' in list(o.name for o in mod._members())
+    # Should pydocspec remove the __all__varible from the members?
+    # It's metadata after all...
+
+@rootcls_param
+def test_docformat_recognition(rootcls: Type[pydocspec.TreeRoot]) -> None:
+    """The value assigned to __docformat__ is parsed to Module.docformat."""
+    mod = mod_from_text('''
+    __docformat__ = 'Epytext en'
+
+    def f():
+        pass
+    ''', rootcls=rootcls)
+    assert mod.docformat == 'Epytext en'
+    # assert '__docformat__' not in mod.contents
+    # Should pydocspec remove the __docformat__ from the members?
+    # It's metadata after all...
+
+@rootcls_param
+def test_docformat_warn_not_str(rootcls: Type[pydocspec.TreeRoot], caplog) -> None:
+
+    mod = mod_from_text('''
+    __docformat__ = [i for i in range(3)]
+
+    def f():
+        pass
+    ''', rootcls=rootcls, modname='mod')
+    assert '<testpath>:2: Cannot parse value assigned to "__docformat__": not a string\n' in caplog.text
+    assert mod.docformat is None
+    # assert '__docformat__' not in mod.contents
+
+@rootcls_param
+def test_docformat_warn_not_str2(rootcls: Type[pydocspec.TreeRoot], caplog) -> None:
+
+    mod = mod_from_text('''
+    __docformat__ = 3.14
+
+    def f():
+        pass
+    ''', rootcls=rootcls, modname='mod')
+    assert '<testpath>:2: Cannot parse value assigned to "__docformat__": not a string\n' in caplog.text
+    assert mod.docformat == None
+    # assert '__docformat__' not in mod.contents
+
+@rootcls_param
+def test_docformat_warn_empty(rootcls: Type[pydocspec.TreeRoot], caplog) -> None:
+
+    mod = mod_from_text('''
+    __docformat__ = '  '
+
+    def f():
+        pass
+    ''', rootcls=rootcls, modname='mod')
+    assert '<testpath>:2: Cannot parse value assigned to "__docformat__": empty value\n' in caplog.text
+    assert mod.docformat == None
+    # assert '__docformat__' not in mod.contents
+
+
+# @systemcls_param
+# def test_docformat_warn_overrides(systemcls: Type[model.System], capsys: CapSys) -> None:
+#     mod = fromText('''
+#     __docformat__ = 'numpy'
+
+#     def f():
+#         pass
+
+#     __docformat__ = 'restructuredtext'
+#     ''', systemcls=systemcls, modname='mod')
+#     captured = capsys.readouterr().out
+#     assert captured == 'mod:7: Assignment to "__docformat__" overrides previous assignment\n'
+#     assert mod.docformat == 'restructuredtext'
+#     assert '__docformat__' not in mod.contents

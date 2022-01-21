@@ -35,8 +35,4 @@ if TYPE_CHECKING:
 else:
     CapSys = object
 
-
-def tree_repr(obj: _model.ApiObject) -> str:
-    _repr_vis = visitors.ReprVisitor()
-    obj.walk(_repr_vis)
-    return _repr_vis.repr.strip()
+tree_repr = _model.tree_repr

@@ -22,7 +22,7 @@ from pathlib import Path
 
 import docspec
 
-from . import genericvisitor
+from . import genericvisitor, visitors
 from .dupsafedict import DuplicateSafeDict
 from .dottedname import DottedName
 
@@ -31,6 +31,11 @@ if TYPE_CHECKING:
     from . import specfactory
     import pydocspec
     import astroid.nodes
+
+def tree_repr(obj: 'ApiObject') -> str:
+    _repr_vis = visitors.ReprVisitor()
+    obj.walk(_repr_vis)
+    return _repr_vis.repr.strip()
 
 # Remove when https://github.com/NiklasRosenstein/docspec/pull/50 is merged.
 @dataclasses.dataclass(init=False)
@@ -340,6 +345,7 @@ class Data(docspec.Data, ApiObject):
     datatype_ast: Optional[astroid.nodes.NodeNG] = None
     value_ast: Optional[astroid.nodes.NodeNG] = None
     is_type_guarged: bool = False
+    
     # def __post_init__(self) -> None:
     #     super().__post_init__()
     #     # help mypy

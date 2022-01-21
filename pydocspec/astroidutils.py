@@ -351,14 +351,15 @@ def uses_auto_attribs(call: astroid.nodes.Call, ctx: 'ApiObject') -> bool:
 def node2dottedname(node: Optional[astroid.nodes.NodeNG]) -> Optional[List[str]]:
     """
     Resove expression composed by `astroid.nodes.Attribute` and `astroid.nodes.Name` nodes to a list of names. 
+
+    :note: Supports variants `AssignAttr` and `AssignName`.
     """
-    #TODO: should this support the astroid node AssignName, too?
     parts = []
-    while isinstance(node, astroid.nodes.Attribute):
-        parts.append(node.attrname)
+    while isinstance(node, (astroid.nodes.Attribute, astroid.nodes.AssignAttr)):
+        parts.append(node.attrname or '')
         node = node.expr
-    if isinstance(node, astroid.nodes.Name):
-        parts.append(node.name)
+    if isinstance(node, (astroid.nodes.Name, astroid.nodes.AssignName)):
+        parts.append(node.name or '')
     else:
         return None
     parts.reverse()
@@ -389,7 +390,7 @@ def is_type_guarded(node: Optional[astroid.nodes.NodeNG], ctx: '_model.ApiObject
     maybe_ifstmt = node.parent
     type_guarded = True if isinstance(maybe_ifstmt, astroid.nodes.If) and isinstance(
             maybe_ifstmt.test, (astroid.nodes.Name, astroid.nodes.Attribute)
-        ) and node2dottedname(maybe_ifstmt.test)or(None,)[-1] == "TYPE_CHECKING" else False
+        ) and (node2dottedname(maybe_ifstmt.test)[-1]or(None,)) == "TYPE_CHECKING" else False
     return type_guarded or is_type_guarded(maybe_ifstmt.parent, ctx)
 
 # not used right now
@@ -398,7 +399,7 @@ def is_type_guard(node: astroid.nodes.If) -> bool:
     ifstmt = node
     return isinstance(ifstmt, astroid.nodes.If) and isinstance(
             ifstmt.test, (astroid.nodes.Name, astroid.nodes.Attribute)
-        ) and node2dottedname(ifstmt.test)[-1]or(None,) == "TYPE_CHECKING"
+        ) and (node2dottedname(ifstmt.test)[-1]or(None,)) == "TYPE_CHECKING"
 
 def bind_args(sig: inspect.Signature, call: astroid.nodes.Call) -> inspect.BoundArguments:
     """
@@ -419,7 +420,7 @@ def extract_expr(expr: str, filename: Optional[str] = None) -> astroid.nodes.Nod
     """
     Convert a python expression to ast. 
     """
-    statements = astroid.builder.parse(expr, path=filename or '<unknown>', apply_transforms=False).body
+    statements = astroid.builder.parse(expr, path=filename or '<unknown>').body
     if len(statements) != 1:
         raise SyntaxError("expected expression, found multiple statements")
     stmt, = statements
@@ -458,11 +459,13 @@ def unstring_annotation(node: astroid.nodes.NodeNG) -> astroid.nodes.NodeNG:
         assert isinstance(expr, astroid.nodes.NodeNG), expr
         return expr
 
-def infer_type_annotation(expr: astroid.nodes.NodeNG) -> Optional[astroid.nodes.NodeNG]:
+def infer_type_annotation(expr: Optional[astroid.nodes.NodeNG]) -> Optional[astroid.nodes.NodeNG]:
     """Infer an expression's type.
     :param expr: The expression's AST.
     :return: A type annotation, or None if the expression has no obvious type.
     """
+    if expr is None:
+        return None
     try:
         value: object = literal_eval(expr.as_string())
     except ValueError:
@@ -588,7 +591,7 @@ def get_full_import_name(import_from:astroid.nodes.ImportFrom, name:str) -> str:
     return "{}.{}".format(module_name, partial_basename)
 
 def resolve_qualname(
-        ctx: Union[astroid.nodes.ClassDef, astroid.nodes.Module], 
+        ctx: astroid.nodes.NodeNG, 
         basename: str) -> str:
     """
     Resolve a basename to get its fully qualified name.
@@ -603,12 +606,12 @@ def resolve_qualname(
     
     # re.sub(r"\(.*\)", "", basename).split(".", 1)[0]
     # Disable until pylint uses astroid 2.7
-    if isinstance(
-        ctx, astroid.nodes.node_classes.LookupMixIn  # pylint: disable=no-member
-    ):
-        lookup_node = ctx
-    else:
-        lookup_node = ctx.scope()
+    # if isinstance(
+    #     ctx, astroid.nodes.node_classes.LookupMixIn  # pylint: disable=no-member
+    # ):
+    #     lookup_node = ctx
+    # else:
+    lookup_node = ctx.scope() if isinstance(ctx, (astroid.nodes.ClassDef, astroid.nodes.Module)) else ctx.scope()
 
     assigns = lookup_node.lookup(top_level_name)[1]
 
@@ -636,3 +639,15 @@ def resolve_qualname(
         return full_basename[len("__builtin__.") :]
 
     return full_basename
+
+def resolve_node_qname(ctx: Union[astroid.nodes.ClassDef, astroid.nodes.Module], 
+                       expr: astroid.nodes.NodeNG) -> Optional[str]:
+    """
+    Resove expression composed by `astroid.nodes.Attribute` and `astroid.nodes.Name` nodes to a full name.
+    """
+    # could theorically avoid passing the context around using expr.scope() but there is currently the following error blocking me:
+    # astroid.exceptions.ParentMissingError: Parent not found on <Name.tuple l.2 at 0x109aeeb00>.
+    name = node2dottedname(expr)
+    if name:
+        return resolve_qualname(ctx, '.'.join(name))
+    return None

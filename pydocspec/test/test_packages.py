@@ -167,10 +167,12 @@ def test_cyclic_imports_all(caplog) -> None:
 | - Module 'b' at l.0, source_path: b.py
 | | - Indirection 'A' at l.1, target: 'cyclic_imports_all.a.A'
 | | - Class 'B' at l.3
+| | | - Data 'a' at l.4, datatype: 'A', semantic_hints: [<Semantic.CLASS_VARIABLE: 1>]
 | - Module 'a' at l.0, source_path: a.py
 | | - Indirection 'A' at l.1, target: 'cyclic_imports_all.b.A'
 | | - Indirection 'B' at l.1, target: 'cyclic_imports_all.b.B'
 | | - Class 'A' at l.3
+| | | - Data 'b' at l.4, datatype: 'B', semantic_hints: [<Semantic.CLASS_VARIABLE: 1>]
 """
     assert mod_a.expand_name('B') == 'cyclic_imports_all.b.B'
     assert mod_b.expand_name('A') == 'cyclic_imports_all.a.A'

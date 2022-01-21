@@ -9,6 +9,7 @@ from typing import Any, Callable, Dict, Iterable, Iterator, Sequence, List, Opti
 import attr
 
 import astroid.nodes
+import astroid.exceptions
 import pydocspec
 from pydocspec import genericvisitor, _model, astroidutils, brains, mro
 
@@ -33,12 +34,24 @@ def _ast2apiobject(root: pydocspec.TreeRoot, node: Union['astroid.nodes.ClassDef
     return None
 
 class _ast_helpers:
+
+    # TODO: ctx here is not required since we could expand the annotation name with astutils.resolve_qualname()
+    # Even if requiring a pydocspec context object is unpratical (because the name resolving system needs the object
+    # to be added to the TreeRoot instance and the correctness of the result depends on the availbility of the targeter object
+    # in the system. So, recap, it's not recommended to use the naming system in the builder, 
+    # BUT whend resolving import names, there is good chance that the indirection is already created.
     @staticmethod
-    def is_using_typing_final(expr: Optional[astroid.nodes.NodeNG], ctx: pydocspec.ApiObject) -> bool:
-        return _ast_helpers.is_using_annotations(expr, 
-                ("typing.Final", "typing_extensions.Final"), ctx)
+    def is_using_typing_final(expr: Optional[astroid.nodes.NodeNG], 
+                        ctx:Union[pydocspec.Class, pydocspec.Module]) -> bool:
+        return _ast_helpers.is_using_annotations(expr, ("typing.Final", "typing_extensions.Final"), ctx)
     @staticmethod
-    def is_using_annotations(expr: Optional[astroid.nodes.NodeNG], annotations:Sequence[str], ctx: pydocspec.ApiObject) -> bool:
+    def is_using_typing_classvar(expr: Optional[astroid.nodes.NodeNG], 
+                        ctx:Union[pydocspec.Class, pydocspec.Module]) -> bool:
+        return _ast_helpers.is_using_annotations(expr, ('typing.ClassVar', "typing_extensions.ClassVar"), ctx)
+    @staticmethod
+    def is_using_annotations(expr: Optional[astroid.nodes.NodeNG], 
+                             annotations:Sequence[str], 
+                             ctx:Union[pydocspec.Class, pydocspec.Module]) -> bool:
         """
         Detect if this expr is firstly composed by one of the specified annotation(s)' full name.
         """
@@ -151,13 +164,13 @@ class _class_helpers:
         try:
             node_mro = ob._ast.mro()
             return [o for o in (_ast2apiobject(ob.root, node) for node in node_mro) if o] # type:ignore
-        except Exception:
-            node_mro = ob._ast.ancestors()
+        except astroid.exceptions.MroError:
+            node_mro = [ob._ast] + list(ob._ast.ancestors())
             return [o for o in (_ast2apiobject(ob.root, node) for node in node_mro) if o] # type:ignore
     
     @staticmethod # must be set after resolved_bases
     def mro(ob: pydocspec.Class) -> List[pydocspec.Class]:
-        # we currently process the MRO twice for objects comming from ast
+        # FIXME: we currently process the MRO twice for objects comming from ast :/
         try: 
             return MRO().mro(ob)
         except ValueError as e:
@@ -225,10 +238,10 @@ class _class_helpers:
 class _data_helpers:
     @staticmethod
     def is_instance_variable(ob: _model.Data) -> bool:
-        ...
+        return _model.Data.Semantic.INSTANCE_VARIABLE in ob.semantic_hints
     @staticmethod
     def is_class_variable(ob: _model.Data) -> bool:
-        ...
+        return _model.Data.Semantic.CLASS_VARIABLE in ob.semantic_hints
     @staticmethod
     def is_module_variable(ob: _model.Data) -> bool:
         return isinstance(ob.parent, _model.Module)
@@ -236,8 +249,8 @@ class _data_helpers:
     def is_alias(ob: _model.Data) -> bool:
         return astroidutils.is_name(ob.value_ast)
     @staticmethod
-    def is_constant(ob: pydocspec.Data) -> bool: # uses the name resolving feature
-        return ob.name.isupper() or _ast_helpers.is_using_typing_final(ob.datatype_ast, ob)
+    def is_constant(ob: pydocspec.Data) -> bool: # still uses expand_name
+        return ob.name.isupper() or _ast_helpers.is_using_typing_final(ob.datatype_ast, ob.parent)
     @staticmethod
     def process_aliases(ob: pydocspec.Data) -> None:
         if ob.is_alias:
@@ -276,7 +289,7 @@ class _module_helpers:
 
     @staticmethod
     def docformat(ob: _model.Module) -> Optional[str]:
-        var = ob.get_member('__all__')
+        var = ob.get_member('__docformat__')
         if not var or not isinstance(var, _model.Data) or not var.value_ast:
             return None
         #TODO: use astroid infer()
@@ -384,7 +397,8 @@ class _ProcessorVisitor1(genericvisitor.Visitor[pydocspec.ApiObject]):
         if not ob.dunder_all:
             ob.dunder_all = _module_helpers.dunder_all(ob)
         ob.docformat = _module_helpers.docformat(ob)
-        ob.is_package = _module_helpers.is_package(ob)
+        if not ob.is_package:
+            ob.is_package = _module_helpers.is_package(ob)
 
 class _ProcessorVisitor2(genericvisitor.Visitor[pydocspec.ApiObject]):
     # post-processor
@@ -435,7 +449,7 @@ def process2(root: pydocspec.TreeRoot) -> None:
 @attr.s(auto_attribs=True)
 class Processor:
     """
-    Populate `pydocspec` attributes by applying processing to a newly created `pydocspec.TreeRoot` instance. 
+    Populate `pydocspec` attributes by applying processing to a newly created `pydocspec.TreeRoot` instance coming from the `astbuilder`. 
 
     At the point of the post processing, the root `pydocspec.Module` instances should have 
     already been added to the `pydocspec.TreeRoot.root_modules` attribute.

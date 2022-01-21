@@ -12,12 +12,14 @@ import os
 from pathlib import Path
 import typing as t
 
-# should not import pydocspec
+# should not import pydocspec or _model
 
-from ._model import ApiObject, HasMembers
 from . import genericvisitor
 
-def iter_fields(ob: ApiObject) -> t.Iterator[t.Tuple[str, t.Any]]:
+if t.TYPE_CHECKING:
+  from ._model import ApiObject
+
+def iter_fields(ob: 'ApiObject') -> t.Iterator[t.Tuple[str, t.Any]]:
   """
   Iter each values of the object fields. Fields are listed in the _spec_fields class varaible.
   """
@@ -27,7 +29,7 @@ def iter_fields(ob: ApiObject) -> t.Iterator[t.Tuple[str, t.Any]]:
 
 # visitors
 
-class FilterVisitor(genericvisitor.Visitor[ApiObject]):
+class FilterVisitor(genericvisitor.Visitor['ApiObject']):
   """
   Visits *objects* applying the *predicate*. If the predicate returrns a ``False`` value, the object will be removed from it's containing list. 
 
@@ -39,32 +41,29 @@ class FilterVisitor(genericvisitor.Visitor[ApiObject]):
     module.walk(filter_visitor)
   """
 
-  def __init__(self, predicate: t.Callable[[ApiObject], bool]):
+  def __init__(self, predicate: t.Callable[['ApiObject'], bool]):
     self.predicate = predicate
 
-  def unknown_visit(self, ob: ApiObject) -> None:
+  def unknown_visit(self, ob: 'ApiObject') -> None:
     # if we are visiting a object, it means it has not been filtered out.
     self.apply_predicate_on_members(ob)
 
-  def unknown_departure(self, ob: ApiObject) -> None:
+  def unknown_departure(self, ob: 'ApiObject') -> None:
     pass
 
-  def apply_predicate_on_members(self, ob: ApiObject) -> None:
-    if not isinstance(ob, HasMembers):
-      return
-
-    new_members = [m for m in ob.members if bool(self.predicate(m))==True]
-    deleted_members = [m for m in ob.members if m not in new_members]
+  def apply_predicate_on_members(self, ob: 'ApiObject') -> None:
+    new_members = [m for m in ob._members() if bool(self.predicate(m))==True]
+    deleted_members = [m for m in ob._members() if m not in new_members]
 
     # Remove the member from the TreeRoot as well
     for m in deleted_members:
       m.remove()
 
-class ReprVisitor(genericvisitor.Visitor[ApiObject]):
+class ReprVisitor(genericvisitor.Visitor['ApiObject']):
   # for test purposes
   def __init__(self) -> None:
     self.repr: str = ''
-  def unknown_visit(self, ob: ApiObject) -> None:
+  def unknown_visit(self, ob: 'ApiObject') -> None:
     depth = len(ob.path)-1
     # dataclasses.asdict(ob) can't work on cycles references, so we iter the fields
     other_fields = dict(list(iter_fields(ob)))
@@ -91,7 +90,7 @@ class ReprVisitor(genericvisitor.Visitor[ApiObject]):
       other = other_fields_repr)
     self.repr += '| ' * depth + "- {type} '{name}' at l.{lineno}{other}".format(**tokens) + "\n"
 
-class PrintVisitor(genericvisitor.Visitor[ApiObject]):
+class PrintVisitor(genericvisitor.Visitor['ApiObject']):
   """
   Visit objects and print each object with the defined format string. 
   Available substitutions are: 
@@ -120,7 +119,7 @@ class PrintVisitor(genericvisitor.Visitor[ApiObject]):
         self.formatstr = formatstr
         self.colorize = colorize
 
-  def unknown_visit(self, ob: ApiObject) -> None:
+  def unknown_visit(self, ob: 'ApiObject') -> None:
     depth = len(ob.path)-1
     tokens = dict(
       obj_type = _colored(type(ob).__name__, self._COLOR_MAP.get(type(ob).__name__)) if self.colorize else type(ob).__name__,
@@ -131,5 +130,5 @@ class PrintVisitor(genericvisitor.Visitor[ApiObject]):
       )
     print('| ' * depth + self.formatstr.format(**tokens))
 
-  def unknown_departure(self, ob: ApiObject) -> None:
+  def unknown_departure(self, ob: 'ApiObject') -> None:
     pass

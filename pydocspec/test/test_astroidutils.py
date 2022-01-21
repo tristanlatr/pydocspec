@@ -7,6 +7,8 @@ import astroid.builder
 import pytest
 from pydocspec import astroidutils
 
+from .test_astbuilder import mod_from_text
+
 class InferTypeAnnotationTests(unittest.TestCase):
     def test_literal_infer(self):
         values = [
@@ -373,6 +375,11 @@ class TestAstroidUtils:
         )
         node = astroid.extract_node(source)
         basenames = astroidutils.resolve_qualname(node, node.basenames[0])
+        assert basenames == expected
+
+        # this test also pass with expand_name()
+        mod = mod_from_text(source)
+        basenames = mod['ThisClass'].expand_name(node.basenames[0])
         assert basenames == expected
 
     @pytest.mark.parametrize(
