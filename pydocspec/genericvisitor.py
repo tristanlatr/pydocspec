@@ -217,15 +217,20 @@ class VisitorExtension(PartialVisitor[T]):
 
       class TypeGuardTracker(AstVisitorExtension):
         when = When.AFTER
-        def visit_If(self: 'Collector', node: astroid.nodes.If) -> None:
-          if not self.state.is_type_guarged and astroidutils.is_type_guard(node):
-              self.state.is_type_guarged = True
+
+        def visit_If(self, node: astroid.nodes.If) -> None:
+          # self.visitor  # the main visitor
+          # self.visitor.current  # the current API object
+          # self.visitor.state  # the TreeWalkingState object
+
+          if not self.visitor.state.is_type_guarged and astroidutils.is_type_guard(node):
+              self.visitor.state.is_type_guarged = True
               logging.getLogger('pydocspec').info('Entering TYPE_CHECKING if block')
           
-        def depart_If(self: 'Collector', node: astroid.nodes.If) -> None:
-          if self.state.is_type_guarged and astroidutils.is_type_guard(node):
+        def depart_If(self, node: astroid.nodes.If) -> None:
+          if self.visitor.state.is_type_guarged and astroidutils.is_type_guard(node):
               logging.getLogger('pydocspec').info('Leaving TYPE_CHECKING if block')
-              self.state.is_type_guarged = False
+              self.visitor.state.is_type_guarged = False
     
     See: `When` 
     """

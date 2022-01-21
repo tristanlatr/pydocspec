@@ -1,5 +1,5 @@
 """
-Useful visitors for `pydocspec.ApiObject` instances.
+Useful visitors for AST and `pydocspec.ApiObject` instances.
 """
 try:
   from termcolor import colored as _colored
