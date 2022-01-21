@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">ModuleVisitor</span>(<a href="pydocspec.astroidutils.NodeVisitor.html" title="pydocspec.astroidutils.NodeVisitor">astroidutils.NodeVisitor</a>, <a href="pydocspec.basebuilder.Collector.html" title="pydocspec.basebuilder.Collector">basebuilder.Collector</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L80" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ModuleVisitor</span>(<a href="pydocspec.astroidutils.NodeVisitor.html" title="pydocspec.astroidutils.NodeVisitor">astroidutils.NodeVisitor</a>, <a href="pydocspec.basebuilder.Collector.html" title="pydocspec.basebuilder.Collector">basebuilder.Collector</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L83" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.astbuilder.ModuleVisitor">View In Hierarchy</a></p>
       </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id57">
+        <table class="children sortable" id="id64">
   
   
   <tr class="method">
@@ -87,6 +87,16 @@
     <td>Method</td>
     <td><code><a href="#default">default</a></code></td>
     <td>Visit the nested nodes in the body of a node.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#visit_AnnAssign">visit_AnnAssign</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#visit_Assign">visit_Assign</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
@@ -125,25 +135,70 @@
   </tr><tr class="method private">
     
     <td>Method</td>
-    <td><code><a href="#_import_all">_import_all</a></code></td>
-    <td>Handle a <tt class="rst-docutils literal">from &lt;modname&gt; import *</tt> statement.</td>
+    <td><code><a href="#_handleAssignment">_handleAssignment</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method private">
     
     <td>Method</td>
-    <td><code><a href="#_import_names">_import_names</a></code></td>
+    <td><code><a href="#_handleAssignmentInClass">_handleAssignmentInClass</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_handleAssignmentInModule">_handleAssignmentInModule</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_handleClassVar">_handleClassVar</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_handleInstanceVar">_handleInstanceVar</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_handleModuleVar">_handleModuleVar</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_newData">_newData</a></code></td>
+    <td>Create a new Data object.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_newIndirections">_newIndirections</a></code></td>
     <td>Handle a C{from &lt;modname&gt; import &lt;names&gt;} statement.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_newIndirectionsFromWildcardImport">_newIndirectionsFromWildcardImport</a></code></td>
+    <td>Handle a <tt class="rst-docutils literal">from &lt;modname&gt; import *</tt> statement.</td>
   </tr><tr class="method private">
     
     <td>Method</td>
     <td><code><a href="#_set_docstring">_set_docstring</a></code></td>
     <td>Set the docstring of a object from a L{astroid.nodes.Const} node.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_warnsConstantAssigmentOverride">_warnsConstantAssigmentOverride</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_warnsConstantReAssigmentInInstance">_warnsConstantReAssigmentInInstance</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec.astroidutils.NodeVisitor.html">NodeVisitor</a></code>:
           </p>
-          <table class="children sortable" id="id58">
+          <table class="children sortable" id="id65">
   
   
   <tr class="basemethod">
@@ -162,7 +217,7 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec.basebuilder.Collector.html">Collector</a></code>:
           </p>
-          <table class="children sortable" id="id59">
+          <table class="children sortable" id="id66">
   
   
   <tr class="basemethod">
@@ -236,7 +291,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, builder, module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L84">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L87">
       
       (source)
     </a>
@@ -258,7 +313,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">default</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L88">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L91">
       
       (source)
     </a>
@@ -267,6 +322,50 @@
     
     
     <div>Visit the nested nodes in the body of a node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor.visit_AnnAssign">
+    
+  </a>
+  <a name="visit_AnnAssign">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">visit_AnnAssign</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L456">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.AnnAssign</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor.visit_Assign">
+    
+  </a>
+  <a name="visit_Assign">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">visit_Assign</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L437">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.Assign</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -280,7 +379,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_ClassDef</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L181">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L182">
       
       (source)
     </a>
@@ -302,7 +401,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Expr</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L139">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L140">
       
       (source)
     </a>
@@ -324,7 +423,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Import</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L380">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L385">
       
       (source)
     </a>
@@ -354,7 +453,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_ImportFrom</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L278">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L283">
       
       (source)
     </a>
@@ -376,7 +475,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Module</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L153">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L154">
       
       (source)
     </a>
@@ -398,7 +497,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-defname">module</span>: <code><a href="pydocspec._model.Module.html">_model.Module</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L82">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L85">
       
       (source)
     </a>
@@ -421,7 +520,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-defname">builder</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L86">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L89">
       
       (source)
     </a>
@@ -435,16 +534,192 @@ part of the statement.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._import_all">
+  <a name="pydocspec.astbuilder.ModuleVisitor._handleAssignment">
     
   </a>
-  <a name="_import_all">
+  <a name="_handleAssignment">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_import_all</span>(self, modname, lineno, is_type_guarged):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L328">
+    <span class="py-keyword">def</span> <span class="py-defname">_handleAssignment</span>(self, target_node, annotation, expr, lineno):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L460">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">target_node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor._handleAssignmentInClass">
+    
+  </a>
+  <a name="_handleAssignmentInClass">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_handleAssignmentInClass</span>(self, target, annotation, expr, lineno):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L709">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">target:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor._handleAssignmentInModule">
+    
+  </a>
+  <a name="_handleAssignmentInModule">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_handleAssignmentInModule</span>(self, target, annotation, expr, lineno):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L632">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">target:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor._handleClassVar">
+    
+  </a>
+  <a name="_handleClassVar">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_handleClassVar</span>(self, name, annotation, expr, lineno):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L642">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor._handleInstanceVar">
+    
+  </a>
+  <a name="_handleInstanceVar">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_handleInstanceVar</span>(self, name, annotation, expr, lineno):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L679">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor._handleModuleVar">
+    
+  </a>
+  <a name="_handleModuleVar">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_handleModuleVar</span>(self, name, annotation, expr, lineno):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L605">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor._newData">
+    
+  </a>
+  <a name="_newData">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_newData</span>(self, name, annotation, expr, lineno, semantics):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L577">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Create a new Data object.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotation:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">semantics:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr>pydocspec.Data.Semantic]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.Data.html">pydocspec.Data</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor._newIndirections">
+    
+  </a>
+  <a name="_newIndirections">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_newIndirections</span>(self, modname, names, lineno, is_type_guarged):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L370">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Handle a C{from &lt;modname&gt; import &lt;names&gt;} statement.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modname:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">names:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">is_type_guarged:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="pydocspec._model.Indirection.html">_model.Indirection</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor._newIndirectionsFromWildcardImport">
+    
+  </a>
+  <a name="_newIndirectionsFromWildcardImport">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_newIndirectionsFromWildcardImport</span>(self, modname, lineno, is_type_guarged):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L333">
       
       (source)
     </a>
@@ -460,28 +735,6 @@ resolve unresolve imports in the first analysis pass.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._import_names">
-    
-  </a>
-  <a name="_import_names">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">_import_names</span>(self, modname, names, lineno, is_type_guarged):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L365">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div>Handle a C{from &lt;modname&gt; import &lt;names&gt;} statement.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modname:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">names:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">is_type_guarged:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="pydocspec._model.Indirection.html">_model.Indirection</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basemethod private">
-  
-  
   <a name="pydocspec.astbuilder.ModuleVisitor._set_docstring">
     
   </a>
@@ -491,7 +744,7 @@ resolve unresolve imports in the first analysis pass.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_set_docstring</span>(self, ob, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4fcda038a315e8527e90906980d434b99c7f5d32/pydocspec/astbuilder.py#L99">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L101">
       
       (source)
     </a>
@@ -500,6 +753,50 @@ resolve unresolve imports in the first analysis pass.</p>
     
     
     <div>Set the docstring of a object from a L{astroid.nodes.Const} node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.ApiObject.html">_model.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.Const</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor._warnsConstantAssigmentOverride">
+    
+  </a>
+  <a name="_warnsConstantAssigmentOverride">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_warnsConstantAssigmentOverride</span>(self, obj, lineno_offset):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L514">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj:</span><code><a href="pydocspec._model.Data.html">_model.Data</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno_offset:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.ModuleVisitor._warnsConstantReAssigmentInInstance">
+    
+  </a>
+  <a name="_warnsConstantReAssigmentInInstance">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_warnsConstantReAssigmentInInstance</span>(self, obj, lineno_offset=0):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/astbuilder.py#L519">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj:</span><code><a href="pydocspec._model.Data.html">_model.Data</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno_offset:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -511,7 +808,7 @@ resolve unresolve imports in the first analysis pass.</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-19 22:36:56.
+    21.12.1.dev0 at 2022-01-21 05:42:12.
   </div>
 </footer>
 
