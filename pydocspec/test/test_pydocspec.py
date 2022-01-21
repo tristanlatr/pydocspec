@@ -24,8 +24,8 @@ def test_expand_name(mod1: docspec.Module) -> None:
     assert isinstance(saila, pydocspec.Data)
     assert isinstance(alias, pydocspec.Data)
 
-    assert processor._data_helpers.is_alias(saila)
-    assert processor._data_helpers.is_alias(alias)
+    assert processor.data_attr.is_alias(saila)
+    assert processor.data_attr.is_alias(alias)
     assert saila.is_alias
     assert alias.is_alias
 

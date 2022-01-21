@@ -173,7 +173,7 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
 
         # The processing of the __all__ variable should go there since it's used in _newIndirectionsFromWildcardImport()
         # TODO: move this where we created the Data object
-        self.module.dunder_all = processor._module_helpers.dunder_all(self.module)
+        self.module.dunder_all = processor.mod_attr.dunder_all(self.module)
 
         self.pop(self.module)
     
@@ -222,7 +222,7 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
                                     is_type_guarged=astroidutils.is_type_guarded(node, self.current), 
                                     _ast=node)
         
-        # cls.mro = processor._class_helpers.mro_from_astroid(cls)
+        # cls.mro = processor.class_attr.mro_from_astroid(cls)
 
         # set docstring
         if len(node.body) > 0 and isinstance(node.body[0], astroid.nodes.Expr) and isinstance(node.body[0].value, astroid.nodes.Const):
@@ -358,7 +358,7 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
             # Get names to import: use __all__ if available, otherwise take all
             # names and ignore private
             names = (from_module.dunder_all or 
-                processor._module_helpers.public_names(from_module))
+                processor.mod_attr.public_names(from_module))
 
         # Add imported names to our module namespace.
         assert isinstance(self.current, _model.HasMembers)
@@ -612,7 +612,7 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
         obj = self._newData(name, annotation, expr, lineno, [])
         self.add_object(obj, push=False) # add object right away
 
-        if processor._data_helpers.is_constant(obj):
+        if processor.data_attr.is_constant(obj):
             obj.semantic_hints.append(obj.Semantic.CONSTANT)
 
             # handled in processor
@@ -652,7 +652,7 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
         obj = self._newData(name, annotation, expr, lineno, 
                         [self.root.factory.Data.Semantic.CLASS_VARIABLE])
         self.add_object(obj, push=False)
-        if processor._data_helpers.is_constant(obj):
+        if processor.data_attr.is_constant(obj):
             obj.semantic_hints.append(obj.Semantic.CONSTANT)
 
         # in processor
@@ -670,7 +670,7 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
 
         # if astroidutils.is_name(expr):
         #     self._handleAlias(obj=obj, value=expr, lineno=lineno)
-        # elif processor._data_helpers.is_constant(obj):
+        # elif processor.data_attr.is_constant(obj):
         #     self._handleConstant(obj=obj, value=expr, lineno=lineno)
         # else:
         #     obj.value = expr.as_string()
@@ -694,12 +694,12 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
         obj = self._newData(name, annotation, expr, lineno, 
                         [self.root.factory.Data.Semantic.INSTANCE_VARIABLE])
         self.add_object(obj, push=False)
-        if processor._data_helpers.is_constant(obj):
+        if processor.data_attr.is_constant(obj):
             obj.semantic_hints.append(obj.Semantic.CONSTANT)
 
         # Maybe an instance variable overrides a constant, 
         # so we check before adding INSTANCE_VARIABLE to semantics.
-        # if processor._data_helpers.is_constant(obj):
+        # if processor.data_attr.is_constant(obj):
         #     self._warnsConstantReAssigmentInInstance(obj, lineno_offset=lineno-obj.location.lineno)
         # else:
         #     obj.semantic_hints.append(obj.Semantic.INSTANCE_VARIABLE) # this can be added more than once, it's ok

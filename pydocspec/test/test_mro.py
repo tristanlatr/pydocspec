@@ -7,7 +7,7 @@ from pydocspec import Class, TreeRoot, processor
 
 def assert_mro_equals(klass: Class, expected_mro: List[str]
     ) -> None:
-        assert [member.full_name for member in processor.MRO().mro(klass)] == expected_mro
+        assert [member.full_name for member in processor.class_attr.MRO().mro(klass)] == expected_mro
 
 @rootcls_param
 def test_mro(rootcls: Type[TreeRoot]) -> None:
@@ -82,8 +82,8 @@ def test_mro(rootcls: Type[TreeRoot]) -> None:
     )
 
     with pytest.raises(ValueError, match="Cannot compute c3 linearization"):
-        processor.MRO().mro(mod["F1"])
+        processor.class_attr.MRO().mro(mod["F1"])
     with pytest.raises(ValueError, match="Cannot compute c3 linearization"):
-        processor.MRO().mro(mod["G1"])
+        processor.class_attr.MRO().mro(mod["G1"])
     with pytest.raises(ValueError, match="Cannot compute c3 linearization"):
-        processor.MRO().mro(mod["Duplicates"])
+        processor.class_attr.MRO().mro(mod["Duplicates"])
