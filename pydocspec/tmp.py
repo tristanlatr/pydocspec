@@ -7,7 +7,7 @@
             #                                 lineno_offset=node.lineno)
             #         return
                 
-                # for i in self._import_all(modname, lineno=node.lineno, is_type_guarged=is_type_guarged):
+                # for i in self._newIndirectionsFromWildcardImport(modname, lineno=node.lineno, is_type_guarged=is_type_guarged):
                 #     self.add_object(i, push=False)
             
             # except CyclicImport as e:
@@ -16,7 +16,7 @@
 
             #     # this is a lot of parameters...
             #     unresolved = UnresolvedImportAll(
-            #         f'from_{e.module.full_name}_import_all',  #TODO: find a new name that is more explicit
+            #         f'from_{e.module.full_name}_newIndirectionsFromWildcardImport',  #TODO: find a new name that is more explicit
             #         self.root.factory.Location(self.module.location.filename, node.lineno), 
             #         docstring=None, 
             #         target='*',
@@ -29,12 +29,17 @@
 
 ##################################
 
+# class UnknownFieldValue:
+#     ...
+# class UnknownList(UnknownFieldValue, list):
+#     ...
+
 # @dataclasses.dataclass
 # class UnknownObject(_model.ApiObject, abc.ABC):
 #     # object placed to signify that something could not be resolved during the building.
 #     # no UnknownObject should be left once the tree is built
 #     state: basebuilder.TreeWalkingState.MarkedTreeWalkingState
-#     module_visitor: 'ModuleVisitor'
+#     module_visitor: 'BuilderVisitor'
 
 #     def restore_vistitor_state(self) -> None:
 #         self.module_visitor.state.restore(self.state)
@@ -75,7 +80,7 @@
 #         is_safe_to_process_imports, unresolved = self._is_safe_to_import_all_from(self.from_module)
 #         if is_safe_to_process_imports or is_last_iteration:
 #             # Could add a warning here to get more precise import processing failures.
-#             return list(self.module_visitor._import_all(self.from_module, 
+#             return list(self.module_visitor._newIndirectionsFromWildcardImport(self.from_module, 
 #                 lineno=self.location.lineno, 
 #                 is_type_guarged=self.is_type_guarged))
 #         else:

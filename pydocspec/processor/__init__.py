@@ -9,6 +9,7 @@ from typing import Any, Callable, Dict, Union
 import attr
 import pydocspec
 from pydocspec import genericvisitor, _model, brains
+from pydocspec import visitors
 
 from . import class_attr, data_attr, func_attr, mod_attr
 
@@ -19,7 +20,7 @@ Process = Callable[[pydocspec.TreeRoot], None]
 A process is simply a function that modify/populate attributes of the objects in a `TreeRoot` instance.
 """
 
-class _AstMroVisitor(genericvisitor.Visitor[pydocspec.ApiObject]):
+class _AstMroVisitor(visitors.ApiObjectVisitor):
     """
     Set Class.mro attribute based on astroid to be able to
     correctly populate the resolved_bases attribute."""
@@ -27,7 +28,7 @@ class _AstMroVisitor(genericvisitor.Visitor[pydocspec.ApiObject]):
     def visit_Class(self, ob: pydocspec.Class) -> None:
         ob.mro = class_attr.mro_from_astroid(ob)
 
-class _ProcessorVisitor1(genericvisitor.Visitor[pydocspec.ApiObject]):
+class _ProcessorVisitor1(visitors.ApiObjectVisitor):
 
     _default_location = _model.Location(filename='<unknown>', lineno=-1)
 
@@ -76,7 +77,7 @@ class _ProcessorVisitor1(genericvisitor.Visitor[pydocspec.ApiObject]):
         if not ob.is_package:
             ob.is_package = mod_attr.is_package(ob)
 
-class _ProcessorVisitor2(genericvisitor.Visitor[pydocspec.ApiObject]):
+class _ProcessorVisitor2(visitors.ApiObjectVisitor):
     # post-processor
     
     def unknown_visit(self, ob: pydocspec.ApiObject) -> None:

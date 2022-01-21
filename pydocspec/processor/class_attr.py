@@ -2,15 +2,15 @@
 Helpers to populate attributes of `Class` instances. 
 """
 
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import astroid.nodes
 import astroid.exceptions
 import pydocspec
-from pydocspec import _model, mro
+from pydocspec import _model, c3linear
 from . import helpers
 
-class MRO(mro.GenericMRO[pydocspec.Class]):
+class MRO(c3linear.GenericMRO[pydocspec.Class]):
     def bases(self, cls: pydocspec.Class) -> List[pydocspec.Class]:
         return [b for b in cls.resolved_bases if isinstance(b, pydocspec.Class)]
 

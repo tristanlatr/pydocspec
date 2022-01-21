@@ -7,29 +7,65 @@ except ImportError as exc:
   def _colored(s, *args, **kwargs):  # type: ignore
     return str(s)
 
-import dataclasses
 import os
 from pathlib import Path
 import typing as t
 
+import astroid.nodes
+import docspec
+
 # should not import pydocspec or _model
 
-from . import genericvisitor
+from . import genericvisitor, astroidutils
+import pydocspec
 
 if t.TYPE_CHECKING:
   from ._model import ApiObject
+  import pydocspec
 
-def iter_fields(ob: 'ApiObject') -> t.Iterator[t.Tuple[str, t.Any]]:
+# AST visitors
+
+class AstVisitor(genericvisitor.PartialVisitor[astroid.nodes.NodeNG], 
+                 genericvisitor.CustomizableVisitor[astroid.nodes.NodeNG]):
+  get_children = lambda _,ob: astroidutils.iter_values(ob)
+
+  # def get_children(self, node: astroid.nodes.NodeNG) -> None:
+  #     """
+  #     Visit the nested nodes in the body of a node.
+  #     """
+  #     body: t.Optional[t.Sequence[astroid.nodes.NodeNG]] = getattr(node, 'body', None)
+  #     if body is not None:
+  #         for child in body:
+  #             yield child
+
+class AstVisitorExt(genericvisitor.VisitorExtension[astroid.nodes.NodeNG]):
+  get_children = lambda _,ob: astroidutils.iter_values(ob)
+
+def iter_fields(ob: 'pydocspec.ApiObject') -> t.Iterator[t.Tuple[str, t.Any]]:
   """
-  Iter each values of the object fields. Fields are listed in the _spec_fields class varaible.
+  Iter each values of the API object fields. Fields are listed in the _spec_fields class varaible.
   """
   for f in getattr(ob, '_spec_fields', tuple()):
       assert hasattr(ob, f), f"No field {f!r} defined on {ob!r}"
       yield f, getattr(ob, f)
 
-# visitors
+# ApiObject visitors
 
-class FilterVisitor(genericvisitor.Visitor['ApiObject']):
+class _docspecApiObjectVisitor(genericvisitor.Visitor[docspec.ApiObject]):
+  # adapter for docspec
+  def get_children(cls, ob: docspec.ApiObject) -> t.Iterable[docspec.ApiObject]:
+      if isinstance(ob, (docspec.Class, docspec.Module)):
+        return ob.members
+      else:
+        return ()
+
+class ApiObjectVisitor(genericvisitor.CustomizableVisitor['pydocspec.ApiObject']):
+  get_children = lambda _,ob: ob._members()
+
+class ApiObjectVisitorExt(genericvisitor.VisitorExtension['pydocspec.ApiObject']):
+  get_children = lambda _,ob: ob._members()
+
+class FilterVisitor(ApiObjectVisitor):
   """
   Visits *objects* applying the *predicate*. If the predicate returrns a ``False`` value, the object will be removed from it's containing list. 
 
@@ -38,20 +74,21 @@ class FilterVisitor(genericvisitor.Visitor['ApiObject']):
     # removes entries starting by one underscore that are not dunder methods, aka private API.
     predicate = lambda ob: not ob.name.startswith("_") or ob.name.startswith("__") and ob.name.endswith("__")
     filter_visitor = FilterVisitor(predicate)
-    module.walk(filter_visitor)
+    filter_visitor.walk(module)
   """
 
-  def __init__(self, predicate: t.Callable[['ApiObject'], bool]):
+  def __init__(self, predicate: t.Callable[['pydocspec.ApiObject'], bool]):
+    super().__init__()
     self.predicate = predicate
 
-  def unknown_visit(self, ob: 'ApiObject') -> None:
+  def unknown_visit(self, ob: 'pydocspec.ApiObject') -> None:
     # if we are visiting a object, it means it has not been filtered out.
     self.apply_predicate_on_members(ob)
 
-  def unknown_departure(self, ob: 'ApiObject') -> None:
+  def unknown_departure(self, ob: 'pydocspec.ApiObject') -> None:
     pass
 
-  def apply_predicate_on_members(self, ob: 'ApiObject') -> None:
+  def apply_predicate_on_members(self, ob: 'pydocspec.ApiObject') -> None:
     new_members = [m for m in ob._members() if bool(self.predicate(m))==True]
     deleted_members = [m for m in ob._members() if m not in new_members]
 
@@ -59,11 +96,12 @@ class FilterVisitor(genericvisitor.Visitor['ApiObject']):
     for m in deleted_members:
       m.remove()
 
-class ReprVisitor(genericvisitor.Visitor['ApiObject']):
+class ReprVisitor(ApiObjectVisitor):
   # for test purposes
   def __init__(self) -> None:
+    super().__init__()
     self.repr: str = ''
-  def unknown_visit(self, ob: 'ApiObject') -> None:
+  def unknown_visit(self, ob: 'pydocspec.ApiObject') -> None:
     depth = len(ob.path)-1
     # dataclasses.asdict(ob) can't work on cycles references, so we iter the fields
     other_fields = dict(list(iter_fields(ob)))
@@ -90,7 +128,7 @@ class ReprVisitor(genericvisitor.Visitor['ApiObject']):
       other = other_fields_repr)
     self.repr += '| ' * depth + "- {type} '{name}' at l.{lineno}{other}".format(**tokens) + "\n"
 
-class PrintVisitor(genericvisitor.Visitor['ApiObject']):
+class PrintVisitor(ApiObjectVisitor):
   """
   Visit objects and print each object with the defined format string. 
   Available substitutions are: 
@@ -116,10 +154,11 @@ class PrintVisitor(genericvisitor.Visitor['ApiObject']):
 
   def __init__(self, formatstr: str = ":{obj_lineno} - {obj_type}: {obj_name}", 
                colorize: bool = True):
+        super().__init__()
         self.formatstr = formatstr
         self.colorize = colorize
 
-  def unknown_visit(self, ob: 'ApiObject') -> None:
+  def unknown_visit(self, ob: 'pydocspec.ApiObject') -> None:
     depth = len(ob.path)-1
     tokens = dict(
       obj_type = _colored(type(ob).__name__, self._COLOR_MAP.get(type(ob).__name__)) if self.colorize else type(ob).__name__,
@@ -130,5 +169,5 @@ class PrintVisitor(genericvisitor.Visitor['ApiObject']):
       )
     print('| ' * depth + self.formatstr.format(**tokens))
 
-  def unknown_departure(self, ob: 'ApiObject') -> None:
+  def unknown_departure(self, ob: 'pydocspec.ApiObject') -> None:
     pass

@@ -28,6 +28,7 @@ import astroid.rebuilder
 import astroid.nodes
 import astroid.mixins
 import astroid.exceptions
+import astroid.manager
 import attr
 
 # Implementation note: 
@@ -80,22 +81,15 @@ class CyclicImport(Exception):
 #  -> TODO: use the new '.doc_node' attribute when the PR https://github.com/PyCQA/astroid/pull/1276 is merged
 astroid.rebuilder.TreeRebuilder._get_doc = lambda _,o:(o, None)
 
-class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
+class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
     # help mypy
     module: _model.Module
     
     def __init__(self, builder: 'Builder', module: _model.Module) -> None:
-        super().__init__(builder.root, module)
+        visitors.AstVisitor.__init__(self, extensions=None)
+        basebuilder.Collector.__init__(self, root=builder.root, module=module)
+        
         self.builder = builder
-    
-    def default(self, node: astroid.nodes.NodeNG) -> None:
-        """
-        Visit the nested nodes in the body of a node.
-        """
-        body: Optional[Sequence[astroid.nodes.NodeNG]] = getattr(node, 'body', None)
-        if body is not None:
-            for child in body:
-                self.visit(child)
     
     ### DOCSTRING ###
     def _set_docstring(self, ob: _model.ApiObject, node: astroid.nodes.Const) -> None:
@@ -126,6 +120,7 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
         
         ob.docstring = cast('docspec.Docstring', self.root.factory.Docstring(docstring, 
             self.root.factory.Location(self.current.location.filename, lineno=docstring_lineno)))
+    
     # Handles type guard, not working for some reason...
     # def visitIf(self, node: astroid.nodes.If) -> None:
     #     if astroidutils.is_type_guard(node):
@@ -147,15 +142,13 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
             if isinstance(attr, _model.Data) and attr.parent is self.current:
                 self._set_docstring(attr, value)
 
-        self.generic_visit(node)
-
     ### MODULE ###
 
-    def visit_Module(self, node: astroid.nodes.Module) -> None:
+    def visit_module(self, node: astroid.nodes.Module) -> None:
         """
         Visit an {astroid.nodes.Module}.
         """
-
+        # TODO: check this assertion and re-enable it
         # unprocessed modules should not have been initialized with a docstring yet.
         # assert self.module.docstring is None
 
@@ -169,17 +162,17 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
 
         self.add_object(self.module)
     
-        self.default(node)
+    def depart_module(self, node: astroid.nodes.Module) -> None:
 
-        # The processing of the __all__ variable should go there since it's used in _newIndirectionsFromWildcardImport()
-        # TODO: move this where we created the Data object
+        # The processing of the __all__ variable should go there 
+        # since it's used in _newIndirectionsFromWildcardImport()
         self.module.dunder_all = processor.mod_attr.dunder_all(self.module)
 
         self.pop(self.module)
     
     ### CLASSES ###
 
-    def visit_ClassDef(self, node: astroid.nodes.ClassDef) -> None:
+    def visit_classdef(self, node: astroid.nodes.ClassDef) -> None:
         """
         Visit a class. 
         """
@@ -274,13 +267,13 @@ class ModuleVisitor(astroidutils.NodeVisitor, basebuilder.Collector):
         
         self.add_object(cls)
 
-        self.default(node)
+    def depart_classdef(self, node: astroid.nodes.ClassDef) -> None:
 
-        self.pop(cls)
+        self.pop(self.current)
 
     ### IMPORTS ###
 
-    def visit_ImportFrom(self, node: astroid.nodes.ImportFrom) -> None:
+    def visit_importfrom(self, node: astroid.nodes.ImportFrom) -> None:
         ctx = self.current
         if not isinstance(ctx, _model.HasMembers):
             assert ctx is not None, "processing import statement with no current context: {node!r}"
@@ -791,11 +784,9 @@ class Builder:
     """Mapping from module's full_name to the processing state"""
     _processing_mod_stack: List[_model.Module] = attr.ib(factory=list)
     
-    ModuleVisitor = ModuleVisitor
-    
     def _process_module_ast(self, mod_ast: astroid.nodes.Module, mod: _model.Module) -> None:
-        builder_visitor = self.ModuleVisitor(self, mod)
-        builder_visitor.visit(mod_ast)
+        builder_visitor = BuilderVisitor(self, mod)
+        builder_visitor.walkabout(mod_ast)
 
     @property
     def unprocessed_modules(self) -> Iterator[_model.Module]:
@@ -925,7 +916,8 @@ class Builder:
             #TODO: we should warn here, source path can be none on objects created from introspection. 
             return #type:ignore[unreachable]
         
-        ast = astroid.builder.AstroidBuilder().file_build(path, mod.full_name)
+        # TODO: we can easily set an option to enable fallback=True, this will import and introspect any installed module in module file is not found. 
+        ast = astroid.manager.AstroidManager().ast_from_file(path, mod.full_name, fallback=False, source=True)
         
         if ast:
             self._processing_mod_stack.append(mod)

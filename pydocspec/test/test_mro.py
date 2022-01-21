@@ -12,6 +12,7 @@ def assert_mro_equals(klass: Class, expected_mro: List[str]
 @rootcls_param
 def test_mro(rootcls: Type[TreeRoot]) -> None:
     mod = mod_from_text("""\
+    from mod import External
     class C: pass
     class D(C): pass
     class A1: pass
@@ -41,13 +42,18 @@ def test_mro(rootcls: Type[TreeRoot]) -> None:
     class OuterD(OuterC):
         class Inner(OuterC.Inner, OuterB.Inner):
             pass
-    class Duplicates(C, C): pass""", 
+    class Duplicates(C, C): pass
+    class Extension(External): pass
+    class MycustomString(str): pass
+    """, 
     modname='mro', 
     rootcls=rootcls,
     )
     assert_mro_equals(mod.get_member("D"), ["mro.D", "mro.C"])
     assert_mro_equals(mod.get_member("D1"), ['mro.D1', 'mro.B1', 'mro.C1', 'mro.A1'])
     assert_mro_equals(mod.get_member("E1"), ['mro.E1', 'mro.C1', 'mro.B1', 'mro.A1'])
+    assert_mro_equals(mod.get_member("Extension"), ["mro.Extension"])
+    assert_mro_equals(mod.get_member("MycustomString"), ["mro.MycustomString"])
     
     assert_mro_equals(
         mod.get_member("PedalWheelBoat"),

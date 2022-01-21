@@ -1,9 +1,9 @@
+Files: *
+    Copyright 2006-2008 Michael Hudson <mwh@python.net>
+    Copyright 2019-2021 Maarten ter Huurne mthuurne
+    Copyright 2021-2022 Various contributors (see Git history)
+
 MIT License
-
-Copyright 2006-2008 Michael Hudson <mwh@python.net>
-Copyright 2006-2020 pydoctor's contributors
-Copyright 2021 Various contributors (see Git history)
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -21,3 +21,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+File: pydocspec/dottedname.py
+    Copyright 2008 Edward Loper: MIT License
+
+Parts of file: pydocspec/astroidutils.py
+    Copyright 2008 by Armin Ronacher: Python License
+    Copyright 2015 Read the Docs, Inc: MIT License
+
+Parts of file: pydocspec/genericvisitor.py
+    Copyright 2021, Timothée Mazzucotelli: ISC License
+
+File: pydocspec/c3linear
+    Copyright 2019 Vitaly R. Samigullin: MIT License

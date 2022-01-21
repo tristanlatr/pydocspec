@@ -29,6 +29,15 @@ def iter_fields(node: astroid.nodes.NodeNG) -> Iterator[Tuple[str, Any]]:
         except AttributeError:
             pass
 
+def iter_values(node: astroid.nodes.NodeNG) -> Iterator[astroid.nodes.NodeNG]:
+    for _, value in iter_fields(node):
+        if isinstance(value, list):
+            for item in value:
+                if isinstance(item, astroid.nodes.NodeNG):
+                    yield item
+        elif isinstance(value, astroid.nodes.NodeNG):
+            yield value
+
 class NodeVisitor:
     """
     A node visitor base class that walks the abstract syntax tree and calls a
@@ -57,13 +66,8 @@ class NodeVisitor:
 
     def generic_visit(self, node: astroid.nodes.NodeNG) -> None:
         """Called if no explicit visitor function exists for a node."""
-        for _, value in iter_fields(node):
-            if isinstance(value, list):
-                for item in value:
-                    if isinstance(item, astroid.nodes.NodeNG):
-                        self.visit(item)
-            elif isinstance(value, astroid.nodes.NodeNG):
-                self.visit(value)
+        for value in iter_values(node):
+            self.visit(value)
 
 class NodeTransformer(NodeVisitor):
     """

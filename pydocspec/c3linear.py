@@ -112,12 +112,12 @@ class GenericMRO(Generic[T], abc.ABC):
         """
         raise NotImplementedError()
 
-    def mro(self, cls: 'T') -> List[Optional['T']]:
+    def mro(self, cls: 'T') -> List['T']:
         """
         Return a list of classes in order corresponding to Python's MRO.
         """
         
-        result: List[Optional['T']] = [cls]
+        result: List['T'] = [cls]
         _bases = self.bases(cls)
         
         if not _bases:

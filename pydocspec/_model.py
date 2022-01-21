@@ -32,9 +32,9 @@ if TYPE_CHECKING:
     import pydocspec
     import astroid.nodes
 
-def tree_repr(obj: 'ApiObject') -> str:
+def tree_repr(obj: 'pydocspec.ApiObject') -> str:
     _repr_vis = visitors.ReprVisitor()
-    obj.walk(_repr_vis)
+    _repr_vis.walk(obj)
     return _repr_vis.repr.strip()
 
 # Remove when https://github.com/NiklasRosenstein/docspec/pull/50 is merged.
@@ -255,23 +255,23 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
         else: 
             return ()
 
-    def walk(self, visitor: genericvisitor.Visitor['pydocspec.ApiObject']) -> None:
+    def walk(self, visitor: visitors.ApiObjectVisitor) -> None:
         """
         Traverse a tree of objects, calling the `genericvisitor.Visitor.visit` 
         method of `visitor` when entering each node.
 
-        :see: `genericvisitor.walk` for more details.
+        :see: `genericvisitor.Visitor.walk` for more details.
         """
-        genericvisitor.walk(self, visitor, ApiObject._members)
+        visitor.walk(self)
         
-    def walkabout(self, visitor: genericvisitor.Visitor['pydocspec.ApiObject']) -> None:
+    def walkabout(self, visitor: visitors.ApiObjectVisitor) -> None:
         """
         Perform a tree traversal similarly to `walk()`, except also call the `genericvisitor.Visitor.depart` 
         method before exiting each node.
 
-        :see: `genericvisitor.walkabout` for more details.
+        :see: `genericvisitor.Visitor.walkabout` for more details.
         """
-        genericvisitor.walkabout(self, visitor, ApiObject._members)
+        visitor.walkabout(self)
     
     @property
     def dotted_name(self) -> DottedName:
@@ -345,7 +345,7 @@ class Data(docspec.Data, ApiObject):
     datatype_ast: Optional[astroid.nodes.NodeNG] = None
     value_ast: Optional[astroid.nodes.NodeNG] = None
     is_type_guarged: bool = False
-    
+
     # def __post_init__(self) -> None:
     #     super().__post_init__()
     #     # help mypy

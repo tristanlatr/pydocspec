@@ -13,6 +13,8 @@ Usage::
 """
 
 from typing import Iterable, Iterator, cast, List, Optional, Union, overload, TYPE_CHECKING
+
+from pydocspec import visitors
 if TYPE_CHECKING:
     from typing_extensions import Literal
 
@@ -60,7 +62,7 @@ def convert_docspec_modules(modules: Iterable[docspec.Module], root:bool=False, 
 
     return new_root.root_modules if not root else new_root
 
-class _ConverterVisitor(basebuilder.Collector, genericvisitor.Visitor[docspec.ApiObject]):
+class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor):
     """
     Visit each ``docspec`` objects of a module and create their ``pydocspec`` augmented counterparts.
     """
@@ -169,8 +171,7 @@ class _Converter:
     def _convert_docspec_module(self, mod: docspec.Module) -> None:
         v = _ConverterVisitor(self.root)
         
-        genericvisitor.walkabout(mod, v, 
-            get_children=lambda ob: ob.members if isinstance(ob, docspec.HasMembers) else ())
+        v.walkabout(mod)
         
         assert v.module is not None
         assert v.module in self.root.root_modules
