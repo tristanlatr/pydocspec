@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>pydocspec.processor._ast_helpers</title>
+    <title>pydocspec.processor.helpers</title>
     <meta name="generator" content="pydoctor 21.12.1.dev0"> 
         
     </meta>
@@ -54,42 +54,47 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class private"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.processor.html">processor</a></code><wbr></wbr>.<code><a href="pydocspec.processor._ast_helpers.html">_ast_helpers</a></code></code></h1>
+        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.processor.html">processor</a></code><wbr></wbr>.<code><a href="pydocspec.processor.helpers.html">helpers</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
       </div>
 
       <div class="categoryHeader">
-        class documentation
+        module documentation
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">_ast_helpers</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/processor.py#L36" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#pydocspec.processor._ast_helpers">View In Hierarchy</a></p>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/helpers.py" class="sourceLink">(source)</a>
+        <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="undocumented">Undocumented</p></div>
+        <div>Helpers to help the helpers.</div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id111">
+        <table class="children sortable" id="id116">
   
   
-  <tr class="staticmethod">
+  <tr class="function">
     
-    <td>Static Method</td>
+    <td>Function</td>
+    <td><code><a href="#ast2apiobject">ast2apiobject</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
     <td><code><a href="#is_using_annotations">is_using_annotations</a></code></td>
     <td>Detect if this expr is firstly composed by one of the specified annotation(s)' full name.</td>
-  </tr><tr class="staticmethod">
+  </tr><tr class="function">
     
-    <td>Static Method</td>
+    <td>Function</td>
     <td><code><a href="#is_using_typing_classvar">is_using_typing_classvar</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="staticmethod">
+  </tr><tr class="function">
     
-    <td>Static Method</td>
+    <td>Function</td>
     <td><code><a href="#is_using_typing_final">is_using_typing_final</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
@@ -101,19 +106,41 @@
 
       <div id="childList">
 
-        <div class="basestaticmethod">
+        <div class="basefunction">
   
   
-  <a name="pydocspec.processor._ast_helpers.is_using_annotations">
+  <a name="pydocspec.processor.helpers.ast2apiobject">
+    
+  </a>
+  <a name="ast2apiobject">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">ast2apiobject</span>(root, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/helpers.py#L11">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr>astroid.nodes.ClassDef, <wbr></wbr>astroid.nodes.Module]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">pydocspec.Class</a>, <wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.processor.helpers.is_using_annotations">
     
   </a>
   <a name="is_using_annotations">
     
   </a>
   <div class="functionHeader">
-    @<a href="https://docs.python.org/3/library/functions.html#staticmethod">staticmethod</a><br />
+    
     <span class="py-keyword">def</span> <span class="py-defname">is_using_annotations</span>(expr, annotations, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/processor.py#L51">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/helpers.py#L38">
       
       (source)
     </a>
@@ -123,19 +150,19 @@
     
     <div>Detect if this expr is firstly composed by one of the specified annotation(s)' full name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotations:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">pydocspec.Class</a>, <wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
-</div><div class="basestaticmethod">
+</div><div class="basefunction">
   
   
-  <a name="pydocspec.processor._ast_helpers.is_using_typing_classvar">
+  <a name="pydocspec.processor.helpers.is_using_typing_classvar">
     
   </a>
   <a name="is_using_typing_classvar">
     
   </a>
   <div class="functionHeader">
-    @<a href="https://docs.python.org/3/library/functions.html#staticmethod">staticmethod</a><br />
+    
     <span class="py-keyword">def</span> <span class="py-defname">is_using_typing_classvar</span>(expr, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/processor.py#L47">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/helpers.py#L34">
       
       (source)
     </a>
@@ -145,19 +172,19 @@
     
     <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.Class.html">pydocspec.Class</a>, <wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
-</div><div class="basestaticmethod">
+</div><div class="basefunction">
   
   
-  <a name="pydocspec.processor._ast_helpers.is_using_typing_final">
+  <a name="pydocspec.processor.helpers.is_using_typing_final">
     
   </a>
   <a name="is_using_typing_final">
     
   </a>
   <div class="functionHeader">
-    @<a href="https://docs.python.org/3/library/functions.html#staticmethod">staticmethod</a><br />
+    
     <span class="py-keyword">def</span> <span class="py-defname">is_using_typing_final</span>(expr, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/25965310c7f576d2f2e877f8a1b2984bb77725b9/pydocspec/processor.py#L43">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/helpers.py#L30">
       
       (source)
     </a>
@@ -177,7 +204,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 05:42:12.
+    21.12.1.dev0 at 2022-01-21 06:32:09.
   </div>
 </footer>
 
