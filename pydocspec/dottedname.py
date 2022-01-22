@@ -46,11 +46,11 @@ class DottedName:
         its arguments is not a valid dotted name.
         """
 
-    _ok_identifiers: Set[str] = set()
+    _ok_identifiers: Set[str] = set(('', '*')) # by default we accept empty identifiers and widcard, we check for validity after.
     """A cache of identifier strings that have been checked against
     _IDENTIFIER_RE and found to be acceptable."""
 
-    def __init__(self, *pieces: Union[str, 'DottedName', Tuple[str, ...]], strict: bool = False):
+    def __init__(self, *pieces: Union[str, 'DottedName', Tuple[str, ...]], strict: bool = False): # True for testing...
         """
         Construct a new dotted name from the given sequence of pieces,
         each of which can be either a ``string`` or a ``DottedName``.
@@ -68,35 +68,60 @@ class DottedName:
         :param strict: if true, then raise an `InvalidDottedName`
             if the given name is invalid.
         """
+        def _is_valid(_pieces: Sequence[str]) -> bool:
+            # empty piece of a dotted name are valid if there is at least one 
+            # non-empty name and all empty anmes are at the start of the name, meaning it's a relative name
+            seen = set()
+            for p in _pieces:
+                if p == '' and len(seen)>1:
+                    return False
+                seen.add(p)
+            # wilcards are allowed if they are present only once at the end of the name.
+            if _pieces.count('*')>0 and _pieces[-1]!='*' or _pieces.count('*')>1:
+                return False
+            return True
+        
         if len(pieces) == 0:
             raise DottedName.InvalidDottedName('Empty DottedName')
+        try:
+            if len(pieces) == 1 and isinstance(pieces[0], tuple):
+                identifiers: Sequence[str] = pieces[0] # Optimization
+                
+            else:
+                identifiers = []
+                for piece in pieces:
+                    if isinstance(piece, DottedName):
+                        identifiers += piece._identifiers
+                    elif isinstance(piece, str):
 
-        if len(pieces) == 1 and isinstance(pieces[0], tuple):
-            identifiers: Sequence[str] = pieces[0] # Optimization
-            
-        else:
-            identifiers = []
-            for piece in pieces:
-                if isinstance(piece, DottedName):
-                    identifiers += piece._identifiers
-                elif isinstance(piece, str):
+                        for subpiece in piece.split('.'):
+                            
+                            if piece not in self._ok_identifiers and subpiece not in self._ok_identifiers:
+                                # Suports relative dotted names like .mod.Class or ...pack._base
+                                if not self._IDENTIFIER_RE.match(subpiece):
+                                    piece_info = '' if subpiece==piece else f' in name {piece!r}'
+                                    if strict:
+                                        raise DottedName.InvalidDottedName(
+                                            f'Bad identifier {subpiece!r}{piece_info}')
+                                    else:
+                                        logging.getLogger('pydocspec').warning(f"Identifier {subpiece!r}{piece_info} looks suspicious; "
+                                                    "using it anyway.")
+                                self._ok_identifiers.add(subpiece)
+                            identifiers.append(subpiece)
 
-                    for subpiece in piece.split('.'):
-                        if piece not in self._ok_identifiers:
-                            if not self._IDENTIFIER_RE.match(subpiece):
-                                if strict:
-                                    raise DottedName.InvalidDottedName(
-                                        'Bad identifier %r' % (piece,))
-                                else:
-                                    logging.getLogger('pydocspec').warning("Identifier %s looks suspicious; "
-                                                "using it anyway." % repr(piece))
-                            self._ok_identifiers.add(piece)
-                        identifiers.append(subpiece)
-                else:
-                    raise TypeError('Bad identifier %r: expected '
-                                    'DottedName or str' % (piece,))
-        
-        self._identifiers: Tuple[str, ...] = tuple(identifiers)
+                        if piece not in self._ok_identifiers and not _is_valid(identifiers):
+                            if strict:
+                                raise DottedName.InvalidDottedName(
+                                    'Bad identifier %r' % ('.'.join(identifiers),))
+                            else:
+                                logging.getLogger('pydocspec').warning("Identifier %s looks suspicious; "
+                                            "using it anyway." % '.'.join(identifiers))
+                        self._ok_identifiers.add(piece)
+                    else:
+                        raise TypeError('Bad identifier %r: expected '
+                                        'DottedName or str' % (piece,))
+        finally:
+            self._identifiers: Tuple[str, ...] = tuple(identifiers)
 
     def __repr__(self) -> str:
         idents = [repr(ident) for ident in self._identifiers]

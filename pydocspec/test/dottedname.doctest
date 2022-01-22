@@ -162,12 +162,24 @@ Relative dotted name
 
     >>> str(DottedName('.foo.bar'))
     '.foo.bar'
-    >>> DottedName('.foo.bar')
+    >>> DottedName('.foo.bar', strict=True)
     DottedName('', 'foo', 'bar')
+    >>> DottedName('.foo..bar', strict=True)
+    Traceback (most recent call last):
+    ...
+    pydocspec.dottedname.DottedName.InvalidDottedName: Bad identifier '.foo..bar'
 
 Dot star dotted name
 
     >>> str(DottedName('foo.bar.*'))
     'foo.bar.*'
-    >>> DottedName('foo.bar.*')
+    >>> DottedName('foo.bar.*', strict=True)
     DottedName('foo', 'bar', '*')
+    >>> DottedName('foo.*.bar.*', strict=True)
+    Traceback (most recent call last):
+    ...
+    pydocspec.dottedname.DottedName.InvalidDottedName: Bad identifier 'foo.*.bar.*'
+    >>> DottedName('foo.*.bar', strict=True)
+    Traceback (most recent call last):
+    ...
+    pydocspec.dottedname.DottedName.InvalidDottedName: Bad identifier 'foo.*.bar'
