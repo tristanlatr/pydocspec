@@ -93,7 +93,7 @@ def test_visitors3(capsys: CapSys, root1: pydocspec.TreeRoot, root4:pydocspec.Tr
     assert captured == """:0 - Module: a
 | :1 - Indirection: Union
 | :8 - Data: saila
-| :-1 - Function: f
+| :0 - Function: f
 """
 
 def test_CustomizableVisitor(capsys: CapSys, root1: pydocspec.TreeRoot) -> None:

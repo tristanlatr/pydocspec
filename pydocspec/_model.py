@@ -32,13 +32,13 @@ if TYPE_CHECKING:
     import pydocspec
     import astroid.nodes
 
-def tree_repr(obj: 'pydocspec.ApiObject') -> str:
-    _repr_vis = visitors.ReprVisitor()
+def tree_repr(obj: 'pydocspec.ApiObject', full_name:bool=False) -> str:
+    _repr_vis = visitors.ReprVisitor(full_name=full_name)
     _repr_vis.walk(obj)
     return _repr_vis.repr.strip()
 
 # Remove when https://github.com/NiklasRosenstein/docspec/pull/50 is merged.
-@dataclasses.dataclass(init=False)
+@dataclasses.dataclass(repr=False, init=False)
 class _DefaultDocstring(str):
   location: Optional['Location']
   content: str = cast(str, property(lambda self: str(self)))
@@ -58,6 +58,7 @@ __all__ = [
   'Class',
   'Module',
   'Docstring',
+  'TreeRoot',
 ]
 
 # BASE MODEL CLASSES
@@ -106,7 +107,7 @@ class GetMembersMixin:
             return ob
         return self[parts[0]][parts[1:]]
 
-@attr.s
+@attr.s(repr=False)
 class TreeRoot:
     """
     A collection of related documentable objects, also known as "the system".
@@ -136,6 +137,11 @@ class TreeRoot:
     """
     The factory used to create this collection of objects.
     """
+    def __str__(self) -> str:
+        return self.__repr__()
+    def __repr__(self) -> str:
+        return (f"<TreeRoot root modules: {', '.join(m.name for m in self.root_modules)}, "
+                f"total objects: {len(self.all_objects)}>")
 
     @overload
     def add_object(self, ob: 'ApiObject', parent: 'ApiObject') -> None:
@@ -204,6 +210,11 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
 
         self.source_path: Optional[Path] = None
     
+    def __str__(self) -> str:
+        return self.__repr__()
+    def __repr__(self) -> str:
+        return (f"<{type(self).__name__}:{self.full_name}>")
+
     def remove(self) -> None:
         try:
             # remove from parent members
@@ -304,7 +315,7 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
             assert self.parent is not None
             return self.parent.scope
     
-    def get_member(self, name: str) -> Optional['ApiObject']:
+    def get_member(self, name: str) -> Optional['pydocspec.ApiObject']:
         """
         Retrieve a member from the API object. This will always return `None` for
         objects that don't support members (eg. `Function` and `Data`).
@@ -319,7 +330,7 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
                 return member
         return None
     
-    def get_members(self, name: str) -> Iterator['ApiObject']:
+    def get_members(self, name: str) -> Iterator['pydocspec.ApiObject']:
         """
         Like `get_member` but can return several items with the same name.
         """
@@ -329,7 +340,7 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
                     assert isinstance(member, ApiObject), (name, self, member)
                     yield member
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Data(docspec.Data, ApiObject):
     """
     Represents a variable assignment.
@@ -351,7 +362,7 @@ class Data(docspec.Data, ApiObject):
     #     # help mypy
     #     self.parent: Union['Class', 'Module']
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Indirection(docspec.Indirection, ApiObject):
     """
     Represents an imported name. It can be used to properly 
@@ -362,7 +373,7 @@ class Indirection(docspec.Indirection, ApiObject):
 
     is_type_guarged: bool = False
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Class(docspec.Class, ApiObject):
     """
     Represents a class definition.
@@ -394,7 +405,7 @@ class Class(docspec.Class, ApiObject):
         self.members: List['ApiObject'] #type:ignore 
         # the real type is Union['Data', 'Function', 'Class', 'Indirection']
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Function(docspec.Function, ApiObject):
     """
     Represents a function definition.
@@ -421,7 +432,7 @@ class Function(docspec.Function, ApiObject):
         self.args: List['Argument'] # type:ignore
         self.parent: Union[Class, 'Module']
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Argument(docspec.Argument, CanTriggerWarnings):
     """
     Represents a `Function` argument.
@@ -429,7 +440,7 @@ class Argument(docspec.Argument, CanTriggerWarnings):
     datatype_ast: Optional[astroid.nodes.NodeNG] = None
     default_value_ast: Optional[astroid.nodes.NodeNG] = None
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Decoration(docspec.Decoration, CanTriggerWarnings):
     """
     Represents a decorator on a `Class` or `Function`.
@@ -454,11 +465,11 @@ class Decoration(docspec.Decoration, CanTriggerWarnings):
     expr_ast: Optional[astroid.nodes.NodeNG] = None
     """The full decoration AST's"""    
 
-@dataclasses.dataclass(init=False)
+@dataclasses.dataclass(repr=False, init=False)
 class Docstring(_DefaultDocstring, CanTriggerWarnings):
     ...
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Module(docspec.Module, ApiObject):
     """
     Represents a module, basically a named container for code/API objects. Modules may be nested in other modules.

@@ -10,6 +10,7 @@ import attr
 
 import astroid.nodes
 import astroid.builder
+import astroid.exceptions
 
 from pydocspec.dottedname import DottedName
 
@@ -352,13 +353,16 @@ def uses_auto_attribs(call: astroid.nodes.Call, ctx: 'ApiObject') -> bool:
 
     return value
 
-def node2dottedname(node: Optional[astroid.nodes.NodeNG]) -> Optional[List[str]]:
+def node2dottedname(node: Optional[astroid.nodes.NodeNG], strict:bool=False) -> Optional[List[str]]:
     """
     Resove expression composed by `astroid.nodes.Attribute` and `astroid.nodes.Name` nodes to a list of names. 
 
     :note: Supports variants `AssignAttr` and `AssignName`.
+    :note: Strips the subscript slice, i.e. `Generic[T]` -> `Generic`, except if scrict=True.
     """
     parts = []
+    if isinstance(node, astroid.nodes.Subscript) and not strict:
+        node = node.value
     while isinstance(node, (astroid.nodes.Attribute, astroid.nodes.AssignAttr)):
         parts.append(node.attrname or '')
         node = node.expr
@@ -383,7 +387,7 @@ def is_name(value: Optional[astroid.nodes.NodeNG]) -> bool:
     A name is an expression composed by `astroid.nodes.Attribute` and `astroid.nodes.Name` nodes
     :returns: `True` if value is a valid name.
     """
-    return node2dottedname(value) is not None
+    return node2dottedname(value, strict=True) is not None
 
 def is_type_guarded(node: Optional[astroid.nodes.NodeNG], ctx: '_model.ApiObject') -> bool:
     """Return True if one of the parent(s) of a node is a typing guard."""
@@ -423,6 +427,8 @@ def bind_args(sig: inspect.Signature, call: astroid.nodes.Call) -> inspect.Bound
 def extract_expr(expr: str, filename: Optional[str] = None) -> astroid.nodes.NodeNG:
     """
     Convert a python expression to ast. 
+
+    Can raise `SyntaxError` or `astroid.exceptions.AstroidSyntaxError`
     """
     statements = astroid.builder.parse(expr, path=filename or '<unknown>').body
     if len(statements) != 1:
@@ -457,7 +463,7 @@ def unstring_annotation(node: astroid.nodes.NodeNG) -> astroid.nodes.NodeNG:
     """
     try:
         expr = _AnnotationStringParser().visit(node)
-    except Exception as ex:
+    except (SyntaxError, astroid.exceptions.AstroidSyntaxError) as ex:
         raise SyntaxError(f'error in annotation: {ex}') from ex
     else:
         assert isinstance(expr, astroid.nodes.NodeNG), expr
@@ -526,7 +532,7 @@ class _AnnotationStringParser(NodeTransformer):
 
     When given an expression, the node returned by `visit()` will also be an expression.
     If any string literal contained in the original expression is either
-    invalid Python or not a singular expression, `SyntaxError` is raised.
+    invalid Python or not a singular expression, `SyntaxError` or `astroid.exceptions.AstroidError` is raised.
     """
 
     def visit_Subscript(self, node: astroid.nodes.Subscript) -> astroid.nodes.Subscript:
@@ -551,7 +557,7 @@ class _AnnotationStringParser(NodeTransformer):
             assert isinstance(const, astroid.nodes.Const), const
             return const
 
-
+# (not used for now in pydocspec, found bug with inner classes.)
 # The MIT License (MIT)
 # Copyright (c) 2015 Read the Docs, Inc
 # functions: resolve_qualname, get_full_import_name, resolve_import_alias
@@ -610,12 +616,12 @@ def resolve_qualname(
     
     # re.sub(r"\(.*\)", "", basename).split(".", 1)[0]
     # Disable until pylint uses astroid 2.7
-    # if isinstance(
-    #     ctx, astroid.nodes.node_classes.LookupMixIn  # pylint: disable=no-member
-    # ):
-    #     lookup_node = ctx
-    # else:
-    lookup_node = ctx.scope() if isinstance(ctx, (astroid.nodes.ClassDef, astroid.nodes.Module)) else ctx.scope()
+    if isinstance(
+        ctx, astroid.nodes.node_classes.LookupMixIn  # pylint: disable=no-member
+    ):
+        lookup_node = ctx
+    else:
+        lookup_node = ctx.scope()
 
     assigns = lookup_node.lookup(top_level_name)[1]
 
@@ -643,15 +649,3 @@ def resolve_qualname(
         return full_basename[len("__builtin__.") :]
 
     return full_basename
-
-def resolve_node_qname(ctx: Union[astroid.nodes.ClassDef, astroid.nodes.Module], 
-                       expr: astroid.nodes.NodeNG) -> Optional[str]:
-    """
-    Resove expression composed by `astroid.nodes.Attribute` and `astroid.nodes.Name` nodes to a full name.
-    """
-    # could theorically avoid passing the context around using expr.scope() but there is currently the following error blocking me:
-    # astroid.exceptions.ParentMissingError: Parent not found on <Name.tuple l.2 at 0x109aeeb00>.
-    name = node2dottedname(expr)
-    if name:
-        return resolve_qualname(ctx, '.'.join(name))
-    return None

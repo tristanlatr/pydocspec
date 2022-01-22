@@ -10,6 +10,7 @@ from pydocspec import astroidutils
 
 def ast2apiobject(root: pydocspec.TreeRoot, node: Union['astroid.nodes.ClassDef', 
                                         'astroid.nodes.Module']) -> Optional[Union['pydocspec.Class', 'pydocspec.Module']]:
+    """implementation is duplicate safe."""
     values = root.all_objects.getall(node.qname())
     if not values: 
         return None
@@ -23,9 +24,9 @@ def ast2apiobject(root: pydocspec.TreeRoot, node: Union['astroid.nodes.ClassDef'
 
 # TODO: ctx here is not required since we could expand the annotation name with astutils.resolve_qualname()
 # Even if requiring a pydocspec context object is unpratical (because the name resolving system needs the object
-# to be added to the TreeRoot instance and the correctness of the result depends on the availbility of the targeter object
+# to be added to the TreeRoot instance and the correctness of the result depends on the availbility of the targeted object
 # in the system. So, recap, it's not recommended to use the naming system in the builder, 
-# BUT whend resolving import names, there is good chance that the indirection is already created.
+# BUT when resolving import names, there is good chance that the indirection is already created, so it's ok.
 
 def is_using_typing_final(expr: Optional[astroid.nodes.NodeNG], 
                     ctx:Union[pydocspec.Class, pydocspec.Module]) -> bool:

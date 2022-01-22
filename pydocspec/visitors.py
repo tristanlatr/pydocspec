@@ -98,9 +98,10 @@ class FilterVisitor(ApiObjectVisitor):
 
 class ReprVisitor(ApiObjectVisitor):
   # for test purposes
-  def __init__(self) -> None:
+  def __init__(self, full_name: bool = False) -> None:
     super().__init__()
     self.repr: str = ''
+    self.full_name = full_name
   def unknown_visit(self, ob: 'pydocspec.ApiObject') -> None:
     depth = len(ob.path)-1
     # dataclasses.asdict(ob) can't work on cycles references, so we iter the fields
@@ -122,7 +123,7 @@ class ReprVisitor(ApiObjectVisitor):
         other_fields_repr += k + ": " + _repr
     tokens = dict(
       type = type(ob).__name__,
-      name = ob.name,
+      name = ob.full_name if self.full_name else ob.name,
       lineno = str(ob.location.lineno) if ob.location else 0,
       filename = ob.location.filename or '' if ob.location else '',
       other = other_fields_repr)

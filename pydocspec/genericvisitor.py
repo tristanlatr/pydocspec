@@ -4,7 +4,7 @@ General purpose visitor pattern implementation, with extensions.
 from collections import defaultdict
 import enum
 import abc
-from typing import Generic, Iterable, Optional, TypeVar
+from typing import Generic, Iterable, Optional, Type, TypeVar, Union
 
 T = TypeVar("T")
 
@@ -165,17 +165,21 @@ class VisitorExtensionList(Generic[T]):
         self._visitors: dict[When, list['VisitorExtension[T]']] = defaultdict(list)
         self.add(*extensions)
 
-    def add(self, *extensions: 'VisitorExtension[T]') -> None:
+    def add(self, *extensions: Union['VisitorExtension[T]', Type['VisitorExtension[T]']]) -> None:
         """Add extensions to this container.
 
         Parameters:
             *extensions: The extensions to add.
         """
         for extension in extensions:
+            if isinstance(extension, type) and issubclass(extension, VisitorExtension):
+              extension = extension()
             if isinstance(extension, VisitorExtension):
-                if extension.when == NotImplemented:
-                  raise AttributeError(f'class variable "when" must be set on visitor extension {type(extension)}')
-                self._visitors[extension.when].append(extension)
+              if extension.when == NotImplemented:
+                raise AttributeError(f'Class variable "when" must be set on visitor extension {type(extension)}')
+              self._visitors[extension.when].append(extension)
+            else:
+              raise TypeError(f"Visitor extensions must be an instance or a subclass of 'VisitorExtension', got '{extension!r}'")
 
     def attach_visitor(self, parent_visitor: 'CustomizableVisitor[T]') -> None:
         """Attach a parent visitor to the visitor extensions.
@@ -285,6 +289,7 @@ class CustomizableVisitor(Visitor[T]):
       v.visit(ob)
   
   def depart(self, ob: T) -> None:
+    """Extend the base depart with extensions."""
     
     for v in self.extensions.after_visit:
       v.depart(ob)

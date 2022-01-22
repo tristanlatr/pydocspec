@@ -187,12 +187,19 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             bases_str = []
             bases_ast = []
 
-        # compute the Class.bases attribute
-        for n in node.bases:
-            str_base = n.as_string()
+        # compute the dummy Class.bases attribute and unstring bases_ast.
+        for n in node.bases:            
             assert isinstance(bases_str, list)
             assert isinstance(bases_ast, list)
-            bases_str.append(str_base)
+        
+            # try to unstring the annotation of the base classes
+            try:
+                n = astroidutils.unstring_annotation(n)
+            except SyntaxError:
+                #TODO: Log warning.
+                pass
+            
+            bases_str.append(n.as_string())
             bases_ast.append(n)
 
         lineno = node.lineno
@@ -214,8 +221,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
                                     members=[], 
                                     is_type_guarged=astroidutils.is_type_guarded(node, self.current), 
                                     _ast=node)
-        
-        # cls.mro = processor.class_attr.mro_from_astroid(cls)
+        self.add_object(cls)
 
         # set docstring
         if len(node.body) > 0 and isinstance(node.body[0], astroid.nodes.Expr) and isinstance(node.body[0].value, astroid.nodes.Const):
@@ -234,12 +240,12 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
 
                 if isinstance(decnode, astroid.nodes.Call):
                     name_ast = decnode.func
-                    dotted_name = astroidutils.node2dottedname(name_ast)
+                    dotted_name = astroidutils.node2dottedname(name_ast, strict=True)
                     args_ast = decnode.args
                     args = []
                 else:
                     name_ast = decnode
-                    dotted_name = astroidutils.node2dottedname(name_ast)
+                    dotted_name = astroidutils.node2dottedname(name_ast, strict=True)
                     args_ast = args = None
                 
                 if dotted_name is None:
@@ -265,7 +271,6 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
                 
                 cls.decorations.append(deco)
         
-        self.add_object(cls)
 
     def depart_classdef(self, node: astroid.nodes.ClassDef) -> None:
 
@@ -317,11 +322,17 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         if node.names[0][0] == '*':
             for i in self._newIndirectionsFromWildcardImport(modname, lineno=node.lineno, 
                                       is_type_guarged=is_type_guarged):
-                self.add_object(i, push=False)
+                # do not add indirection with the same name and target
+                # Note: we use str(self.current.dotted_name+i.name) to get the full name of the indirection 
+                # because .full_name does not work on object that are not added to the tree yet.
+                if str(self.current.dotted_name+i.name) != i.target:
+                    self.add_object(i, push=False)
         else:
             for i in self._newIndirections(modname, node.names, lineno=node.lineno, 
                                         is_type_guarged=is_type_guarged):
-                self.add_object(i, push=False)
+                # do not add indirection with the same name and target
+                if str(self.current.dotted_name+i.name) != i.target:
+                    self.add_object(i, push=False)
 
     def _newIndirectionsFromWildcardImport(self, modname: str, lineno: int, 
                     is_type_guarged:bool) -> Iterator[_model.Indirection]:
@@ -394,16 +405,19 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             ctx.module.warn("processing import statement ({node!r}) in odd context: {ctx!r}",
                             lineno_offset=node.lineno)
             return
-        
+        is_type_guarged=astroidutils.is_type_guarded(node, ctx)
         for al in node.names:
             fullname, asname = al[0], al[1]
             if asname is not None:
                 indirection = self.root.factory.Indirection(name=asname, 
                     location=self.root.factory.Location(filename=self.current.location.filename, lineno=node.lineno), docstring=None, 
-                    target=fullname, is_type_guarged=astroidutils.is_type_guarded(node, ctx))
-                self.add_object(indirection, push=False)
+                    target=fullname, is_type_guarged=is_type_guarged)
+                # do not add indirection with the same name and target
+                if str(self.current.dotted_name+indirection.name) != indirection.target:
+                    self.add_object(indirection, push=False)
+                
             # Do not create an indirection with the same name and target, this is pointless and it will
-            # make the ApiObject._resolve_indirection() method reccurse one time more than needed.
+            # make the ApiObject._resolve_indirection() method reccurse one time more than needed, or even fail.
 
     # TODO: Code the rest of it!
 
@@ -415,15 +429,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
     # Duplicate Data: No exceptions. Object defined after wins (older Data can still be accessed).
     # Duplicate Class object: Object defined after wins (older Class can still be accessed).
     # Duplicate Function object: Object defined after wins (older Function can still be accessed).
-    
-    # Duplicate objects handling: (in processor)
-    # - For duplicate Data object (pretty common), we unify the information present in all Data objects
-    #   under a single object. Information denifed after wins.
-    #   If an instance varaible shadows a class variable, it will be considered as instance variable.
-    # - In a class, a Data definition sould not shadow another object that is not a Data, 
-    #       even if the object is inherited. So if that happens it will simply be ignored.
-    # - A submodule can be shadowed by a another name by the same name in the package's __int__.py file.
-    # - In a class, functions with the same name might be properties/overloaded function, so we should unify them under a single Function object
+
 
     ### ATTRIBUTES ###
 
@@ -794,16 +800,16 @@ class Builder:
             if state is ProcessingState.UNPROCESSED:
                 
                 mods = self.root.all_objects.getall(mod_name)
-                assert mods is not None, "Cannot find module '{mod_name}' in {root.all_objects!r}."
+                assert mods is not None, f"Cannot find module '{mod_name}' in the system."
                 
                 for mod in mods:
                     # Support that function/class overrides a module name, but still process the module ;-)
                     #TODO: test this.
 
-                    # This returns the firstly added object macthing the name, and it must be a module. 
-                    assert isinstance(mod, _model.Module)
-                    yield mod
-                    break
+                    # This returns the module object macthing the name.
+                    if isinstance(mod, _model.Module):
+                        yield mod
+                        break
                 else:
                     raise RuntimeError(f"No module found for name '{mod_name}', though it appears in the processing map: {self.processing_map!r}.")
 

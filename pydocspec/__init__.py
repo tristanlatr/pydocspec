@@ -103,10 +103,6 @@ class ApiObject(_model.ApiObject):
         self.location: Location
         self.module: 'Module'
 
-        # TODO: replace this by actual function overrides calling super().
-        self.get_member: Callable[[str], Optional['ApiObject']] # type:ignore[assignment]
-        self.get_members: Callable[[str], Iterator['ApiObject']] # type:ignore[assignment]
-
         # new attributes
 
         self.doc_sources: List['ApiObject'] = []
@@ -247,6 +243,7 @@ class ApiObject(_model.ApiObject):
         """
 
         if _indirections and len(_indirections) > _RESOLVE_ALIAS_MAX_RECURSE:
+            _indirections[0].warn(f"Could not resolve indirection to {_indirections[0].target!r}, reach max recursions.")
             return _indirections[0].full_name
 
         target = indirection.target
@@ -268,9 +265,10 @@ class ApiObject(_model.ApiObject):
                 # because they have the same target name as the name they are aliasing, it's causing trouble.
                 return ctx.parent.expand_name(target, _indirections=(_indirections or [])+[indirection])
         
+        indirection.warn(f"Could not resolve indirection to {_indirections[0].target!r}.")
         return None
     
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Data(_model.Data, ApiObject):
     """
     Represents a variable assignment.
@@ -326,7 +324,7 @@ class Data(_model.Data, ApiObject):
 
     # TODO: Always consider Enum values as constants. Maybe having a Class.is_enum property, similar to is_exception?
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Indirection(_model.Indirection, ApiObject):
   """
   Represents an imported name. It can be used to properly 
@@ -340,7 +338,7 @@ class Indirection(_model.Indirection, ApiObject):
         # help mypy
         self.parent: Union['Class', 'Module']
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Class(_model.Class, ApiObject):
     """
     Represents a class definition.
@@ -457,7 +455,7 @@ class Class(_model.Class, ApiObject):
     #     return [o for o in baselist[0].contents.values()
     #             if o.isVisible and o.name not in maybe_masking]
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Function(_model.Function, ApiObject):
     """
     Represents a function definition.
@@ -528,7 +526,7 @@ class Function(_model.Function, ApiObject):
         
         return signature
     
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Module(_model.Module, ApiObject):
     """
     Represents a module, basically a named container for code/API objects. Modules may be nested in other modules

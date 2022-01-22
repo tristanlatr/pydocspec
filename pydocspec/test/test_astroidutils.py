@@ -4,10 +4,34 @@ from textwrap import dedent
 import astroid.nodes
 import astroid.rebuilder
 import astroid.builder
+import pydocspec
 import pytest
-from pydocspec import astroidutils
+from pydocspec import astroidutils, visitors
 
+from . import CapSys
 from .test_astbuilder import mod_from_text
+
+@pytest.mark.parametrize(
+        ("source", "expected"), 
+        [("var: typing.Generic[T]", "typing.Generic -> typing.Generic"), 
+        ("var: typing.Generic[T, _KV]", "typing.Generic -> typing.Generic"),
+        ("from typing import Generic\nvar: Generic[T]", "Generic -> typing.Generic"),
+        ("from pydocspec import _model as m\nvar: m.TreeRoot[T]", "m.TreeRoot -> pydocspec._model.TreeRoot"),
+        ("var: dict[str, str]", "dict -> dict"),]
+    )
+def test_node2fullname_nodes(source:str, expected:str, capsys: CapSys):
+    class PrintNode2DottedAndFullName(visitors.ApiObjectVisitor):
+        def unknown_visit(self, ob: pydocspec.ApiObject) -> None:
+            pass
+        def visit_Data(self, ob:pydocspec.Data) -> astroid.nodes.NodeNG:
+            ann_full_name = astroidutils.node2dottedname(ob.datatype_ast)
+            if ann_full_name:
+                print('.'.join(ann_full_name) + " -> " + str(astroidutils.node2fullname(ob.datatype_ast, ob)))
+    
+    mod = mod_from_text(source)
+    mod.walk(PrintNode2DottedAndFullName())
+    captured = capsys.readouterr().out
+    assert captured.strip() == expected.strip()
 
 class InferTypeAnnotationTests(unittest.TestCase):
     def test_literal_infer(self):
