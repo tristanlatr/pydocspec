@@ -238,8 +238,9 @@ class VisitorExtension(PartialVisitor[T]):
     
     See: `When` 
     """
-
+    
     when: When = NotImplemented
+    When = When
 
     def __init__(self) -> None:
         """Initialize the visitor extension."""

@@ -4,7 +4,7 @@ import logging
 
 import pydocspec
 from pydocspec import visitors
-from . import builderfunc_param, CapSys
+from . import load_python_modules_param, CapSys
 
 import astroid.builder
 import astroid.manager
@@ -100,8 +100,8 @@ i = _f()
 #     assert moved.parentMod.source_path is not None
 #     assert moved.parentMod.source_path.parts[-2:] == ('allgames', 'mod2.py')
 
-@builderfunc_param
-def test_cyclic_imports(builderfunc: Callable[[Sequence[Path]], pydocspec.TreeRoot]) -> None:
+@load_python_modules_param
+def test_cyclic_imports(load_python_modules: Callable[[Sequence[Path]], pydocspec.TreeRoot]) -> None:
     """
     Test whether names are resolved correctly when we have import cycles.
     The test package contains module 'a' that defines class 'A' and module 'b'
@@ -110,7 +110,7 @@ def test_cyclic_imports(builderfunc: Callable[[Sequence[Path]], pydocspec.TreeRo
     been fully processed yet, no matter which module gets processed first.
     """
 
-    system = builderfunc([testpackages / 'cyclic_imports'])
+    system = load_python_modules([testpackages / 'cyclic_imports'])
     assert isinstance(system.all_objects['cyclic_imports'], pydocspec.Module)
 
     mod_a = system.all_objects['cyclic_imports.a']
@@ -155,7 +155,7 @@ def test_cyclic_imports_all(caplog) -> None:
     system = pydocspec.load_python_modules([testpackages / 'cyclic_imports_all'])
     assert "Can't resolve cyclic wildcard imports" in caplog.text, caplog.text
     assert isinstance(system.all_objects['cyclic_imports_all'], pydocspec.Module)
-    repr_vis = visitors.ReprVisitor()
+    repr_vis = visitors.ReprVisitor(fields=['datatype', 'target', 'semantic_hints'])
 
     mod_a = system.all_objects['cyclic_imports_all.a']
     mod_b = system.all_objects['cyclic_imports_all.b']
@@ -164,11 +164,11 @@ def test_cyclic_imports_all(caplog) -> None:
     mod_a.walk(repr_vis)
 
     assert repr_vis.repr == """\
-| - Module 'b' at l.0, source_path: b.py
+| - Module 'b' at l.0
 | | - Indirection 'A' at l.1, target: 'cyclic_imports_all.a.A'
 | | - Class 'B' at l.3
 | | | - Data 'a' at l.4, datatype: 'A', semantic_hints: [<Semantic.CLASS_VARIABLE: 1>]
-| - Module 'a' at l.0, source_path: a.py
+| - Module 'a' at l.0
 | | - Indirection 'A' at l.1, target: 'cyclic_imports_all.b.A'
 | | - Indirection 'B' at l.1, target: 'cyclic_imports_all.b.B'
 | | - Class 'A' at l.3
@@ -186,16 +186,16 @@ def test_imports_all_many_level(caplog) -> None:
     system = pydocspec.load_python_modules([testpackages / 'imports_all_many_levels'])
     assert not caplog.text, caplog.text
     assert isinstance(system.all_objects['imports_all_many_levels'], pydocspec.Module)
-    repr_vis = visitors.ReprVisitor()
+    repr_vis = visitors.ReprVisitor(fields=['is_package', 'target'])
 
     pack = system.all_objects['imports_all_many_levels']
 
     pack.walk(repr_vis)
 
     assert repr_vis.repr == """\
-- Module 'imports_all_many_levels' at l.0, is_package: True, source_path: __init__.py
-| - Module 'level1' at l.0, is_package: True, source_path: __init__.py
-| | - Module 'level2' at l.0, is_package: True, source_path: __init__.py
+- Module 'imports_all_many_levels' at l.0, is_package: True
+| - Module 'level1' at l.0, is_package: True
+| | - Module 'level2' at l.0, is_package: True
 | | | - Class 'l2' at l.1
 | | - Indirection 'l2' at l.1, target: 'imports_all_many_levels.level1.level2.l2'
 | | - Class 'l1' at l.3
@@ -209,16 +209,16 @@ def test_cyclic_imports_all_many_level(caplog) -> None:
     system = pydocspec.load_python_modules([testpackages / 'cyclic_imports_all_many_levels'])
     # assert "Incomplete analysis" in caplog.text, caplog.text
     assert isinstance(system.all_objects['cyclic_imports_all_many_levels'], pydocspec.Module)
-    repr_vis = visitors.ReprVisitor()
+    repr_vis = visitors.ReprVisitor(fields=['is_package', 'target'])
 
     pack = system.all_objects['cyclic_imports_all_many_levels']
 
     pack.walk(repr_vis)
 
     assert repr_vis.repr == """\
-- Module 'cyclic_imports_all_many_levels' at l.0, is_package: True, source_path: __init__.py
-| - Module 'level1' at l.0, is_package: True, source_path: __init__.py
-| | - Module 'level2' at l.0, is_package: True, source_path: __init__.py
+- Module 'cyclic_imports_all_many_levels' at l.0, is_package: True
+| - Module 'level1' at l.0, is_package: True
+| | - Module 'level2' at l.0, is_package: True
 | | | - Class 'l2' at l.2
 | | - Indirection 'l2' at l.1, target: 'cyclic_imports_all_many_levels.level1.level2.l2'
 | | - Class 'l1' at l.3

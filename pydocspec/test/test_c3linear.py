@@ -1,16 +1,15 @@
 from typing import List, Type
 import pytest
 
-from .test_astbuilder import mod_from_text
-from . import rootcls_param
-from pydocspec import Class, TreeRoot, processor
+from . import mod_from_text_param, ModFromTextFunction
+from pydocspec import Class, processor
 
 def assert_mro_equals(klass: Class, expected_mro: List[str]
     ) -> None:
         assert [member.full_name for member in processor.class_attr.MRO().mro(klass)] == expected_mro
 
-@rootcls_param
-def test_mro(rootcls: Type[TreeRoot]) -> None:
+@mod_from_text_param
+def test_mro(mod_from_text: ModFromTextFunction) -> None:
     mod = mod_from_text("""\
     from mod import External
     class C: pass
@@ -47,7 +46,6 @@ def test_mro(rootcls: Type[TreeRoot]) -> None:
     class MycustomString(str): pass
     """, 
     modname='mro', 
-    rootcls=rootcls,
     )
     assert_mro_equals(mod.get_member("D"), ["mro.D", "mro.C"])
     assert_mro_equals(mod.get_member("D1"), ['mro.D1', 'mro.B1', 'mro.C1', 'mro.A1'])

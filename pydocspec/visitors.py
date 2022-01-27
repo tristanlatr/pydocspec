@@ -17,29 +17,36 @@ import docspec
 # should not import pydocspec or _model
 
 from . import genericvisitor, astroidutils
-import pydocspec
 
 if t.TYPE_CHECKING:
   from ._model import ApiObject
+  from .astbuilder import BuilderVisitor
   import pydocspec
-
 # AST visitors
 
-class AstVisitor(genericvisitor.PartialVisitor[astroid.nodes.NodeNG], 
+class _ASTVisitorGetChildren:
+  # implements get_children() for astroid nodes.
+  def get_children(self, node: astroid.nodes.NodeNG) -> t.Iterable[astroid.nodes.NodeNG]:
+    return astroidutils.iter_values(node)
+
+# This alternative implementation for the get_children method might be useful because it only
+# traverses nodes that have a 'body' field. Might be more efficient.
+class _ASTVisitorGetChildrenBodyOnly:
+  def get_children(self, node: astroid.nodes.NodeNG) -> t.Iterable[astroid.nodes.NodeNG]:
+      """
+      Visit the nested nodes in the body of a node.
+      """
+      body: t.Optional[t.Sequence[astroid.nodes.NodeNG]] = getattr(node, 'body', None)
+      if body is not None:
+          for child in body:
+              yield child
+
+class AstVisitor(_ASTVisitorGetChildren, genericvisitor.PartialVisitor[astroid.nodes.NodeNG], 
                  genericvisitor.CustomizableVisitor[astroid.nodes.NodeNG]):
-  get_children = lambda _,ob: astroidutils.iter_values(ob)
+  ...
 
-  # def get_children(self, node: astroid.nodes.NodeNG) -> None:
-  #     """
-  #     Visit the nested nodes in the body of a node.
-  #     """
-  #     body: t.Optional[t.Sequence[astroid.nodes.NodeNG]] = getattr(node, 'body', None)
-  #     if body is not None:
-  #         for child in body:
-  #             yield child
-
-class AstVisitorExt(genericvisitor.VisitorExtension[astroid.nodes.NodeNG]):
-  get_children = lambda _,ob: astroidutils.iter_values(ob)
+class AstVisitorExt(_ASTVisitorGetChildren, genericvisitor.VisitorExtension[astroid.nodes.NodeNG],):
+  visitor: 'BuilderVisitor'
 
 def iter_fields(ob: 'pydocspec.ApiObject') -> t.Iterator[t.Tuple[str, t.Any]]:
   """
@@ -59,11 +66,15 @@ class _docspecApiObjectVisitor(genericvisitor.Visitor[docspec.ApiObject]):
       else:
         return ()
 
-class ApiObjectVisitor(genericvisitor.CustomizableVisitor['pydocspec.ApiObject']):
-  get_children = lambda _,ob: ob._members()
+class _ApiObjectVisitorGetChildren:
+  def get_children(self, ob: 'pydocspec.ApiObject') -> t.Iterable['pydocspec.ApiObject']:
+    return ob._members()
 
-class ApiObjectVisitorExt(genericvisitor.VisitorExtension['pydocspec.ApiObject']):
-  get_children = lambda _,ob: ob._members()
+class ApiObjectVisitor(_ApiObjectVisitorGetChildren, genericvisitor.CustomizableVisitor['pydocspec.ApiObject'],):
+  ...
+
+class ApiObjectVisitorExt(_ApiObjectVisitorGetChildren, genericvisitor.VisitorExtension['pydocspec.ApiObject'],):
+  ...
 
 class FilterVisitor(ApiObjectVisitor):
   """
@@ -97,13 +108,29 @@ class FilterVisitor(ApiObjectVisitor):
       m.remove()
 
 class ReprVisitor(ApiObjectVisitor):
+  """
+  Format a representation of a arbitrary ApiObject, 
+  including nested members of the tree.
+
+  :Parameters:
+    full_name
+      whether to show the full qualified name for objects, 
+      default is just the name
+    fields
+      list of names of the fields to show, default is to show all
+      fields evaluated to a true value.
+  
+  :Note: It will always ignore ast values.
+  """
   # for test purposes
-  def __init__(self, full_name: bool = False) -> None:
+  def __init__(self, full_name: bool = False, fields: t.Optional[t.Sequence[str]]=None) -> None:
     super().__init__()
     self.repr: str = ''
     self.full_name = full_name
+    self.fields = fields
   def unknown_visit(self, ob: 'pydocspec.ApiObject') -> None:
     depth = len(ob.path)-1
+    
     # dataclasses.asdict(ob) can't work on cycles references, so we iter the fields
     other_fields = dict(list(iter_fields(ob)))
     other_fields.pop('name')
@@ -111,6 +138,11 @@ class ReprVisitor(ApiObjectVisitor):
     other_fields.pop('docstring')
     try: other_fields.pop('members')
     except KeyError: pass
+    
+    # filter fields if specified:
+    if self.fields is not None:
+      other_fields = { k:v for (k,v) in other_fields.items() if k in self.fields}
+    
     other_fields_repr = ""
     for k,v in other_fields.items():
       if k.endswith('_ast'): # ignore ast fields

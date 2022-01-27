@@ -3,16 +3,14 @@ Create customizable docspec classes.
 """
 import logging
 from typing import Dict, List, Type, Any, Union, Sequence
-from importlib import import_module
-import attr
 
 import pydocspec
-from . import brains, _model
 
-@attr.s(auto_attribs=True)
 class GenericFactory:
-    bases: Dict[str, Type[Any]]
-    mixins: Dict[str, List[Type[Any]]] = attr.ib(factory=dict)
+
+    def __init__(self, bases: Dict[str, Type[Any]]) -> None:
+        self.bases = bases
+        self.mixins: Dict[str, List[Type[Any]]] = {}
 
     def add_mixin(self, for_class: str, mixin:Type[Any]) -> None:
         """
@@ -55,7 +53,7 @@ class Factory(GenericFactory):
     Classes are created dynamically with `type` such that they can inherith from customizable mixin classes. 
     """
 
-    bases = {
+    _bases = {
             'TreeRoot': pydocspec.TreeRoot,
             'Class': pydocspec.Class,
             'Function': pydocspec.Function,
@@ -67,30 +65,9 @@ class Factory(GenericFactory):
             'Docstring': pydocspec.Docstring,
             'Location': pydocspec.Location,
         }
-
-    @classmethod
-    def default(cls, load_brains:bool=False) -> 'Factory':
-        factory = cls(Factory.bases)
-        if load_brains:
-            for mod in brains.get_all_brain_modules():
-                factory.import_mixins_from(mod)
-        return factory
-
-    def import_mixins_from(self, module:Union[str, Any]) -> None:
-        """
-        Will look for the special mapping ``pydocspec_mixin`` in the provided module.
-        """
-        if isinstance(module, str):
-            mod = import_module(module)
-        else:
-            mod = module
-        if hasattr(mod, 'pydocspec_mixin'):
-            mixin_definitions = mod.pydocspec_mixin
-            assert isinstance(mixin_definitions, dict), f"{mod}.pydocspec_mixin should be a dict, not {type(mixin_definitions)}."
-            if any(mixin_definitions.values()):
-                self.add_mixins(**mixin_definitions)
-                return
-            logging.getLogger('pydocspec').warning(f"No mixin classes added for module {mod}, check the validity of the pydocspec_mixin attribute.")
+    
+    def __init__(self) -> None:
+        super().__init__(bases=self._bases)
 
     @property
     def TreeRoot(self) -> Type[pydocspec.TreeRoot]:

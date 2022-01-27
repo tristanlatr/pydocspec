@@ -8,9 +8,9 @@ import pydocspec
 import pytest
 from pydocspec import astroidutils, visitors
 
-from . import CapSys
-from .test_astbuilder import mod_from_text
+from . import CapSys, _default_astbuilder, mod_from_text_param, ModFromTextFunction
 
+@mod_from_text_param
 @pytest.mark.parametrize(
         ("source", "expected"), 
         [("var: typing.Generic[T]", "typing.Generic -> typing.Generic"), 
@@ -19,7 +19,8 @@ from .test_astbuilder import mod_from_text
         ("from pydocspec import _model as m\nvar: m.TreeRoot[T]", "m.TreeRoot -> pydocspec._model.TreeRoot"),
         ("var: dict[str, str]", "dict -> dict"),]
     )
-def test_node2fullname_nodes(source:str, expected:str, capsys: CapSys):
+def test_node2fullname_nodes(mod_from_text:ModFromTextFunction, 
+                             source:str, expected:str, capsys: CapSys):
     class PrintNode2DottedAndFullName(visitors.ApiObjectVisitor):
         def unknown_visit(self, ob: pydocspec.ApiObject) -> None:
             pass
@@ -385,11 +386,13 @@ def imported_call_cases():
             yield import_, basename, expected
 
 
-class TestAstroidUtils:
+class TestAstroidUtilsAndExpandName:
+    #@mod_from_text_param
     @pytest.mark.parametrize(
         ("import_", "basename", "expected"), list(imported_basename_cases())
     )
-    def test_can_get_full_imported_basename(self, import_, basename, expected):
+    def test_can_get_full_imported_basename(self, 
+            import_, basename, expected):
         source = """
         {}
         class ThisClass({}): #@
@@ -402,7 +405,7 @@ class TestAstroidUtils:
         assert basenames == expected
 
         # this test also pass with expand_name()
-        mod = mod_from_text(source)
+        mod = _default_astbuilder.mod_from_text(source)
         basenames = mod['ThisClass'].expand_name(node.basenames[0])
         assert basenames == expected
 

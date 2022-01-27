@@ -77,13 +77,13 @@ def mod1() -> docspec.Module:
 
 @pytest.fixture
 def root1() -> pydocspec.TreeRoot:
-  return converter.convert_docspec_modules([_mod1], root=True)
+  return converter.convert_docspec_modules([_mod1])
 @pytest.fixture
 def root2() -> pydocspec.TreeRoot:
-  return converter.convert_docspec_modules([_mod2], root=True)
+  return converter.convert_docspec_modules([_mod2])
 @pytest.fixture
 def root3() -> pydocspec.TreeRoot:
-  return converter.convert_docspec_modules([_mod3], root=True)
+  return converter.convert_docspec_modules([_mod3])
 @pytest.fixture
 def root4() -> pydocspec.TreeRoot:
-  return converter.convert_docspec_modules([_mod4], root=True)
+  return converter.convert_docspec_modules([_mod4])

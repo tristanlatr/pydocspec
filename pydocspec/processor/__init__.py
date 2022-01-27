@@ -4,11 +4,11 @@ Processes the half baked model created by the builder to populate buch of fancy 
 
 from importlib import import_module
 import logging
-from typing import Any, Callable, Dict, Optional, Union
+from typing import Any, Callable, Dict, List, Optional, Set, Type, Union
 
 import attr
 import pydocspec
-from pydocspec import _model, brains, visitors, genericvisitor
+from pydocspec import _model, brains, visitors
 
 from . import class_attr, data_attr, func_attr, mod_attr
 
@@ -33,7 +33,7 @@ class _MroFromAstroidSetter(visitors.ApiObjectVisitorExt):
     Set Class.mro attribute based on astroid to be able to
     correctly populate the resolved_bases attribute.
     """
-    when = genericvisitor.When.BEFORE
+    when = visitors.ApiObjectVisitorExt.When.BEFORE
     def unknown_visit(self, ob: pydocspec.Class) -> None:
         pass
     def visit_Class(self, ob: pydocspec.Class) -> None:
@@ -48,7 +48,7 @@ class _DuplicateWhoShadowsWhoHandling(visitors.ApiObjectVisitorExt):
     #       even if the object is inherited. So if that happens it will simply be ignored.
     # - A submodule can be shadowed by a another name by the same name in the package's __int__.py file.
     # - In a class, functions with the same name might be properties/overloaded function, so we should unify them under a single Function object
-    when = genericvisitor.When.BEFORE
+    when = visitors.ApiObjectVisitorExt.When.BEFORE
     
     # names defined in the __init__.py of a package should shadow the 
     # submodules with the same name in all_objects.
@@ -74,12 +74,12 @@ class _DuplicateWhoShadowsWhoHandling(visitors.ApiObjectVisitorExt):
 class _DocSourcesSetter(visitors.ApiObjectVisitorExt):
     # TODO: this will be correct at the moment where we're using astorid to load AST from 
     # c-extensions. For now, it works with pure-python.
-    when = genericvisitor.When.AFTER
+    when = visitors.ApiObjectVisitorExt.When.AFTER
     def unknown_depart(self, ob: pydocspec.ApiObject) -> None:
         ob.doc_sources = data_attr.doc_sources(ob)
 
 class _DefaultLocationSetter(visitors.ApiObjectVisitorExt):
-    when = genericvisitor.When.BEFORE
+    when = visitors.ApiObjectVisitorExt.When.BEFORE
     _default_location = _model.Location(filename='<unknown>', lineno=0)
     def unknown_visit(self, ob: _model.ApiObject) -> None:
         # Location attribute should be always set from the builder, though.
@@ -106,7 +106,7 @@ class PostBuildVisitor1(visitors.ApiObjectVisitor):
 
         ob.is_exception = class_attr.is_exception(ob)
         ob.constructor_method = class_attr.constructor_method(ob)
-
+        ob.inherited_members = class_attr.inherited_members(ob)
         class_attr.process_subclasses(ob) # Setup the `pydocspec.Class.subclasses` attribute.
     
     def visit_Function(self, ob: pydocspec.Function) -> None:
@@ -135,20 +135,6 @@ class PostBuildVisitor1(visitors.ApiObjectVisitor):
     def unknown_departure(self, ob: _model.ApiObject) -> None:
         ...
 
-post_build_visitor0 = PostBuildVisitor0()
-post_build_visitor0.extensions.add(_DuplicateWhoShadowsWhoHandling,
-                                   _MroFromAstroidSetter,)
-post_build_visitor1 = PostBuildVisitor1()
-post_build_visitor1.extensions.add(_DefaultLocationSetter,
-                                  _DocSourcesSetter,)
-
-def post_build(root: pydocspec.TreeRoot) -> None:
-    for mod in root.root_modules: 
-        mod.walk(post_build_visitor0)
-
-    for mod in root.root_modules: 
-        mod.walk(post_build_visitor1)
-
 @attr.s(auto_attribs=True)
 class Processor:
     """
@@ -157,56 +143,52 @@ class Processor:
     At the point of the post processing, the root `pydocspec.Module` instances should have 
     already been added to the `pydocspec.TreeRoot.root_modules` attribute.
     
-    Processes are applied when there are no more unprocessed modules.
+    Post-build is done when there are no more unprocessed modules.
 
-    Analysis of relations between documentables should be done in a process,
+    Analysis of relations between documentables should be done in post-build,
     without the risk of drawing incorrect conclusions because modules
     were not fully processed yet.
+
+    Attributes:
+        post_build_visitor: visitors.ApiObjectVisitor
     """ 
-    
-    # TODO: handle duplicates.
-    processes: Dict[float, 'Process'] = attr.ib(factory=dict)
-    """
-    A post process is a function of the following form::
 
-        (root: pydocspec.TreeRoot) -> None
+    visitor_extensions: Set[Union['visitors.ApiObjectVisitorExt', Type['visitors.ApiObjectVisitorExt']]] = attr.ib(factory=set)
+    """
+    Post-build visitor extensions.
     """
 
-    @classmethod
-    def default(cls, load_brains:bool=False) -> 'Processor':
-        processor = cls(processes={0: post_build})
-        if load_brains:
-            for mod in brains.get_all_brain_modules():
-                processor.import_processes_from(mod)
-        return processor
-
-    def import_processes_from(self, module:Union[str, Any]) -> None:
+    def post_build(self, root: pydocspec.TreeRoot) -> None:
         """
-        Will look for the special mapping ``pydocspec_processes`` in the provided module.
-        """
-        if isinstance(module, str):
-            mod = import_module(module)
-        else:
-            mod = module
-        if hasattr(mod, 'pydocspec_processes'):
-            process_definitions = mod.pydocspec_processes
-            assert isinstance(process_definitions, dict), f"{mod}.pydocspec_processes should be a dict, not {type(process_definitions)}."
-            if any(process_definitions.values()):
-                self.processes.update(process_definitions)
-                return
-            logging.getLogger('pydocspec').warning(f"No post processes added for module {mod}, check the validity of the pydocspec_processes attribute.")
-
-    def process(self, root: pydocspec.TreeRoot) -> None:
-        """
-        Apply processes on the tree. This is required.
+        Apply post-build process on the tree. This is required.
 
         .. python::
 
             root: pydocspec.TreeRoot
-            processor.Processor.default().process(root)
+            pp = processor.Processor()
+            pp.visitor_extensions.add(MyCustomVisitor)
+            pp.post_build(root)
 
         :note: If you are creating a tree manually, you should run this on your tree as well. 
         """
-        for priority in sorted(self.processes.keys()):
-            process = self.processes[priority]
-            process(root)
+
+        # init visitors 
+
+        _post_build_visitor0 = PostBuildVisitor0()
+        _post_build_visitor0.extensions.add(_DuplicateWhoShadowsWhoHandling,
+                                        _MroFromAstroidSetter, _DefaultLocationSetter)
+        
+        post_build_visitor = PostBuildVisitor1()
+        post_build_visitor.extensions.add(_DocSourcesSetter)
+
+        # add extensions
+
+        post_build_visitor.extensions.add(*self.visitor_extensions)
+
+        # run visitors
+
+        for mod in root.root_modules: 
+            mod.walk(_post_build_visitor0)
+
+        for mod in root.root_modules: 
+            mod.walk(post_build_visitor)

@@ -12,13 +12,14 @@ processing can be done on these objects afterwards.
     Namely: `ApiObject.full_name`, `ApiObject.dottedname`, `ApiObject.module`, `ApiObject.scope`.
 """
 
-from typing import Any, Callable, Iterator, List, Optional, Tuple, Union, Iterable, ClassVar, cast, TYPE_CHECKING, overload
+from typing import Any, Callable, Iterator, List, Optional, Sequence, Tuple, Union, Iterable, ClassVar, cast, TYPE_CHECKING, overload
 import astroid.nodes
 import dataclasses
 import attr
 import logging
 import sys
 from pathlib import Path
+import types
 
 import docspec
 
@@ -32,8 +33,10 @@ if TYPE_CHECKING:
     import pydocspec
     import astroid.nodes
 
-def tree_repr(obj: 'pydocspec.ApiObject', full_name:bool=False) -> str:
-    _repr_vis = visitors.ReprVisitor(full_name=full_name)
+def tree_repr(obj: 'pydocspec.ApiObject', 
+              full_name:bool=False, 
+              fields: Optional[Sequence[str]]=None) -> str:
+    _repr_vis = visitors.ReprVisitor(full_name=full_name, fields=fields)
     _repr_vis.walk(obj)
     return _repr_vis.repr.strip()
 
@@ -67,7 +70,7 @@ Location = docspec.Location
 
 class CanTriggerWarnings:
 
-    def warn(self: Union['ApiObject', 'Decoration', 'Argument',  'Docstring'], # type: ignore[misc]
+    def warn(self: Union['ApiObject', 'Decoration', 'Argument', 'Docstring'], # type: ignore[misc]
              msg: str, lineno_offset: int = 0) -> None:
         # TODO: find another way to report warnings.
         lineno = 0
@@ -118,14 +121,14 @@ class TreeRoot:
     """
 
     # :note: Do not intanciate a new `TreeRoot` manually with ``TreeRoot()``, first create a factory, in one line it gives::
-    #     new_root = pydocspec.specfactory.Factory.default().TreeRoot()
+    #     new_root = pydocspec.specfactory.Factory().TreeRoot()
 
-    root_modules: List['Module'] = attr.ib(factory=list, init=False)
+    root_modules: List['pydocspec.Module'] = attr.ib(factory=list, init=False)
     """
     The root modules of the tree.
     """
     
-    all_objects: DuplicateSafeDict[str, 'ApiObject'] = attr.ib(factory=DuplicateSafeDict, init=False)
+    all_objects: DuplicateSafeDict[str, 'pydocspec.ApiObject'] = attr.ib(factory=DuplicateSafeDict, init=False)
     """
     All objects of the tree in a mapping ``full_name`` -> `ApiObject`.
     
@@ -193,7 +196,7 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
         # defaults
         "name", "location", "docstring", 
         # added
-        "source_path", ) # root is not an object field
+        ) # root is not an object field
 
     def __post_init__(self) -> None:
         super().__post_init__()
@@ -207,8 +210,6 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
         """
         `TreeRoot` instance holding references to all objects in the tree.
         """
-
-        self.source_path: Optional[Path] = None
     
     def __str__(self) -> str:
         return self.__repr__()
@@ -339,6 +340,9 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
                 if member.name == name:
                     assert isinstance(member, ApiObject), (name, self, member)
                     yield member
+    
+    def _repr(self, full_name:bool=False, fields:Optional[Sequence[str]]=None):
+        return tree_repr(self, full_name=full_name, fields=fields)
 
 @dataclasses.dataclass(repr=False)
 class Data(docspec.Data, ApiObject):
@@ -394,7 +398,7 @@ class Class(docspec.Class, ApiObject):
         # added fields
         "bases_ast", 
         "is_type_guarged", 
-        "_ast") + ApiObject._spec_fields
+        "_ast") + ApiObject._spec_fields # _ast should not be part of fields
 
     def __post_init__(self) -> None:
         super().__post_init__()
@@ -446,7 +450,7 @@ class Decoration(docspec.Decoration, CanTriggerWarnings):
     Represents a decorator on a `Class` or `Function`.
 
     +---------------------------------------+-------------------------+---------------------+-----------------+
-    | Code                                  | Decorator.name          | Decorator.args      | Notes           |
+    | Code                                  | Decorator.name          | Decorator.arglist   | Notes           |
     +=======================================+=========================+=====================+=================+
     | ``@property``                         | ``property``            | `None`              |                 |
     +---------------------------------------+-------------------------+---------------------+-----------------+
@@ -475,11 +479,22 @@ class Module(docspec.Module, ApiObject):
     Represents a module, basically a named container for code/API objects. Modules may be nested in other modules.
     """
 
-    _spec_fields = ("members",  "is_package") + ApiObject._spec_fields
+    _spec_fields = ("members",  "is_package", "is_c_module", "dunder_all") + ApiObject._spec_fields
 
     is_package: bool = False
     """
     Whether this module is a package.
+    """
+
+    is_c_module: bool = False
+    """
+    Whether this module has been imported from a python C extension.
+    """
+
+    source_path: Optional[Path] = None
+    """
+    Module source path. 
+    `None` if the module was converted from `docspec`.
     """
 
     dunder_all: Optional[List[str]] = None # Need to be present in the lower level model because it's used by the builder for processing wildcard imports statements.
@@ -490,7 +505,18 @@ class Module(docspec.Module, ApiObject):
     The whole module's AST. 
     Can be used in post-processes to compute any kind of supplementary informaions not devirable from objects attributes.
     
-    Only set when using our own builder. `None` if the module was converted from `docspec`.
+    Only set when using our own astbuilder. `None` if the module was converted from `docspec`.
+    """
+
+    _py_mod: Optional[types.ModuleType] = None
+    """
+    The live module this object has been created from. 
+    `None` for classes coming from AST.
+    """
+
+    _py_string: Optional[str] = None
+    """
+    The module's string. Only set for modules built from string. `None` otherwise.
     """
 
     def __post_init__(self) -> None:

@@ -1,16 +1,16 @@
 import docspec
 from pydocspec import converter
 import pydocspec
-from pydocspec.brains import attrs, dataclasses
+from pydocspec.ext import attrs
 
 from .fixtures import mod1
 
 def test_converter_object_types(mod1: docspec.Module) -> None:
 
-    mods = converter.convert_docspec_modules([mod1], 
-        additional_brain_modules=['pydocspec.brains.attrs', 'pydocspec.brains.dataclasses'])
+    root: pydocspec.TreeRoot = converter.convert_docspec_modules([mod1])
+    mods = root.root_modules
     assert len(mods) == 1
-    root = mods[0].root
+
     
     assert isinstance(root.all_objects['a'], pydocspec.Module)
     assert isinstance(root.all_objects['a.Union'], pydocspec.Indirection)
@@ -25,13 +25,13 @@ def test_converter_object_types(mod1: docspec.Module) -> None:
     assert isinstance(root.all_objects['a.foo.val'], attrs.AttrsDataMixin)
     assert isinstance(klass, attrs.AttrsClassMixin)
 
-    assert isinstance(root.all_objects['a.foo.val'], dataclasses.DataClassesDataMixin)
-    assert isinstance(klass, dataclasses.DataClassesClassMixin)
+    # assert isinstance(root.all_objects['a.foo.val'], dataclasses.DataClassesDataMixin)
+    # assert isinstance(klass, dataclasses.DataClassesClassMixin)
 
 
 def test_root_property(mod1: docspec.Module) -> None:
     
-    mods = converter.convert_docspec_modules([mod1])
+    mods = converter.convert_docspec_modules([mod1]).root_modules
     assert len(mods) == 1
     root = mods[0].root
 

@@ -2,7 +2,7 @@
 Helpers to populate attributes of `Class` instances. 
 """
 
-from typing import List, Optional, Union
+from typing import Iterator, List, Optional, Tuple, Union
 
 import astroid.nodes
 import astroid.exceptions
@@ -123,13 +123,12 @@ def resolved_bases(ob: pydocspec.Class) -> List[Union['pydocspec.Class', 'str']]
     _workable_bases_as_string = []
 
     # use AST it should be set by the builder or converter!
-    if len(ob.bases_ast or ()) > 0:
-        for node in ob.bases_ast:
-            name = astroidutils.node2dottedname(node)
-            if name:
-                _workable_bases_as_string.append('.'.join(name))
-            else:
-                ob.warn(f"Could not understand base {node.as_string()!r}")
+    for node in ob.bases_ast or ():
+        name = astroidutils.node2dottedname(node)
+        if name:
+            _workable_bases_as_string.append('.'.join(name))
+        else:
+            ob.warn(f"Could not understand base {node.as_string()!r}")
 
     for base in _workable_bases_as_string:
         
@@ -167,3 +166,63 @@ def constructor_method(ob: _model.Class) -> Optional['pydocspec.Function']:
         return init_method
     else:
         return None
+
+def inherited_members(ob: pydocspec.Class) -> List[pydocspec.Class.InheritedMember]:
+    """provide inherited_members property"""
+    _inherited_members = []
+    for baselist in _nested_bases(ob):
+        #  If the class has super class
+        if len(baselist) >= 2:
+            attrs = _unmasked_attrs(baselist)
+            if attrs:
+                for attr in attrs:
+                    _inherited_members.append(ob.InheritedMember(
+                                                    member=attr, 
+                                                    inherited_via=baselist))
+    return _inherited_members
+
+# def overriding_subclasses(ob: pydocspec.Class,
+#         name: str,
+#         _firstcall: bool = True
+#         ) -> Iterator[pydocspec.Class]: 
+#     """
+#     Retreive the subclasses that override the given name from the parent class object (this object). 
+#     """
+#     if not _firstcall and name in ob.members:
+#         yield ob
+#     else:
+#         for subclass in ob.subclasses:
+#             # if subclass.isVisible:
+#             yield from overriding_subclasses(subclass, name, _firstcall=False)
+
+def _nested_bases(classobj: pydocspec.Class) -> Iterator[Tuple[pydocspec.Class, ...]]:
+    """
+    Helper function to retreive the complete list of base classes chains (represented by tuples) for a given Class. 
+    A chain of classes is used to compute the member inheritence from the first element to the last element of the chain.  
+    
+    The first yielded chain only contains the Class itself. 
+
+    Then for each of the super-classes respecting the MRO:
+        - the next yielded chain contains the super class and the class itself, 
+        - the the next yielded chain contains the super-super class, the super class and the class itself, etc...
+    """
+    bases = []
+    for base in classobj.mro:
+        yield tuple(bases+[base])
+        bases.append(base)
+
+        # for nested_base in _nested_bases(base):
+        #     yield (nested_base + (classobj,))
+
+def _unmasked_attrs(baselist: List[pydocspec.Class]) -> List[pydocspec.ApiObject]:
+    """
+    Helper function to reteive the list of inherited children given a base classes chain (As yielded by `nested_bases`). 
+    The returned members are inherited from the Class listed first in the chain to the Class listed last: they are not overriden in between. 
+    """
+    maybe_masking = {
+        o.name
+        for b in baselist[1:]
+        for o in b.members
+        }
+    return [ o for o in baselist[0].members
+             if o.name not in maybe_masking ]

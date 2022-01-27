@@ -20,8 +20,6 @@ if TYPE_CHECKING:
     class _NodeConstructorMethod(Protocol): # for mypy
         def __call__(self, *args: Any, **kwargs:Any) -> astroid.nodes.NodeNG: ...
 
-# TODO: add license information to code copied from python
-
 def iter_fields(node: astroid.nodes.NodeNG) -> Iterator[Tuple[str, Any]]:
     """Given a node, get the fields names and their values. We need the fields names in NodeTransformer."""
     for field in node._astroid_fields:
@@ -281,7 +279,11 @@ class ValueFormatter:
         self.value = value
     def __repr__(self) -> str:
         # Since astroid do not expose the typing information yet.
-        return cast(str, self.value.as_string())
+        try:
+            return cast(str, self.value.as_string())
+        except AttributeError:
+            # Can raise AttributeError from node.as_string() as not all nodes have a visitor
+            return '<ERROR>'
 
 @attr.s(auto_attribs=True)
 class SignatureBuilder:
@@ -311,47 +313,6 @@ class SignatureBuilder:
 def to_source(expr: astroid.nodes.NodeNG) -> str:
     """This function convert a node tree back into python sourcecode."""
     return repr(ValueFormatter(expr))
-
-# still required with astroid?
-_attrs_decorator_signature = inspect.signature(attr.s)
-"""Signature of the `attr.s` class decorator."""
-
-def uses_auto_attribs(call: astroid.nodes.Call, ctx: 'ApiObject') -> bool:
-    """Does the given `attr.s()` decoration contain ``auto_attribs=True``?
-    :param call: AST of the call to `attr.s()`.
-        This function will assume that `attr.s()` is called without
-        verifying that.
-    :param ctx: Namespace that contains the call, used for error reporting.
-    :return: `True` if `True` is passed for ``auto_attribs``,
-        `False` in all other cases: if ``auto_attribs`` is not passed,
-        if an explicit `False` is passed or if an error was reported.
-    """
-    try:
-        args = bind_args(_attrs_decorator_signature, call)
-    except TypeError as ex:
-        message = str(ex).replace("'", '"')
-        ctx.warn(f"Invalid arguments for attr.s(): {message}")
-        return False
-
-    auto_attribs_expr = args.arguments.get('auto_attribs')
-    if auto_attribs_expr is None:
-        return False
-
-    try:
-        value = literal_eval(auto_attribs_expr.as_string())
-    except ValueError:
-        ctx.warn(
-            'Unable to figure out value for "auto_attribs" argument '
-            'to attr.s(), maybe too complex')
-        return False
-
-    if not isinstance(value, bool):
-        ctx.warn(
-            f'Value for "auto_attribs" argument to attr.s() '
-            f'has type "{type(value).__name__}", expected "bool"')
-        return False
-
-    return value
 
 def node2dottedname(node: Optional[astroid.nodes.NodeNG], strict:bool=False) -> Optional[List[str]]:
     """
@@ -396,9 +357,8 @@ def is_type_guarded(node: Optional[astroid.nodes.NodeNG], ctx: '_model.ApiObject
     if node is None or isinstance(node, astroid.nodes.Module):
         return False
     maybe_ifstmt = node.parent
-    type_guarded = True if isinstance(maybe_ifstmt, astroid.nodes.If) and isinstance(
-            maybe_ifstmt.test, (astroid.nodes.Name, astroid.nodes.Attribute)
-        ) and (node2dottedname(maybe_ifstmt.test)[-1]or(None,)) == "TYPE_CHECKING" else False
+    type_guarded = True if isinstance(maybe_ifstmt, astroid.nodes.If) and \
+        ((node2dottedname(maybe_ifstmt.test) or (None,))[-1]) == "TYPE_CHECKING" else False
     return type_guarded or is_type_guarded(maybe_ifstmt.parent, ctx)
 
 # not used right now

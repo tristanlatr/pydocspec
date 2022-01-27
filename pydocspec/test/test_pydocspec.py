@@ -1,22 +1,14 @@
 from typing import Optional
-import io
-import textwrap
 
 import docspec
-from docspec_python import load_python_modules
 from pydocspec import converter, astroidutils, processor
 import pydocspec
 
 from .fixtures import mod1, root2, root4
-
-def mod_from_text(text:str, modname:str='test') -> pydocspec.Module:
-    docspec_modules = list(load_python_modules(
-        files=[ (modname, io.StringIO(textwrap.dedent(text))) ]))
-    pydocspec_mod = converter.convert_docspec_modules(docspec_modules).pop()
-    return pydocspec_mod
+from . import ModFromTextFunction, mod_from_text_param
 
 def test_expand_name(mod1: docspec.Module) -> None:
-    root = converter.convert_docspec_modules([mod1])[0].root
+    root = converter.convert_docspec_modules([mod1])
 
     saila = root.all_objects['a.saila']
     alias = root.all_objects['a.foo.alias']
@@ -74,7 +66,8 @@ def test_signature(root4: pydocspec.TreeRoot) -> None:
     assert str(init_method.signature(include_self=False)) == "(port=8001)"
     assert str(init_method.signature(include_self=False, include_defaults=False)) == "(port)"
 
-def test_node2fullname() -> None:
+@mod_from_text_param
+def test_node2fullname(mod_from_text:ModFromTextFunction) -> None:
     """The node2fullname() function finds the full (global) name for
     a name expression in the AST.
     """

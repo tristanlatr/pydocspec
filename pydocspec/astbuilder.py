@@ -12,7 +12,9 @@ Traverse module/packages directories, build and transform `astroid` AST into `Ap
 import abc
 import re
 import dataclasses
-from typing import TYPE_CHECKING, Any, Callable, ClassVar, Iterable, Iterator, List, Dict, Optional, Sequence, Set, Tuple, Union, cast
+import textwrap
+import types
+from typing import TYPE_CHECKING, Any, Callable, ClassVar, Iterable, Iterator, List, Dict, Optional, Sequence, Set, Tuple, Type, Union, cast
 from pathlib import Path
 from enum import Enum
 from functools import partial
@@ -157,9 +159,6 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             # setting the module docstring
             self._set_docstring(self.module, node.body[0].value)
 
-        # Set the AST node
-        self.module._ast = node
-
         self.add_object(self.module)
     
     def depart_module(self, node: astroid.nodes.Module) -> None:
@@ -235,18 +234,15 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
                 # compute decoration attributes
                 name_ast: astroid.nodes.NodeNG
                 name: str
-                args_ast: Optional[List[astroid.nodes.NodeNG]]
-                args: Optional[List[str]]
+                arglist: Optional[List[str]] = None
 
                 if isinstance(decnode, astroid.nodes.Call):
                     name_ast = decnode.func
                     dotted_name = astroidutils.node2dottedname(name_ast, strict=True)
-                    args_ast = decnode.args
-                    args = []
+                    arglist = [astroidutils.to_source(n) for n in decnode.args]
                 else:
                     name_ast = decnode
                     dotted_name = astroidutils.node2dottedname(name_ast, strict=True)
-                    args_ast = args = None
                 
                 if dotted_name is None:
                     name = astroidutils.to_source(name_ast)
@@ -256,18 +252,20 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
                     # From Python3.9, any kind of expressions can be used as decorators, so we don't warn anymore.
                     # See Relaxing Grammar Restrictions On Decorators: https://www.python.org/dev/peps/pep-0614/
                     if sys.version_info < (3,9):
-                        cls.warn("Cannot make sense of class decorator: '{name}'")
+                        cls.warn(f"Cannot make sense of class decorator: '{name}'")
                 else:
                     name = '.'.join(dotted_name)
 
-                deco = self.root.factory.Decoration(name=name, args=None)
+                deco = self.root.factory.Decoration(
+                    name=name, 
+                    arglist=arglist,
+                    name_ast=name_ast,
+                    expr_ast=decnode,
+                    )
+
                 # TODO: Adjust code once this issue is fixed.
                 # see https://github.com/NiklasRosenstein/docspec/issues/45
                 # deco = self.root.factory.Decoration(name=name, args=args) 
-                
-                # set name, etc (AST)
-                deco.name_ast = name_ast
-                deco.expr_ast = decnode
                 
                 cls.decorations.append(deco)
         
@@ -478,37 +476,6 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             elif isinstance(value, astroid.nodes.Name) and value.name == 'self':
                 self._handleInstanceVar(target_node.attrname, annotation, expr, lineno)
             # TODO: Fix https://github.com/twisted/pydoctor/issues/13
-    
-    # # this could be done in post-processing
-    # # def _handleOldSchoolMethodDecoration(self, target: str, expr: Optional[astroid.nodes.NodeNG]) -> bool:
-    # #     #TODO: handle property()
-
-    # #     if not isinstance(expr, astroid.nodes.Call):
-    # #         return False
-    # #     func = expr.func
-    # #     if not isinstance(func, astroid.nodes.Name):
-    # #         return False
-    # #     func_name = func.name
-    # #     args = expr.args
-    # #     if len(args) != 1:
-    # #         return False
-    # #     arg, = args
-    # #     if not isinstance(arg, astroid.nodes.Name):
-    # #         return False
-    # #     if target == arg.name and func_name in ['staticmethod', 'classmethod']:
-    # #         target_obj = self.current.get_member(target)
-    # #         if isinstance(target_obj, _model.Function):
-
-    # #             # _handleOldSchoolMethodDecoration must only be called in a class scope.
-    # #             assert isinstance(target_obj.parent, _model.Class)
-
-    # #             if func_name == 'staticmethod':
-    # #                 target_obj.is_staticmethod = True
-
-    # #             elif func_name == 'classmethod':
-    # #                 target_obj.is_classmethod = True
-    # #             return True
-    # #     return False
     
     def _warnsConstantAssigmentOverride(self, obj: _model.Data, lineno_offset: int) -> None:
         obj.warn(f'Assignment to constant "{obj.name}" overrides previous assignment '
@@ -779,21 +746,43 @@ class Builder:
         we’ve found in post-processing. 
     """
 
-    root: _model.TreeRoot
-    options: Any = None
+    root: 'pydocspec.TreeRoot'
+    """
+    Tree root.
+    """
 
-    _added_paths: Set[Path] = attr.ib(factory=set)
+    pprocessor: 'processor.Processor'
+    """
+    Post processor. 
+    """
+
+    options: 'pydocspec.Options'
+    """
+    Options
+    """  
+
+    visitor_extensions: Set[Union['visitors.AstVisitorExt', Type['visitors.AstVisitorExt']]] = attr.ib(factory=set)
+
+    _added_paths: Set[Path] = attr.ib(factory=set, init=False)
     # Duplication of names in the modules is not supported.
     # This is a problem for Python too, the rule is that the folder/package wins.
     # Though, duplication in other objects is supported.
     processing_map: Dict[str, ProcessingState] = attr.ib(factory=dict, init=False)
     """Mapping from module's full_name to the processing state"""
-    _processing_mod_stack: List[_model.Module] = attr.ib(factory=list)
+    _processing_mod_stack: List[_model.Module] = attr.ib(factory=list, init=False)
     
     def _process_module_ast(self, mod_ast: astroid.nodes.Module, mod: _model.Module) -> None:
         builder_visitor = BuilderVisitor(self, mod)
+        builder_visitor.extensions.add(*self.visitor_extensions)
         builder_visitor.walkabout(mod_ast)
-
+    
+    @property
+    def introspect_c_modules(self) -> bool:
+        """
+        Optionally instrospect C modules enabled?
+        """
+        return self.options.introspect_c_modules
+    
     @property
     def unprocessed_modules(self) -> Iterator[_model.Module]:
         for mod_name, state in self.processing_map.items():
@@ -812,6 +801,37 @@ class Builder:
                         break
                 else:
                     raise RuntimeError(f"No module found for name '{mod_name}', though it appears in the processing map: {self.processing_map!r}.")
+
+    def add_module_string(self, text: str, modname: str,
+                          parent_name: Optional[str] = None,
+                          path: str = '<fromtext>',
+                          is_package: bool = False, ) -> None:
+        # this code was originaly part of the testing modules, but I figured it would
+        # be helpful to have it integrated with the Builder object.
+        py_string = textwrap.dedent(text)
+        parent = self.root.all_objects.get(parent_name) if parent_name else None
+        if parent_name:
+            if not isinstance(parent, pydocspec.Module):
+                # If one adds a module string and call process_modules() 
+                # after aleady have called process_modules() once,
+                # another object might have shadowed the module name.
+                # TODO: think about how we want to handle this situation.
+                raise ValueError(f"Cannot find module '{parent_name}' in system, "
+                        f"added modules: {', '.join(self.processing_map)}.")
+        
+        mod = self._add_module(path, modname, 
+            # Set containing package as parent.
+            # (we tell mypy that we already assert tha parent is a Module)
+            parent=parent, #type:ignore[arg-type]
+            is_package=is_package, 
+            py_string=py_string)
+        
+        # Just do some assertions
+        assert mod in self.unprocessed_modules
+        if parent_name is None: full_name = modname
+        else: full_name = f'{parent_name}.{modname}'
+        assert mod.full_name == full_name
+        assert mod is self.root.all_objects[full_name]
 
     def add_module(self, path: Path) -> None:
         """
@@ -843,10 +863,6 @@ class Builder:
             elif path.name != '__init__.py' and not path.name.startswith('.'):
                 self._maybe_add_module(path, package)
     
-    def _introspect_module(self, path:Path, module_name:str, parent: Optional[_model.Module]) -> None:
-        introspect.introspect_module(self.root,
-                        path, module_name, parent)
-    
     def _maybe_add_module(self, path: Path, parent: Optional[_model.Module]=None) -> None:
         """
         Ignores the files that are not recognized as python files.
@@ -857,56 +873,105 @@ class Builder:
                 continue
             module_name = name[:-len(suffix)]
             if suffix in importlib.machinery.EXTENSION_SUFFIXES:
-                # support for introspection on C extensions.
-                if getattr(self.options, 'introspect_c_modules', None):
-                    self._introspect_module(path, module_name, parent)
+                # builtin support for introspection on C extensions.
+                if self.introspect_c_modules:
+                    # we import it right now
+                    if parent is None:
+                        module_full_name = module_name
+                    else:
+                        module_full_name = f'{parent.full_name}.{module_name}'
+                    py_mod = introspect._import_module(path, module_full_name)
+                    self._add_module(path, module_name, parent, 
+                                     is_c_module=True, py_mod=py_mod)
+                
             elif suffix in importlib.machinery.SOURCE_SUFFIXES:
                 self._add_module(path, module_name, parent)
             break
     
+    def _discard_duplicate_mod(self, mod: _model.Module) -> Optional[_model.Module]:
+        """
+        Runs before adding a new module to the root. 
+        Check if a module already has the same name. 
+
+        :Returns: `None` if the process of adding this new module should continue normally.
+        :Returns: The older module (already present) if the new module has been discarded.
+            This should stop the new module from beeing added, it's a duplicate module.
+        :Note: Teh rule is that the package/directory wins over the regular module.
+        """
+        # We check if that's a duplicate module name.
+        older_mod = self.root.all_objects.get(mod.full_name)
+        if older_mod:
+            # It's kindda safe to assume the modules contents have not been loaded yet,
+            # so modules should not be shadowed by other objects (yet).
+            assert isinstance(older_mod, _model.Module)
+            
+            _warn_str = f"Duplicate module name: '{mod.full_name}', the package/directory wins."
+            
+            if mod.is_package:
+                older_mod.warn(_warn_str)
+                # The package wins, we remove the older module from the tree and we continue with the 
+                # addition of the package.
+                # When importing the package, Python searches through the directories on sys.path looking for the package subdirectory.
+                older_mod.remove()
+                del older_mod
+            else:
+                mod.warn(_warn_str)
+                del mod
+                return older_mod
+        return None
+
     def _add_module(self,
             path: Union[Path, str],
             modname: str,
             parent: Optional[_model.Module],
-            is_package: bool = False
+            is_package: bool = False,
+            is_c_module: bool = False,
+            py_mod: Optional[types.ModuleType] = None,
+            py_string: Optional[str] = None,
             ) -> _model.Module: 
         """
         Create a new empty module and add it to the tree. 
         Initiate it's state in the AST processing map.
+
+        :Parameters:
+            path
+                path where we can find the module file(s).
+            modname
+                the name of the new module (local name, not qname).
+            parent
+                the parent package, if any.
+            is_package
+                whether this module is a package.
+            is_c_module
+                whether this module is c extension.
+            py_mod
+                the live module, usually `None` because it parses 
+                the source code file instead.
+            py_string
+                the module's string, usually `None` because it directly 
+                gets the AST from the file path. 
+                This is used when calling add_module_string().
         """
         location = self.root.factory.Location(filename=str(path), lineno=0)
-        mod = self.root.factory.Module(name=modname, location=location, docstring=None, members=[])
+        path = Path(path) if isinstance(path, str) else path
 
-        # We check if that's a duplicate module name.
-        older_mod = self.root.all_objects.get(mod.full_name)
-        if older_mod:
-            assert isinstance(older_mod, _model.Module)
-
-            if is_package:
-                older_mod.warn(f"Duplicate module name: '{mod.full_name}', the package/directory wins.")
-                # The package wins, we remove the older module from the tree and we continue with the 
-                # addition of the package.
-                try:
-                    self.root.root_modules.remove(older_mod)
-                except ValueError:
-                    assert older_mod.parent is not None
-                    older_mod.parent.members.remove(older_mod)
-
-                del self.root.all_objects[mod.full_name]
-                del older_mod
-            else:
-                mod.warn(f"Duplicate module name: '{mod.full_name}', the package/directory wins.")
-                del mod
-                return older_mod
+        mod = self.root.factory.Module(
+            name=modname, 
+            location=location, 
+            docstring=None, 
+            members=[], 
+            source_path=path,
+            is_package=is_package, 
+            is_c_module=is_c_module,
+            _py_mod=py_mod,
+            _py_string=py_string)
         
-        # Set is_package such that we have the right information.
-        mod.is_package = is_package
-        # add to tree
-        self.root.add_object(mod, parent=parent)
-        # init state
-        self.processing_map[mod.full_name] = ProcessingState.UNPROCESSED
-        # set source_path for modules
-        mod.source_path = Path(path) if isinstance(path, str) else path
+        if not self._discard_duplicate_mod(mod):
+            # add it to tree
+            self.root.add_object(mod, parent=parent)
+            # init state in processing map
+            self.processing_map[mod.full_name] = ProcessingState.UNPROCESSED
+
         return mod
 
     def _process_module(self, mod:_model.Module) -> None:
@@ -917,29 +982,44 @@ class Builder:
         assert self.processing_map[mod.full_name] is ProcessingState.UNPROCESSED, f"can't process twice the same module: {mod}"
         self.processing_map[mod.full_name] = ProcessingState.PROCESSING
         
-        path = mod.source_path
-        if path is None:
-            #TODO: we should warn here, source path can be none on objects created from introspection. 
-            return #type:ignore[unreachable]
+        # TODO: we can easily set an option to enable fallback=True, 
+        # this will import and introspect any installed module in module file is not found.
+
+        if mod._py_mod is not None:
+            # Modules created from live modules have a ._py_mod attribute.
+            ast = astroid.manager.AstroidManager().ast_from_module(mod._py_mod, mod.full_name)
+        elif mod._py_string is not None:
+            # Modules created from string have a ._py_string attribute.
+            ast = astroid.builder.AstroidManager().ast_from_string(mod._py_string, mod.full_name)
+        elif mod.source_path is None:
+            raise RuntimeError(f"Can't parse module {mod!r}, no 'source_path' defined.")
+        else:
+            ast = astroid.manager.AstroidManager().ast_from_file(mod.source_path.as_posix(), mod.full_name, fallback=False, source=True)
         
-        # TODO: we can easily set an option to enable fallback=True, this will import and introspect any installed module in module file is not found. 
-        ast = astroid.manager.AstroidManager().ast_from_file(path, mod.full_name, fallback=False, source=True)
-        
-        if ast:
-            self._processing_mod_stack.append(mod)
-            self._process_module_ast(ast, mod)
-            head = self._processing_mod_stack.pop()
-            assert head is mod
+        # Set the AST node
+        mod._ast = ast
+        # Process the module
+        self._processing_mod_stack.append(mod)
+        self._process_module_ast(ast, mod)
+        head = self._processing_mod_stack.pop()
+        assert head is mod
         
         self.processing_map[mod.full_name] = ProcessingState.PROCESSED
 
-    def process_modules(self) -> None:
+    def build_modules(self) -> None:
         """
-        Process unprocessed modules.
+        Drives the building, builds modules until
+        there is no unprocessed modules anymore. 
+
+        Runs post-build operations after.
         """
         while list(self.unprocessed_modules):
             mod = next(self.unprocessed_modules)
             self._process_module(mod)
+        self._post_build()
+
+    def _post_build(self) -> None:
+        self.pprocessor.post_build(self.root)
         
     def get_processed_module(self, modname: str, raise_on_cycles: bool = False) -> Optional[_model.Module]:
         """

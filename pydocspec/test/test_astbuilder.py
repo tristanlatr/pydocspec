@@ -1,127 +1,81 @@
-from typing import Optional, Type, cast
+from typing import Callable, cast
 import ast
 import textwrap
 import pytest
 
-from pydocspec import astbuilder, processor, specfactory, visitors
+from pydocspec import astbuilder, visitors
 import pydocspec
 
 import astroid.builder
 import astroid.nodes
 
-from . import CapSys, rootcls_param
+from . import (CapSys, ModFromTextFunction, 
+    getbuilder_param, mod_from_text_param, 
+    _docspec_python)
 
-_parse_mod_str = astroid.builder.AstroidBuilder().string_build
-
-def mod_from_ast(
-        ast: astroid.nodes.Module,
-        modname: str = 'test',
-        is_package: bool = False,
-        parent_name: Optional[str] = None,
-        root: Optional[pydocspec.TreeRoot] = None,
-        rootcls: Optional[Type[pydocspec.TreeRoot]] = None,
-        ) -> pydocspec.Module:
-
-    if root is None:
-        if rootcls is None:
-            _root = specfactory.Factory.default().TreeRoot()
-        else:
-            _root = rootcls()
-    else:
-        _root = root
-
-    builder = astbuilder.Builder(_root)
-
-    parent = _root.all_objects.get(parent_name) if parent_name else None
-    if parent_name:
-        assert isinstance(parent, pydocspec.Module), f"cannot find module '{parent_name}' in system {_root!r}"
-
-    mod = builder._add_module('<testpath>', modname, 
-        # Set containing package as parent.
-        # (we tell mypy that we already assert tha parent is a Module)
-        parent=parent, #type:ignore[arg-type]
-        is_package=is_package)
-
-    assert mod in builder.unprocessed_modules
-
-    if parent_name is None:
-        full_name = modname
-    else:
-        full_name = f'{parent_name}.{modname}'
-
-    assert mod.full_name == full_name
-    # assert mod is _root.all_objects[full_name]
-
-    builder._process_module_ast(ast, mod)
-
-    builder.processing_map[mod.full_name] = astbuilder.ProcessingState.PROCESSED
-
-    if root is None:
-        # Assume that an implicit system will only contain one module,
-        # so process it as a convenience. If it contains more that one module, it should be processed
-        processor.Processor.default().process(_root)
-
-    return cast(pydocspec.Module, mod)
-
-def mod_from_text(
-        text: str,
-        modname: str = 'test',
-        is_package: bool = False,
-        parent_name: Optional[str] = None,
-        root: Optional[pydocspec.TreeRoot] = None,
-        rootcls: Optional[Type[pydocspec.TreeRoot]] = None,
-        ) -> pydocspec.Module:
-    
-    ast = _parse_mod_str(textwrap.dedent(text), modname)
-    return mod_from_ast(ast=ast, modname=modname, is_package=is_package, 
-                        parent_name=parent_name, root=root, rootcls=rootcls)
-
-@rootcls_param
-def test_class_docstring(rootcls: Type[pydocspec.TreeRoot]) -> None:
+@getbuilder_param
+def test_class_docstring(getbuilder: Callable[[], astbuilder.Builder]) -> None:
     # test if we catch the docstring for a class
-    mod = mod_from_text('''
+    builder = getbuilder()
+    builder.add_module_string('''
     class C:
         """my class"""
-    ''', modname='test', rootcls=rootcls)
-    m = mod.get_member('C')
-    assert m is not None
-    assert m.docstring is not None
-    assert m.docstring.content == 'my class'
-    assert isinstance(m, pydocspec.Class)
-    assert m.bases is None
-    assert m.decorations is None
+    ''', modname='test')
+    builder.build_modules()
+
+    klass = builder.root.all_objects['test.C']
+    assert klass is not None
+    assert klass.docstring is not None
+    assert klass.docstring.content == 'my class'
+    assert isinstance(klass, pydocspec.Class)
+    assert klass.bases is None
+    assert klass.decorations is None
 
 
-@rootcls_param
-def test_class_decos_and_bases(rootcls: Type[pydocspec.TreeRoot]) -> None:
+@mod_from_text_param
+def test_class_decos_and_bases(mod_from_text: ModFromTextFunction) -> None:
     # test if we catch the bases and decorations for a class
     mod = mod_from_text('''
     @property
     @attr.s
     class C(str, pkg.MyBase):
         """my class"""
-    ''', modname='test', rootcls=rootcls)
+    ''', modname='test')
     m = mod.get_member('C')
     assert m is not None
     assert isinstance(m, pydocspec.Class)
     decorations = m.decorations
     assert decorations is not None
-    assert len(decorations) == 2
-    assert [d.name for d in decorations] == ["property", "attr.s"]
+    if mod_from_text == _docspec_python.mod_from_text:
+        # docspec_python does not add property as decorator because it
+        # uses the Function.Semantic.PROPERTY_GETTER to signify it's a property.
+        assert len(decorations) == 1
+        assert [d.name for d in decorations] == ["attr.s"]
+    else:
+        
+        assert len(decorations) == 2
+        assert [d.name for d in decorations] == ["property", "attr.s"]
     for d in decorations:
-        assert d.name_ast == d.expr_ast
+        if mod_from_text != _docspec_python.mod_from_text:
+            # expr_ast is currently only set with our own builder.
+            assert d.name_ast == d.expr_ast
+        else:
+            assert d.expr_ast is None
         assert isinstance(d.name_ast, (astroid.nodes.Name, astroid.nodes.Attribute))
     bases = m.bases
     assert bases is not None
     assert len(bases) == 2
-    assert bases == ["str", "pkg.MyBase"]
+    if mod_from_text == _docspec_python.mod_from_text:
+        # docspec_python behaves weirdly...
+        assert bases == ["str", " pkg.MyBase"]
+    else:
+        assert bases == ["str", "pkg.MyBase"]
     assert m.bases_ast is not None
     for b in m.bases_ast:
         assert isinstance(b, (astroid.nodes.Name, astroid.nodes.Attribute))
 
-#TODO: fix me!
-@rootcls_param
-def test_function_name_dulpicate_module(rootcls: Type[pydocspec.TreeRoot]) -> None:
+@getbuilder_param
+def test_function_name_dulpicate_module(getbuilder: Callable[[], astbuilder.Builder]) -> None:
     """
     It's possible that a function or class name is the same as a module's. 
     The builder should not crash.
@@ -135,26 +89,28 @@ def test_function_name_dulpicate_module(rootcls: Type[pydocspec.TreeRoot]) -> No
     from . import mod
     '''
 
-    system = rootcls()
-    
-    top = mod_from_text(top_src, modname='top', is_package=True, root=system)
-    mod = mod_from_text(mod_src, modname='mod', parent_name='top', root=system)
+    builder = getbuilder()
+    builder.add_module_string(top_src, modname='top', is_package=True)
+    builder.add_module_string(mod_src, modname='mod', parent_name='top')
     # processing the tree is mandatory
-    processor.Processor.default().process(system)
+    builder.build_modules()
 
+    top = builder.root.all_objects['top']
+    # mod = builder.root.all_objects['top.mod']
+    
     assert top.expand_name('mod') == 'top.mod'
     
-    all_mod = system.all_objects.getall('top.mod')
+    all_mod = builder.root.all_objects.getall('top.mod')
     assert all_mod is not None
     assert len(all_mod) == 2
 
     assert isinstance(top['mod'], pydocspec.Class)
 
-    # the order is reversed because of the post-processing ensuring an object actually shadoes a submodule.
-    assert list(top.get_members('mod')) == [all_mod[1], all_mod[0]]
+    # the order seem a bit random...
+    assert list(top.get_members('mod')) == [all_mod[0], all_mod[1]]
 
-    assert isinstance(mod.get_member('mod'), pydocspec.Indirection)
-    assert mod.resolve_name('mod') == top.resolve_name('mod') == top['mod']
+    assert isinstance(all_mod[0].get_member('mod'), pydocspec.Indirection)
+    assert all_mod[0].resolve_name('mod') == top.resolve_name('mod') == top['mod']
 
     # This is most likely to surprise you when in an __init__.py and you are importing or 
     # defining a value that has the same name as a submodule of the current package. 
@@ -162,8 +118,8 @@ def test_function_name_dulpicate_module(rootcls: Type[pydocspec.TreeRoot]) -> No
     # of the same name, it will shadow the imported or defined name in the __init__.py’s global namespace.
     # http://python-notes.curiousefficiency.org/en/latest/python_concepts/import_traps.html?highlight=same%20name#the-submodules-are-added-to-the-package-namespace-trap
 
-@rootcls_param
-def test_relative_import_in_package(rootcls: Type[pydocspec.TreeRoot]) -> None:
+@getbuilder_param
+def test_relative_import_in_package(getbuilder: Callable[[], astbuilder.Builder]) -> None:
     """Relative imports in a package must be resolved by going up one level
     less, since we don't count "__init__.py" as a level.
 
@@ -185,23 +141,29 @@ def test_relative_import_in_package(rootcls: Type[pydocspec.TreeRoot]) -> None:
     from .mod import g
     '''
 
-    system = rootcls()
-    top = mod_from_text(top_src, modname='top', is_package=True, root=system)
-    pkg = mod_from_text(pkg_src, modname='pkg', parent_name='top', is_package=True, root=system)
-    mod = mod_from_text(mod_src, modname='mod', parent_name='top.pkg', root=system)
+    builder = getbuilder()
+    # top, pkg, mod
+    builder.add_module_string(top_src, modname='top', is_package=True,)
+    builder.add_module_string(pkg_src, modname='pkg', parent_name='top', is_package=True,)
+    builder.add_module_string(mod_src, modname='mod', parent_name='top.pkg',)
+    
     # processing the tree is mandatory
-    processor.Processor.default().process(system)
+    builder.build_modules()
 
-    repr_vis = visitors.ReprVisitor()
+    top = builder.root.all_objects['top']
+    pkg = builder.root.all_objects['top.pkg']
+    mod = builder.root.all_objects['top.pkg.mod']
+    
+    repr_vis = visitors.ReprVisitor(fields=['is_package', 'target'])
     top.walk(repr_vis)
     assert repr_vis.repr == """\
-- Module 'top' at l.0, is_package: True, source_path: <testpath>
-| - Class 'f' at l.2
-| - Module 'pkg' at l.0, is_package: True, source_path: <testpath>
+- Module 'top' at l.0, is_package: True
+| - Module 'pkg' at l.0, is_package: True
+| | - Module 'mod' at l.0
+| | | - Class 'g' at l.2
 | | - Indirection 'f' at l.2, target: 'top.f'
 | | - Indirection 'g' at l.3, target: 'top.pkg.mod.g'
-| | - Module 'mod' at l.0, source_path: <testpath>
-| | | - Class 'g' at l.2
+| - Class 'f' at l.2
 """
 
     assert pkg.expand_name('f') == top.expand_name('f')
@@ -210,8 +172,8 @@ def test_relative_import_in_package(rootcls: Type[pydocspec.TreeRoot]) -> None:
     assert pkg.resolve_name('f') == top['f']
     assert pkg.resolve_name('g') == mod['g']
 
-@rootcls_param
-def test_relative_import_in_package_star_import(rootcls: Type[pydocspec.TreeRoot]) -> None:
+@getbuilder_param
+def test_relative_import_in_package_star_import(getbuilder: Callable[[], astbuilder.Builder]) -> None:
     """Relative imports in a package must be resolved by going up one level
     less, since we don't count "__init__.py" as a level. 
 
@@ -237,12 +199,16 @@ def test_relative_import_in_package_star_import(rootcls: Type[pydocspec.TreeRoot
     from .mod import *
     '''
 
-    system = rootcls()
-    top = mod_from_text(top_src, modname='top', is_package=True, root=system)
-    mod = mod_from_text(mod_src, modname='top.pkg.mod', root=system) # a hack to make it work, the mod won't be actually present in the tree but still accessible with TreeRoot.all_objects
-    pkg = mod_from_text(pkg_src, modname='pkg', parent_name='top', is_package=True, root=system)
+    builder = getbuilder()
+    builder.add_module_string(top_src, modname='top', is_package=True)
+    builder.add_module_string(pkg_src, modname='pkg', parent_name='top', is_package=True)
+    builder.add_module_string(mod_src, modname='mod', parent_name='top.pkg')
     # processing the tree is mandatory
-    processor.Processor.default().process(system)
+    builder.build_modules()
+
+    top = builder.root.all_objects['top']
+    pkg = builder.root.all_objects['top.pkg']
+    mod = builder.root.all_objects['top.pkg.mod']
 
 #     repr_vis = visitors.ReprVisitor()
 #     top.walk(repr_vis)
@@ -270,35 +236,35 @@ def test_relative_import_in_package_star_import(rootcls: Type[pydocspec.TreeRoot
     # assert not isinstance(pkg.get_member('h'), pydocspec.Indirection) # not re-exported because of __all__ var
     # assert not isinstance(pkg.get_member('g'), pydocspec.Indirection) # not re-exported because of __all__ var
 
-@rootcls_param
-def test_aliasing(rootcls: Type[pydocspec.TreeRoot]) -> None:
-    def addsrc(root: pydocspec.TreeRoot) -> None:
-        src_private = '''
-        class A:
-            pass
-        '''
-        src_export = '''
-        from _private import A as B
-        # __all__ = ['B'] # This is not actually needed for the test to pass.
-        '''
-        src_user = '''
-        from public import B
-        class C(B):
-            pass
-        '''
-        mod_from_text(src_private, modname='_private', root=root)
-        mod_from_text(src_export, modname='public', root=root)
-        mod_from_text(src_user, modname='app', root=root)
-        # processing the tree is mandatory
-        processor.Processor.default().process(root)
+@getbuilder_param
+def test_aliasing(getbuilder: Callable[[], astbuilder.Builder]) -> None:
 
-    root = rootcls()
-    addsrc(root)
-    C = root.all_objects['app.C']
+    src_private = '''
+    class A:
+        pass
+    '''
+    src_export = '''
+    from _private import A as B
+    # __all__ = ['B'] # This is not actually needed for the test to pass.
+    '''
+    src_user = '''
+    from public import B
+    class C(B):
+        pass
+    '''
+
+    builder = getbuilder()
+    builder.add_module_string(src_private, modname='_private')
+    builder.add_module_string(src_export, modname='public')
+    builder.add_module_string(src_user, modname='app')
+    # processing the tree is mandatory
+    builder.build_modules()
+
+    C = builder.root.all_objects['app.C']
     assert isinstance(C, pydocspec.Class)
 
     assert C.bases == ['B']
-    assert C.resolved_bases == [root.all_objects['_private.A']] 
+    assert C.resolved_bases == [builder.root.all_objects['_private.A']] 
 
     # The pydoctor's version of this test expected ['public.B'] as the result, this because
     # of the reparenting process applied to objects re-exported by __all__ variable. 
@@ -310,8 +276,8 @@ def test_aliasing(rootcls: Type[pydocspec.TreeRoot]) -> None:
     #   processed can return the not-found result for a name that does exist. 
     #   This is why we do not rely on expand_name() in the implementation of indirections creation.
 
-@rootcls_param
-def test_aliasing_recursion(rootcls: Type[pydocspec.TreeRoot]) -> None:
+@mod_from_text_param
+def test_aliasing_recursion(mod_from_text: ModFromTextFunction) -> None:
     src = '''
     class C:
         pass
@@ -319,21 +285,28 @@ def test_aliasing_recursion(rootcls: Type[pydocspec.TreeRoot]) -> None:
     class D(C):
         pass
     '''
-    mod = mod_from_text(src, modname='mod', rootcls=rootcls)
+    mod = mod_from_text(src, modname='mod')
     D = mod['D']
     assert isinstance(D, pydocspec.Class)
     assert D.bases == ['C'], D.bases
-    assert D.resolved_bases == [mod['C']], D.resolved_bases
-    # An older version of this test expected ['mod.C'], Like if it was unresolved. 
-    # Now, the indirections that have the same fullname and target are simply ignored.
+    if mod_from_text == _docspec_python.mod_from_text:
+        # In docspec_python, the indirection is added.
+        assert D.resolved_bases == ['mod.C'], D.resolved_bases
+    else:
+        # We don't create indirections that have the exact same qualified name
+        # and target, so we resolve the base to the class successfuly.
+        # TODO: double check this behaviour.
+        assert D.resolved_bases == [mod['C']], D.resolved_bases
+        # An older version of this test expected ['mod.C'], Like if it was unresolved. 
+        # Now, the indirections that have the same fullname and target are simply ignored.
 
 # TODO: Do a test with __all__variable re-export and assert that no exported members 
 # do not get an indirection object created.
 
-@rootcls_param
+@getbuilder_param
 @pytest.mark.parametrize('level', (1, 2, 3, 4))
 def test_relative_import_past_top(
-        rootcls: Type[pydocspec.TreeRoot],
+        getbuilder: Callable[[], astbuilder.Builder],
         level: int,
         caplog
         ) -> None:
@@ -341,28 +314,28 @@ def test_relative_import_past_top(
     package.
     """
     caplog.set_level('WARNING', 'pydocspec')
-    system = rootcls()
-    mod_from_text('', modname='pkg', is_package=True, root=system)
-    mod_from_text(f'''
+    builder = getbuilder()
+    builder.add_module_string('', modname='pkg', is_package=True)
+    builder.add_module_string(f'''
     from {'.' * level + 'X'} import A
-    ''', modname='mod', parent_name='pkg', root=system)
+    ''', modname='mod', parent_name='pkg')
     # processing the tree is mandatory (not here actually, but process it anyway)
-    processor.Processor.default().process(system)
+    builder.build_modules()
     
     if level == 1:
         assert not caplog.text
     else:
-        assert f"<testpath>:2: relative import level ({level}) too high" in caplog.text, caplog.text
+        assert f"<fromtext>:2: relative import level ({level}) too high" in caplog.text, caplog.text
 
-@rootcls_param
-def test_class_with_base_from_module(rootcls: Type[pydocspec.TreeRoot]) -> None:
+@mod_from_text_param
+def test_class_with_base_from_module(mod_from_text: ModFromTextFunction) -> None:
     src = '''
     from X.Y import A
     from Z import B as C
     class D(A, C):
         class f: pass
     '''
-    mod = mod_from_text(src, rootcls=rootcls)
+    mod = mod_from_text(src)
     assert len(mod.members) == 3
 
     ind1 = mod.get_member('A')
@@ -385,18 +358,23 @@ def test_class_with_base_from_module(rootcls: Type[pydocspec.TreeRoot]) -> None:
     assert base1 == 'X.Y.A'
     assert base2 == 'Z.B'
 
-@rootcls_param
-def test_class_with_base_from_module_alt(rootcls: Type[pydocspec.TreeRoot]) -> None:
+@mod_from_text_param
+def test_class_with_base_from_module_alt(mod_from_text: ModFromTextFunction) -> None:
     src = '''
     import X
     import Y.Z as M
     class D(X.A, X.B.C, M.C):
         class f: pass
     '''
-    mod = mod_from_text(src, rootcls=rootcls)
-    assert len(mod.members) == 2
-
-    assert mod.get_member('X') == None # we don't create useless indirections.
+    mod = mod_from_text(src,)
+    if mod_from_text == _docspec_python.mod_from_text:
+        # docspec_python adds indirection anyhow
+        assert len(mod.members) == 3
+    else:
+        # our loader does not create indirection that have the same name and target. 
+        assert len(mod.members) == 2
+        assert mod.get_member('X') == None # we don't create useless indirections.
+    
     ind = mod.get_member('M')
     assert isinstance(ind, pydocspec.Indirection)
     assert ind.target == 'Y.Z'
@@ -415,8 +393,8 @@ def test_class_with_base_from_module_alt(rootcls: Type[pydocspec.TreeRoot]) -> N
     assert base2 == 'X.B.C', base2
     assert base3 == 'Y.Z.C', base3
 
-# @rootcls_param
-# def test_no_docstring(rootcls: Type[pydocspec.TreeRoot]) -> None:
+# @getbuilder_param
+# def test_no_docstring(getbuilder: Callable[[], astbuilder.Builder]) -> None:
 #     # Inheritance of the docstring of an overridden method depends on
 #     # methods with no docstring having None in their 'docstring' field.
 #     mod = mod_from_text('''
@@ -433,69 +411,69 @@ def test_class_with_base_from_module_alt(rootcls: Type[pydocspec.TreeRoot]) -> N
 #     assert m is not None
 #     assert m.docstring is None
 
-@rootcls_param
-def test_all_recognition(rootcls: Type[pydocspec.TreeRoot]) -> None:
+@mod_from_text_param
+def test_all_recognition(mod_from_text: ModFromTextFunction) -> None:
     """The value assigned to __all__ is parsed to Module.all."""
     mod = mod_from_text('''
     def f():
         pass
     __all__ = ['f']
-    ''', rootcls=rootcls)
+    ''')
     assert mod.dunder_all == ['f']
     assert '__all__' in list(o.name for o in mod._members())
     # Should pydocspec remove the __all__varible from the members?
     # It's metadata after all...
 
-@rootcls_param
-def test_docformat_recognition(rootcls: Type[pydocspec.TreeRoot]) -> None:
+@mod_from_text_param
+def test_docformat_recognition(mod_from_text: ModFromTextFunction) -> None:
     """The value assigned to __docformat__ is parsed to Module.docformat."""
     mod = mod_from_text('''
     __docformat__ = 'Epytext en'
 
     def f():
         pass
-    ''', rootcls=rootcls)
+    ''')
     assert mod.docformat == 'Epytext en'
     # assert '__docformat__' not in mod.contents
     # Should pydocspec remove the __docformat__ from the members?
     # It's metadata after all...
 
-@rootcls_param
-def test_docformat_warn_not_str(rootcls: Type[pydocspec.TreeRoot], caplog) -> None:
+@mod_from_text_param
+def test_docformat_warn_not_str(mod_from_text: ModFromTextFunction, caplog) -> None:
 
     mod = mod_from_text('''
     __docformat__ = [i for i in range(3)]
 
     def f():
         pass
-    ''', rootcls=rootcls, modname='mod')
-    assert '<testpath>:2: Cannot parse value assigned to "__docformat__": not a string\n' in caplog.text
+    ''', modname='mod')
+    assert '<fromtext>:2: Cannot parse value assigned to "__docformat__": not a string\n' in caplog.text
     assert mod.docformat is None
     # assert '__docformat__' not in mod.contents
 
-@rootcls_param
-def test_docformat_warn_not_str2(rootcls: Type[pydocspec.TreeRoot], caplog) -> None:
+@mod_from_text_param
+def test_docformat_warn_not_str2(mod_from_text: ModFromTextFunction, caplog) -> None:
 
     mod = mod_from_text('''
     __docformat__ = 3.14
 
     def f():
         pass
-    ''', rootcls=rootcls, modname='mod')
-    assert '<testpath>:2: Cannot parse value assigned to "__docformat__": not a string\n' in caplog.text
+    ''', modname='mod')
+    assert '<fromtext>:2: Cannot parse value assigned to "__docformat__": not a string\n' in caplog.text
     assert mod.docformat == None
     # assert '__docformat__' not in mod.contents
 
-@rootcls_param
-def test_docformat_warn_empty(rootcls: Type[pydocspec.TreeRoot], caplog) -> None:
+@mod_from_text_param
+def test_docformat_warn_empty(mod_from_text: ModFromTextFunction, caplog) -> None:
 
     mod = mod_from_text('''
     __docformat__ = '  '
 
     def f():
         pass
-    ''', rootcls=rootcls, modname='mod')
-    assert '<testpath>:2: Cannot parse value assigned to "__docformat__": empty value\n' in caplog.text
+    ''', modname='mod')
+    assert '<fromtext>:2: Cannot parse value assigned to "__docformat__": empty value\n' in caplog.text
     assert mod.docformat == None
     # assert '__docformat__' not in mod.contents
 

@@ -14,7 +14,7 @@ Work in progress... API might change without deprecation notice.
 
 **How it works**
 
-First, a root object gets created with the `specfactory`, then the `builder` creates all the other objects
+First, a root object gets created with the `specfactory`, then the `astbuilder` creates all the other objects
 and populate the strict-minimum attributes. Then the `processor` takes that tree and populated all other attributes.
 
 **Extensibility**:
@@ -23,20 +23,9 @@ The core of the logic is design to be extensible with plugins modules, called "b
 mixin classes and post-processes in a new module, add the special ``pydocspec_mixin`` and/or ``pydocspec_processes`` module 
 variables, then include the module's full name as part of the ``additional_brain_modules`` argument of function `converter.convert_docspec_modules`. 
 
-Discovered mixin classes are going to be dynamically added to the list of bases when creating the new objects with the 
+Mixin classes are going to be added to the list of bases when creating the new objects with the 
 `specfactory.Factory`. Because of that, the documentation of the classes listed in this module are incomplete, properties
 and methods provided by mixin classes can be review in their respective documentation, under the package `brains`.
-
-The ``pydocspec_mixin`` variable holds a dictionary from the name of the base class to a list of mixin classes 
-(or only one mixin class)::
-
-    pydocspec_mixin: Dict[str, Union[Sequence[Type], Type]]
-
-The ``pydocspec_processes`` variable holds a dictionary from the priority of execution of the post process (should be greater than 0)
-to a post-process. A post-process beeing a one-argument callable taking a `TreeRoot` instance::
-
-    pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
-
 """
 
 import dataclasses
@@ -60,6 +49,7 @@ from ._model import Inheritable, HasMembers
 
 if TYPE_CHECKING:
     import docspec_python
+    from . import astbuilder, processor
 
 __docformat__ = 'restructuredtext'
 __all__ = [
@@ -217,9 +207,10 @@ class ApiObject(_model.ApiObject):
         member = self.get_member(name) # type:ignore[unreachable]
         if member:
             if follow_aliases and isinstance(member, Data) and astroidutils.is_name(member.value_ast):
-                return self._resolve_indirection(member._alias_indirection, _indirections) or member.full_name
+                indirection = member._alias_indirection
+                return self._resolve_indirection(indirection, _indirections) or indirection.target
             if isinstance(member, Indirection):
-                return self._resolve_indirection(member, _indirections) or member.full_name
+                return self._resolve_indirection(member, _indirections) or member.target
             return member.full_name
 
         elif isinstance(self, Class):
@@ -369,6 +360,16 @@ class Class(_model.Class, ApiObject):
     """
     The constructor method of this class.
     """
+
+    inherited_members: List['InheritedMember'] = dataclasses.field(default_factory=list)
+    """
+    Members inherited from superclasses.
+    """
+
+    @dataclasses.dataclass(repr=False)
+    class InheritedMember:
+        member: ApiObject
+        inherited_via: Tuple[ApiObject]
         
     def __post_init__(self) -> None:
         super().__post_init__()
@@ -399,61 +400,6 @@ class Class(_model.Class, ApiObject):
             if obj is not None:
                 return obj
         return None
-
-    # TODO: adjust this code to provide inherited_members property
-    # inherited_members : List[Documentable] = []
-    #             for baselist in nested_bases(self.ob):
-    #                 #  If the class has super class
-    #                 if len(baselist) >= 2:
-    #                     attrs = unmasked_attrs(baselist)
-    #                     if attrs:
-    #                         inherited_members.extend(attrs)
-    #             return inherited_members
-
-    # def overriding_subclasses(self,
-    #         name: str,
-    #         _firstcall: bool = True
-    #         ) -> Iterator['Class']: 
-    #     """
-    #     Retreive the subclasses that override the given name from the parent class object (this object). 
-    #     """
-    #     if not _firstcall and name in self.members:
-    #         yield self
-    #     else:
-    #         for subclass in classobj.subclasses:
-    #             if subclass.isVisible:
-    #                 yield from overriding_subclasses(subclass, name, _firstcall=False)
-
-    # def nested_bases(classobj: Class) -> Iterator[Tuple[model.Class, ...]]:
-    #     """
-    #     Helper function to retreive the complete list of base classes chains (represented by tuples) for a given Class. 
-    #     A chain of classes is used to compute the member inheritence from the first element to the last element of the chain.  
-        
-    #     The first yielded chain only contains the Class itself. 
-
-    #     Then for each of the super-classes:
-    #         - the next yielded chain contains the super class and the class itself, 
-    #         - the the next yielded chain contains the super-super class, the super class and the class itself, etc...
-    #     """
-    #     yield (classobj,)
-    #     for base in classobj.baseobjects:
-    #         if base is None:
-    #             continue
-    #         for nested_base in nested_bases(base):
-    #             yield (nested_base + (classobj,))
-
-    # def unmasked_attrs(baselist: Sequence[Class]) -> Sequence[model.Documentable]:
-    #     """
-    #     Helper function to reteive the list of inherited children given a base classes chain (As yielded by `nested_bases`). 
-    #     The returned members are inherited from the Class listed first in the chain to the Class listed last: they are not overriden in between. 
-    #     """
-    #     maybe_masking = {
-    #         o.name
-    #         for b in baselist[1:]
-    #         for o in b.contents.values()
-    #         }
-    #     return [o for o in baselist[0].contents.values()
-    #             if o.isVisible and o.name not in maybe_masking]
 
 @dataclasses.dataclass(repr=False)
 class Function(_model.Function, ApiObject):
@@ -542,7 +488,7 @@ class Module(_model.Module, ApiObject):
         self.parent: Optional['Module']
 
 
-# API
+# Builder / Extensions API
 
 # loader function is a function of the following form: 
 #   (files: Sequence[Path], options: Any = None) -> TreeRoot
@@ -550,39 +496,59 @@ class Module(_model.Module, ApiObject):
 @attr.s(auto_attribs=True)
 class Options:
     extensions: List[str] = attr.ib(factory=list)
-    prepended_package: Optional[str] = None
+    prepended_package: Optional[str] = None #TODO: implement me!
     introspect_c_modules: bool = False
 
-def load_python_modules(files: Sequence[Path], options: Any = None) -> TreeRoot:
+def builder_from_options(options: Optional[Options]=None) -> 'astbuilder.Builder':
+    """
+    Factory method for Builder instances.
+    """
+    if not options:
+        options=Options()
+    
+    from . import specfactory, processor, astbuilder, ext
+
+    # load extensions
+    extensions: List['ext.PydocspecExtension'] = []
+    extensions.extend(ext._get_ext_from_module(m) for m in ext._get_all_defaults_ext())
+    extensions.extend(ext._get_ext_from_module(m) for m in options.extensions)
+    
+    factory = specfactory.Factory()
+
+    for m in extensions:
+        # load extensions' mixins
+        factory.add_mixins(**ext._get_mixins(m))
+
+    builder = astbuilder.Builder(factory.TreeRoot(), processor.Processor(),
+                                 options=options, )
+
+    for m in extensions:
+        # load extensions' ast visitors
+        builder.visitor_extensions.update(*ext._get_astbuild_visitors(m))
+        # load extensions' post build visitors
+        builder.pprocessor.visitor_extensions.update(*ext._get_postbuild_visitors(m))
+    
+    return builder
+
+def load_python_modules(files: Sequence[Path], options: Optional[Options] = None) -> TreeRoot:
     """
     Load packages or modules with pydocspec's builder. 
 
     :param files: A list of `Path` instances pointing to filenames/directory to parse.
         Directories will be added recursively. 
     """
-    from . import specfactory, processor, astbuilder
-    factory = specfactory.Factory.default()
-    _processor = processor.Processor.default()
-    
-    if options:
-        for brain in getattr(options, 'brains', ()):
-            factory.import_mixins_from(brain)
-            _processor.import_processes_from(brain)
-    
-    root = factory.TreeRoot()
-
-    builder = astbuilder.Builder(root, options=options)
+    builder = builder_from_options(options)
 
     for f in files:
         builder.add_module(f)
 
-    builder.process_modules()
+    builder.build_modules()
 
-    _processor.process(root)
+    return builder.root
 
-    return root
-
-def load_python_modules_with_docspec_python(files: Sequence[Path], options: 'docspec_python.ParserOptions' = None, ) -> TreeRoot:
+def load_python_modules_with_docspec_python(files: Sequence[Path], 
+                                            options: Optional[Options] = None,
+                                            docspec_options: 'docspec_python.ParserOptions' = None, ) -> TreeRoot:
     """
     Load packages or modules with docspec_python and then convert them to pydocspec objects. 
     """
@@ -639,9 +605,9 @@ def load_python_modules_with_docspec_python(files: Sequence[Path], options: 'doc
     modules = []
     for path in files:
         for module_name, filename in _find_module_files(path):
-            modules.append(parse_python_module(filename, module_name=module_name, options=options, encoding='utf-8'))
+            modules.append(parse_python_module(filename, module_name=module_name, options=docspec_options, encoding='utf-8'))
 
-    return converter.convert_docspec_modules(modules, root=True)
+    return converter.convert_docspec_modules(modules, options=options)
 
 def _setup_stdout_logger(
     name: str,

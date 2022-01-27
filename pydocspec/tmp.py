@@ -34,7 +34,7 @@
 # class UnknownList(UnknownFieldValue, list):
 #     ...
 
-# @dataclasses.dataclass
+# @dataclasses.dataclass(repr=False)
 # class UnknownObject(_model.ApiObject, abc.ABC):
 #     # object placed to signify that something could not be resolved during the building.
 #     # no UnknownObject should be left once the tree is built
@@ -53,7 +53,7 @@
 #         """
 #         ...
 
-# @dataclasses.dataclass
+# @dataclasses.dataclass(repr=False)
 # class UnresolvedImportAll(_model.Indirection, UnknownObject):
 #     # unresolved "from mod import *" statement
     
