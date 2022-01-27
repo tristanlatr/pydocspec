@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/__init__.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -79,25 +79,15 @@ offers facility to resolve names and provides additional informations.</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> pydocspec
 <span class="py-prompt">&gt;&gt;&gt; </span>root = pydocspec.load_python_modules([Path(<span class="py-string">'./pydocspec'</span>)])</pre><p><strong>How it works</strong></p>
-<p>First, a root object gets created with the <code><a href="pydocspec.specfactory.html">specfactory</a></code>, then the <code>builder</code> creates all the other objects
+<p>First, a root object gets created with the <code><a href="pydocspec.specfactory.html">specfactory</a></code>, then the <code><a href="pydocspec.astbuilder.html">astbuilder</a></code> creates all the other objects
 and populate the strict-minimum attributes. Then the <code><a href="pydocspec.processor.html">processor</a></code> takes that tree and populated all other attributes.</p>
 <p><strong>Extensibility</strong>:</p>
 <p>The core of the logic is design to be extensible with plugins modules, called "brain" modules. One can define custom
 mixin classes and post-processes in a new module, add the special <tt class="rst-docutils literal">pydocspec_mixin</tt> and/or <tt class="rst-docutils literal">pydocspec_processes</tt> module
 variables, then include the module's full name as part of the <tt class="rst-docutils literal">additional_brain_modules</tt> argument of function <code><a href="pydocspec.converter.html#convert_docspec_modules">converter.convert_docspec_modules</a></code>.</p>
-<p>Discovered mixin classes are going to be dynamically added to the list of bases when creating the new objects with the
+<p>Mixin classes are going to be added to the list of bases when creating the new objects with the
 <code><a href="pydocspec.specfactory.Factory.html">specfactory.Factory</a></code>. Because of that, the documentation of the classes listed in this module are incomplete, properties
 and methods provided by mixin classes can be review in their respective documentation, under the package <code><a href="pydocspec.brains.html">brains</a></code>.</p>
-<p>The <tt class="rst-docutils literal">pydocspec_mixin</tt> variable holds a dictionary from the name of the base class to a list of mixin classes
-(or only one mixin class):</p>
-<pre class="rst-literal-block">
-pydocspec_mixin: Dict[str, Union[Sequence[Type], Type]]
-</pre>
-<p>The <tt class="rst-docutils literal">pydocspec_processes</tt> variable holds a dictionary from the priority of execution of the post process (should be greater than 0)
-to a post-process. A post-process beeing a one-argument callable taking a <code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code> instance:</p>
-<pre class="rst-literal-block">
-pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
-</pre>
 </div>
       </div>
 
@@ -110,6 +100,11 @@ pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
     <td>Package</td>
     <td><code><a href="pydocspec.brains.html">brains</a></code></td>
     <td>Submodules contains sets of mixin classes aplied to L{ApiObject}, in order to extends the functionalities for specific libraries.</td>
+  </tr><tr class="package">
+    
+    <td>Package</td>
+    <td><code><a href="pydocspec.ext.html">ext</a></code></td>
+    <td>Extensions sytem.</td>
   </tr><tr class="package">
     
     <td>Package</td>
@@ -138,6 +133,11 @@ pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
   </tr><tr class="module">
     
     <td>Module</td>
+    <td><code><a href="pydocspec.c3linear.html">c3linear</a></code></td>
+    <td>Compute method resolution order. Implements <code><a href="pydocspec.Class.html#mro">Class.mro</a></code> attribute.</td>
+  </tr><tr class="module">
+    
+    <td>Module</td>
     <td><code><a href="pydocspec.converter.html">converter</a></code></td>
     <td>Convert <code><a href="docspec.html">docspec</a></code> objects to their <code><a href="pydocspec.html">pydocspec</a></code> augmented version.</td>
   </tr><tr class="module">
@@ -154,17 +154,12 @@ pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
     
     <td>Module</td>
     <td><code><a href="pydocspec.genericvisitor.html">genericvisitor</a></code></td>
-    <td>General purpose visitor pattern implementation.</td>
+    <td>General purpose visitor pattern implementation, with extensions.</td>
   </tr><tr class="module">
     
     <td>Module</td>
     <td><code><a href="pydocspec.introspect.html">introspect</a></code></td>
     <td>Build an <code><a href="pydocspec.ApiObject.html">ApiObject</a></code> tree from live objects.</td>
-  </tr><tr class="module">
-    
-    <td>Module</td>
-    <td><code><a href="pydocspec.mro.html">mro</a></code></td>
-    <td>Compute method resolution order. Implements <code><a href="pydocspec.Class.html#mro">Class.mro</a></code> attribute.</td>
   </tr><tr class="module">
     
     <td>Module</td>
@@ -179,7 +174,12 @@ pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
     
     <td>Module</td>
     <td><code><a href="pydocspec.visitors.html">visitors</a></code></td>
-    <td>Useful visitors for <code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code> instances.</td>
+    <td>Useful visitors for AST and <code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code> instances.</td>
+  </tr><tr class="module private">
+    
+    <td>Module</td>
+    <td><code><a href="pydocspec.__main__.html">__main__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="module private">
     
     <td>Module</td>
@@ -235,6 +235,11 @@ pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
   </tr><tr class="function">
     
     <td>Function</td>
+    <td><code><a href="#builder_from_options">builder_from_options</a></code></td>
+    <td>Factory method for Builder instances.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
     <td><code><a href="#load_python_modules">load_python_modules</a></code></td>
     <td>Load packages or modules with pydocspec's builder.</td>
   </tr><tr class="function">
@@ -270,7 +275,7 @@ pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
   <div class="functionHeader">
     
     <span class="py-defname">_RESOLVE_ALIAS_MAX_RECURSE</span>: <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/__init__.py#L78">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py#L68">
       
       (source)
     </a>
@@ -284,6 +289,28 @@ pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
 </div><div class="basefunction">
   
   
+  <a name="pydocspec.builder_from_options">
+    
+  </a>
+  <a name="builder_from_options">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">builder_from_options</span>(options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py#L502">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Factory method for Builder instances.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">options:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.Options.html">Options</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.astbuilder.Builder.html">astbuilder.Builder</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
   <a name="pydocspec.load_python_modules">
     
   </a>
@@ -293,7 +320,7 @@ pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">load_python_modules</span>(files, options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/__init__.py#L558">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py#L533">
       
       (source)
     </a>
@@ -302,7 +329,7 @@ pydocspec_processes: Dict[float, Callable[[TreeRoot], None]]
     
     
     <div>Load packages or modules with pydocspec's builder.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">files:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>]</code></td><td class="fieldArgDesc">A list of <code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code> instances pointing to filenames/directory to parse.
-Directories will be added recursively.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">options:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+Directories will be added recursively.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">options:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.Options.html">Options</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -315,8 +342,8 @@ Directories will be added recursively.</td></tr><tr><td class="fieldArgContainer
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">load_python_modules_with_docspec_python</span>(files, options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/__init__.py#L587">
+    <span class="py-keyword">def</span> <span class="py-defname">load_python_modules_with_docspec_python</span>(files, options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>, docspec_options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py#L549">
       
       (source)
     </a>
@@ -324,7 +351,7 @@ Directories will be added recursively.</td></tr><tr><td class="fieldArgContainer
   <div class="docstring functionBody">
     
     
-    <div>Load packages or modules with docspec_python and then convert them to pydocspec objects.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">files:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">options:</span><code>docspec_python.ParserOptions</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Load packages or modules with docspec_python and then convert them to pydocspec objects.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">files:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">options:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.Options.html">Options</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">docspec_options:</span><code>docspec_python.ParserOptions</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
@@ -338,7 +365,7 @@ Directories will be added recursively.</td></tr><tr><td class="fieldArgContainer
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_setup_stdout_logger</span>(name, verbose=<a href="https://docs.python.org/3/library/constants.html#False">False</a>, quiet=<a href="https://docs.python.org/3/library/constants.html#False">False</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/__init__.py#L648">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py#L612">
       
       (source)
     </a>
@@ -358,7 +385,7 @@ Directories will be added recursively.</td></tr><tr><td class="fieldArgContainer
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

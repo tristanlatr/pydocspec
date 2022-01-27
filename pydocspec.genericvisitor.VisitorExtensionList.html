@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>pydocspec.genericvisitor.VisitorExtensionList</title>
+    <meta name="generator" content="pydoctor 21.12.1.dev0"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default">
+  
+  <div class="container">
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+          <span class="navbar-brand">
+            <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a> <a href="index.html">API Documentation</a>
+          </span>
+
+          <a href="moduleIndex.html">
+            Modules
+          </a>
+
+          <a href="classIndex.html">
+            Classes
+          </a>
+
+          <a href="nameIndex.html">
+            Names
+          </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+    
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.html">genericvisitor</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.VisitorExtensionList.html">VisitorExtensionList</a></code></code></h1>
+        <div id="showPrivate">
+          <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+        </div>
+      </div>
+
+      <div class="categoryHeader">
+        class documentation
+      </div>
+
+      <div class="extrasDocstring">
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">VisitorExtensionList</span>(<span title="Generic[T]">Generic[T]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/genericvisitor.py#L154" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#pydocspec.genericvisitor.VisitorExtensionList">View In Hierarchy</a></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div>This class helps iterating on visitor extensions that should run at different times.</div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id114">
+  
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__">__init__</a></code></td>
+    <td>Initialize the extensions container.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#add">add</a></code></td>
+    <td>Add extensions to this container.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#attach_visitor">attach_visitor</a></code></td>
+    <td>Attach a parent visitor to the visitor extensions.</td>
+  </tr><tr class="property">
+    
+    <td>Property</td>
+    <td><code><a href="#after_visit">after_visit</a></code></td>
+    <td>Return the visitors that run after the visit.</td>
+  </tr><tr class="property">
+    
+    <td>Property</td>
+    <td><code><a href="#before_visit">before_visit</a></code></td>
+    <td>Return the visitors that run before the visit.</td>
+  </tr><tr class="instancevariable private">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#_visitors">_visitors</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+        
+
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="basemethod">
+  
+  
+  <a name="pydocspec.genericvisitor.VisitorExtensionList.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, *extensions):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/genericvisitor.py#L159">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Initialize the extensions container.</p>
+<dl class="rst-docutils">
+<dt>Parameters:</dt>
+<dd><a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">*</span></a>extensions: The extensions to add.</dd>
+</dl>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*extensions:</span><code><a href="pydocspec.genericvisitor.VisitorExtension.html">VisitorExtension</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T">T</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec.genericvisitor.VisitorExtensionList.add">
+    
+  </a>
+  <a name="add">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">add</span>(self, *extensions):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/genericvisitor.py#L168">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Add extensions to this container.</p>
+<dl class="rst-docutils">
+<dt>Parameters:</dt>
+<dd><a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">*</span></a>extensions: The extensions to add.</dd>
+</dl>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*extensions:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.genericvisitor.VisitorExtension.html">VisitorExtension</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T">T</a>], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.genericvisitor.VisitorExtension.html">VisitorExtension</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T">T</a>]]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec.genericvisitor.VisitorExtensionList.attach_visitor">
+    
+  </a>
+  <a name="attach_visitor">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">attach_visitor</span>(self, parent_visitor):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/genericvisitor.py#L184">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Attach a parent visitor to the visitor extensions.</p>
+<dl class="rst-docutils">
+<dt>Parameters:</dt>
+<dd>parent_visitor: The parent visitor, leading the visit.</dd>
+</dl>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent_visitor:</span><code><a href="pydocspec.genericvisitor.CustomizableVisitor.html">CustomizableVisitor</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T">T</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="baseproperty">
+  
+  
+  <a name="pydocspec.genericvisitor.VisitorExtensionList.after_visit">
+    
+  </a>
+  <a name="after_visit">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="https://docs.python.org/3/library/functions.html#property">property</a><br />
+    <span class="py-defname">after_visit</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="pydocspec.genericvisitor.VisitorExtension.html">VisitorExtension</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T">T</a>]]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/genericvisitor.py#L205">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p>Return the visitors that run after the visit.</p>
+<dl class="rst-docutils">
+<dt>Returns:</dt>
+<dd>Visitors.</dd>
+</dl>
+<p>See: <code><a href="pydocspec.genericvisitor.When.html">When</a></code></p>
+</div>
+    
+  </div>
+</div><div class="baseproperty">
+  
+  
+  <a name="pydocspec.genericvisitor.VisitorExtensionList.before_visit">
+    
+  </a>
+  <a name="before_visit">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="https://docs.python.org/3/library/functions.html#property">property</a><br />
+    <span class="py-defname">before_visit</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="pydocspec.genericvisitor.VisitorExtension.html">VisitorExtension</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T">T</a>]]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/genericvisitor.py#L194">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p>Return the visitors that run before the visit.</p>
+<dl class="rst-docutils">
+<dt>Returns:</dt>
+<dd>Visitors.</dd>
+</dl>
+<p>See: <code><a href="pydocspec.genericvisitor.When.html">When</a></code></p>
+</div>
+    
+  </div>
+</div><div class="baseinstancevariable private">
+  
+  
+  <a name="pydocspec.genericvisitor.VisitorExtensionList._visitors">
+    
+  </a>
+  <a name="_visitors">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_visitors</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<wbr></wbr><a href="pydocspec.genericvisitor.When.html">When</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="pydocspec.genericvisitor.VisitorExtension.html">VisitorExtension</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T">T</a>]]]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/genericvisitor.py#L165">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    21.12.1.dev0 at 2022-01-27 15:30:08.
+  </div>
+</footer>
+
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>

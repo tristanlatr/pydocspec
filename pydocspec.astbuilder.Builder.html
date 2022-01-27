@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Builder</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L772" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Builder</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L667" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.astbuilder.Builder">View In Hierarchy</a></p>
       </div>
 
@@ -88,18 +88,28 @@ we’ve found in post-processing.</td></tr></table></div>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#get_processed_module">get_processed_module</a></code></td>
-    <td>Returns the processed or processing (in case of cylces) module or None if the name cannot be found.</td>
+    <td><code><a href="#add_module_string">add_module_string</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#process_modules">process_modules</a></code></td>
-    <td>Process unprocessed modules.</td>
+    <td><code><a href="#build_modules">build_modules</a></code></td>
+    <td>Drives the building, builds modules until there is no unprocessed modules anymore.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_processed_module">get_processed_module</a></code></td>
+    <td>Returns the processed or processing (in case of cylces) module or None if the name cannot be found.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="#options">options</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>Options</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#pprocessor">pprocessor</a></code></td>
+    <td>Post processor.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
@@ -109,7 +119,17 @@ we’ve found in post-processing.</td></tr></table></div>
     
     <td>Instance Variable</td>
     <td><code><a href="#root">root</a></code></td>
+    <td>Tree root.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#visitor_extensions">visitor_extensions</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="property">
+    
+    <td>Property</td>
+    <td><code><a href="#introspect_c_modules">introspect_c_modules</a></code></td>
+    <td>Optionally instrospect C modules enabled?</td>
   </tr><tr class="property">
     
     <td>Property</td>
@@ -128,13 +148,18 @@ we’ve found in post-processing.</td></tr></table></div>
   </tr><tr class="method private">
     
     <td>Method</td>
-    <td><code><a href="#_introspect_module">_introspect_module</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><code><a href="#_discard_duplicate_mod">_discard_duplicate_mod</a></code></td>
+    <td>Runs before adding a new module to the root. Check if a module already has the same name.</td>
   </tr><tr class="method private">
     
     <td>Method</td>
     <td><code><a href="#_maybe_add_module">_maybe_add_module</a></code></td>
     <td>Ignores the files that are not recognized as python files.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_post_build">_post_build</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method private">
     
     <td>Method</td>
@@ -176,7 +201,7 @@ we’ve found in post-processing.</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">add_module</span>(self, path):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L819">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L765">
       
       (source)
     </a>
@@ -184,7 +209,56 @@ we’ve found in post-processing.</td></tr></table></div>
   <div class="docstring functionBody">
     
     
-    <div>Add a module or package from a system path. If the path is pointing to a directory, reccursively add all submodules.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">path:</span><code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Add a module or package from a system path.
+If the path is pointing to a directory,
+reccursively add all submodules.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">path:</span><code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec.astbuilder.Builder.add_module_string">
+    
+  </a>
+  <a name="add_module_string">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">add_module_string</span>(self, text, modname, parent_name=<a href="https://docs.python.org/3/library/constants.html#None">None</a>, path=<span class="rst-variable-quote">'</span><span class="rst-variable-string">&lt;fromtext&gt;</span><span class="rst-variable-quote">'</span>, is_package=<a href="https://docs.python.org/3/library/constants.html#False">False</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L734">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">text:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modname:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent_name:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">path:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">is_package:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec.astbuilder.Builder.build_modules">
+    
+  </a>
+  <a name="build_modules">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">build_modules</span>(self):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L940">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Drives the building, builds modules until
+there is no unprocessed modules anymore.</p>
+<p>Runs post-build operations after.</p>
+</div>
   </div>
 </div><div class="basemethod">
   
@@ -198,7 +272,7 @@ we’ve found in post-processing.</td></tr></table></div>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_processed_module</span>(self, modname, raise_on_cycles=<a href="https://docs.python.org/3/library/constants.html#False">False</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L946">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L955">
       
       (source)
     </a>
@@ -208,28 +282,6 @@ we’ve found in post-processing.</td></tr></table></div>
     
     <div>Returns the processed or processing (in case of cylces) module or None
 if the name cannot be found.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modname:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">raise_on_cycles:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec._model.Module.html">_model.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basemethod">
-  
-  
-  <a name="pydocspec.astbuilder.Builder.process_modules">
-    
-  </a>
-  <a name="process_modules">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">process_modules</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L938">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div>Process unprocessed modules.</div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -242,8 +294,8 @@ if the name cannot be found.<table class="fieldTable"><tr class="fieldStart"><td
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">options</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L784">
+    <span class="py-defname">options</span>: <code><a href="pydocspec.Options.html">pydocspec.Options</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L688">
       
       (source)
     </a>
@@ -251,7 +303,30 @@ if the name cannot be found.<table class="fieldTable"><tr class="fieldStart"><td
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div>Options</div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.astbuilder.Builder.pprocessor">
+    
+  </a>
+  <a name="pprocessor">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">pprocessor</span>: <code><a href="pydocspec.processor.Processor.html">processor.Processor</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L683">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>Post processor.</div>
     
   </div>
 </div><div class="baseinstancevariable">
@@ -266,7 +341,7 @@ if the name cannot be found.<table class="fieldTable"><tr class="fieldStart"><td
   <div class="functionHeader">
     
     <span class="py-defname">processing_map</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="pydocspec.astbuilder.ProcessingState.html">ProcessingState</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L790">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L699">
       
       (source)
     </a>
@@ -288,8 +363,31 @@ if the name cannot be found.<table class="fieldTable"><tr class="fieldStart"><td
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">root</span>: <code><a href="pydocspec._model.TreeRoot.html">_model.TreeRoot</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L783">
+    <span class="py-defname">root</span>: <code><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L678">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>Tree root.</div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.astbuilder.Builder.visitor_extensions">
+    
+  </a>
+  <a name="visitor_extensions">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">visitor_extensions</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Set">Set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.visitors.AstVisitorExt.html">visitors.AstVisitorExt</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.visitors.AstVisitorExt.html">visitors.AstVisitorExt</a>]]]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L693">
       
       (source)
     </a>
@@ -298,6 +396,29 @@ if the name cannot be found.<table class="fieldTable"><tr class="fieldStart"><td
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseproperty">
+  
+  
+  <a name="pydocspec.astbuilder.Builder.introspect_c_modules">
+    
+  </a>
+  <a name="introspect_c_modules">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="https://docs.python.org/3/library/functions.html#property">property</a><br />
+    <span class="py-defname">introspect_c_modules</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L708">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>Optionally instrospect C modules enabled?</div>
     
   </div>
 </div><div class="baseproperty">
@@ -312,7 +433,7 @@ if the name cannot be found.<table class="fieldTable"><tr class="fieldStart"><td
   <div class="functionHeader">
     @<a href="https://docs.python.org/3/library/functions.html#property">property</a><br />
     <span class="py-defname">unprocessed_modules</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="pydocspec._model.Module.html">_model.Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L800">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L715">
       
       (source)
     </a>
@@ -334,8 +455,8 @@ if the name cannot be found.<table class="fieldTable"><tr class="fieldStart"><td
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_add_module</span>(self, path, modname, parent, is_package=<a href="https://docs.python.org/3/library/constants.html#False">False</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L870">
+    <span class="py-keyword">def</span> <span class="py-defname">_add_module</span>(self, path, modname, parent, is_package=<a href="https://docs.python.org/3/library/constants.html#False">False</a>, is_c_module=<a href="https://docs.python.org/3/library/constants.html#False">False</a>, py_mod=<a href="https://docs.python.org/3/library/constants.html#None">None</a>, py_string=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L854">
       
       (source)
     </a>
@@ -344,7 +465,10 @@ if the name cannot be found.<table class="fieldTable"><tr class="fieldStart"><td
     
     
     <div>Create a new empty module and add it to the tree.
-Initiate it's state in the AST processing map.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">path:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modname:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec._model.Module.html">_model.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">is_package:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec._model.Module.html">_model.Module</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+Initiate it's state in the AST processing map.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">path:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc">path where we can find the module file(s).</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modname:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc">the name of the new module (local name, not qname).</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec._model.Module.html">_model.Module</a>]</code></td><td class="fieldArgDesc">the parent package, if any.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">is_package:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc">whether this module is a package.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">is_c_module:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc">whether this module is c extension.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">py_mod:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/types.html#types.ModuleType">types.ModuleType</a>]</code></td><td class="fieldArgDesc">the live module, usually <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> because it parses
+the source code file instead.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">py_string:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc">the module's string, usually <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> because it directly
+gets the AST from the file path.
+This is used when calling add_module_string().</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec._model.Module.html">_model.Module</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod private">
   
@@ -358,7 +482,7 @@ Initiate it's state in the AST processing map.<table class="fieldTable"><tr clas
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_add_package</span>(self, path, parent=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L837">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L785">
       
       (source)
     </a>
@@ -371,16 +495,16 @@ Initiate it's state in the AST processing map.<table class="fieldTable"><tr clas
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.Builder._introspect_module">
+  <a name="pydocspec.astbuilder.Builder._discard_duplicate_mod">
     
   </a>
-  <a name="_introspect_module">
+  <a name="_discard_duplicate_mod">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_introspect_module</span>(self, path, module_name, parent):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L849">
+    <span class="py-keyword">def</span> <span class="py-defname">_discard_duplicate_mod</span>(self, mod):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L822">
       
       (source)
     </a>
@@ -388,7 +512,9 @@ Initiate it's state in the AST processing map.<table class="fieldTable"><tr clas
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">path:</span><code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module_name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec._model.Module.html">_model.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Runs before adding a new module to the root.
+Check if a module already has the same name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod:</span><code><a href="pydocspec._model.Module.html">_model.Module</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec._model.Module.html">_model.Module</a>]</code></td><td class="fieldArgDesc">The older module (already present) if the new module has been discarded.
+This should stop the new module from beeing added, it's a duplicate module.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">Teh rule is that the package/directory wins over the regular module.</td></tr></table></div>
   </div>
 </div><div class="basemethod private">
   
@@ -402,7 +528,7 @@ Initiate it's state in the AST processing map.<table class="fieldTable"><tr clas
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_maybe_add_module</span>(self, path, parent=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L853">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L797">
       
       (source)
     </a>
@@ -411,6 +537,28 @@ Initiate it's state in the AST processing map.<table class="fieldTable"><tr clas
     
     
     <div>Ignores the files that are not recognized as python files.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">path:</span><code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">parent:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec._model.Module.html">_model.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.astbuilder.Builder._post_build">
+    
+  </a>
+  <a name="_post_build">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_post_build</span>(self):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L952">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basemethod private">
   
@@ -424,7 +572,7 @@ Initiate it's state in the AST processing map.<table class="fieldTable"><tr clas
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_process_module</span>(self, mod):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L915">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L908">
       
       (source)
     </a>
@@ -447,7 +595,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_process_module_ast</span>(self, mod_ast, mod):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L796">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L703">
       
       (source)
     </a>
@@ -469,7 +617,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="functionHeader">
     
     <span class="py-defname">_added_paths</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Set">Set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L786">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L695">
       
       (source)
     </a>
@@ -492,7 +640,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="functionHeader">
     
     <span class="py-defname">_processing_mod_stack</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec._model.Module.html">_model.Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L792">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L701">
       
       (source)
     </a>
@@ -513,7 +661,7 @@ But all module instances already exist and are added to <code>root.all_objects</
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

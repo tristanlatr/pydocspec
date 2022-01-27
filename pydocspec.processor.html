@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/processor/__init__.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id110">
+        <table class="children sortable" id="id120">
   
   
   <tr class="module">
@@ -106,29 +106,24 @@
 </table>
         
 
-          <p class="fromInitPy">From <code>__init__.py</code>:</p><table class="children sortable" id="id111">
+          <p class="fromInitPy">From <code>__init__.py</code>:</p><table class="children sortable" id="id121">
   
   
   <tr class="class">
     
     <td>Class</td>
+    <td><code><a href="pydocspec.processor.PostBuildVisitor0.html">PostBuildVisitor0</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.processor.PostBuildVisitor1.html">PostBuildVisitor1</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
     <td><code><a href="pydocspec.processor.Processor.html">Processor</a></code></td>
     <td>Populate <code><a href="pydocspec.html">pydocspec</a></code> attributes by applying processing to a newly created <code><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a></code> instance coming from the <code><a href="pydocspec.astbuilder.html">astbuilder</a></code>.</td>
-  </tr><tr class="function">
-    
-    <td>Function</td>
-    <td><code><a href="#process0">process0</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="function">
-    
-    <td>Function</td>
-    <td><code><a href="#process1">process1</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="function">
-    
-    <td>Function</td>
-    <td><code><a href="#process2">process2</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
     <td>Variable</td>
@@ -137,18 +132,23 @@
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.processor._AstMroVisitor.html">_AstMroVisitor</a></code></td>
+    <td><code><a href="pydocspec.processor._DefaultLocationSetter.html">_DefaultLocationSetter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.processor._DocSourcesSetter.html">_DocSourcesSetter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.processor._DuplicateWhoShadowsWhoHandling.html">_DuplicateWhoShadowsWhoHandling</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.processor._MroFromAstroidSetter.html">_MroFromAstroidSetter</a></code></td>
     <td>Set Class.mro attribute based on astroid to be able to correctly populate the resolved_bases attribute.</td>
-  </tr><tr class="class private">
-    
-    <td>Class</td>
-    <td><code><a href="pydocspec.processor._ProcessorVisitor1.html">_ProcessorVisitor1</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="class private">
-    
-    <td>Class</td>
-    <td><code><a href="pydocspec.processor._ProcessorVisitor2.html">_ProcessorVisitor2</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
       </div>
@@ -167,7 +167,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">Process</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L17">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/processor/__init__.py#L17">
       
       (source)
     </a>
@@ -175,74 +175,9 @@
   <div class="functionBody">
     
     
-    <div>A process is simply a function that modify/populate attributes of the objects in a <code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code> instance.</div>
+    <div>A process is simply a function that modify/populate attributes of
+the objects in a <code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code> instance.</div>
     
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.processor.process0">
-    
-  </a>
-  <a name="process0">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">process0</span>(root):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L114">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.processor.process1">
-    
-  </a>
-  <a name="process1">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">process1</span>(root):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L118">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.processor.process2">
-    
-  </a>
-  <a name="process2">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">process2</span>(root):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L122">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -254,7 +189,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

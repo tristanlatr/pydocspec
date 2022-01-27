@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">GenericFactory</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/specfactory.py#L12" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.specfactory.Factory.html">pydocspec.specfactory.Factory</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">GenericFactory</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/specfactory.py#L9" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.specfactory.Factory.html">pydocspec.specfactory.Factory</a></code></p>
         <p><a href="classIndex.html#pydocspec.specfactory.GenericFactory">View In Hierarchy</a></p>
       </div>
 
@@ -74,10 +74,15 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id123">
+        <table class="children sortable" id="id136">
   
   
   <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__">__init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#add_mixin">add_mixin</a></code></td>
@@ -114,6 +119,28 @@
         <div class="basemethod">
   
   
+  <a name="pydocspec.specfactory.GenericFactory.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, bases):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/specfactory.py#L11">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    <div class="interfaceinfo">overridden in <code><a href="pydocspec.specfactory.Factory.html">pydocspec.specfactory.Factory</a></code></div>
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bases:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
   <a name="pydocspec.specfactory.GenericFactory.add_mixin">
     
   </a>
@@ -123,7 +150,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">add_mixin</span>(self, for_class, mixin):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/specfactory.py#L17">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/specfactory.py#L15">
       
       (source)
     </a>
@@ -145,7 +172,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">add_mixins</span>(self, **kwargs):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/specfactory.py#L34">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/specfactory.py#L32">
       
       (source)
     </a>
@@ -167,7 +194,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_class</span>(self, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/specfactory.py#L47">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/specfactory.py#L45">
       
       (source)
     </a>
@@ -188,14 +215,14 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">bases</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/specfactory.py#L14">
+    <span class="py-defname">bases</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/specfactory.py#L12">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overridden in <code><a href="pydocspec.specfactory.Factory.html">pydocspec.specfactory.Factory</a></code></div>
+    
     
     <div><p class="undocumented">Undocumented</p></div>
     
@@ -212,7 +239,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">mixins</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/specfactory.py#L15">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/specfactory.py#L13">
       
       (source)
     </a>
@@ -233,7 +260,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

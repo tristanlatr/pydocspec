@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/test/test_astroidutils.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/test/test_astroidutils.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id130">
+        <table class="children sortable" id="id143">
   
   
   <tr class="class">
@@ -105,7 +105,7 @@
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.test.test_astroidutils.TestAstroidUtils.html">TestAstroidUtils</a></code></td>
+    <td><code><a href="pydocspec.test.test_astroidutils.TestAstroidUtilsAndExpandName.html">TestAstroidUtilsAndExpandName</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class">
     
@@ -132,6 +132,11 @@
     <td>Function</td>
     <td><code><a href="#imported_call_cases">imported_call_cases</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_node2fullname_nodes">test_node2fullname_nodes</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
@@ -153,7 +158,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">generate_args</span>():
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/test/test_astroidutils.py#L351">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/test/test_astroidutils.py#L376">
       
       (source)
     </a>
@@ -175,7 +180,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">generate_module_names</span>():
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/test/test_astroidutils.py#L312">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/test/test_astroidutils.py#L337">
       
       (source)
     </a>
@@ -197,7 +202,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">imported_basename_cases</span>():
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/test/test_astroidutils.py#L319">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/test/test_astroidutils.py#L344">
       
       (source)
     </a>
@@ -219,7 +224,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">imported_call_cases</span>():
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/test/test_astroidutils.py#L356">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/test/test_astroidutils.py#L381">
       
       (source)
     </a>
@@ -228,6 +233,28 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astroidutils.test_node2fullname_nodes">
+    
+  </a>
+  <a name="test_node2fullname_nodes">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#mod_from_text_param">mod_from_text_param</a><br />@pytest.mark.parametrize(<wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">source</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">expected</span><span class="rst-variable-quote">'</span>), <wbr></wbr>[<wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">var: typing.Generic[T]</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">typing.Generic -&gt; typing.Generic</span><span class="rst-variable-quote">'</span>), <wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">var: typing.Generic[T, _KV]</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">typing.Generic -&gt; typing.Generic</span><span class="rst-variable-quote">'</span>), <wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">from typing import Generic\nvar: Generic[T]</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Generic -&gt; typing.Generic</span><span class="rst-variable-quote">'</span>), <wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">from pydocspec import _model as m\nvar: m.TreeRoot[T]</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">m.TreeRoot -&gt; pydocspec._model.TreeRoot</span><span class="rst-variable-quote">'</span>), <wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">var: dict[str, str]</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">dict -&gt; dict</span><span class="rst-variable-quote">'</span>)])<br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_node2fullname_nodes</span>(mod_from_text, source, expected, capsys):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/test/test_astroidutils.py#L13">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod_from_text:</span><code><a href="pydocspec.test.ModFromTextFunction.html">ModFromTextFunction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">source:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expected:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">capsys:</span><code><a href="pydocspec.test.CapSys.html">CapSys</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -239,7 +266,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

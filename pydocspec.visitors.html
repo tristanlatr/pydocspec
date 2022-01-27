@@ -65,19 +65,39 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/visitors.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/visitors.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div>Useful visitors for <code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code> instances.</div>
+        <div>Useful visitors for AST and <code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code> instances.</div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id146">
+        <table class="children sortable" id="id162">
   
   
   <tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.visitors.ApiObjectVisitor.html">ApiObjectVisitor</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.visitors.ApiObjectVisitorExt.html">ApiObjectVisitorExt</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.visitors.AstVisitor.html">AstVisitor</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.visitors.AstVisitorExt.html">AstVisitorExt</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
     
     <td>Class</td>
     <td><code><a href="pydocspec.visitors.FilterVisitor.html">FilterVisitor</a></code></td>
@@ -91,12 +111,32 @@
     
     <td>Class</td>
     <td><code><a href="pydocspec.visitors.ReprVisitor.html">ReprVisitor</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>Format a representation of a arbitrary ApiObject, including nested members of the tree.</td>
   </tr><tr class="function">
     
     <td>Function</td>
     <td><code><a href="#iter_fields">iter_fields</a></code></td>
-    <td>Iter each values of the object fields. Fields are listed in the _spec_fields class varaible.</td>
+    <td>Iter each values of the API object fields. Fields are listed in the _spec_fields class varaible.</td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.visitors._ApiObjectVisitorGetChildren.html">_ApiObjectVisitorGetChildren</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.visitors._ASTVisitorGetChildren.html">_ASTVisitorGetChildren</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.visitors._ASTVisitorGetChildrenBodyOnly.html">_ASTVisitorGetChildrenBodyOnly</a></code></td>
+    <td><span class="undocumented">No class docstring; 1/1 method documented</span></td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.visitors._docspecApiObjectVisitor.html">_docspecApiObjectVisitor</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
@@ -123,7 +163,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">iter_fields</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/visitors.py#L22">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/visitors.py#L51">
       
       (source)
     </a>
@@ -131,7 +171,7 @@
   <div class="docstring functionBody">
     
     
-    <div>Iter each values of the object fields. Fields are listed in the _spec_fields class varaible.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">t.Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">t.Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">t.Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Iter each values of the API object fields. Fields are listed in the _spec_fields class varaible.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">t.Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">t.Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">t.Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
@@ -145,7 +185,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_colored</span>(s, *args, **kwargs):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/visitors.py#L7">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/visitors.py#L7">
       
       (source)
     </a>
@@ -165,7 +205,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

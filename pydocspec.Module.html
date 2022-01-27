@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Module</span>(<a href="pydocspec._model.Module.html" title="pydocspec._model.Module">_model.Module</a>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/__init__.py#L531" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Module</span>(<a href="pydocspec._model.Module.html" title="pydocspec._model.Module">_model.Module</a>, <a href="pydocspec.ApiObject.html" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py#L475" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.Module">View In Hierarchy</a></p>
       </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id192">
+        <table class="children sortable" id="id221">
   
   
   <tr class="method">
@@ -103,10 +103,15 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.Module.html">Module</a></code>:
           </p>
-          <table class="children sortable" id="id193">
+          <table class="children sortable" id="id222">
   
   
-  <tr class="baseclassvariable">
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.Module.html#__repr__">__repr__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable">
     
     <td>Class Variable</td>
     <td><code><a href="pydocspec._model.Module.html#dunder_all">dunder_all</a></code></td>
@@ -114,13 +119,33 @@
   </tr><tr class="baseclassvariable">
     
     <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.Module.html#is_c_module">is_c_module</a></code></td>
+    <td>Whether this module has been imported from a python C extension.</td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
     <td><code><a href="pydocspec._model.Module.html#is_package">is_package</a></code></td>
     <td>Whether this module is a package.</td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.Module.html#source_path">source_path</a></code></td>
+    <td>Module source path. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> if the module was converted from <code><a href="docspec.html">docspec</a></code>.</td>
   </tr><tr class="baseclassvariable private">
     
     <td>Class Variable</td>
     <td><code><a href="pydocspec._model.Module.html#_ast">_ast</a></code></td>
     <td>The whole module's AST. Can be used in post-processes to compute any kind of supplementary informaions not devirable from objects attributes.</td>
+  </tr><tr class="baseclassvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.Module.html#_py_mod">_py_mod</a></code></td>
+    <td>The live module this object has been created from. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for classes coming from AST.</td>
+  </tr><tr class="baseclassvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.Module.html#_py_string">_py_string</a></code></td>
+    <td>The module's string. Only set for modules built from string. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> otherwise.</td>
   </tr><tr class="baseclassvariable private">
     
     <td>Class Variable</td>
@@ -132,10 +157,15 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code> (via <code><a href="pydocspec._model.Module.html">Module</a></code>):
           </p>
-          <table class="children sortable" id="id194">
+          <table class="children sortable" id="id223">
   
   
   <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#__str__">__str__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec._model.ApiObject.html#add_siblings">add_siblings</a></code></td>
@@ -180,11 +210,6 @@
     <td>Instance Variable</td>
     <td><code><a href="pydocspec._model.ApiObject.html#root">root</a></code></td>
     <td><code><a href="pydocspec._model.TreeRoot.html">TreeRoot</a></code> instance holding references to all objects in the tree.</td>
-  </tr><tr class="baseinstancevariable">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="pydocspec._model.ApiObject.html#source_path">source_path</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
@@ -215,13 +240,18 @@
     <td>Method</td>
     <td><code><a href="pydocspec._model.ApiObject.html#_remove_self">_remove_self</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_repr">_repr</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
           
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html">CanTriggerWarnings</a></code> (via <code><a href="pydocspec._model.Module.html">Module</a></code>, <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id195">
+          <table class="children sortable" id="id224">
   
   
   <tr class="basemethod">
@@ -235,7 +265,7 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.GetMembersMixin.html">GetMembersMixin</a></code> (via <code><a href="pydocspec._model.Module.html">Module</a></code>, <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id196">
+          <table class="children sortable" id="id225">
   
   
   <tr class="basemethod">
@@ -249,7 +279,7 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>:
           </p>
-          <table class="children sortable" id="id197">
+          <table class="children sortable" id="id226">
   
   
   <tr class="basemethod">
@@ -303,10 +333,20 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id198">
+          <table class="children sortable" id="id227">
   
   
   <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#__repr__">__repr__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#__str__">__str__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec._model.ApiObject.html#add_siblings">add_siblings</a></code></td>
@@ -341,11 +381,6 @@
     <td>Method</td>
     <td><code><a href="pydocspec._model.ApiObject.html#walkabout">walkabout</a></code></td>
     <td>Perform a tree traversal similarly to <code><a href="#walk">walk()</a></code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</td>
-  </tr><tr class="baseinstancevariable">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="pydocspec._model.ApiObject.html#source_path">source_path</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
@@ -371,6 +406,11 @@
     <td>Method</td>
     <td><code><a href="pydocspec._model.ApiObject.html#_remove_self">_remove_self</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_repr">_repr</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="baseclassvariable private">
     
     <td>Class Variable</td>
@@ -382,7 +422,7 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html">CanTriggerWarnings</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>, <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id199">
+          <table class="children sortable" id="id228">
   
   
   <tr class="basemethod">
@@ -396,7 +436,7 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.GetMembersMixin.html">GetMembersMixin</a></code> (via <code><a href="pydocspec.ApiObject.html">ApiObject</a></code>, <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id200">
+          <table class="children sortable" id="id229">
   
   
   <tr class="basemethod">
@@ -425,7 +465,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__post_init__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/__init__.py#L540">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py#L484">
       
       (source)
     </a>
@@ -447,7 +487,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">docformat</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/__init__.py#L537">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py#L481">
       
       (source)
     </a>
@@ -470,7 +510,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">members</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec.ApiObject.html">ApiObject</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/__init__.py#L543">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py#L487">
       
       (source)
     </a>
@@ -493,7 +533,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">parent</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.Module.html">Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/__init__.py#L544">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/__init__.py#L488">
       
       (source)
     </a>
@@ -514,7 +554,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

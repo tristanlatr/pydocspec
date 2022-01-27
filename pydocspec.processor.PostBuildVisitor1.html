@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>pydocspec.processor._ProcessorVisitor1</title>
+    <title>pydocspec.processor.PostBuildVisitor1</title>
     <meta name="generator" content="pydoctor 21.12.1.dev0"> 
         
     </meta>
@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class private"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.processor.html">processor</a></code><wbr></wbr>.<code><a href="pydocspec.processor._ProcessorVisitor1.html">_ProcessorVisitor1</a></code></code></h1>
+        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.processor.html">processor</a></code><wbr></wbr>.<code><a href="pydocspec.processor.PostBuildVisitor1.html">PostBuildVisitor1</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,8 +65,8 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">_ProcessorVisitor1</span>(<span title="pydocspec.genericvisitor.Visitor[pydocspec.ApiObject]">genericvisitor.Visitor[pydocspec.ApiObject]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L30" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#pydocspec.processor._ProcessorVisitor1">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">PostBuildVisitor1</span>(<span title="pydocspec.visitors.ApiObjectVisitor">visitors.ApiObjectVisitor</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/processor/__init__.py#L92" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#pydocspec.processor.PostBuildVisitor1">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id119">
+        <table class="children sortable" id="id133">
   
   
   <tr class="method">
@@ -105,17 +105,7 @@
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit_Indirection">visit_Indirection</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="method">
-    
-    <td>Method</td>
     <td><code><a href="#visit_Module">visit_Module</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable private">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#_default_location">_default_location</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -129,7 +119,7 @@
         <div class="basemethod">
   
   
-  <a name="pydocspec.processor._ProcessorVisitor1.unknown_departure">
+  <a name="pydocspec.processor.PostBuildVisitor1.unknown_departure">
     
   </a>
   <a name="unknown_departure">
@@ -137,8 +127,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">unknown_departure</span>(self, obj):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L34">
+    <span class="py-keyword">def</span> <span class="py-defname">unknown_departure</span>(self, ob):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/processor/__init__.py#L135">
       
       (source)
     </a>
@@ -146,12 +136,12 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.ApiObject.html">_model.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.processor._ProcessorVisitor1.unknown_visit">
+  <a name="pydocspec.processor.PostBuildVisitor1.unknown_visit">
     
   </a>
   <a name="unknown_visit">
@@ -160,7 +150,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_visit</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L37">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/processor/__init__.py#L133">
       
       (source)
     </a>
@@ -168,12 +158,12 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.ApiObject.html">_model.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.processor._ProcessorVisitor1.visit_Class">
+  <a name="pydocspec.processor.PostBuildVisitor1.visit_Class">
     
   </a>
   <a name="visit_Class">
@@ -182,7 +172,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Class</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L54">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/processor/__init__.py#L101">
       
       (source)
     </a>
@@ -195,7 +185,7 @@
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.processor._ProcessorVisitor1.visit_Data">
+  <a name="pydocspec.processor.PostBuildVisitor1.visit_Data">
     
   </a>
   <a name="visit_Data">
@@ -204,7 +194,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Data</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L60">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/processor/__init__.py#L122">
       
       (source)
     </a>
@@ -217,7 +207,7 @@
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.processor._ProcessorVisitor1.visit_Function">
+  <a name="pydocspec.processor.PostBuildVisitor1.visit_Function">
     
   </a>
   <a name="visit_Function">
@@ -226,7 +216,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Function</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L43">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/processor/__init__.py#L112">
       
       (source)
     </a>
@@ -239,29 +229,7 @@
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.processor._ProcessorVisitor1.visit_Indirection">
-    
-  </a>
-  <a name="visit_Indirection">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">visit_Indirection</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L68">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.Indirection.html">pydocspec.Indirection</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basemethod">
-  
-  
-  <a name="pydocspec.processor._ProcessorVisitor1.visit_Module">
+  <a name="pydocspec.processor.PostBuildVisitor1.visit_Module">
     
   </a>
   <a name="visit_Module">
@@ -270,7 +238,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Module</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L71">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/processor/__init__.py#L94">
       
       (source)
     </a>
@@ -279,29 +247,6 @@
     
     
     <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.Module.html">pydocspec.Module</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="baseclassvariable private">
-  
-  
-  <a name="pydocspec.processor._ProcessorVisitor1._default_location">
-    
-  </a>
-  <a name="_default_location">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_default_location</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/processor/__init__.py#L32">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-    
   </div>
 </div>
 
@@ -313,7 +258,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

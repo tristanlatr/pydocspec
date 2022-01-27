@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Module</span>(<span title="docspec.Module">docspec.Module</span>, <a href="pydocspec._model.ApiObject.html" title="pydocspec._model.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/_model.py#L461" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Module.html">pydocspec.Module</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Module</span>(<span title="docspec.Module">docspec.Module</span>, <a href="pydocspec._model.ApiObject.html" title="pydocspec._model.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L476" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Module.html">pydocspec.Module</a></code></p>
         <p><a href="classIndex.html#pydocspec._model.Module">View In Hierarchy</a></p>
       </div>
 
@@ -74,13 +74,18 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id58">
+        <table class="children sortable" id="id59">
   
   
   <tr class="method">
     
     <td>Method</td>
     <td><code><a href="#__post_init__">__post_init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__repr__">__repr__</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
@@ -90,8 +95,18 @@
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
+    <td><code><a href="#is_c_module">is_c_module</a></code></td>
+    <td>Whether this module has been imported from a python C extension.</td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
     <td><code><a href="#is_package">is_package</a></code></td>
     <td>Whether this module is a package.</td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#source_path">source_path</a></code></td>
+    <td>Module source path. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> if the module was converted from <code><a href="docspec.html">docspec</a></code>.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
@@ -110,6 +125,16 @@
   </tr><tr class="classvariable private">
     
     <td>Class Variable</td>
+    <td><code><a href="#_py_mod">_py_mod</a></code></td>
+    <td>The live module this object has been created from. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for classes coming from AST.</td>
+  </tr><tr class="classvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#_py_string">_py_string</a></code></td>
+    <td>The module's string. Only set for modules built from string. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> otherwise.</td>
+  </tr><tr class="classvariable private">
+    
+    <td>Class Variable</td>
     <td><code><a href="#_spec_fields">_spec_fields</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
@@ -118,10 +143,15 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>:
           </p>
-          <table class="children sortable" id="id59">
+          <table class="children sortable" id="id60">
   
   
   <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#__str__">__str__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
     
     <td>Method</td>
     <td><code><a href="pydocspec._model.ApiObject.html#add_siblings">add_siblings</a></code></td>
@@ -166,11 +196,6 @@
     <td>Instance Variable</td>
     <td><code><a href="pydocspec._model.ApiObject.html#root">root</a></code></td>
     <td><code><a href="pydocspec._model.TreeRoot.html">TreeRoot</a></code> instance holding references to all objects in the tree.</td>
-  </tr><tr class="baseinstancevariable">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="pydocspec._model.ApiObject.html#source_path">source_path</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="baseproperty">
     
     <td>Property</td>
@@ -201,13 +226,18 @@
     <td>Method</td>
     <td><code><a href="pydocspec._model.ApiObject.html#_remove_self">_remove_self</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_repr">_repr</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
           
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html">CanTriggerWarnings</a></code> (via <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id60">
+          <table class="children sortable" id="id61">
   
   
   <tr class="basemethod">
@@ -221,7 +251,7 @@
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.GetMembersMixin.html">GetMembersMixin</a></code> (via <code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id61">
+          <table class="children sortable" id="id62">
   
   
   <tr class="basemethod">
@@ -250,7 +280,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__post_init__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/_model.py#L485">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L522">
       
       (source)
     </a>
@@ -259,6 +289,28 @@
     <div class="interfaceinfo">overrides <code><a href="pydocspec._model.ApiObject.html#__post_init__">pydocspec._model.ApiObject.__post_init__</a></code></div><div class="interfaceinfo">overridden in <code><a href="pydocspec.Module.html">pydocspec.Module</a></code></div>
     
     <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec._model.Module.__repr__">
+    
+  </a>
+  <a name="__repr__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__repr__</span>(self):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L529">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    <div class="interfaceinfo">overrides <code><a href="pydocspec._model.ApiObject.html#__repr__">pydocspec._model.ApiObject.__repr__</a></code></div>
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="baseclassvariable">
   
@@ -272,7 +324,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">dunder_all</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/_model.py#L474">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L500">
       
       (source)
     </a>
@@ -281,6 +333,29 @@
     
     
     <div>The module variable __all__ as list of string.</div>
+    
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="pydocspec._model.Module.is_c_module">
+    
+  </a>
+  <a name="is_c_module">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">is_c_module</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L489">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>Whether this module has been imported from a python C extension.</div>
     
   </div>
 </div><div class="baseclassvariable">
@@ -295,7 +370,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">is_package</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/_model.py#L469">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L484">
       
       (source)
     </a>
@@ -304,6 +379,30 @@
     
     
     <div>Whether this module is a package.</div>
+    
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="pydocspec._model.Module.source_path">
+    
+  </a>
+  <a name="source_path">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">source_path</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L494">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>Module source path.
+<code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> if the module was converted from <code><a href="docspec.html">docspec</a></code>.</div>
     
   </div>
 </div><div class="baseinstancevariable">
@@ -318,7 +417,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">members</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="pydocspec._model.ApiObject.html">ApiObject</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/_model.py#L490">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L527">
       
       (source)
     </a>
@@ -341,7 +440,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">parent</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec._model.Module.html">Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/_model.py#L489">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L526">
       
       (source)
     </a>
@@ -364,7 +463,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_ast</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.Module]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/_model.py#L477">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L503">
       
       (source)
     </a>
@@ -374,8 +473,55 @@
     
     <div><p>The whole module's AST.
 Can be used in post-processes to compute any kind of supplementary informaions not devirable from objects attributes.</p>
-<p>Only set when using our own builder. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> if the module was converted from <code><a href="docspec.html">docspec</a></code>.</p>
+<p>Only set when using our own astbuilder. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> if the module was converted from <code><a href="docspec.html">docspec</a></code>.</p>
 </div>
+    
+  </div>
+</div><div class="baseclassvariable private">
+  
+  
+  <a name="pydocspec._model.Module._py_mod">
+    
+  </a>
+  <a name="_py_mod">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_py_mod</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/types.html#types.ModuleType">types.ModuleType</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L511">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>The live module this object has been created from.
+<code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> for classes coming from AST.</div>
+    
+  </div>
+</div><div class="baseclassvariable private">
+  
+  
+  <a name="pydocspec._model.Module._py_string">
+    
+  </a>
+  <a name="_py_string">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_py_string</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L517">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>The module's string. Only set for modules built from string. <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code> otherwise.</div>
     
   </div>
 </div><div class="baseclassvariable private">
@@ -390,7 +536,7 @@ Can be used in post-processes to compute any kind of supplementary informaions n
   <div class="functionHeader">
     
     <span class="py-defname">_spec_fields</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/_model.py#L467">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/_model.py#L482">
       
       (source)
     </a>
@@ -411,7 +557,7 @@ Can be used in post-processes to compute any kind of supplementary informaions n
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

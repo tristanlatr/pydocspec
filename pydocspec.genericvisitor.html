@@ -65,33 +65,48 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/genericvisitor.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/genericvisitor.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div>General purpose visitor pattern implementation.</div>
+        <div>General purpose visitor pattern implementation, with extensions.</div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id101">
+        <table class="children sortable" id="id110">
   
   
   <tr class="class">
     
     <td>Class</td>
+    <td><code><a href="pydocspec.genericvisitor.CustomizableVisitor.html">CustomizableVisitor</a></code></td>
+    <td>A visitor that can be composed by other vistitors.</td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.genericvisitor.PartialVisitor.html">PartialVisitor</a></code></td>
+    <td>Visitor class that do not have to define all possible <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">visit_</span></a>.* methods since it overrides the default behaviour of unknown_visit() and unknown_departure() not to raise NotImplementedError.</td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
     <td><code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a></code></td>
     <td>"Visitor" pattern abstract superclass implementation for tree traversals.</td>
-  </tr><tr class="function">
+  </tr><tr class="class">
     
-    <td>Function</td>
-    <td><code><a href="#walk">walk</a></code></td>
-    <td><span class="undocumented">No summary</span></td>
-  </tr><tr class="function">
+    <td>Class</td>
+    <td><code><a href="pydocspec.genericvisitor.VisitorExtension.html">VisitorExtension</a></code></td>
+    <td>The node visitor extension base class, to inherit from.</td>
+  </tr><tr class="class">
     
-    <td>Function</td>
-    <td><code><a href="#walkabout">walkabout</a></code></td>
-    <td>Perform a tree traversal similarly to <code><a href="#walk">walk()</a></code> (which see), except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">depart()</a></code> method before exiting each node.</td>
+    <td>Class</td>
+    <td><code><a href="pydocspec.genericvisitor.VisitorExtensionList.html">VisitorExtensionList</a></code></td>
+    <td>This class helps iterating on visitor extensions that should run at different times.</td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.genericvisitor.When.html">When</a></code></td>
+    <td>This enumeration contains the different times an extension is used.</td>
   </tr><tr class="constant">
     
     <td>Constant</td>
@@ -106,63 +121,7 @@
 
       <div id="childList">
 
-        <div class="basefunction">
-  
-  
-  <a name="pydocspec.genericvisitor.walk">
-    
-  </a>
-  <a name="walk">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">walk</span>(ob, visitor, get_children):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/genericvisitor.py#L61">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p>Traverse a tree of objects, calling the
-<code><a href="pydocspec.genericvisitor.Visitor.html#visit">visit()</a></code> method of <code>visitor</code> when entering each
-node.  (The <code><a href="#walkabout">walkabout()</a></code> method is similar, except it also
-calls the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">depart()</a></code> method before exiting each objects.)</p>
-<p>This tree traversal supports limited in-place tree
-modifications.  Replacing one node with one or more nodes is
-OK, as is removing an element.  However, if the node removed
-or replaced occurs after the current node, the old node will
-still be traversed, and any new nodes will not.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="#T">T</a></code></td><td class="fieldArgDesc">An object to walk.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a>[<wbr></wbr><a href="#T">T</a>]</code></td><td class="fieldArgDesc">A <code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a></code> object, containing a
-<tt class="rst-docutils literal">visit</tt> implementation for each object type encountered.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">get_children:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a>[<wbr></wbr>[<wbr></wbr><a href="#T">T</a>], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="#T">T</a>]]</code></td><td class="fieldArgDesc">A callable that returns the children of an object.</td></tr></table></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="pydocspec.genericvisitor.walkabout">
-    
-  </a>
-  <a name="walkabout">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">walkabout</span>(ob, visitor, get_children):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/genericvisitor.py#L84">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div>Perform a tree traversal similarly to <code><a href="#walk">walk()</a></code> (which
-see), except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart">depart()</a></code> method before exiting each node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="#T">T</a></code></td><td class="fieldArgDesc">An object to walk.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a>[<wbr></wbr><a href="#T">T</a>]</code></td><td class="fieldArgDesc">A <code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a></code> object, containing a
-<tt class="rst-docutils literal">visit</tt> and <tt class="rst-docutils literal">depart</tt> implementation for each concrete object type encountered.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">get_children:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a>[<wbr></wbr>[<wbr></wbr><a href="#T">T</a>], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="#T">T</a>]]</code></td><td class="fieldArgDesc">A callable that returns the children of an object.</td></tr></table></div>
-  </div>
-</div><div class="baseconstant">
+        <div class="baseconstant">
   
   
   <a name="pydocspec.genericvisitor.T">
@@ -174,7 +133,7 @@ see), except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#
   <div class="functionHeader">
     
     <span class="py-defname">T</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/genericvisitor.py#L6">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/genericvisitor.py#L9">
       
       (source)
     </a>
@@ -195,7 +154,7 @@ see), except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">FilterVisitor</span>(<span title="pydocspec.genericvisitor.Visitor['ApiObject']">genericvisitor.Visitor['ApiObject']</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/visitors.py#L32" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">FilterVisitor</span>(<a href="pydocspec.visitors.ApiObjectVisitor.html" title="pydocspec.visitors.ApiObjectVisitor">ApiObjectVisitor</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/visitors.py#L79" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.visitors.FilterVisitor">View In Hierarchy</a></p>
       </div>
 
@@ -77,13 +77,13 @@
 # removes entries starting by one underscore that are not dunder methods, aka private API.
 predicate = lambda ob: not ob.name.startswith("_") or ob.name.startswith("__") and ob.name.endswith("__")
 filter_visitor = FilterVisitor(predicate)
-module.walk(filter_visitor)</dd>
+filter_visitor.walk(module)</dd>
 </dl>
 </div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id147">
+        <table class="children sortable" id="id172">
   
   
   <tr class="method">
@@ -114,6 +114,20 @@ module.walk(filter_visitor)</dd>
   </tr>
 </table>
         
+          <p class="inheritedFrom">
+            Inherited from <code><a href="pydocspec.visitors._ApiObjectVisitorGetChildren.html">_ApiObjectVisitorGetChildren</a></code> (via <code><a href="pydocspec.visitors.ApiObjectVisitor.html">ApiObjectVisitor</a></code>):
+          </p>
+          <table class="children sortable" id="id173">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.visitors._ApiObjectVisitorGetChildren.html#get_children">get_children</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
 
           
       </div>
@@ -132,7 +146,7 @@ module.walk(filter_visitor)</dd>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, predicate):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/visitors.py#L44">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/visitors.py#L91">
       
       (source)
     </a>
@@ -140,7 +154,7 @@ module.walk(filter_visitor)</dd>
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">predicate:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">t.Callable</a>[<wbr></wbr>[<wbr></wbr><a href="pydocspec._model.ApiObject.html">ApiObject</a>], <wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool">bool</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">predicate:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">t.Callable</a>[<wbr></wbr>[<wbr></wbr><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a>], <wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool">bool</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -154,7 +168,7 @@ module.walk(filter_visitor)</dd>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">apply_predicate_on_members</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/visitors.py#L54">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/visitors.py#L102">
       
       (source)
     </a>
@@ -162,7 +176,7 @@ module.walk(filter_visitor)</dd>
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -176,7 +190,7 @@ module.walk(filter_visitor)</dd>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_departure</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/visitors.py#L51">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/visitors.py#L99">
       
       (source)
     </a>
@@ -184,7 +198,7 @@ module.walk(filter_visitor)</dd>
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -198,7 +212,7 @@ module.walk(filter_visitor)</dd>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_visit</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/visitors.py#L47">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/visitors.py#L95">
       
       (source)
     </a>
@@ -206,7 +220,7 @@ module.walk(filter_visitor)</dd>
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.ApiObject.html">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -220,7 +234,7 @@ module.walk(filter_visitor)</dd>
   <div class="functionHeader">
     
     <span class="py-defname">predicate</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/visitors.py#L45">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/visitors.py#L93">
       
       (source)
     </a>
@@ -241,7 +255,7 @@ module.walk(filter_visitor)</dd>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 

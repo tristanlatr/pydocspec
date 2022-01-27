@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>pydocspec.astbuilder.ModuleVisitor</title>
+    <title>pydocspec.astbuilder.BuilderVisitor</title>
     <meta name="generator" content="pydoctor 21.12.1.dev0"> 
         
     </meta>
@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astbuilder.html">astbuilder</a></code><wbr></wbr>.<code><a href="pydocspec.astbuilder.ModuleVisitor.html">ModuleVisitor</a></code></code></h1>
+        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astbuilder.html">astbuilder</a></code><wbr></wbr>.<code><a href="pydocspec.astbuilder.BuilderVisitor.html">BuilderVisitor</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,8 +65,8 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">ModuleVisitor</span>(<a href="pydocspec.astroidutils.NodeVisitor.html" title="pydocspec.astroidutils.NodeVisitor">astroidutils.NodeVisitor</a>, <a href="pydocspec.basebuilder.Collector.html" title="pydocspec.basebuilder.Collector">basebuilder.Collector</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L83" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#pydocspec.astbuilder.ModuleVisitor">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">BuilderVisitor</span>(<a href="pydocspec.basebuilder.Collector.html" title="pydocspec.basebuilder.Collector">basebuilder.Collector</a>, <span title="pydocspec.visitors.AstVisitor">visitors.AstVisitor</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L86" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#pydocspec.astbuilder.BuilderVisitor">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id64">
+        <table class="children sortable" id="id65">
   
   
   <tr class="method">
@@ -85,42 +85,47 @@
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#default">default</a></code></td>
-    <td>Visit the nested nodes in the body of a node.</td>
-  </tr><tr class="method">
-    
-    <td>Method</td>
-    <td><code><a href="#visit_AnnAssign">visit_AnnAssign</a></code></td>
+    <td><code><a href="#depart_classdef">depart_classdef</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit_Assign">visit_Assign</a></code></td>
+    <td><code><a href="#depart_module">depart_module</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit_ClassDef">visit_ClassDef</a></code></td>
+    <td><code><a href="#visit_annassign">visit_annassign</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#visit_assign">visit_assign</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#visit_classdef">visit_classdef</a></code></td>
     <td>Visit a class.</td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit_Expr">visit_Expr</a></code></td>
+    <td><code><a href="#visit_expr">visit_expr</a></code></td>
     <td>Handles the inline attribute docstrings.</td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit_Import">visit_Import</a></code></td>
+    <td><code><a href="#visit_import">visit_import</a></code></td>
     <td>Process an import statement.</td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit_ImportFrom">visit_ImportFrom</a></code></td>
+    <td><code><a href="#visit_importfrom">visit_importfrom</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit_Module">visit_Module</a></code></td>
+    <td><code><a href="#visit_module">visit_module</a></code></td>
     <td>Visit an {astroid.nodes.Module}.</td>
   </tr><tr class="classvariable">
     
@@ -182,38 +187,9 @@
     <td>Method</td>
     <td><code><a href="#_set_docstring">_set_docstring</a></code></td>
     <td>Set the docstring of a object from a L{astroid.nodes.Const} node.</td>
-  </tr><tr class="method private">
-    
-    <td>Method</td>
-    <td><code><a href="#_warnsConstantAssigmentOverride">_warnsConstantAssigmentOverride</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="method private">
-    
-    <td>Method</td>
-    <td><code><a href="#_warnsConstantReAssigmentInInstance">_warnsConstantReAssigmentInInstance</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
-          <p class="inheritedFrom">
-            Inherited from <code><a href="pydocspec.astroidutils.NodeVisitor.html">NodeVisitor</a></code>:
-          </p>
-          <table class="children sortable" id="id65">
-  
-  
-  <tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="pydocspec.astroidutils.NodeVisitor.html#generic_visit">generic_visit</a></code></td>
-    <td>Called if no explicit visitor function exists for a node.</td>
-  </tr><tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="pydocspec.astroidutils.NodeVisitor.html#visit">visit</a></code></td>
-    <td>Visit a node.</td>
-  </tr>
-</table>
-          
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec.basebuilder.Collector.html">Collector</a></code>:
           </p>
@@ -282,7 +258,7 @@
         <div class="basemethod">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.__init__">
+  <a name="pydocspec.astbuilder.BuilderVisitor.__init__">
     
   </a>
   <a name="__init__">
@@ -291,7 +267,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, builder, module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L87">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L90">
       
       (source)
     </a>
@@ -304,16 +280,16 @@
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.default">
+  <a name="pydocspec.astbuilder.BuilderVisitor.depart_classdef">
     
   </a>
-  <a name="default">
+  <a name="depart_classdef">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">default</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L91">
+    <span class="py-keyword">def</span> <span class="py-defname">depart_classdef</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L276">
       
       (source)
     </a>
@@ -321,21 +297,43 @@
   <div class="docstring functionBody">
     
     
-    <div>Visit the nested nodes in the body of a node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.ClassDef</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.visit_AnnAssign">
+  <a name="pydocspec.astbuilder.BuilderVisitor.depart_module">
     
   </a>
-  <a name="visit_AnnAssign">
+  <a name="depart_module">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">visit_AnnAssign</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L456">
+    <span class="py-keyword">def</span> <span class="py-defname">depart_module</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L167">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.Module</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec.astbuilder.BuilderVisitor.visit_annassign">
+    
+  </a>
+  <a name="visit_annassign">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">visit_annassign</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L456">
       
       (source)
     </a>
@@ -348,16 +346,16 @@
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.visit_Assign">
+  <a name="pydocspec.astbuilder.BuilderVisitor.visit_assign">
     
   </a>
-  <a name="visit_Assign">
+  <a name="visit_assign">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">visit_Assign</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L437">
+    <span class="py-keyword">def</span> <span class="py-defname">visit_assign</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L437">
       
       (source)
     </a>
@@ -370,16 +368,16 @@
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.visit_ClassDef">
+  <a name="pydocspec.astbuilder.BuilderVisitor.visit_classdef">
     
   </a>
-  <a name="visit_ClassDef">
+  <a name="visit_classdef">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">visit_ClassDef</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L182">
+    <span class="py-keyword">def</span> <span class="py-defname">visit_classdef</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L177">
       
       (source)
     </a>
@@ -392,16 +390,16 @@
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.visit_Expr">
+  <a name="pydocspec.astbuilder.BuilderVisitor.visit_expr">
     
   </a>
-  <a name="visit_Expr">
+  <a name="visit_expr">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">visit_Expr</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L140">
+    <span class="py-keyword">def</span> <span class="py-defname">visit_expr</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L138">
       
       (source)
     </a>
@@ -414,16 +412,16 @@
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.visit_Import">
+  <a name="pydocspec.astbuilder.BuilderVisitor.visit_import">
     
   </a>
-  <a name="visit_Import">
+  <a name="visit_import">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">visit_Import</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L385">
+    <span class="py-keyword">def</span> <span class="py-defname">visit_import</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L390">
       
       (source)
     </a>
@@ -444,16 +442,16 @@ part of the statement.</p>
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.visit_ImportFrom">
+  <a name="pydocspec.astbuilder.BuilderVisitor.visit_importfrom">
     
   </a>
-  <a name="visit_ImportFrom">
+  <a name="visit_importfrom">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">visit_ImportFrom</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L283">
+    <span class="py-keyword">def</span> <span class="py-defname">visit_importfrom</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L282">
       
       (source)
     </a>
@@ -466,16 +464,16 @@ part of the statement.</p>
 </div><div class="basemethod">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.visit_Module">
+  <a name="pydocspec.astbuilder.BuilderVisitor.visit_module">
     
   </a>
-  <a name="visit_Module">
+  <a name="visit_module">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">visit_Module</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L154">
+    <span class="py-keyword">def</span> <span class="py-defname">visit_module</span>(self, node):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L150">
       
       (source)
     </a>
@@ -488,7 +486,7 @@ part of the statement.</p>
 </div><div class="baseclassvariable">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.module">
+  <a name="pydocspec.astbuilder.BuilderVisitor.module">
     
   </a>
   <a name="module">
@@ -497,7 +495,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-defname">module</span>: <code><a href="pydocspec._model.Module.html">_model.Module</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L85">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L88">
       
       (source)
     </a>
@@ -511,7 +509,7 @@ part of the statement.</p>
 </div><div class="baseinstancevariable">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor.builder">
+  <a name="pydocspec.astbuilder.BuilderVisitor.builder">
     
   </a>
   <a name="builder">
@@ -520,7 +518,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-defname">builder</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L89">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L94">
       
       (source)
     </a>
@@ -534,7 +532,7 @@ part of the statement.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._handleAssignment">
+  <a name="pydocspec.astbuilder.BuilderVisitor._handleAssignment">
     
   </a>
   <a name="_handleAssignment">
@@ -543,7 +541,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_handleAssignment</span>(self, target_node, annotation, expr, lineno):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L460">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L460">
       
       (source)
     </a>
@@ -556,7 +554,7 @@ part of the statement.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._handleAssignmentInClass">
+  <a name="pydocspec.astbuilder.BuilderVisitor._handleAssignmentInClass">
     
   </a>
   <a name="_handleAssignmentInClass">
@@ -565,7 +563,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_handleAssignmentInClass</span>(self, target, annotation, expr, lineno):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L709">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L604">
       
       (source)
     </a>
@@ -578,7 +576,7 @@ part of the statement.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._handleAssignmentInModule">
+  <a name="pydocspec.astbuilder.BuilderVisitor._handleAssignmentInModule">
     
   </a>
   <a name="_handleAssignmentInModule">
@@ -587,7 +585,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_handleAssignmentInModule</span>(self, target, annotation, expr, lineno):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L632">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L538">
       
       (source)
     </a>
@@ -600,7 +598,7 @@ part of the statement.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._handleClassVar">
+  <a name="pydocspec.astbuilder.BuilderVisitor._handleClassVar">
     
   </a>
   <a name="_handleClassVar">
@@ -609,7 +607,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_handleClassVar</span>(self, name, annotation, expr, lineno):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L642">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L548">
       
       (source)
     </a>
@@ -622,7 +620,7 @@ part of the statement.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._handleInstanceVar">
+  <a name="pydocspec.astbuilder.BuilderVisitor._handleInstanceVar">
     
   </a>
   <a name="_handleInstanceVar">
@@ -631,7 +629,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_handleInstanceVar</span>(self, name, annotation, expr, lineno):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L679">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L574">
       
       (source)
     </a>
@@ -644,7 +642,7 @@ part of the statement.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._handleModuleVar">
+  <a name="pydocspec.astbuilder.BuilderVisitor._handleModuleVar">
     
   </a>
   <a name="_handleModuleVar">
@@ -653,7 +651,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_handleModuleVar</span>(self, name, annotation, expr, lineno):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L605">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L511">
       
       (source)
     </a>
@@ -666,7 +664,7 @@ part of the statement.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._newData">
+  <a name="pydocspec.astbuilder.BuilderVisitor._newData">
     
   </a>
   <a name="_newData">
@@ -675,7 +673,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_newData</span>(self, name, annotation, expr, lineno, semantics):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L577">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L483">
       
       (source)
     </a>
@@ -688,7 +686,7 @@ part of the statement.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._newIndirections">
+  <a name="pydocspec.astbuilder.BuilderVisitor._newIndirections">
     
   </a>
   <a name="_newIndirections">
@@ -697,7 +695,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_newIndirections</span>(self, modname, names, lineno, is_type_guarged):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L370">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L375">
       
       (source)
     </a>
@@ -710,7 +708,7 @@ part of the statement.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._newIndirectionsFromWildcardImport">
+  <a name="pydocspec.astbuilder.BuilderVisitor._newIndirectionsFromWildcardImport">
     
   </a>
   <a name="_newIndirectionsFromWildcardImport">
@@ -719,7 +717,7 @@ part of the statement.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_newIndirectionsFromWildcardImport</span>(self, modname, lineno, is_type_guarged):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L333">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L338">
       
       (source)
     </a>
@@ -735,7 +733,7 @@ resolve unresolve imports in the first analysis pass.</p>
 </div><div class="basemethod private">
   
   
-  <a name="pydocspec.astbuilder.ModuleVisitor._set_docstring">
+  <a name="pydocspec.astbuilder.BuilderVisitor._set_docstring">
     
   </a>
   <a name="_set_docstring">
@@ -744,7 +742,7 @@ resolve unresolve imports in the first analysis pass.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_set_docstring</span>(self, ob, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L101">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b3a4b84bfc6597c0e83914df8deb4a03c4415871/pydocspec/astbuilder.py#L97">
       
       (source)
     </a>
@@ -753,50 +751,6 @@ resolve unresolve imports in the first analysis pass.</p>
     
     
     <div>Set the docstring of a object from a L{astroid.nodes.Const} node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.ApiObject.html">_model.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.Const</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basemethod private">
-  
-  
-  <a name="pydocspec.astbuilder.ModuleVisitor._warnsConstantAssigmentOverride">
-    
-  </a>
-  <a name="_warnsConstantAssigmentOverride">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">_warnsConstantAssigmentOverride</span>(self, obj, lineno_offset):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L514">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj:</span><code><a href="pydocspec._model.Data.html">_model.Data</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno_offset:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="basemethod private">
-  
-  
-  <a name="pydocspec.astbuilder.ModuleVisitor._warnsConstantReAssigmentInInstance">
-    
-  </a>
-  <a name="_warnsConstantReAssigmentInInstance">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">_warnsConstantReAssigmentInInstance</span>(self, obj, lineno_offset=0):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b85c8b1ed7ea633b795d82629997c2a777a89873/pydocspec/astbuilder.py#L519">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj:</span><code><a href="pydocspec._model.Data.html">_model.Data</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lineno_offset:</span><code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -808,7 +762,7 @@ resolve unresolve imports in the first analysis pass.</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-21 06:32:09.
+    21.12.1.dev0 at 2022-01-27 15:30:08.
   </div>
 </footer>
 
