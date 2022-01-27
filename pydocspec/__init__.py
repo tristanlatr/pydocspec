@@ -224,7 +224,7 @@ class ApiObject(_model.ApiObject):
         Follow an indirection and return the *supposed* full name of the origin object.
 
         Resolve the alias value to it's target full name.
-        Or fall back to original alias full name if we know we've exhausted the max recursions.
+        Or fall back to original alias target if we know we've exhausted the max recursions.
 
         :param indirection: an `Indirection` object.
         :param indirections: Chain of alias objects followed. 
