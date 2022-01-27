@@ -387,11 +387,11 @@ def imported_call_cases():
 
 
 class TestAstroidUtilsAndExpandName:
-    #@mod_from_text_param
+    @mod_from_text_param
     @pytest.mark.parametrize(
         ("import_", "basename", "expected"), list(imported_basename_cases())
     )
-    def test_can_get_full_imported_basename(self, 
+    def test_can_get_full_imported_basename(self, mod_from_text: ModFromTextFunction,
             import_, basename, expected):
         source = """
         {}
@@ -405,7 +405,8 @@ class TestAstroidUtilsAndExpandName:
         assert basenames == expected
 
         # this test also pass with expand_name()
-        mod = _default_astbuilder.mod_from_text(source)
+        # mod = _default_astbuilder.mod_from_text(source)
+        mod = mod_from_text(source)
         basenames = mod['ThisClass'].expand_name(node.basenames[0])
         assert basenames == expected
 
