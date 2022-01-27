@@ -214,8 +214,8 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
     def __str__(self) -> str:
         return self.__repr__()
     def __repr__(self) -> str:
-        return (f"<{type(self).__name__}:{self.full_name}>")
-
+        return (f"<{type(self).__name__}:{self.full_name} at l.{self.location.lineno}>")
+    
     def remove(self) -> None:
         try:
             # remove from parent members
@@ -525,6 +525,9 @@ class Module(docspec.Module, ApiObject):
         # help mypy
         self.parent: Optional['Module']
         self.members: List['ApiObject'] # type:ignore[assignment]
+    
+    def __repr__(self) -> str:
+        return (f"<{type(self).__name__}:{self.full_name} at {self.location.filename}, l.{self.location.lineno}>")
 
 HasMembers = (Module, Class)
 """

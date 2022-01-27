@@ -172,6 +172,12 @@ class Processor:
         :note: If you are creating a tree manually, you should run this on your tree as well. 
         """
 
+        # do some warnings
+
+        if len(root.root_modules) != len(set(id(m) for m in root.root_modules)):
+            logging.getLogger('pydocspec').warning(
+                f"Duplicate root module in : {', '.join(m.full_name for m in root.root_modules)}")
+
         # init visitors 
 
         _post_build_visitor0 = PostBuildVisitor0()

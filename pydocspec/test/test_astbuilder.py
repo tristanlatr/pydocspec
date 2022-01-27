@@ -449,6 +449,7 @@ def test_docformat_warn_not_str(mod_from_text: ModFromTextFunction, caplog) -> N
     ''', modname='mod')
     assert '<fromtext>:2: Cannot parse value assigned to "__docformat__": not a string\n' in caplog.text
     assert mod.docformat is None
+    assert len(caplog.text.strip().split('\n')) == 1, caplog.text
     # assert '__docformat__' not in mod.contents
 
 @mod_from_text_param
@@ -462,6 +463,7 @@ def test_docformat_warn_not_str2(mod_from_text: ModFromTextFunction, caplog) -> 
     ''', modname='mod')
     assert '<fromtext>:2: Cannot parse value assigned to "__docformat__": not a string\n' in caplog.text
     assert mod.docformat == None
+    assert len(caplog.text.strip().split('\n')) == 1, caplog.text
     # assert '__docformat__' not in mod.contents
 
 @mod_from_text_param
@@ -475,6 +477,7 @@ def test_docformat_warn_empty(mod_from_text: ModFromTextFunction, caplog) -> Non
     ''', modname='mod')
     assert '<fromtext>:2: Cannot parse value assigned to "__docformat__": empty value\n' in caplog.text
     assert mod.docformat == None
+    assert len(caplog.text.strip().split('\n')) == 1, caplog.text
     # assert '__docformat__' not in mod.contents
 
 

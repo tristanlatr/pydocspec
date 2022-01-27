@@ -120,6 +120,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         docstring = inspect.cleandoc(doc)
         docstring_lineno = lineno
         
+        # until https://github.com/NiklasRosenstein/docspec/pull/50 is merged.
         ob.docstring = cast('docspec.Docstring', self.root.factory.Docstring(docstring, 
             self.root.factory.Location(self.current.location.filename, lineno=docstring_lineno)))
     
@@ -134,7 +135,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
     #     else:
     #         self.generic_visit(node)
 
-    def visit_Expr(self, node: astroid.nodes.Expr) -> None:
+    def visit_expr(self, node: astroid.nodes.Expr) -> None:
         """
         Handles the inline attribute docstrings.
         """
@@ -159,7 +160,9 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             # setting the module docstring
             self._set_docstring(self.module, node.body[0].value)
 
-        self.add_object(self.module)
+        # The new module should already be added to the tree.
+        assert self.module in self.root.all_objects.getall(self.module.full_name)
+        self.push(self.module)
     
     def depart_module(self, node: astroid.nodes.Module) -> None:
 
@@ -384,7 +387,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             
             yield indirection
 
-    def visit_Import(self, node: astroid.nodes.Import) -> None:
+    def visit_import(self, node: astroid.nodes.Import) -> None:
         """Process an import statement.
 
         The grammar for the statement is roughly:
@@ -431,7 +434,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
 
     ### ATTRIBUTES ###
 
-    def visit_Assign(self, node: astroid.nodes.Assign) -> None:
+    def visit_assign(self, node: astroid.nodes.Assign) -> None:
         lineno = node.lineno
         expr = node.value
 
@@ -450,7 +453,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             else:
                 self._handleAssignment(target, annotation, expr, lineno)
 
-    def visit_AnnAssign(self, node: astroid.nodes.AnnAssign) -> None:
+    def visit_annassign(self, node: astroid.nodes.AnnAssign) -> None:
         annotation = astroidutils.unstring_annotation(node.annotation)
         self._handleAssignment(node.target, annotation, node.value, node.lineno)
     
@@ -476,69 +479,6 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             elif isinstance(value, astroid.nodes.Name) and value.name == 'self':
                 self._handleInstanceVar(target_node.attrname, annotation, expr, lineno)
             # TODO: Fix https://github.com/twisted/pydoctor/issues/13
-    
-    def _warnsConstantAssigmentOverride(self, obj: _model.Data, lineno_offset: int) -> None:
-        obj.warn(f'Assignment to constant "{obj.name}" overrides previous assignment '
-                    f'at line {obj.location.lineno}, the original value will not be part of the docs.', 
-                            lineno_offset=lineno_offset)
-                            
-    def _warnsConstantReAssigmentInInstance(self, obj: _model.Data, lineno_offset: int = 0) -> None:
-        obj.warn(f'Assignment to constant "{obj.name}" inside an instance is ignored, this value will not be part of the docs.', 
-                        lineno_offset=lineno_offset)
-
-    # def _handleConstant(self, obj: _model.Data, value: Optional[astroid.nodes.NodeNG], lineno: int) -> None:
-        
-    #     if is_attribute_overridden(obj, value):
-            
-    #         if obj.is_constant or obj.is_class_variable or obj.is_module_variable:
-    #             # Module/Class level warning, regular override.
-    #             self._warnsConstantAssigmentOverride(obj=obj, lineno_offset=lineno-obj.location.lineno)
-    #         else:
-    #             # Instance level warning caught at the time of the constant detection.
-    #             self._warnsConstantReAssigmentInInstance(obj)
-
-    #     obj.value_ast = value
-        
-    #     obj.is_constant = True
-    
-    # post-processing
-    #     # A hack to to display variables annotated with Final with the real type instead.
-    #     if obj.is_using_typing_final:
-    #         if isinstance(obj.datatype_ast, astroid.nodes.Subscript):
-    #             try:
-    #                 annotation = astroidutils.extract_final_subscript(obj.datatype_ast)
-    #             except ValueError as e:
-    #                 obj.warn(str(e), lineno_offset=lineno-obj.location.lineno)
-    #                 obj.datatype_ast = astroidutils.infer_type(value) if value else None
-    #             else:
-    #                 # Will not display as "Final[str]" but rather only "str"
-    #                 obj.datatype_ast = annotation
-    #         else:
-    #             # Just plain "Final" annotation.
-    #             # Simply ignore it because it's duplication of information.
-    #             obj.datatype_ast = astroidutils.infer_type(value) if value else None
-    
-    # def _handleAlias(self, obj: _model.Data, value: Optional[astroid.nodes.NodeNG], lineno: int) -> None:
-    #     """
-    #     Must be called after obj.setLineNumber() to have the right line number in the warning.
-
-    #     Create an alias or update an alias.
-    #     """
-        
-    #     if is_attribute_overridden(obj, value) and astroidutils.is_alias(obj.value_ast):
-    #         obj.report(f'Assignment to alias "{obj.name}" overrides previous alias '
-    #                 f'at line {obj.location.lineno}.', 
-    #                         section='ast', lineno_offset=lineno-obj.location.lineno)
-
-    #     obj.kind = model.DocumentableKind.ALIAS
-    #     # This will be used for HTML repr of the alias.
-    #     obj.value = value
-    #     dottedname = node2dottedname(value)
-    #     # It cannot be None, because we call _handleAlias() only if is_alias() is True.
-    #     assert dottedname is not None
-    #     name = '.'.join(dottedname)
-    #     # Store the alias value as string now, this avoids doing it in _resolveAlias().
-    #     obj._alias_to = name
 
     def _newData(self, name: str, 
             annotation: Optional[astroid.nodes.NodeNG],
@@ -581,7 +521,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         if processor.data_attr.is_constant(obj):
             obj.semantic_hints.append(obj.Semantic.CONSTANT)
 
-            # handled in processor
+            # handled in ext.dup
             # if is_alias(expr):
             #     self._handleAlias(obj=obj, value=expr, lineno=lineno)
             # elif is_constant(obj):
@@ -622,17 +562,6 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             obj.semantic_hints.append(obj.Semantic.CONSTANT)
 
         # in processor
-        # if obj.kind is None:
-        #     instance = is_attrib(expr, cls) or (
-        #         cls.auto_attribs and annotation is not None and not (
-        #             isinstance(annotation, astroid.nodes.Subscript) and
-        #             node2fullname(annotation.value, cls) == 'typing.ClassVar'
-        #             )
-        #         )
-        #     obj.kind = model.DocumentableKind.INSTANCE_VARIABLE if instance else model.DocumentableKind.CLASS_VARIABLE              
-                # attrs extension
-                # if annotation is None:
-                #     annotation = self._annotation_from_attrib(expr, cls)
 
         # if astroidutils.is_name(expr):
         #     self._handleAlias(obj=obj, value=expr, lineno=lineno)
@@ -835,7 +764,9 @@ class Builder:
 
     def add_module(self, path: Path) -> None:
         """
-        Add a module or package from a system path. If the path is pointing to a directory, reccursively add all submodules.
+        Add a module or package from a system path. 
+        If the path is pointing to a directory, 
+        reccursively add all submodules.
         """
         if path in self._added_paths:
             return

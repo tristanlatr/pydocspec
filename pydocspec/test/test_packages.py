@@ -154,6 +154,8 @@ def test_cyclic_imports_all(caplog) -> None:
 
     system = pydocspec.load_python_modules([testpackages / 'cyclic_imports_all'])
     assert "Can't resolve cyclic wildcard imports" in caplog.text, caplog.text
+    assert len(caplog.text.strip().split('\n')) == 1
+    
     assert isinstance(system.all_objects['cyclic_imports_all'], pydocspec.Module)
     repr_vis = visitors.ReprVisitor(fields=['datatype', 'target', 'semantic_hints'])
 
@@ -206,8 +208,8 @@ def test_imports_all_many_level(caplog) -> None:
 
 # Works only with pydocspec.astbuilder
 def test_cyclic_imports_all_many_level(caplog) -> None:
+    
     system = pydocspec.load_python_modules([testpackages / 'cyclic_imports_all_many_levels'])
-    # assert "Incomplete analysis" in caplog.text, caplog.text
     assert isinstance(system.all_objects['cyclic_imports_all_many_levels'], pydocspec.Module)
     repr_vis = visitors.ReprVisitor(fields=['is_package', 'target'])
 
