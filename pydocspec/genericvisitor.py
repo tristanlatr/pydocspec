@@ -4,7 +4,7 @@ General purpose visitor pattern implementation, with extensions.
 from collections import defaultdict
 import enum
 import abc
-from typing import Generic, Iterable, Optional, Type, TypeVar, Union
+from typing import Generic, Iterable, List, Optional, Type, TypeVar, Union
 
 T = TypeVar("T")
 
@@ -192,7 +192,7 @@ class VisitorExtensionList(Generic[T]):
                 visitor.attach(parent_visitor)
 
     @property
-    def before_visit(self) -> list['VisitorExtension[T]']:
+    def before_visit(self) -> List['VisitorExtension[T]']:
         """Return the visitors that run before the visit.
 
         Returns:
