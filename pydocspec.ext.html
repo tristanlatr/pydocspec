@@ -65,28 +65,48 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/70b6bd9b9269b245f6347ca41577a43f6c71f085/pydocspec/ext/__init__.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/__init__.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
         <div><p>Extensions sytem.</p>
-<dl class="rst-docutils">
-<dt>Mixin classes ca be applied to objects: "Module", "Class", "Function", "Data", "Indirection",</dt>
-<dd>"Docstring", "Decoration", "Argument", "Location" and "TreeRoot".</dd>
-</dl>
-</div>
+<p>Mixin classes ca be applied to objects: "Module", "Class", "Function", "Data", "Indirection",
+"Docstring", "Decoration", "Argument", "Location", <strong>BUT NOT "TreeRoot"</strong>.</p>
+<p>You create an extension like this:</p>
+<pre class="rst-literal-block">
+from pydocspec.ext import DataMixin, ClassMixin, ApiObjectVisitorExt, AstVisitorExt, ExtRegistrar
+
+# define extension logic
+class MyDataMixin(DataMixin):
+    ...
+class MyClassMixin(ClassMixin):
+    ...
+class MyAstVisitor(AstVisitorExt):
+    ...
+class MyObjectVisitor(ApiObjectVisitorExt):
+    ...
+
+# configure your extension components in the extension system, with this special function
+# that will be called for each extensions.
+def setup_extension(r:ExtRegistrar) -&gt; None:
+    r.register_mixins(MyDataMixin, MyClassMixin)
+    r.register_astbuild_visitors(MyAstVisitor)
+    r.register_postbuild_visitors(MyObjectVisitor)
+)
+</pre>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">Tree root instance is created before extensions are loaded.</td></tr></table></div>
       </div>
 
       <div id="splitTables">
         <table class="children sortable" id="id103">
   
   
-  <tr class="module">
+  <tr class="package">
     
-    <td>Module</td>
-    <td><code><a href="pydocspec.ext.attrs.html">attrs</a></code></td>
-    <td>Handles attrs based classes like:</td>
+    <td>Package</td>
+    <td><code><a href="pydocspec.ext.opt.html">opt</a></code></td>
+    <td>Optional extensions packaged.</td>
   </tr><tr class="module">
     
     <td>Module</td>
@@ -122,6 +142,11 @@
   </tr><tr class="class">
     
     <td>Class</td>
+    <td><code><a href="pydocspec.ext.ExtRegistrar.html">ExtRegistrar</a></code></td>
+    <td>The extension registrar interface class.</td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
     <td><code><a href="pydocspec.ext.FunctionMixin.html">FunctionMixin</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class">
@@ -139,31 +164,21 @@
     <td>Class</td>
     <td><code><a href="pydocspec.ext.ModuleMixin.html">ModuleMixin</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="class">
-    
-    <td>Class</td>
-    <td><code><a href="pydocspec.ext.PydocspecExtension.html">PydocspecExtension</a></code></td>
-    <td>To create an extension, create a new instance of me named 'extension' like this:</td>
-  </tr><tr class="class">
-    
-    <td>Class</td>
-    <td><code><a href="pydocspec.ext.TreeRootMixin.html">TreeRootMixin</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="function private">
+  </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#_get_all_defaults_ext">_get_all_defaults_ext</a></code></td>
+    <td><code><a href="#get_default_extensions">get_default_extensions</a></code></td>
     <td>Get the full names of all the default extension modules included in L{pydocspec}.</td>
-  </tr><tr class="function private">
+  </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#_get_astbuild_visitors">_get_astbuild_visitors</a></code></td>
+    <td><code><a href="#get_optional_extensions">get_optional_extensions</a></code></td>
+    <td>Get the full names of all the default extension modules included in L{pydocspec}.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#load_extension_module">load_extension_module</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="function private">
-    
-    <td>Function</td>
-    <td><code><a href="#_get_ext_from_module">_get_ext_from_module</a></code></td>
-    <td>Will look for the special module variable <tt class="rst-docutils literal">extension: PydocspecExtension</tt> in the provided module.</td>
   </tr><tr class="function private">
     
     <td>Function</td>
@@ -172,7 +187,12 @@
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_get_postbuild_visitors">_get_postbuild_visitors</a></code></td>
+    <td><code><a href="#_get_setup_extension_func_from_module">_get_setup_extension_func_from_module</a></code></td>
+    <td>Will look for the special function <tt class="rst-docutils literal">setup_extension</tt> in the provided module.</td>
+  </tr><tr class="function private">
+    
+    <td>Function</td>
+    <td><code><a href="#_get_submodules">_get_submodules</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable private">
     
@@ -185,19 +205,41 @@
 
       <div id="childList">
 
-        <div class="basefunction private">
+        <div class="basefunction">
   
   
-  <a name="pydocspec.ext._get_all_defaults_ext">
+  <a name="pydocspec.ext.load_extension_module">
     
   </a>
-  <a name="_get_all_defaults_ext">
+  <a name="load_extension_module">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_get_all_defaults_ext</span>():
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/70b6bd9b9269b245f6347ca41577a43f6c71f085/pydocspec/ext/__init__.py#L70">
+    <span class="py-keyword">def</span> <span class="py-defname">load_extension_module</span>(builder, mod):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/__init__.py#L65">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">builder:</span><code><a href="pydocspec.astbuilder.Builder.html">astbuilder.Builder</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/types.html#types.ModuleType">types.ModuleType</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.ext.get_default_extensions">
+    
+  </a>
+  <a name="get_default_extensions">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_default_extensions</span>():
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/__init__.py#L69">
       
       (source)
     </a>
@@ -207,19 +249,19 @@
     
     <div>Get the full names of all the default extension modules included in L{pydocspec}.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
-</div><div class="basefunction private">
+</div><div class="basefunction">
   
   
-  <a name="pydocspec.ext._get_ext_from_module">
+  <a name="pydocspec.ext.get_optional_extensions">
     
   </a>
-  <a name="_get_ext_from_module">
+  <a name="get_optional_extensions">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_get_ext_from_module</span>(module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/70b6bd9b9269b245f6347ca41577a43f6c71f085/pydocspec/ext/__init__.py#L80">
+    <span class="py-keyword">def</span> <span class="py-defname">get_optional_extensions</span>():
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/__init__.py#L75">
       
       (source)
     </a>
@@ -227,11 +269,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p>Will look for the special module variable <tt class="rst-docutils literal">extension: PydocspecExtension</tt>
-in the provided module.</p>
-<p>Raises ValueError if module do not provide a valid .extension:PydocspecExtension variable.
-Raise ModuleNotFoundError if module is not found.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/types.html#types.ModuleType">types.ModuleType</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.ext.PydocspecExtension.html">PydocspecExtension</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Get the full names of all the default extension modules included in L{pydocspec}.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basevariable private">
   
@@ -245,7 +283,7 @@ Raise ModuleNotFoundError if module is not found.</p>
   <div class="functionHeader">
     
     <span class="py-defname">_mixins_names_map</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/70b6bd9b9269b245f6347ca41577a43f6c71f085/pydocspec/ext/__init__.py#L98">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/__init__.py#L117">
       
       (source)
     </a>
@@ -267,8 +305,8 @@ Raise ModuleNotFoundError if module is not found.</p>
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_get_mixins</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/70b6bd9b9269b245f6347ca41577a43f6c71f085/pydocspec/ext/__init__.py#L110">
+    <span class="py-keyword">def</span> <span class="py-defname">_get_mixins</span>(*mixins):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/__init__.py#L129">
       
       (source)
     </a>
@@ -276,21 +314,21 @@ Raise ModuleNotFoundError if module is not found.</p>
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*mixins:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
   
-  <a name="pydocspec.ext._get_astbuild_visitors">
+  <a name="pydocspec.ext._get_submodules">
     
   </a>
-  <a name="_get_astbuild_visitors">
+  <a name="_get_submodules">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_get_astbuild_visitors</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/70b6bd9b9269b245f6347ca41577a43f6c71f085/pydocspec/ext/__init__.py#L122">
+    <span class="py-keyword">def</span> <span class="py-defname">_get_submodules</span>(pkg):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/__init__.py#L141">
       
       (source)
     </a>
@@ -298,21 +336,21 @@ Raise ModuleNotFoundError if module is not found.</p>
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.visitors.AstVisitorExt.html">AstVisitorExt</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.visitors.AstVisitorExt.html">AstVisitorExt</a>]]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">pkg:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
   
-  <a name="pydocspec.ext._get_postbuild_visitors">
+  <a name="pydocspec.ext._get_setup_extension_func_from_module">
     
   </a>
-  <a name="_get_postbuild_visitors">
+  <a name="_get_setup_extension_func_from_module">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">_get_postbuild_visitors</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/70b6bd9b9269b245f6347ca41577a43f6c71f085/pydocspec/ext/__init__.py#L127">
+    <span class="py-keyword">def</span> <span class="py-defname">_get_setup_extension_func_from_module</span>(module):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/__init__.py#L147">
       
       (source)
     </a>
@@ -320,7 +358,10 @@ Raise ModuleNotFoundError if module is not found.</p>
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.visitors.ApiObjectVisitorExt.html">ApiObjectVisitorExt</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.visitors.ApiObjectVisitorExt.html">ApiObjectVisitorExt</a>]]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Will look for the special function <tt class="rst-docutils literal">setup_extension</tt> in the provided module.</p>
+<p>Raises ValueError if module do not provide a valid setup_extension() function.
+Raise ModuleNotFoundError if module is not found.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/types.html#types.ModuleType">types.ModuleType</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a>[<wbr></wbr>[<wbr></wbr><a href="pydocspec.ext.ExtRegistrar.html">ExtRegistrar</a>], <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None">None</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -332,7 +373,7 @@ Raise ModuleNotFoundError if module is not found.</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-27 16:03:42.
+    21.12.1.dev0 at 2022-01-28 20:53:09.
   </div>
 </footer>
 

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>pydocspec.ext.opt.attrs</title>
+    <meta name="generator" content="pydoctor 21.12.1.dev0"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default">
+  
+  <div class="container">
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+          <span class="navbar-brand">
+            <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a> <a href="index.html">API Documentation</a>
+          </span>
+
+          <a href="moduleIndex.html">
+            Modules
+          </a>
+
+          <a href="classIndex.html">
+            Classes
+          </a>
+
+          <a href="nameIndex.html">
+            Names
+          </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+    
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.ext.html">ext</a></code><wbr></wbr>.<code><a href="pydocspec.ext.opt.html">opt</a></code><wbr></wbr>.<code><a href="pydocspec.ext.opt.attrs.html">attrs</a></code></code></h1>
+        <div id="showPrivate">
+          <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+        </div>
+      </div>
+
+      <div class="categoryHeader">
+        module documentation
+      </div>
+
+      <div class="extrasDocstring">
+        <a href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/opt/attrs.py" class="sourceLink">(source)</a>
+        <p></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p>Handles <code><a href="pydocspec.ext.opt.attrs.html">attrs</a></code> classes like:</p>
+<pre class="rst-literal-block">
+@attr.s(auto_attribs=True)
+class MyData:
+    name:str
+    age:float
+    permissions = attr.ib()
+</pre>
+</div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id107">
+  
+  
+  <tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.ext.opt.attrs.AttrsClassMixin.html">AttrsClassMixin</a></code></td>
+    <td><span class="undocumented">No class docstring; 2/2 properties documented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.ext.opt.attrs.AttrsDataMixin.html">AttrsDataMixin</a></code></td>
+    <td><span class="undocumented">No class docstring; 1/1 property documented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#setup_extension">setup_extension</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#uses_auto_attribs">uses_auto_attribs</a></code></td>
+    <td><span class="undocumented">No summary</span></td>
+  </tr><tr class="variable private">
+    
+    <td>Variable</td>
+    <td><code><a href="#_attrs_decorator_signature">_attrs_decorator_signature</a></code></td>
+    <td>Signature of the <code>attr.s</code> class decorator.</td>
+  </tr>
+</table>
+        
+
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="basefunction">
+  
+  
+  <a name="pydocspec.ext.opt.attrs.setup_extension">
+    
+  </a>
+  <a name="setup_extension">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">setup_extension</span>(r):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/opt/attrs.py#L108">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">r:</span><code><a href="pydocspec.ext.ExtRegistrar.html">pydocspec.ext.ExtRegistrar</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.ext.opt.attrs.uses_auto_attribs">
+    
+  </a>
+  <a name="uses_auto_attribs">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">uses_auto_attribs</span>(call, ctx):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/opt/attrs.py#L59">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Does the given <code>attr.s()</code> decoration contain <tt class="rst-docutils literal">auto_attribs=True</tt>?
+:param call: AST of the call to <code>attr.s()</code>.</p>
+<blockquote>
+This function will assume that <code>attr.s()</code> is called without
+verifying that.</blockquote>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">call:</span><code>astroid.nodes.Call</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc">Namespace that contains the call, used for error reporting.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><code><a href="https://docs.python.org/3/library/constants.html#True">True</a></code> if <code><a href="https://docs.python.org/3/library/constants.html#True">True</a></code> is passed for <tt class="rst-docutils literal">auto_attribs</tt>,
+<code><a href="https://docs.python.org/3/library/constants.html#False">False</a></code> in all other cases: if <tt class="rst-docutils literal">auto_attribs</tt> is not passed,
+if an explicit <code><a href="https://docs.python.org/3/library/constants.html#False">False</a></code> is passed or if an error was reported.</td></tr></table></div>
+  </div>
+</div><div class="basevariable private">
+  
+  
+  <a name="pydocspec.ext.opt.attrs._attrs_decorator_signature">
+    
+  </a>
+  <a name="_attrs_decorator_signature">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_attrs_decorator_signature</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/d8930582dfd3c68beff8e70f561c3cb729a0d36b/pydocspec/ext/opt/attrs.py#L56">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div>Signature of the <code>attr.s</code> class decorator.</div>
+    
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    21.12.1.dev0 at 2022-01-28 20:53:09.
+  </div>
+</footer>
+
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>
