@@ -70,9 +70,9 @@ class UnstringAnnotationTests(unittest.TestCase):
     def test_unstring_raises(self):
         with self.assertRaises(SyntaxError):
             astroidutils.unstring_annotation(astroid.builder.parse("hey['List[']").body[0])
-        with self.assertRaisesRegex(SyntaxError, "expected expression, found statement"):
+        with self.assertRaisesRegex(SyntaxError, "Expected expression, got statement"):
             astroidutils.unstring_annotation(astroid.builder.parse("hey['x=2']").body[0])
-        with self.assertRaisesRegex(SyntaxError, "expected expression, found multiple statements"):
+        with self.assertRaisesRegex(SyntaxError, "Expected expression, got multiple statements"):
             astroidutils.unstring_annotation(astroid.builder.parse(r"hey['list[str]\nlist[str]']").body[0])
 
 class NodeVisitorTests(unittest.TestCase):

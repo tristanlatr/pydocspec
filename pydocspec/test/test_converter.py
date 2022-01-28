@@ -1,13 +1,15 @@
 import docspec
 from pydocspec import converter
 import pydocspec
-from pydocspec.ext import attrs
+from pydocspec.ext.opt import attrs
 
 from .fixtures import mod1
 
 def test_converter_object_types(mod1: docspec.Module) -> None:
 
-    root: pydocspec.TreeRoot = converter.convert_docspec_modules([mod1])
+    root: pydocspec.TreeRoot = converter.convert_docspec_modules([mod1], 
+        options=pydocspec.Options(load_optional_extensions=True))
+    
     mods = root.root_modules
     assert len(mods) == 1
 

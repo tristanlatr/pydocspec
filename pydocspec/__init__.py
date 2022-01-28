@@ -389,13 +389,16 @@ class Class(_model.Class, ApiObject):
             else:
                 yield b
     
-    def find(self, name: str) -> Optional[ApiObject]:
+    def find(self, name: str, include_self: bool = True) -> Optional[ApiObject]:
         """
         Look up a name in this class and its base classes. 
 
         :return: The object with the given name, or `None` if there isn't one.
         """
-        for base in self.mro:
+        mro = self.mro
+        if not include_self:
+            mro = mro[1:]
+        for base in mro:
             obj: Optional['ApiObject'] = base.get_member(name)
             if obj is not None:
                 return obj
@@ -496,37 +499,37 @@ class Module(_model.Module, ApiObject):
 @attr.s(auto_attribs=True)
 class Options:
     extensions: List[str] = attr.ib(factory=list)
+    load_optional_extensions: bool = False
     prepended_package: Optional[str] = None #TODO: implement me!
     introspect_c_modules: bool = False
 
 def builder_from_options(options: Optional[Options]=None) -> 'astbuilder.Builder':
     """
     Factory method for Builder instances.
+
+    This function puts together everything we need to build 
+    object trees with extensions.
     """
     if not options:
         options=Options()
     
     from . import specfactory, processor, astbuilder, ext
 
-    # load extensions
-    extensions: List['ext.PydocspecExtension'] = []
-    extensions.extend(ext._get_ext_from_module(m) for m in ext._get_all_defaults_ext())
-    extensions.extend(ext._get_ext_from_module(m) for m in options.extensions)
-    
-    factory = specfactory.Factory()
+    # list extensions
+    extensions = []
+    extensions.extend(ext.get_default_extensions())
+    if options.load_optional_extensions:
+        extensions.extend(ext.get_optional_extensions())
+    extensions.extend(options.extensions)
 
-    for m in extensions:
-        # load extensions' mixins
-        factory.add_mixins(**ext._get_mixins(m))
-
-    builder = astbuilder.Builder(factory.TreeRoot(), processor.Processor(),
+    # create builder
+    builder = astbuilder.Builder(specfactory.Factory().TreeRoot(), 
+                                 processor.Processor(),
                                  options=options, )
 
+    # load extensions
     for m in extensions:
-        # load extensions' ast visitors
-        builder.visitor_extensions.update(*ext._get_astbuild_visitors(m))
-        # load extensions' post build visitors
-        builder.pprocessor.visitor_extensions.update(*ext._get_postbuild_visitors(m))
+        ext.load_extension_module(builder, m)
     
     return builder
 

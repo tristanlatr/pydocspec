@@ -33,6 +33,12 @@ class GenericFactory:
         """
         Add mixin classes to objects in the factory. 
 
+        Example::
+            class MyClassMixin: ...
+            class MyDataMixin: ...
+            factory = specfactory.Factory()
+            factory.add_mixins(Class=MyClassMixin, Data=MyDataMixin)
+
         :param kwargs: Minin(s) classes to apply to names.
         """
         for key,value in kwargs.items():

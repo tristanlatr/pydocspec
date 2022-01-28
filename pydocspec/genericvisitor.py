@@ -292,6 +292,7 @@ class CustomizableVisitor(Visitor[T]):
   def depart(self, ob: T) -> None:
     """Extend the base depart with extensions."""
     
+    # TODO: Does it makes sens?
     for v in self.extensions.after_visit:
       v.depart(ob)
 

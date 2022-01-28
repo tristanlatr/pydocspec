@@ -1,5 +1,5 @@
 """
-Handles attrs based classes like::
+Handles `attrs` classes like::
 
     @attr.s(auto_attribs=True)
     class MyData:
@@ -12,8 +12,8 @@ from typing import Optional, cast, TYPE_CHECKING
 from cached_property import cached_property
 import astroid.nodes
 import attr
-from .. import astroidutils
 
+from pydocspec import astroidutils
 import pydocspec.ext
 
 if TYPE_CHECKING:
@@ -93,9 +93,19 @@ def uses_auto_attribs(call: astroid.nodes.Call, ctx: 'pydocspec.ApiObject') -> b
 
     return value
 
-# export extension
-extension = pydocspec.ext.PydocspecExtension(
-    mixins=(AttrsDataMixin, AttrsClassMixin, ),
-)
+        # if obj.kind is None:
+        #     instance = is_attrib(expr, cls) or (
+        #         cls.auto_attribs and annotation is not None and not (
+        #             isinstance(annotation, astroid.nodes.Subscript) and
+        #             node2fullname(annotation.value, cls) == 'typing.ClassVar'
+        #             )
+        #         )
+        #     obj.kind = model.DocumentableKind.INSTANCE_VARIABLE if instance else model.DocumentableKind.CLASS_VARIABLE              
+                # attrs extension
+                # if annotation is None:
+                #     annotation = self._annotation_from_attrib(expr, cls)
+
+def setup_extension(r:pydocspec.ext.ExtRegistrar) -> None:
+    r.register_mixins(AttrsDataMixin, AttrsClassMixin, )
 
 # TODO: fetch datatype_ast from attrs defaut and factory args and dataclass default and default_factory args.
