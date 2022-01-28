@@ -37,6 +37,7 @@ class _MroFromAstroidSetter(visitors.ApiObjectVisitorExt):
     def unknown_visit(self, ob: pydocspec.Class) -> None:
         pass
     def visit_Class(self, ob: pydocspec.Class) -> None:
+        # This can set Class.mro attr to NotImplemented, we take of it in the regular post build visitor.
         ob.mro = class_attr.mro_from_astroid(ob)
 
 class _DuplicateWhoShadowsWhoHandling(visitors.ApiObjectVisitorExt):
@@ -85,11 +86,17 @@ class _DefaultLocationSetter(visitors.ApiObjectVisitorExt):
     _default_location = _model.Location(filename='<unknown>', lineno=0)
     def unknown_visit(self, ob: _model.ApiObject) -> None:
         # Location attribute should be always set from the builder, though.
-        # Make the location attribute non-optional, reduces annoyance.
-        # TODO: Be smarter and use parents location when possible. 
-        # Fill the filename attribute on object that have only the lineno.
+        # Make the location attribute non-optional, reduces annoyance for modules 
+        # comming from c-extensions.
         if ob.location is None:
-            ob.location = self._default_location #type:ignore[unreachable]    
+            ob.location = ob.root.factory.Location(None, lineno=0)
+        if ob.location.lineno is None:
+            ob.location.lineno = 0
+        if ob.location.filename is None:
+            ob.location.filename = ob.module.location.filename
+        if ob.location.filename is None:
+            ob.location.filename = '<unknown>'
+
 
 class PostBuildVisitor1(visitors.ApiObjectVisitor):
 
@@ -102,9 +109,10 @@ class PostBuildVisitor1(visitors.ApiObjectVisitor):
     
     def visit_Class(self, ob: pydocspec.Class) -> None:
         ob.resolved_bases = class_attr.resolved_bases(ob)        
-        # we don't need to re compute the MRO if the tree has beed created from astroid and there is
-        # no c-extensions.
-        ob.mro = class_attr.mro(ob)
+        # we don't need to re compute the MRO if the tree has beed created from astroid,
+        # so this why we compute it only if it's marked as NotImplemented (from mro_from_astroid()).
+        if ob.mro == NotImplemented:
+            ob.mro = class_attr.mro(ob)
 
         ob.is_exception = class_attr.is_exception(ob)
         ob.constructor_method = class_attr.constructor_method(ob)
@@ -183,8 +191,13 @@ class Processor:
         # init visitors 
 
         _post_build_visitor0 = PostBuildVisitor0()
-        _post_build_visitor0.extensions.add(_DuplicateWhoShadowsWhoHandling,
-                                        _MroFromAstroidSetter, _DefaultLocationSetter)
+
+        _post_build_visitor0.extensions.add(_DefaultLocationSetter, 
+                                            _DuplicateWhoShadowsWhoHandling, 
+        # order is important here other wise we can get a Type error 
+        # when warning in stuff that don't have a lineno, 
+        # namely classes comming from c-extensions.
+                                            _MroFromAstroidSetter, )
         
         post_build_visitor = PostBuildVisitor1()
         post_build_visitor.extensions.add(_DocSourcesSetter)

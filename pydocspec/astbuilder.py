@@ -206,12 +206,16 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
 
         lineno = node.lineno
 
-        # If a class is decorated, set the linenumber from the line of the first decoration.
+        
         
         decorators = node.decorators.nodes if node.decorators else None
         
-        if decorators:
-            lineno = decorators[0].lineno
+        # If a class is decorated, 
+        # set the linenumber from the line of the first decoration.
+        # NO, not needed anymore since we can warn on decorators directly now.
+        # And also if made the ast2apiobject() function buggy because it's looking for classes with rh
+        # if decorators:
+        #     lineno = decorators[0].lineno
 
         # create new class
         cls: _model.Class = self.root.factory.Class(node.name, 

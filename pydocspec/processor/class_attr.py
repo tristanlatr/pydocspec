@@ -45,8 +45,12 @@ def is_exception(ob: pydocspec.Class) -> bool:
     return False
 
 
-def mro_from_astroid(ob: _model.Class) -> List[pydocspec.Class]:
-    """mro from astroid, this does not require resolved_bases"""
+def mro_from_astroid(ob: _model.Class) -> Union[List[pydocspec.Class], '_NotImplementedType']:
+    """
+    Compute MRO from astroid, this does not require `pydocspec.Class.resolved_bases`. 
+    
+    Returns NotImplemented if the tree has not been built with astroid. 
+    """
     # this does not support objects loaded from other places than astroid, 
     # for instance coming from introspection of a c-module.  
     # This is why we need to re-compute the MRO after.
@@ -55,19 +59,32 @@ def mro_from_astroid(ob: _model.Class) -> List[pydocspec.Class]:
     # on Class.find() which relies on Class.mro attribute.
     # The result from this function is used temporarly to compute the resolved_bases attribute
     # then .mro attribute is re-computed with mro() function below.
+    def nodemro2classmro(node_mro: List[astroid.nodes.NodeNG]) -> List[pydocspec.Class]:
+        mro_ = []
+        for node in node_mro:
+            superclass = helpers.ast2apiobject(ob.root, node)
+            if superclass is not None:
+                assert isinstance(superclass, pydocspec.Class)
+                mro_.append(superclass)
+        return mro_
+
     if ob._ast is None:
-        return []
+        # This is probably because the tree has been converted from docspec.
+        # No issue we have support for that, too.
+        # Return NotImplemented, and it will be taken care of in the later processing step.
+        return NotImplemented
     try:
         node_mro = ob._ast.mro()
-        return [o for o in (helpers.ast2apiobject(ob.root, node) for node in node_mro) if o] # type:ignore
+        return nodemro2classmro(node_mro)
+        # return [o for o in (helpers.ast2apiobject(ob.root, node) for node in node_mro) if o] # type:ignore
     except astroid.exceptions.MroError:
         node_mro = [ob._ast] + list(ob._ast.ancestors())
-        return [o for o in (helpers.ast2apiobject(ob.root, node) for node in node_mro) if o] # type:ignore
+        return nodemro2classmro(node_mro)
+        # return [o for o in (helpers.ast2apiobject(ob.root, node) for node in node_mro) if o] # type:ignore
 
  # must be set after resolved_bases
 def mro(ob: pydocspec.Class) -> List[pydocspec.Class]:
     """compute mro from apiobjects. must be set after resolved_bases"""
-    # FIXME: we currently process the MRO twice for objects comming from ast :/
     try:
         try: 
             return MRO().mro(ob)
@@ -115,7 +132,7 @@ def resolved_bases(ob: pydocspec.Class) -> List[Union['pydocspec.Class', 'str']]
     # from . import mod1
     # class bar(mod1.Foo.barbase):
     #   ...
-    # SOLUTION: Populate the Class.mro attribute from astroid 
+    # SOLUTION: Populate the Class.mro attribute from astroid first when possible.
     
     
     objs: List[Union['pydocspec.Class', 'str']] = []
@@ -147,8 +164,10 @@ def resolved_bases(ob: pydocspec.Class) -> List[Union['pydocspec.Class', 'str']]
                     objs.append(resolved)
             else:
                 objs.append(resolved.full_name)
+                ob.warn(f"Can't find superclass {expanded_name} in the tree, not all inherited members not be listed.")
         else:
             objs.append(expanded_name)
+            ob.warn(f"Can't find superclass {expanded_name} in the tree, not all inherited members not be listed.")
     
     return objs
 

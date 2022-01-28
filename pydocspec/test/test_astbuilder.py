@@ -41,7 +41,8 @@ def test_class_decos_and_bases(mod_from_text: ModFromTextFunction, caplog) -> No
     class C(str, pkg.MyBase):
         """my class"""
     ''', modname='test')
-    assert caplog.text == ''
+    #assert caplog.text == ''
+    assert len(caplog.text.strip().split('\n')) == 2 # because we can't resolve builtin types for now.
     m = mod.get_member('C')
     assert m is not None
     assert isinstance(m, pydocspec.Class)
@@ -50,7 +51,7 @@ def test_class_decos_and_bases(mod_from_text: ModFromTextFunction, caplog) -> No
     
     assert len(decorations) == 2
     assert [d.name for d in decorations] == ["property", "attr.s"]
-    
+
     for d in decorations:
         if mod_from_text != _docspec_python.mod_from_text:
             # expr_ast is currently only set with our own builder?
