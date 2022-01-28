@@ -14,10 +14,13 @@ TODO: Converter should not crash when calling unstring_annotation or exract_expr
 
 """
 
+import logging
 from typing import Iterable, cast, List, Optional, Union, overload, TYPE_CHECKING
 from pydocspec import visitors
 
 import attr
+import astroid.exceptions
+import astroid.nodes
 
 import docspec
 import pydocspec
@@ -68,12 +71,7 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
             
             decos: Optional[List[pydocspec.Decoration]] = []
             for d in function.decorations:
-                new_deco = self.root.factory.Decoration(name=d.name, 
-                                    arglist=d.arglist, 
-                                    name_ast=astroidutils.extract_expr(d.name),
-                                    ) 
-                #TODO: use args and arglist to compute the expr_ast and args_ast variables.
-                decos.append(new_deco) #type:ignore[union-attr]
+                decos.append(self._convert_Decoration(d)) #type:ignore[union-attr]
         else:
             decos = None
     
@@ -92,10 +90,7 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
         if klass.decorations is not None:
             decos: Optional[List[docspec.Decoration]] = []
             for d in klass.decorations:
-                converted = self.root.factory.Decoration(name=d.name,
-                    arglist=d.arglist, 
-                    name_ast=astroidutils.extract_expr(d.name),)
-            decos.append(converted) #type:ignore[union-attr]
+                decos.append(self._convert_Decoration(d)) #type:ignore[union-attr]
         else:
             decos = None
         ob = self.root.factory.Class(name=klass.name, 
@@ -134,6 +129,36 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
             docstring=self._convert_Docstring(module.docstring), 
             members=[], )
         self.add_object(ob)
+    
+    def _convert_Decoration(self, decoration: docspec.Decoration) ->  pydocspec.Decoration:
+        expr_ast = None
+        # Uses the name and args/arglist to compute the expr_ast variable.
+        flat_arglist = ''
+        if decoration.arglist:
+            flat_arglist = f"({', '.join(decoration.arglist)})"
+        elif decoration.args:
+            flat_arglist = decoration.args
+        decorator_text = f"{decoration.name}{flat_arglist}"
+        try:
+            expr_ast = astroidutils.extract_expr(decorator_text)
+        except (SyntaxError, ):
+            lineno = getattr(decoration.location, 'lineno', None) or self.current.location.lineno
+            self.current.module.warn(f"Invalid decorator expression: {decorator_text!r}", 
+                lineno_offset=lineno)
+        else:
+            # we compute the arglist if not present
+            if not decoration.arglist and isinstance(expr_ast, astroid.nodes.Call):
+                decoration.arglist = [astroidutils.to_source(n) for n in expr_ast.args] + \
+                        [f"{(n.arg+'=') if n.arg else '**'}{astroidutils.to_source(n.value) if n.value else ''}" for n in expr_ast.keywords]
+
+        new_deco = self.root.factory.Decoration(name=decoration.name, 
+                            location=self._convert_Location(decoration.location),
+                            arglist=decoration.arglist, 
+                            name_ast=astroidutils.extract_expr(decoration.name),
+                            expr_ast=expr_ast,
+                            ) 
+        
+        return new_deco
     
     def _convert_Location(self, location: Optional[docspec.Location]) -> Optional[pydocspec.Location]:
         if not location: return None

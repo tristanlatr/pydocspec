@@ -384,22 +384,27 @@ def bind_args(sig: inspect.Signature, call: astroid.nodes.Call) -> inspect.Bound
         }
     return sig.bind(*call.args, **kwargs)
 
-def extract_expr(expr: str, filename: Optional[str] = None) -> astroid.nodes.NodeNG:
+def extract_expr(expr: str, filename: Optional[str] = None, allow_stmt: bool = False) -> astroid.nodes.NodeNG:
     """
-    Convert a python expression to ast. 
+    Convert a python **expression** to ast. 
 
-    Can raise `SyntaxError` or `astroid.exceptions.AstroidSyntaxError`
+    Can raise `SyntaxError` if invalid python sytax or if got statements instead of expression.
     """
-    statements = astroid.builder.parse(expr, path=filename or '<unknown>').body
+    try:
+        statements = astroid.builder.parse(expr, path=filename or '<unknown>').body
+    except astroid.exceptions.AstroidSyntaxError as e:
+        raise SyntaxError(str(e)) from e
     if len(statements) != 1:
-        raise SyntaxError("expected expression, found multiple statements")
+        raise SyntaxError("Expected expression, got multiple statements")
     stmt, = statements
     if isinstance(stmt, astroid.nodes.Expr):
         # Expression wrapped in an Expr statement.
         assert isinstance(stmt.value, astroid.nodes.NodeNG), stmt.value
         return stmt.value
+    elif not allow_stmt:
+        raise SyntaxError("Expected expression, got statement")
     else:
-        raise SyntaxError("expected expression, found statement")
+        return stmt
 
 def extract_final_subscript(annotation: astroid.nodes.Subscript) -> astroid.nodes.NodeNG:
     """
@@ -423,7 +428,7 @@ def unstring_annotation(node: astroid.nodes.NodeNG) -> astroid.nodes.NodeNG:
     """
     try:
         expr = _AnnotationStringParser().visit(node)
-    except (SyntaxError, astroid.exceptions.AstroidSyntaxError) as ex:
+    except (SyntaxError,) as ex:
         raise SyntaxError(f'error in annotation: {ex}') from ex
     else:
         assert isinstance(expr, astroid.nodes.NodeNG), expr

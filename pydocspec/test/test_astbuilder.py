@@ -33,34 +33,45 @@ def test_class_docstring(getbuilder: Callable[[], astbuilder.Builder]) -> None:
 
 
 @mod_from_text_param
-def test_class_decos_and_bases(mod_from_text: ModFromTextFunction) -> None:
+def test_class_decos_and_bases(mod_from_text: ModFromTextFunction, caplog) -> None:
     # test if we catch the bases and decorations for a class
     mod = mod_from_text('''
     @property
-    @attr.s
+    @attr.s(auto_attribs=True, frozen=True)
     class C(str, pkg.MyBase):
         """my class"""
     ''', modname='test')
+    assert caplog.text == ''
     m = mod.get_member('C')
     assert m is not None
     assert isinstance(m, pydocspec.Class)
     decorations = m.decorations
     assert decorations is not None
-    if mod_from_text == _docspec_python.mod_from_text:
-        # docspec_python does not add property as decorator because it
-        # uses the Function.Semantic.PROPERTY_GETTER to signify it's a property.
-        assert len(decorations) == 1
-        assert [d.name for d in decorations] == ["attr.s"]
-    else:
-        
-        assert len(decorations) == 2
-        assert [d.name for d in decorations] == ["property", "attr.s"]
+    
+    assert len(decorations) == 2
+    assert [d.name for d in decorations] == ["property", "attr.s"]
+    
     for d in decorations:
         if mod_from_text != _docspec_python.mod_from_text:
-            # expr_ast is currently only set with our own builder.
-            assert d.name_ast == d.expr_ast
+            # expr_ast is currently only set with our own builder?
+            if d.name == 'attr.s':
+                assert d.name_ast == d.expr_ast.func
+                assert isinstance(d.expr_ast, astroid.nodes.Call)
+                assert d.arglist == ['auto_attribs=True', 'frozen=True']
+            else:
+                assert d.name_ast == d.expr_ast
+            
         else:
-            assert d.expr_ast is None
+            if d.name == 'attr.s':
+                assert d.name_ast.as_string() == d.expr_ast.func.as_string()
+                assert isinstance(d.expr_ast, astroid.nodes.Call)
+                assert d.arglist == ['auto_attribs=True', 'frozen=True']
+            else:
+                assert d.name_ast.as_string() == d.expr_ast.as_string()
+
+        assert d.expr_ast is not None
+        assert isinstance(d.expr_ast, astroid.nodes.NodeNG)
+
         assert isinstance(d.name_ast, (astroid.nodes.Name, astroid.nodes.Attribute))
     bases = m.bases
     assert bases is not None

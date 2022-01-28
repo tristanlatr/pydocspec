@@ -40,12 +40,14 @@ class _MroFromAstroidSetter(visitors.ApiObjectVisitorExt):
         ob.mro = class_attr.mro_from_astroid(ob)
 
 class _DuplicateWhoShadowsWhoHandling(visitors.ApiObjectVisitorExt):
-    # Duplicate objects handling: (in processor)
+    # Duplicate objects handling: (in post-build)
     # - For duplicate Data object (pretty common), we unify the information present in all Data objects
-    #   under a single object. Information denifed after wins.
+    #   under a single object. Information denifed after wins, but we only keep the first object created.
     #   If an instance varaible shadows a class variable, it will be considered as instance variable.
+
     # - In a class, a Data definition sould not shadow another object that is not a Data, 
-    #       even if the object is inherited. So if that happens it will simply be ignored.
+    #       even if the object is inherited. So if that happens, it's most probably a bound method,
+    #       it will simply be ignored (we can leave a warning).
     # - A submodule can be shadowed by a another name by the same name in the package's __int__.py file.
     # - In a class, functions with the same name might be properties/overloaded function, so we should unify them under a single Function object
     when = visitors.ApiObjectVisitorExt.When.BEFORE
@@ -160,7 +162,7 @@ class Processor:
 
     def post_build(self, root: pydocspec.TreeRoot) -> None:
         """
-        Apply post-build process on the tree. This is required.
+        Apply post-build process on the tree. This is required. Called automatically when using `astbuilder.Builder`.
 
         .. python::
 

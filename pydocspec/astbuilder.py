@@ -242,7 +242,8 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
                 if isinstance(decnode, astroid.nodes.Call):
                     name_ast = decnode.func
                     dotted_name = astroidutils.node2dottedname(name_ast, strict=True)
-                    arglist = [astroidutils.to_source(n) for n in decnode.args]
+                    arglist = [astroidutils.to_source(n) for n in decnode.args] + \
+                        [f"{(n.arg+'=') if n.arg else '**'}{astroidutils.to_source(n.value) if n.value else ''}" for n in decnode.keywords]
                 else:
                     name_ast = decnode
                     dotted_name = astroidutils.node2dottedname(name_ast, strict=True)
@@ -567,9 +568,6 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         #     self._handleAlias(obj=obj, value=expr, lineno=lineno)
         # elif processor.data_attr.is_constant(obj):
         #     self._handleConstant(obj=obj, value=expr, lineno=lineno)
-        # else:
-        #     obj.value = expr.as_string()
-        #     obj.value_ast = expr
 
     def _handleInstanceVar(self,
             name: str,
@@ -691,7 +689,10 @@ class Builder:
     """  
 
     visitor_extensions: Set[Union['visitors.AstVisitorExt', Type['visitors.AstVisitorExt']]] = attr.ib(factory=set)
-
+    """
+    AST build visitor extensions.
+    """
+    
     _added_paths: Set[Path] = attr.ib(factory=set, init=False)
     # Duplication of names in the modules is not supported.
     # This is a problem for Python too, the rule is that the folder/package wins.
@@ -735,17 +736,33 @@ class Builder:
                           parent_name: Optional[str] = None,
                           path: str = '<fromtext>',
                           is_package: bool = False, ) -> None:
+        """
+        Add a module to the builder from a simple string. 
+
+        :Parameters:
+            text
+                The module string
+            modname
+                The module short name
+            parent_name
+                The fully qualified name of the parent package
+                of this module. The package should be added to the 
+                builder first.
+            is_package
+                Whether this module is a package.
+        """
+        
         # this code was originaly part of the testing modules, but I figured it would
         # be helpful to have it integrated with the Builder object.
         py_string = textwrap.dedent(text)
         parent = self.root.all_objects.get(parent_name) if parent_name else None
         if parent_name:
             if not isinstance(parent, pydocspec.Module):
-                # If one adds a module string and call process_modules() 
-                # after aleady have called process_modules() once,
+                # If one adds a module string and call build_modules() 
+                # after aleady have called build_modules() once,
                 # another object might have shadowed the module name.
                 # TODO: think about how we want to handle this situation.
-                raise ValueError(f"Cannot find module '{parent_name}' in system, "
+                raise ValueError(f"Cannot find module '{parent_name!r}' in system, "
                         f"added modules: {', '.join(self.processing_map)}.")
         
         mod = self._add_module(path, modname, 
