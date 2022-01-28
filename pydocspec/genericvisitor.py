@@ -203,7 +203,7 @@ class VisitorExtensionList(Generic[T]):
         return self._visitors[When.BEFORE]
 
     @property
-    def after_visit(self) -> list['VisitorExtension[T]']:
+    def after_visit(self) -> List['VisitorExtension[T]']:
         """Return the visitors that run after the visit.
 
         Returns:
