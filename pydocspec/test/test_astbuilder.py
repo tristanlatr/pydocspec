@@ -53,22 +53,13 @@ def test_class_decos_and_bases(mod_from_text: ModFromTextFunction, caplog) -> No
     assert [d.name for d in decorations] == ["property", "attr.s"]
 
     for d in decorations:
-        if mod_from_text != _docspec_python.mod_from_text:
-            # expr_ast is currently only set with our own builder?
-            if d.name == 'attr.s':
-                assert d.name_ast == d.expr_ast.func
-                assert isinstance(d.expr_ast, astroid.nodes.Call)
-                assert d.arglist == ['auto_attribs=True', 'frozen=True']
-            else:
-                assert d.name_ast == d.expr_ast
-            
+
+        if d.name == 'attr.s':
+            assert d.name_ast.as_string() == d.expr_ast.func.as_string()
+            assert isinstance(d.expr_ast, astroid.nodes.Call)
+            assert d.arglist == ['auto_attribs=True', 'frozen=True']
         else:
-            if d.name == 'attr.s':
-                assert d.name_ast.as_string() == d.expr_ast.func.as_string()
-                assert isinstance(d.expr_ast, astroid.nodes.Call)
-                assert d.arglist == ['auto_attribs=True', 'frozen=True']
-            else:
-                assert d.name_ast.as_string() == d.expr_ast.as_string()
+            assert d.name_ast.as_string() == d.expr_ast.as_string()
 
         assert d.expr_ast is not None
         assert isinstance(d.expr_ast, astroid.nodes.NodeNG)

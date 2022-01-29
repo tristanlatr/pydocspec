@@ -33,6 +33,9 @@ if TYPE_CHECKING:
     import pydocspec
     import astroid.nodes
 
+_REQUIRED_AT_INIT: Any = object()
+# Sentinel for values that should be initiated at init time.
+
 def tree_repr(obj: 'pydocspec.ApiObject', 
               full_name:bool=False, 
               fields: Optional[Sequence[str]]=None) -> str:
@@ -189,6 +192,14 @@ class TreeRoot:
         for child in ob._members():
             self.add_object(child, ob)
 
+
+def _enforce_required_at_init_fields(self: 'ApiObject'):
+    # enforce that all _spec_fields that are initialized with _REQUIRED_AT_INIT
+    # must be passed at at init time.
+    for f in self._spec_fields:
+        if getattr(self, f) == _REQUIRED_AT_INIT:
+            raise TypeError(f"{self.__class__.__name__}.__init__() missing required keyword argument: {f!r}")
+
 # must not use dataclasses
 class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
 
@@ -200,6 +211,8 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
 
     def __post_init__(self) -> None:
         super().__post_init__()
+
+        _enforce_required_at_init_fields(self)
         
         # help mypy
         self.parent: Optional[Union['Class', 'Module']]
@@ -357,8 +370,9 @@ class Data(docspec.Data, ApiObject):
         "datatype_ast", "value_ast", "is_type_guarged",
     ) + ApiObject._spec_fields
     
-    datatype_ast: Optional[astroid.nodes.NodeNG] = None
-    value_ast: Optional[astroid.nodes.NodeNG] = None
+    datatype_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
+    value_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
+    
     is_type_guarged: bool = False
 
     # def __post_init__(self) -> None:
@@ -383,7 +397,7 @@ class Class(docspec.Class, ApiObject):
     Represents a class definition.
     """
     
-    bases_ast: Optional[List[astroid.nodes.NodeNG]] = None
+    bases_ast: Optional[List[astroid.nodes.NodeNG]] = _REQUIRED_AT_INIT
     is_type_guarged: bool = False
     _ast: Optional[astroid.nodes.ClassDef] = None # is it necessary, yeah.
 
@@ -425,7 +439,7 @@ class Function(docspec.Function, ApiObject):
                     "return_type_ast", 
                     "is_type_guarged") + ApiObject._spec_fields
 
-    return_type_ast: Optional[astroid.nodes.NodeNG] = None
+    return_type_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
     is_type_guarged: bool = False
 
     def __post_init__(self) -> None:
@@ -441,8 +455,8 @@ class Argument(docspec.Argument, CanTriggerWarnings):
     """
     Represents a `Function` argument.
     """
-    datatype_ast: Optional[astroid.nodes.NodeNG] = None
-    default_value_ast: Optional[astroid.nodes.NodeNG] = None
+    datatype_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
+    default_value_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
 
 @dataclasses.dataclass(repr=False)
 class Decoration(docspec.Decoration, CanTriggerWarnings):
@@ -463,10 +477,10 @@ class Decoration(docspec.Decoration, CanTriggerWarnings):
 
     """
 
-    name_ast: Optional[astroid.nodes.NodeNG] = None
+    name_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
     """The name of the deocration as AST, this can be any kind of expression."""
 
-    expr_ast: Optional[astroid.nodes.NodeNG] = None
+    expr_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
     """The full decoration AST's"""    
 
 @dataclasses.dataclass(repr=False, init=False)

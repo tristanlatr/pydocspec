@@ -1,18 +1,26 @@
-from typing import List, Union, Optional, cast
+from pathlib import Path
+from typing import Generic, List, TypeVar, Union, Optional, cast
+import abc
 import attr
 
 from . import _model
+import docspec
 
-@attr.s(auto_attribs=True)
-class TreeWalkingState:
+ModuleT = TypeVar('ModuleT')
+ApiObjectT = TypeVar('ApiObjectT')
+
+@attr.s
+class TreeWalkingState(Generic[ApiObjectT]):
     @attr.s(auto_attribs=True, frozen=True)
     class MarkedTreeWalkingState:
-        current: '_model.ApiObject'
-        last: '_model.ApiObject'
-        stack: List[Union[_model.Module, _model.Class]]
-    current: '_model.ApiObject'
-    last: '_model.ApiObject'
-    stack: List[Union[_model.Module, _model.Class]] = []
+        current: ApiObjectT
+        last: ApiObjectT
+        stack: List[ApiObjectT]
+
+    current: ApiObjectT = attr.ib()
+    last: ApiObjectT = attr.ib()
+    stack: List[ApiObjectT] = attr.ib(factory=list) # should be only classes and modules
+    
     def mark(self) -> MarkedTreeWalkingState:
         return self.MarkedTreeWalkingState(
             current=self.current, 
@@ -23,7 +31,55 @@ class TreeWalkingState:
         self.last = mark.last
         self.stack = mark.stack
 
-class Collector:
+class BaseCollector(Generic[ModuleT, ApiObjectT]):
+    def __init__(self, module: Optional[ModuleT]=None) -> None:
+        
+        self.module = module
+        """
+        The new module.
+        """
+
+        self.state: TreeWalkingState[ApiObjectT] = TreeWalkingState(
+            cast(ApiObjectT, None), 
+            cast(ApiObjectT, None), [])
+
+    @property
+    def current(self) -> ApiObjectT:
+        return self.state.current
+    @current.setter
+    def current(self, ob: ApiObjectT) -> None:
+        self.state.current = ob
+    @property
+    def last(self) -> ApiObjectT:
+        return self.state.last
+    @last.setter
+    def last(self, ob: ApiObjectT) -> None:
+        self.state.last = ob
+    @property
+    def stack(self) -> List[ApiObjectT]:
+        return self.state.stack
+
+    def push(self, ob: ApiObjectT) -> None:
+        """
+        Enter an object. We can push attributes, but we can't push other stuff inside it.
+        """
+        # Note: the stack is initiated with a None value.
+        ctx = self.current
+        if ctx is not None: 
+            assert isinstance(ctx, docspec.HasMembers), (f"Cannot add new object ({ob!r}) inside {ctx.__class__.__name__}. "
+                                                           f"{ctx!r} must be a class or a module.")
+        self.stack.append(ctx)
+        self.current = ob
+
+    def pop(self, ob: ApiObjectT) -> None:
+        """
+        Exit an object.
+        """
+        assert self.current is ob , f"{ob!r} is not {self.current!r}"
+        self.last = self.current
+        self.current = self.stack.pop()
+
+class Collector(BaseCollector[_model.Module, _model.ApiObject]):
     """
     Base class to organize a tree of `pydocspec` objects. 
     
@@ -34,61 +90,14 @@ class Collector:
 
     def __init__(self, root: _model.TreeRoot, 
                  module: Optional[_model.Module]=None) -> None:
+        super().__init__(module=module)
+        
         self.root = root
         """
         The root of the tree. 
         
-        Can be used to access the ``root.factory`` attribute and create new classes.
+        Can be used to access the ``root.factory`` attribute and create new instances.
         """
-        
-        self.module = module
-        """
-        The new module.
-        """
-
-        self.state = TreeWalkingState(
-            cast(_model.ApiObject, None), 
-            cast(_model.ApiObject, None), [])
-    
-    # current = property(fget=lambda self: self.state.current, 
-    #                    fset=lambda self, current: setattr(self.state.current, 'current', current))
-
-    @property
-    def current(self) -> _model.ApiObject:
-        return self.state.current
-    @current.setter
-    def current(self, ob: _model.ApiObject) -> None:
-        self.state.current = ob
-    @property
-    def last(self) -> _model.ApiObject:
-        return self.state.last
-    @last.setter
-    def last(self, ob: _model.ApiObject) -> None:
-        self.state.last = ob
-    
-    @property
-    def stack(self) -> List[Union[_model.Module, _model.Class]]:
-        return self.state.stack
-
-    def push(self, ob: _model.ApiObject) -> None:
-        """
-        Enter an object. We can push attributes, but we can't push other stuff inside it.
-        """
-        # Note: the stack is initiated with a None value.
-        ctx = self.current
-        if ctx is not None: 
-            assert isinstance(ctx, _model.HasMembers), (f"Cannot add new object ({ob!r}) inside {ctx.__class__.__name__}. "
-                                                           f"{ctx.full_name} must be a class or a module.")
-        self.stack.append(ctx)
-        self.current = ob
-
-    def pop(self, ob: _model.ApiObject) -> None:
-        """
-        Exit an object.
-        """
-        assert self.current is ob , f"{ob!r} is not {self.current!r}"
-        self.last = self.current
-        self.current = self.stack.pop()
     
     def add_object(self, ob: _model.ApiObject, push: bool = True) -> None:
         """
@@ -113,3 +122,16 @@ class Collector:
             self.push(ob)
         else:
             self.last = ob # save new object in .last attribute
+
+# NOT used yet. 
+class BaseBuilder(abc.ABC):
+    root: 'pydocspec.TreeRoot'
+
+    def add_module(self, path: Path):...
+    def add_module_string(self, text: str, modname: str,
+                          parent_name: Optional[str] = None,
+                          path: str = '<fromtext>',
+                          is_package: bool = False, ) -> None: ...
+    def build_modules(self): ...
+
+
