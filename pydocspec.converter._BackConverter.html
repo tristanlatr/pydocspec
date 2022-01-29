@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>pydocspec.converter._BackConverter</title>
+    <meta name="generator" content="pydoctor 21.12.1.dev0"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default">
+  
+  <div class="container">
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+          <span class="navbar-brand">
+            <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a> <a href="index.html">API Documentation</a>
+          </span>
+
+          <a href="moduleIndex.html">
+            Modules
+          </a>
+
+          <a href="classIndex.html">
+            Classes
+          </a>
+
+          <a href="nameIndex.html">
+            Names
+          </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+    
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="class private"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.converter.html">converter</a></code><wbr></wbr>.<code><a href="pydocspec.converter._BackConverter.html">_BackConverter</a></code></code></h1>
+        <div id="showPrivate">
+          <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+        </div>
+      </div>
+
+      <div class="categoryHeader">
+        class documentation
+      </div>
+
+      <div class="extrasDocstring">
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">_BackConverter</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/converter.py#L366" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#pydocspec.converter._BackConverter">View In Hierarchy</a></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div>Converts <code><a href="pydocspec.html">pydocspec</a></code> objects back to <code><a href="docspec.html">docspec</a></code> in order to serialize them.</div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id101">
+  
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#back_convert_pydocspec_modules">back_convert_pydocspec_modules</a></code></td>
+    <td>Convert <code>pydocspec.Module`s to `docspec.Module</code> instances (modules will still be nested).</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#docspec_modules">docspec_modules</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_back_convert_pydocspec_module">_back_convert_pydocspec_module</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+        
+
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="basemethod">
+  
+  
+  <a name="pydocspec.converter._BackConverter.back_convert_pydocspec_modules">
+    
+  </a>
+  <a name="back_convert_pydocspec_modules">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">back_convert_pydocspec_modules</span>(self, modules):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/converter.py#L373">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Convert <code>pydocspec.Module`s to `docspec.Module</code> instances (modules will still be nested).<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code></td><td class="fieldArgDesc">Usually the root modules.</td></tr></table></div>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.converter._BackConverter.docspec_modules">
+    
+  </a>
+  <a name="docspec_modules">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">docspec_modules</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<wbr></wbr><a href="docspec.Module.html">docspec.Module</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/converter.py#L371">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.converter._BackConverter._back_convert_pydocspec_module">
+    
+  </a>
+  <a name="_back_convert_pydocspec_module">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_back_convert_pydocspec_module</span>(self, mod):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/converter.py#L385">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod:</span><code><a href="pydocspec.Module.html">pydocspec.Module</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    21.12.1.dev0 at 2022-01-29 19:11:02.
+  </div>
+</footer>
+
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>

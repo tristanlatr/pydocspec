@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/e39eaec4d5c9e6610efc180cc0e653e8444b9a00/pydocspec/converter.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/converter.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -90,8 +90,23 @@ root: pydocspec.TreeRoot = convert_docspec_modules(load_python_modules(...))
   <tr class="function">
     
     <td>Function</td>
+    <td><code><a href="#back_convert_modules">back_convert_modules</a></code></td>
+    <td>Convert a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code> instances into a list of <code><a href="docspec.Module.html">docspec.Module</a></code>. This the reverse of <code><a href="#convert_docspec_modules">convert_docspec_modules</a></code>, this is useful to be able to dump modules to JSON using <code><a href="docspec.html#dump_module">docspec.dump_module</a></code>.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
     <td><code><a href="#convert_docspec_modules">convert_docspec_modules</a></code></td>
-    <td>Convert a list of <code><a href="docspec.Module.html">docspec.Module</a></code> instances into a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>. Alternatively, you can also request the <code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code> instance by passing <tt class="rst-docutils literal">root=True</tt>.</td>
+    <td>Convert a list of <code><a href="docspec.Module.html">docspec.Module</a></code> instances into a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>.</td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.converter._BackConverter.html">_BackConverter</a></code></td>
+    <td>Converts <code><a href="pydocspec.html">pydocspec</a></code> objects back to <code><a href="docspec.html">docspec</a></code> in order to serialize them.</td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.converter._BackConverterVisitor.html">_BackConverterVisitor</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
@@ -124,6 +139,43 @@ root: pydocspec.TreeRoot = convert_docspec_modules(load_python_modules(...))
         <div class="basefunction">
   
   
+  <a name="pydocspec.converter.back_convert_modules">
+    
+  </a>
+  <a name="back_convert_modules">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">back_convert_modules</span>(modules):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/converter.py#L43">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Convert a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code> instances into a list of <code><a href="docspec.Module.html">docspec.Module</a></code>.
+This the reverse of <code><a href="#convert_docspec_modules">convert_docspec_modules</a></code>, this is useful to be able to dump
+modules to JSON using <code><a href="docspec.html#dump_module">docspec.dump_module</a></code>.</p>
+<p>Example:</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> json
+<span class="py-keyword">import</span> docspec
+<span class="py-keyword">import</span> pydocspec
+<span class="py-keyword">from</span> pydocspec <span class="py-keyword">import</span> converter
+root = pydocspec.load_python_modules(...)
+docspec_modules = converter.back_convert_modules(root.root_modules)
+raw_docspec_json = {<span class="py-string">'modules'</span>: []}
+<span class="py-keyword">for</span> m <span class="py-keyword">in</span> docspec_modules:
+    raw_docspec_json[<span class="py-string">'modules'</span>].append(docspec.dump_module(m))
+<span class="py-keyword">with</span> <span class="py-builtin">open</span>(<span class="py-string">'~/.mysoftware/docspec_modules.json'</span>, <span class="py-string">'w'</span>) <span class="py-keyword">as</span> f:
+    json.dump(raw_docspec_json, f)</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="pydocspec.Module.html">pydocspec.Module</a>]</code></td><td class="fieldArgDesc">Modules to convert back to docspec.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence">Sequence</a>[<wbr></wbr><a href="docspec.Module.html">docspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
   <a name="pydocspec.converter.convert_docspec_modules">
     
   </a>
@@ -133,7 +185,7 @@ root: pydocspec.TreeRoot = convert_docspec_modules(load_python_modules(...))
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">convert_docspec_modules</span>(modules, options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e39eaec4d5c9e6610efc180cc0e653e8444b9a00/pydocspec/converter.py#L29">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/converter.py#L29">
       
       (source)
     </a>
@@ -141,8 +193,7 @@ root: pydocspec.TreeRoot = convert_docspec_modules(load_python_modules(...))
   <div class="docstring functionBody">
     
     
-    <div>Convert a list of <code><a href="docspec.Module.html">docspec.Module</a></code> instances into a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>.
-Alternatively, you can also request the <code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code> instance by passing <tt class="rst-docutils literal">root=True</tt>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="docspec.Module.html">docspec.Module</a>]</code></td><td class="fieldArgDesc">Modules to convert.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">options:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.Options.html">pydocspec.Options</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a></code></td><td class="fieldArgDesc">The tree or the <code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code> instance.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">It will transform the tree such that we have an actual hiearchy of packages.</td></tr></table></div>
+    <div>Convert a list of <code><a href="docspec.Module.html">docspec.Module</a></code> instances into a list of <code><a href="pydocspec.Module.html">pydocspec.Module</a></code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="docspec.Module.html">docspec.Module</a>]</code></td><td class="fieldArgDesc">Modules to convert.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">options:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec.Options.html">pydocspec.Options</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a></code></td><td class="fieldArgDesc">The <code><a href="pydocspec.TreeRoot.html">TreeRoot</a></code> instance.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">It will transform the tree such that we have an actual hiearchy of packages.</td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
@@ -156,7 +207,7 @@ Alternatively, you can also request the <code><a href="pydocspec.TreeRoot.html">
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_object_by_name</span>(relativeroots, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e39eaec4d5c9e6610efc180cc0e653e8444b9a00/pydocspec/converter.py#L209">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/converter.py#L396">
       
       (source)
     </a>
@@ -178,7 +229,7 @@ Alternatively, you can also request the <code><a href="pydocspec.TreeRoot.html">
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_nest_docspec_python_modules</span>(modules):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/e39eaec4d5c9e6610efc180cc0e653e8444b9a00/pydocspec/converter.py#L219">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/converter.py#L406">
       
       (source)
     </a>
@@ -198,7 +249,7 @@ Alternatively, you can also request the <code><a href="pydocspec.TreeRoot.html">
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-28 23:07:15.
+    21.12.1.dev0 at 2022-01-29 19:11:02.
   </div>
 </footer>
 
