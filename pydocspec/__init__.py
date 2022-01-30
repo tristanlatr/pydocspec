@@ -19,13 +19,7 @@ and populate the strict-minimum attributes. Then the `processor` takes that tree
 
 **Extensibility**:
 
-The core of the logic is design to be extensible with plugins modules, called "brain" modules. One can define custom
-mixin classes and post-processes in a new module, add the special ``pydocspec_mixin`` and/or ``pydocspec_processes`` module 
-variables, then include the module's full name as part of the ``additional_brain_modules`` argument of function `converter.convert_docspec_modules`. 
-
-Mixin classes are going to be added to the list of bases when creating the new objects with the 
-`specfactory.Factory`. Because of that, the documentation of the classes listed in this module are incomplete, properties
-and methods provided by mixin classes can be review in their respective documentation, under the package `brains`.
+The core of the logic is design to be extensible with extensions modules. See `pydocspec.ext`.
 """
 
 import dataclasses

@@ -427,7 +427,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
 
     # TODO: Code the rest of it!
 
-    # Duplicate names rationale: 
+    # Duplicate building names rationale: 
     #   Do not try to handle duplicates from the builder, 
     #   all objects might not be added at the time we do these checks.
     # Duplicate Module: this is not supported by the Builder, it's not supported by python neither.

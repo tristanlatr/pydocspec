@@ -28,6 +28,10 @@ You create an extension like this::
         r.register_postbuild_visitors(MyObjectVisitor)
     )
 
+:note: Mixin classes are going to be added to the list of bases when creating the new objects with the 
+`specfactory.Factory`. Because of that, the documentation of the classes listed in this module are incomplete, properties
+and methods provided by mixin classes can be review in their respective documentation, under the package `brains`.
+
 """
 
 import types
