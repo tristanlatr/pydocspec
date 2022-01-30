@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/__init__.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/__init__.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -82,12 +82,7 @@ offers facility to resolve names and provides additional informations.</p>
 <p>First, a root object gets created with the <code><a href="pydocspec.specfactory.html">specfactory</a></code>, then the <code><a href="pydocspec.astbuilder.html">astbuilder</a></code> creates all the other objects
 and populate the strict-minimum attributes. Then the <code><a href="pydocspec.processor.html">processor</a></code> takes that tree and populated all other attributes.</p>
 <p><strong>Extensibility</strong>:</p>
-<p>The core of the logic is design to be extensible with plugins modules, called "brain" modules. One can define custom
-mixin classes and post-processes in a new module, add the special <tt class="rst-docutils literal">pydocspec_mixin</tt> and/or <tt class="rst-docutils literal">pydocspec_processes</tt> module
-variables, then include the module's full name as part of the <tt class="rst-docutils literal">additional_brain_modules</tt> argument of function <code><a href="pydocspec.converter.html#convert_docspec_modules">converter.convert_docspec_modules</a></code>.</p>
-<p>Mixin classes are going to be added to the list of bases when creating the new objects with the
-<code><a href="pydocspec.specfactory.Factory.html">specfactory.Factory</a></code>. Because of that, the documentation of the classes listed in this module are incomplete, properties
-and methods provided by mixin classes can be review in their respective documentation, under the package <code><a href="pydocspec.brains.html">brains</a></code>.</p>
+<p>The core of the logic is design to be extensible with extensions modules. See <code><a href="pydocspec.ext.html">pydocspec.ext</a></code>.</p>
 </div>
       </div>
 
@@ -275,7 +270,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="functionHeader">
     
     <span class="py-defname">_RESOLVE_ALIAS_MAX_RECURSE</span>: <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/__init__.py#L68">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/__init__.py#L62">
       
       (source)
     </a>
@@ -298,7 +293,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">builder_from_options</span>(options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/__init__.py#L506">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/__init__.py#L500">
       
       (source)
     </a>
@@ -323,7 +318,7 @@ object trees with extensions.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">load_python_modules</span>(files, options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/__init__.py#L536">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/__init__.py#L530">
       
       (source)
     </a>
@@ -346,7 +341,7 @@ Directories will be added recursively.</td></tr><tr><td class="fieldArgContainer
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">load_python_modules_with_docspec_python</span>(files, options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>, docspec_options=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/__init__.py#L552">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/__init__.py#L546">
       
       (source)
     </a>
@@ -368,7 +363,7 @@ Directories will be added recursively.</td></tr><tr><td class="fieldArgContainer
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_setup_stdout_logger</span>(name, verbose=<a href="https://docs.python.org/3/library/constants.html#False">False</a>, quiet=<a href="https://docs.python.org/3/library/constants.html#False">False</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/__init__.py#L615">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/__init__.py#L609">
       
       (source)
     </a>
@@ -388,7 +383,7 @@ Directories will be added recursively.</td></tr><tr><td class="fieldArgContainer
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-29 19:11:02.
+    21.12.1.dev0 at 2022-01-30 19:04:45.
   </div>
 </footer>
 

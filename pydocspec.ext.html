@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/ext/__init__.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/ext/__init__.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -95,7 +95,9 @@ def setup_extension(r:ExtRegistrar) -&gt; None:
     r.register_postbuild_visitors(MyObjectVisitor)
 )
 </pre>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">Tree root instance is created before extensions are loaded.</td></tr></table></div>
+<p><code><a href="pydocspec.specfactory.Factory.html">specfactory.Factory</a></code>. Because of that, the documentation of the classes listed in this module are incomplete, properties
+and methods provided by mixin classes can be review in their respective documentation, under the package <code><a href="pydocspec.brains.html">brains</a></code>.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Notes</td></tr><tr><td colspan="2">Tree root instance is created before extensions are loaded.</td></tr><tr><td colspan="2">Mixin classes are going to be added to the list of bases when creating the new objects with the</td></tr></table></div>
       </div>
 
       <div id="splitTables">
@@ -217,7 +219,7 @@ def setup_extension(r:ExtRegistrar) -&gt; None:
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">load_extension_module</span>(builder, mod):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/ext/__init__.py#L65">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/ext/__init__.py#L69">
       
       (source)
     </a>
@@ -239,7 +241,7 @@ def setup_extension(r:ExtRegistrar) -&gt; None:
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_default_extensions</span>():
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/ext/__init__.py#L69">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/ext/__init__.py#L73">
       
       (source)
     </a>
@@ -261,7 +263,7 @@ def setup_extension(r:ExtRegistrar) -&gt; None:
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_optional_extensions</span>():
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/ext/__init__.py#L75">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/ext/__init__.py#L79">
       
       (source)
     </a>
@@ -283,7 +285,7 @@ def setup_extension(r:ExtRegistrar) -&gt; None:
   <div class="functionHeader">
     
     <span class="py-defname">_mixins_names_map</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/ext/__init__.py#L117">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/ext/__init__.py#L121">
       
       (source)
     </a>
@@ -306,7 +308,7 @@ def setup_extension(r:ExtRegistrar) -&gt; None:
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_mixins</span>(*mixins):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/ext/__init__.py#L129">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/ext/__init__.py#L133">
       
       (source)
     </a>
@@ -328,7 +330,7 @@ def setup_extension(r:ExtRegistrar) -&gt; None:
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_submodules</span>(pkg):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/ext/__init__.py#L141">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/ext/__init__.py#L145">
       
       (source)
     </a>
@@ -350,7 +352,7 @@ def setup_extension(r:ExtRegistrar) -&gt; None:
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_setup_extension_func_from_module</span>(module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/aabd3307e06e8100bc86fec74e1168f2d83c83bf/pydocspec/ext/__init__.py#L147">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/60a56668e05df7cb9adb4a95fb948c338eccf209/pydocspec/ext/__init__.py#L151">
       
       (source)
     </a>
@@ -373,7 +375,7 @@ Raise ModuleNotFoundError if module is not found.</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-29 19:11:02.
+    21.12.1.dev0 at 2022-01-30 19:04:45.
   </div>
 </footer>
 
