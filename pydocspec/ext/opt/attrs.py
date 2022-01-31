@@ -78,7 +78,7 @@ def uses_auto_attribs(call: astroid.nodes.Call, ctx: 'pydocspec.ApiObject') -> b
         return False
 
     try:
-        value = astroidutils.literal_eval(auto_attribs_expr.as_string())
+        value = astroidutils.literal_eval(auto_attribs_expr)
     except ValueError:
         ctx.warn(
             'Unable to figure out value for "auto_attribs" argument '

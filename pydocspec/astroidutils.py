@@ -442,7 +442,7 @@ def infer_type_annotation(expr: Optional[astroid.nodes.NodeNG]) -> Optional[astr
     if expr is None:
         return None
     try:
-        value: object = literal_eval(expr.as_string())
+        value: object = literal_eval(expr)
     except ValueError:
         return None
     else:
