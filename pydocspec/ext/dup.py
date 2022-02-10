@@ -44,12 +44,13 @@ from typing import List, Optional
 import astroid.nodes
 
 import pydocspec
+from pydocspec import _model
 from pydocspec.ext import AstVisitorExt, ExtRegistrar
 
 class DuplicateHandler:
     """Handle duplicates"""
 
-    def handle(dups: List[pydocspec.ApiObject]):...
+    def handle(dups: List[pydocspec.ApiObject]) -> None:...
 
 # this could be done in post-processing
 def _handleOldSchoolMethodDecoration(self:AstVisitorExt, 

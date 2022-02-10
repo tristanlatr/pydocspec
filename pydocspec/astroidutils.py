@@ -314,6 +314,10 @@ def to_source(expr: astroid.nodes.NodeNG) -> str:
     """This function convert a node tree back into python sourcecode."""
     return repr(ValueFormatter(expr))
 
+@overload
+def node2dottedname(node: Union[astroid.nodes.Attribute, astroid.nodes.Name, astroid.nodes.AssignName, astroid.nodes.AssignAttr], strict:bool=False) -> List[str]: ...
+@overload
+def node2dottedname(node: Optional[astroid.nodes.NodeNG], strict:bool=False) -> Optional[List[str]]:...
 def node2dottedname(node: Optional[astroid.nodes.NodeNG], strict:bool=False) -> Optional[List[str]]:
     """
     Resove expression composed by `astroid.nodes.Attribute` and `astroid.nodes.Name` nodes to a list of names. 

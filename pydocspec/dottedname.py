@@ -71,7 +71,7 @@ class DottedName:
         def _is_valid(_pieces: Sequence[str]) -> bool:
             # empty piece of a dotted name are valid if there is at least one 
             # non-empty name and all empty anmes are at the start of the name, meaning it's a relative name
-            seen = set()
+            seen: Set[str] = set()
             for p in _pieces:
                 if p == '' and len(seen)>1:
                     return False

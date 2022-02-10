@@ -6,9 +6,9 @@ from typing import Optional, Sequence, Union
 
 import astroid.nodes
 import pydocspec
-from pydocspec import astroidutils
+from pydocspec import astroidutils, _model
 
-def ast2apiobject(root: pydocspec.TreeRoot, node: Union['astroid.nodes.ClassDef', 
+def ast2apiobject(root: _model.TreeRoot, node: Union['astroid.nodes.ClassDef', 
                                         'astroid.nodes.Module']) -> Optional[Union['pydocspec.Class', 'pydocspec.Module']]:
     """implementation is duplicate safe."""
     values = root.all_objects.getall(node.qname())

@@ -32,7 +32,7 @@ class AttrsDataMixin(pydocspec.ext.DataMixin):
                 astroidutils.node2fullname(self.value_ast.func, self) in (
                     'attr.ib', 'attr.attrib', 'attr.attr'
                     )
-            implicit = self.datatype_ast is not None and not is_using_typing_classvar(self.datatype_ast, self)
+            implicit = self.datatype_ast is not None and not is_using_typing_classvar(self.datatype_ast, self.parent)
             return explicit or implicit
         return False
         

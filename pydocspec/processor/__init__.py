@@ -31,11 +31,9 @@ class PostBuildVisitor0(visitors.ApiObjectVisitor):
 class _MroFromAstroidSetter(visitors.ApiObjectVisitorExt):
     """
     Set Class.mro attribute based on astroid to be able to
-    correctly populate the resolved_bases attribute.
+    correctly populate the resolved_bases attribute with our own resolve_name() function.
     """
     when = visitors.ApiObjectVisitorExt.When.BEFORE
-    def unknown_visit(self, ob: pydocspec.Class) -> None:
-        pass
     def visit_Class(self, ob: pydocspec.Class) -> None:
         # This can set Class.mro attr to NotImplemented, we take of it in the regular post build visitor.
         ob.mro = class_attr.mro_from_astroid(ob)
@@ -58,9 +56,9 @@ class _DuplicateWhoShadowsWhoHandling(visitors.ApiObjectVisitorExt):
     def visit_Module(self, ob: pydocspec.Module) -> None:
         # is this submodule shadowed by another name in the package ?
         if ob.parent is not None:
-            for dup in ob.root.all_objects.getall(ob.full_name):
+            for dup in ob.root.all_objects.getdup(ob.full_name):
                 if dup is not ob:
-                    dup.warn(f"This object shadows the module {ob.full_name!r} at {ob.source_path.as_posix()!r}")
+                    dup.warn(f"This object shadows the module {ob.full_name!r} at {ob.location.filename!r}")
                     # there is another object by the same name, place it first in the all_objects stack.
                     ob.root.all_objects[ob.full_name] = dup
     
@@ -83,15 +81,15 @@ class _DocSourcesSetter(visitors.ApiObjectVisitorExt):
 
 class _DefaultLocationSetter(visitors.ApiObjectVisitorExt):
     when = visitors.ApiObjectVisitorExt.When.BEFORE
-    _default_location = _model.Location(filename='<unknown>', lineno=0)
+
     def unknown_visit(self, ob: _model.ApiObject) -> None:
         # Location attribute should be always set from the builder, though.
         # Make the location attribute non-optional, reduces annoyance for modules 
         # comming from c-extensions.
         if ob.location is None:
-            ob.location = ob.root.factory.Location(None, lineno=0)
+            ob.location = ob.root.factory.Location(None, lineno=0) # type:ignore[unreachable]
         if ob.location.lineno is None:
-            ob.location.lineno = 0
+            ob.location.lineno = 0 # type:ignore[unreachable]
         if ob.location.filename is None:
             ob.location.filename = ob.module.location.filename
         if ob.location.filename is None:

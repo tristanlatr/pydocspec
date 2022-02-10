@@ -161,7 +161,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             self._set_docstring(self.module, node.body[0].value)
 
         # The new module should already be added to the tree.
-        assert self.module in self.root.all_objects.getall(self.module.full_name)
+        assert self.module in self.root.all_objects.getall(self.module.full_name, []) 
         self.push(self.module)
     
     def depart_module(self, node: astroid.nodes.Module) -> None:
@@ -730,8 +730,8 @@ class Builder:
                     #TODO: test this.
 
                     # This returns the module object macthing the name.
-                    if isinstance(mod, _model.Module):
-                        yield mod
+                    if isinstance(mod, _model.Module): #type:ignore[unreachable]
+                        yield mod #type:ignore[unreachable]
                         break
                 else:
                     raise RuntimeError(f"No module found for name '{mod_name}', though it appears in the processing map: {self.processing_map!r}.")
@@ -855,7 +855,7 @@ class Builder:
         if older_mod:
             # It's kindda safe to assume the modules contents have not been loaded yet,
             # so modules should not be shadowed by other objects (yet).
-            assert isinstance(older_mod, _model.Module)
+            assert isinstance(older_mod, _model.Module) #type:ignore[unreachable]
             
             _warn_str = f"Duplicate module name: '{mod.full_name}', the package/directory wins."
             
@@ -983,7 +983,7 @@ class Builder:
         if mod is None: return None
         if not isinstance(mod, _model.Module): return None
                 
-        if self.processing_map.get(mod.full_name) is ProcessingState.UNPROCESSED:
+        if self.processing_map.get(mod.full_name) is ProcessingState.UNPROCESSED: #type:ignore[unreachable]
             self._process_module(mod)
             assert self.processing_map[mod.full_name] in (ProcessingState.PROCESSING, ProcessingState.PROCESSED)
         

@@ -1,22 +1,26 @@
 from pathlib import Path
-from typing import Generic, List, TypeVar, Union, Optional, cast
+from typing import Generic, List, TypeVar, Union, Optional, cast, TYPE_CHECKING
 import abc
 import attr
 
 from . import _model
 import docspec
 
+if TYPE_CHECKING:
+    import pydocspec
+
 ModuleT = TypeVar('ModuleT')
-ApiObjectT = TypeVar('ApiObjectT')
+ApiObjectT = TypeVar('ApiObjectT', bound=docspec.ApiObject)
+
+@attr.s(auto_attribs=True, frozen=True)
+class MarkedTreeWalkingState(Generic[ApiObjectT]):
+    current: ApiObjectT
+    last: ApiObjectT
+    stack: List[ApiObjectT]
 
 @attr.s
 class TreeWalkingState(Generic[ApiObjectT]):
-    @attr.s(auto_attribs=True, frozen=True)
-    class MarkedTreeWalkingState:
-        current: ApiObjectT
-        last: ApiObjectT
-        stack: List[ApiObjectT]
-
+    MarkedTreeWalkingState=MarkedTreeWalkingState
     current: ApiObjectT = attr.ib()
     last: ApiObjectT = attr.ib()
     stack: List[ApiObjectT] = attr.ib(factory=list) # should be only classes and modules
@@ -127,11 +131,11 @@ class Collector(BaseCollector[_model.Module, _model.ApiObject]):
 class BaseBuilder(abc.ABC):
     root: 'pydocspec.TreeRoot'
 
-    def add_module(self, path: Path):...
+    def add_module(self, path: Path) -> None:...
     def add_module_string(self, text: str, modname: str,
                           parent_name: Optional[str] = None,
                           path: str = '<fromtext>',
                           is_package: bool = False, ) -> None: ...
-    def build_modules(self): ...
+    def build_modules(self) -> None: ...
 
 

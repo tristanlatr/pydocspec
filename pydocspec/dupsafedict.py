@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from collections.abc import Mapping as abc_Mapping
-from typing import Any, Dict, Generic, Iterable, Iterator, List, Mapping, Optional, MutableMapping, Tuple, TypeVar, Union
+from typing import Any, Dict, Generic, Iterable, Iterator, List, Mapping, Optional, MutableMapping, Tuple, TypeVar, Union, overload
 
 _KT = TypeVar('_KT')
 _VT = TypeVar('_VT')
@@ -103,11 +103,15 @@ class DuplicateSafeDict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
         if len(queue) < 1:
             del self._store[key]
 
-    def getall(self, key: _KT) -> Optional[List[_VT]]:
+    @overload
+    def getall(self, key: _KT, default: List[_VT]) -> List[_VT]:...
+    @overload
+    def getall(self, key: _KT) -> Optional[List[_VT]]:...
+    def getall(self, key: _KT, default: Optional[List[_VT]]=None) -> Optional[List[_VT]]:
         """
         Like 'get()' but returns all values for that name, including duplicates. 
         """
-        return self._store.get(key)
+        return self._store.get(key, default)
     
     def getdup(self, key: _KT) -> List[_VT]:
         """

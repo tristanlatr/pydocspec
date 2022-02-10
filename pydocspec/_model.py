@@ -96,7 +96,7 @@ class GetMembersMixin:
     :note: Relies on  `ApiObject.get_member`.
     """
 
-    def __getitem__(self: 'pydocspec.ApiObject', 
+    def __getitem__(self: 'pydocspec.ApiObject', #type:ignore[misc]
                     key: Union[str, Iterable[str]]) -> 'pydocspec.ApiObject':
         if isinstance(key, str):
             if not key:
@@ -155,7 +155,7 @@ class TreeRoot:
     @overload
     def add_object(self, ob: 'Module', parent: None) -> None:
         ...
-    def add_object(self, ob: 'ApiObject', parent: Optional['ApiObject']) -> None:
+    def add_object(self, ob: 'pydocspec.ApiObject', parent: Optional['pydocspec.ApiObject']) -> None:
         """
         Add a newly created object to the tree. 
         Responsible to add the object to the parent namespace, setup parent attribute, setup 
@@ -164,7 +164,7 @@ class TreeRoot:
         If parent is `None`, the object passed will be treated as a root module.
         """
         if parent is not None:
-            assert isinstance(parent, HasMembers), (f"Cannot add new object ({ob!r}) inside {parent.__class__.__name__}. "
+            assert isinstance(parent, HasMembers), (f"Cannot add new object ({ob!r}) inside {parent.__class__.__name__}. " #type:ignore[unreachable]
                                                             f"{parent.full_name} is not namespace.")
             # setup child in the parent's member attribute
             if ob not in parent.members:
@@ -173,12 +173,12 @@ class TreeRoot:
         else:
             assert isinstance(ob, Module)
             # add root modules to root.root_modules attribute
-            self.root_modules.append(ob)
+            self.root_modules.append(cast('pydocspec.Module', ob)) #type:ignore[unreachable]
         
         # Add object to the root.all_objects. 
         obj_dup_name = parent.get_member(ob.name) if parent else None
         should_shadow = True
-        if obj_dup_name not in (None, ob):
+        if obj_dup_name is not None and obj_dup_name is not ob:
             # If the name is already defined, decide if the new object shoud shadow the existing
             # object by comparing line numbers, object defined after wins.
             should_shadow = obj_dup_name.location.lineno <= ob.location.lineno
@@ -193,7 +193,7 @@ class TreeRoot:
             self.add_object(child, ob)
 
 
-def _enforce_required_at_init_fields(self: 'ApiObject'):
+def _enforce_required_at_init_fields(self: 'ApiObject') -> None:
     # enforce that all _spec_fields that are initialized with _REQUIRED_AT_INIT
     # must be passed at at init time.
     for f in self._spec_fields:
@@ -236,13 +236,13 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
                 self.parent.members.remove(self)
             else:
                 assert isinstance(self, Module)
-                self.root.root_modules.remove(self)
+                self.root.root_modules.remove(cast('pydocspec.Module', self))
         except ValueError:
             pass
         
         self._remove_self()    
     
-    def _remove_self(self) -> None:
+    def _remove_self(self: 'pydocspec.ApiObject') -> None:
         # remove from the all_objects mapping
         try:
             self.root.all_objects.rmvalue(self.full_name, self)
@@ -274,13 +274,13 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
             if obj_dup_name is None or allow_dup:
                 self.root.add_object(ob, self.parent)
 
-    def _members(self) -> Iterable['ApiObject']:
+    def _members(self) -> Iterable['pydocspec.ApiObject']:
         if isinstance(self, HasMembers): 
             return self.members
         else: 
             return ()
 
-    def walk(self, visitor: visitors.ApiObjectVisitor) -> None:
+    def walk(self: 'pydocspec.ApiObject', visitor: visitors.ApiObjectVisitor) -> None:
         """
         Traverse a tree of objects, calling the `genericvisitor.Visitor.visit` 
         method of `visitor` when entering each node.
@@ -289,7 +289,7 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
         """
         visitor.walk(self)
         
-    def walkabout(self, visitor: visitors.ApiObjectVisitor) -> None:
+    def walkabout(self: 'pydocspec.ApiObject', visitor: visitors.ApiObjectVisitor) -> None:
         """
         Perform a tree traversal similarly to `walk()`, except also call the `genericvisitor.Visitor.depart` 
         method before exiting each node.
@@ -352,9 +352,9 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
             for member in self.members:
                 if member.name == name:
                     assert isinstance(member, ApiObject), (name, self, member)
-                    yield member
+                    yield cast('pydocspec.ApiObject', member)
     
-    def _repr(self, full_name:bool=False, fields:Optional[Sequence[str]]=None):
+    def _repr(self: 'pydocspec.ApiObject', full_name:bool=False, fields:Optional[Sequence[str]]=None) -> str:
         return tree_repr(self, full_name=full_name, fields=fields)
 
 @dataclasses.dataclass(repr=False)

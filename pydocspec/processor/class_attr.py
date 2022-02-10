@@ -2,7 +2,8 @@
 Helpers to populate attributes of `Class` instances. 
 """
 
-from typing import Iterator, List, Optional, Tuple, Union
+from types import NotImplementedType
+from typing import Iterator, List, Optional, Sequence, Tuple, Union
 
 import astroid.nodes
 import astroid.exceptions
@@ -45,7 +46,7 @@ def is_exception(ob: pydocspec.Class) -> bool:
     return False
 
 
-def mro_from_astroid(ob: _model.Class) -> Union[List[pydocspec.Class], '_NotImplementedType']:
+def mro_from_astroid(ob: _model.Class) -> Union[List[pydocspec.Class], NotImplementedType]:
     """
     Compute MRO from astroid, this does not require `pydocspec.Class.resolved_bases`. 
     
@@ -91,8 +92,7 @@ def mro(ob: pydocspec.Class) -> List[pydocspec.Class]:
         except (ValueError,) as e:
             ob.warn(str(e))
             return list(
-                filter(lambda ob: isinstance(ob, pydocspec.Class), 
-                        ob.ancestors(True)))
+                filter(lambda ob: isinstance(ob, pydocspec.Class), ob.ancestors(True))) #type:ignore[arg-type]
     except RecursionError as e:
         # TODO: test recursions in base classes.
         raise RecursionError(f"Recursion error trying to resolve the MRO of class {ob.full_name!r}.")
@@ -225,7 +225,7 @@ def _nested_bases(classobj: pydocspec.Class) -> Iterator[Tuple[pydocspec.Class, 
         - the next yielded chain contains the super class and the class itself, 
         - the the next yielded chain contains the super-super class, the super class and the class itself, etc...
     """
-    bases = []
+    bases: List[pydocspec.Class] = []
     for base in classobj.mro:
         yield tuple(bases+[base])
         bases.append(base)
@@ -233,7 +233,7 @@ def _nested_bases(classobj: pydocspec.Class) -> Iterator[Tuple[pydocspec.Class, 
         # for nested_base in _nested_bases(base):
         #     yield (nested_base + (classobj,))
 
-def _unmasked_attrs(baselist: List[pydocspec.Class]) -> List[pydocspec.ApiObject]:
+def _unmasked_attrs(baselist: Sequence[pydocspec.Class]) -> List[pydocspec.ApiObject]:
     """
     Helper function to reteive the list of inherited children given a base classes chain (As yielded by `nested_bases`). 
     The returned members are inherited from the Class listed first in the chain to the Class listed last: they are not overriden in between. 

@@ -363,7 +363,7 @@ class Class(_model.Class, ApiObject):
     @dataclasses.dataclass(repr=False)
     class InheritedMember:
         member: ApiObject
-        inherited_via: Tuple[ApiObject]
+        inherited_via: Tuple['Class', ...]
         
     def __post_init__(self) -> None:
         super().__post_init__()

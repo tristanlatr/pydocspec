@@ -24,7 +24,7 @@ import astroid.nodes
 
 import docspec
 import pydocspec
-from pydocspec import dottedname, basebuilder, astroidutils
+from pydocspec import dottedname, basebuilder, astroidutils, genericvisitor
  
 def convert_docspec_modules(modules: Iterable[docspec.Module], options: Optional[pydocspec.Options]=None) -> pydocspec.TreeRoot:
     """
@@ -96,7 +96,7 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
         # convert decorators
         if function.decorations is not None:
             
-            decos: Optional[List[pydocspec.Decoration]] = []
+            decos: Optional[List[docspec.Decoration]] = []
             for d in function.decorations:
                 decos.append(self._convert_Decoration(d)) #type:ignore[union-attr]
         else:
@@ -160,7 +160,7 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
             members=[], )
         self.add_object(ob)
     
-    def _convert_Decoration(self, decoration: docspec.Decoration) ->  pydocspec.Decoration:
+    def _convert_Decoration(self, decoration: docspec.Decoration) ->  docspec.Decoration:
         expr_ast = None
         # Uses the name and args/arglist to compute the expr_ast variable.
         flat_arglist = ''
@@ -190,7 +190,7 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
         
         return new_deco
     
-    def _convert_Location(self, location: Optional[docspec.Location]) -> Optional[pydocspec.Location]:
+    def _convert_Location(self, location: Optional[docspec.Location]) -> Optional[docspec.Location]:
         if not location: return None
         loc = self.root.factory.Location(
                 filename=location.filename, 
@@ -200,7 +200,7 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
             loc.filename = self.current.module.location.filename
         return loc
 
-    def _convert_Docstring(self, docstring: Optional[docspec.Docstring]) -> Optional[pydocspec.Docstring]:
+    def _convert_Docstring(self, docstring: Optional[docspec.Docstring]) -> Optional[docspec.Docstring]:
         if not docstring: return None
         return self.root.factory.Docstring(
                 content=docstring.content,
@@ -238,7 +238,7 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
 
     def __init__(self) -> None:
         basebuilder.BaseCollector.__init__(self, None)
-        visitors.ApiObjectVisitor.__init__(self)
+        visitors.ApiObjectVisitor.__init__(cast(genericvisitor.CustomizableVisitor[pydocspec.ApiObject], self))
 
     def add_object(self, ob: docspec.ApiObject, push: bool = True) -> None:
         # There is a little bit of code duplication here with basebuilder.Collector. 
@@ -250,7 +250,7 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
             assert self.module is None, f"{self.module!r}"
             self.module = ob
         else:
-            assert hasattr(self.current, 'members'), f"Current object is not a class or a module: {self.current!r}"
+            assert isinstance(self.current, docspec.HasMembers), f"Current object is not a class or a module: {self.current!r}"
             self.current.members.append(ob)
             ob.sync_hierarchy(self.current)
         
@@ -344,19 +344,19 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
             members=[],)
         self.add_object(ob)
     
-    def _convert_Decoration(self, decoration: pydocspec.Decoration) ->  docspec.Decoration:
+    def _convert_Decoration(self, decoration: docspec.Decoration) ->  docspec.Decoration:
         return docspec.Decoration(name=decoration.name, 
                             location=self._convert_Location(decoration.location),
                             arglist=decoration.arglist,) 
     
-    def _convert_Location(self, location: Optional[pydocspec.Location]) -> Optional[docspec.Location]:
+    def _convert_Location(self, location: Optional[docspec.Location]) -> Optional[docspec.Location]:
         if not location: return None
         return docspec.Location(
                 filename=location.filename, 
                 lineno=location.lineno,
                 endlineno=location.endlineno)
 
-    def _convert_Docstring(self, docstring: Optional[docspec.Docstring]) -> Optional[pydocspec.Docstring]:
+    def _convert_Docstring(self, docstring: Optional[docspec.Docstring]) -> Optional[docspec.Docstring]:
         if not docstring: return None
         return docspec.Docstring(
                 content=docstring.content,
@@ -370,7 +370,7 @@ class _BackConverter:
     """
     docspec_modules: List[docspec.Module] = attr.ib(factory=list, init=False)
 
-    def back_convert_pydocspec_modules(self, modules: Iterable[pydocspec.Module]) -> None:
+    def back_convert_pydocspec_modules(self, modules: Sequence[pydocspec.Module]) -> None:
         """
         Convert `pydocspec.Module`s to `docspec.Module` instances (modules will still be nested).
 

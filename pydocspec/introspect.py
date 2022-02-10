@@ -3,7 +3,7 @@ Build an `ApiObject` tree from live objects.
 
 Used to inspect c-extentions only.
 """
-from typing import Mapping, Tuple, Type, Any, Optional, cast
+from typing import Mapping, Tuple, Type, Any, Optional, cast, TYPE_CHECKING
 import types
 import importlib.util
 from pathlib import Path
@@ -13,6 +13,9 @@ from .basebuilder import Collector
 from . import _model
 
 import docspec
+
+if TYPE_CHECKING:
+    import pydocspec
 
 # Declare the types that we consider as functions (also when they are coming
 # from a C extension)
@@ -70,7 +73,7 @@ class _IntrospectModuleBuilder(Collector):
         self.py_mod = _import_module(self.path, module_full_name)
     
 
-    def _parameter2argument(self, param: inspect.Parameter) -> _model.Argument:
+    def _parameter2argument(self, param: inspect.Parameter) -> 'pydocspec.Argument':
         kindmap = {
             inspect.Parameter.POSITIONAL_ONLY: docspec.Argument.Type.POSITIONAL_ONLY,
             inspect.Parameter.POSITIONAL_OR_KEYWORD: docspec.Argument.Type.POSITIONAL,

@@ -6,7 +6,9 @@ Mixin classes ca be applied to objects: "Module", "Class", "Function", "Data", "
 
 :Note: Tree root instance is created before extensions are loaded.
 
-You create an extension like this::
+You create an extension like this:
+
+.. python::
         
     from pydocspec.ext import DataMixin, ClassMixin, ApiObjectVisitorExt, AstVisitorExt, ExtRegistrar
     
@@ -35,7 +37,7 @@ and methods provided by mixin classes can be review in their respective document
 """
 
 import types
-from typing import Any, Callable, Dict, Iterable, Iterator, Tuple, Type, Union, TYPE_CHECKING
+from typing import Any, Callable, Dict, Iterable, Iterator, Tuple, Type, Union, TYPE_CHECKING, cast
 import attr
 import sys
 import importlib
@@ -50,12 +52,12 @@ if sys.version_info < (3, 7):
 else:
     import importlib.resources as importlib_resources
 
-from pydocspec.visitors import AstVisitorExt, ApiObjectVisitorExt
+from pydocspec.visitors import AstVisitorExt as _AstVisitorExt, ApiObjectVisitorExt as _ApiObjectVisitorExt
 
 # Extensions base API
 
-class ApiObjectVisitorExt(ApiObjectVisitorExt):...
-class AstVisitorExt(AstVisitorExt): ...
+class ApiObjectVisitorExt(_ApiObjectVisitorExt):...
+class AstVisitorExt(_AstVisitorExt): ...
 
 class ClassMixin: ...
 class ModuleMixin: ...
@@ -191,6 +193,6 @@ def _get_setup_extension_func_from_module(module: str) -> Callable[[ExtRegistrar
     
     if hasattr(mod, 'setup_extension'):
         if callable(mod.setup_extension):
-            return mod.setup_extension
+            return cast('Callable[[ExtRegistrar], None]', mod.setup_extension)
         raise ValueError(f"{mod}.setup_extension should be a callable, got {mod.setup_extension}.")
     raise ValueError(f"{mod}.setup_extension() function not found.")
