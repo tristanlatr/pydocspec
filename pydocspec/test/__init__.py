@@ -2,7 +2,7 @@
 import logging
 import os
 import tempfile
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 import sys
 import io
 import json
@@ -11,7 +11,7 @@ import pytest
 import docspec
 import docspec_python
 
-from pydocspec import (_model, converter,
+from pydocspec import (_model, converter, Options,
     load_python_modules, 
     load_python_modules_with_docspec_python,
     builder_from_options, _setup_stdout_logger)
@@ -54,17 +54,22 @@ class _docspec_python:
 
 class _default_astbuilder:
     @staticmethod
-    def mod_from_text(text:str, modname:str='test') -> 'pydocspec.Module':
+    def mod_from_text(text:str, modname:str='test', options:Optional[Options]=None) -> 'pydocspec.Module':
         """
         For testing only. 
         
         Should not be used when there is more than 
         one module to process.
         """
-        builder = builder_from_options()
+        builder = builder_from_options(options)
         builder.add_module_string(text, modname=modname, path='<fromtext>')
         builder.build_modules()
         return builder.root.all_objects[modname]
+
+class _optional_extensions_enabled:
+    @staticmethod
+    def mod_from_text(text:str, modname:str='test') -> 'pydocspec.Module':
+        return _default_astbuilder.mod_from_text(text, modname, Options(load_optional_extensions=True))
 
 class _back_converter_round_trip1:
     @staticmethod
@@ -100,11 +105,13 @@ class _back_converter_round_trip1:
 mod_from_text_param = pytest.mark.parametrize(
     'mod_from_text', (_docspec_python.mod_from_text, 
                       _default_astbuilder.mod_from_text,
-                      _back_converter_round_trip1.mod_from_text)
+                      _back_converter_round_trip1.mod_from_text, 
+                      _optional_extensions_enabled.mod_from_text,)
     )
 
 getbuilder_param = pytest.mark.parametrize(
-    'getbuilder', (builder_from_options, )
+    'getbuilder', (builder_from_options, 
+            lambda: builder_from_options(Options(load_optional_extensions=True)))
     )
 
 load_python_modules_param = pytest.mark.parametrize(

@@ -1,12 +1,12 @@
 from typing import Optional, TYPE_CHECKING
 from cached_property import cached_property
 import astroid.nodes
-from .. import astroidutils
+from pydocspec import astroidutils, ext
 
 if TYPE_CHECKING:
     import pydocspec
 
-class DataClassesDataMixin:
+class DataClassesDataMixin(ext.DataMixin):
     @cached_property
     def is_dataclass_field(self: 'pydocspec.Data') -> bool: #type:ignore[misc]
         """
@@ -17,7 +17,7 @@ class DataClassesDataMixin:
                 'dataclasses.field',
                 )
 
-class DataClassesClassMixin:
+class DataClassesClassMixin(ext.ClassMixin):
     @cached_property
     def dataclass_decoration(self: 'pydocspec.Class') -> Optional['pydocspec.Decoration']: #type:ignore[misc]
         """The L{dataclass} decoration of this class, if any."""
@@ -26,7 +26,6 @@ class DataClassesClassMixin:
                 return deco
         return None
 
-pydocspec_mixin = {
-    'Data': DataClassesDataMixin,
-    'Class': DataClassesClassMixin,
-}
+def setup_extension(r:ext.ExtRegistrar) -> None:
+    r.register_mixins(DataClassesDataMixin, DataClassesClassMixin)
+

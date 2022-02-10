@@ -25,7 +25,7 @@ def test_converter_object_types(mod1: docspec.Module) -> None:
     assert isinstance(root.all_objects['a.saila'], pydocspec.Data)
 
     assert isinstance(root.all_objects['a.foo.val'], attrs.AttrsDataMixin)
-    assert isinstance(klass, attrs.AttrsClassMixin)
+    # assert isinstance(klass, attrs.AttrsClassMixin)
 
     # assert isinstance(root.all_objects['a.foo.val'], dataclasses.DataClassesDataMixin)
     # assert isinstance(klass, dataclasses.DataClassesClassMixin)

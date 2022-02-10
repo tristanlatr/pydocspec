@@ -135,12 +135,12 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
     #     else:
     #         self.generic_visit(node)
 
-    def visit_expr(self, node: astroid.nodes.Expr) -> None:
+    def visit_Expr(self, node: astroid.nodes.Expr) -> None:
         """
         Handles the inline attribute docstrings.
         """
         value = node.value
-        if isinstance(value, astroid.nodes.Const) and value.pytype() == 'str':
+        if isinstance(value, astroid.nodes.Const) and isinstance(value.value, str):
             attr = self.last
             if isinstance(attr, _model.Data) and attr.parent is self.current:
                 self._set_docstring(attr, value)

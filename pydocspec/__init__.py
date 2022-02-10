@@ -510,7 +510,7 @@ def builder_from_options(options: Optional[Options]=None) -> 'astbuilder.Builder
     from . import specfactory, processor, astbuilder, ext
 
     # list extensions
-    extensions = []
+    extensions: List[str] = []
     extensions.extend(ext.get_default_extensions())
     if options.load_optional_extensions:
         extensions.extend(ext.get_optional_extensions())

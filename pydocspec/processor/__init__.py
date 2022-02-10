@@ -8,11 +8,11 @@ from typing import Any, Callable, Dict, List, Optional, Set, Type, Union
 
 import attr
 import pydocspec
-from pydocspec import _model, brains, visitors
+from pydocspec import _model, visitors
 
 from . import class_attr, data_attr, func_attr, mod_attr
 
-__all__ = ('class_attr', 'data_attr', 'func_attr', 'mod_attr', 'Processor', 'Process')
+__all__ = ('helpers', 'class_attr', 'data_attr', 'func_attr', 'mod_attr', 'Processor', 'Process')
 
 Process = Callable[[pydocspec.TreeRoot], None]
 """

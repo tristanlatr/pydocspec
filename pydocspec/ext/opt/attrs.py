@@ -13,6 +13,7 @@ from cached_property import cached_property
 import astroid.nodes
 import attr
 
+from pydocspec.processor.helpers import is_using_typing_classvar
 from pydocspec import astroidutils
 import pydocspec.ext
 
@@ -26,10 +27,15 @@ class AttrsDataMixin(pydocspec.ext.DataMixin):
         """
         Whether this Data is an L{attr.ib} attribute.
         """
-        return isinstance(self.value_ast, astroid.nodes.Call) and \
-            astroidutils.node2fullname(self.value_ast.func, self) in (
-                'attr.ib', 'attr.attrib', 'attr.attr'
-                )
+        if self.Semantic.CLASS_VARIABLE in self.semantic_hints:
+            explicit = isinstance(self.value_ast, astroid.nodes.Call) and \
+                astroidutils.node2fullname(self.value_ast.func, self) in (
+                    'attr.ib', 'attr.attrib', 'attr.attr'
+                    )
+            implicit = self.datatype_ast is not None and not is_using_typing_classvar(self.datatype_ast, self)
+            return explicit or implicit
+        return False
+        
         #TODO: Add a datatype_from_attrs and datatype_from_attrs_ast properties
         
 class AttrsClassMixin(pydocspec.ext.ClassMixin):
