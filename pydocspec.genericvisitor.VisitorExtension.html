@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.html">genericvisitor</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.VisitorExtension.html">VisitorExtension</a></code></code></h1>
+        <h1 class="class"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.html" class="internal-link" title="pydocspec.genericvisitor">genericvisitor</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.VisitorExtension.html" class="internal-link" title="pydocspec.genericvisitor.VisitorExtension">VisitorExtension</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,13 +65,13 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">VisitorExtension</span>(<span title="PartialVisitor[T]">PartialVisitor[T]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L216" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">VisitorExtension</span>(PartialVisitor[T]): <a href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L216" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.genericvisitor.VisitorExtension">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
         <div><p>The node visitor extension base class, to inherit from.</p>
-<p>Subclasses must defined the <code><a href="https://docs.python.org/3/library/constants.html#NotImplemented">when</a></code> class variable, and your custom visit_* methods.:</p>
+<p>Subclasses must defined the <code><a href="https://docs.python.org/3/library/constants.html#NotImplemented" class="intersphinx-link">when</a></code> class variable, and your custom visit_* methods.:</p>
 <pre class="rst-literal-block">
 class TypeGuardTracker(AstVisitorExtension):
   when = When.AFTER
@@ -90,38 +90,38 @@ class TypeGuardTracker(AstVisitorExtension):
         logging.getLogger('pydocspec').info('Leaving TYPE_CHECKING if block')
         self.visitor.state.is_type_guarged = False
 </pre>
-<p>See: <code><a href="pydocspec.genericvisitor.When.html">When</a></code></p>
+<p>See: <code><a href="pydocspec.genericvisitor.When.html" class="internal-link" title="pydocspec.genericvisitor.When">When</a></code></p>
 </div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id119">
+        <table class="children sortable" id="id125">
   
   
   <tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#__init__">__init__</a></code></td>
+    <td><code><a href="#__init__" class="internal-link" title="pydocspec.genericvisitor.VisitorExtension.__init__">__init__</a></code></td>
     <td>Initialize the visitor extension.</td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#attach">attach</a></code></td>
+    <td><code><a href="#attach" class="internal-link" title="pydocspec.genericvisitor.VisitorExtension.attach">attach</a></code></td>
     <td>Attach the parent visitor to this extension.</td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#walk">walk</a></code></td>
+    <td><code><a href="#walk" class="internal-link" title="pydocspec.genericvisitor.VisitorExtension.walk">walk</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#walkabout">walkabout</a></code></td>
+    <td><code><a href="#walkabout" class="internal-link" title="pydocspec.genericvisitor.VisitorExtension.walkabout">walkabout</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
-    <td><code><a href="#visitor">visitor</a></code></td>
+    <td><code><a href="#visitor" class="internal-link" title="pydocspec.genericvisitor.VisitorExtension.visitor">visitor</a></code></td>
     <td>The parent visitor</td>
   </tr>
 </table>
@@ -144,7 +144,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L245">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L245">
       
       (source)
     </a>
@@ -166,7 +166,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">attach</span>(self, visitor):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L257">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L257">
       
       (source)
     </a>
@@ -179,7 +179,7 @@ class TypeGuardTracker(AstVisitorExtension):
 <dt>Parameters:</dt>
 <dd>visitor: The parent visitor.</dd>
 </dl>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T">T</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor:</span><code><a href="pydocspec.genericvisitor.Visitor.html" class="internal-link" title="pydocspec.genericvisitor.Visitor">Visitor</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -193,7 +193,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walk</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L251">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L251">
       
       (source)
     </a>
@@ -201,7 +201,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -215,7 +215,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walkabout</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L254">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L254">
       
       (source)
     </a>
@@ -223,7 +223,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -237,7 +237,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="functionHeader">
     
     <span class="py-defname">visitor</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L248">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L248">
       
       (source)
     </a>
@@ -258,7 +258,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-31 01:59:50.
+    21.12.1.dev0 at 2022-02-10 20:35:14.
   </div>
 </footer>
 

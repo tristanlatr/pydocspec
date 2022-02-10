@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.ext.html">ext</a></code><wbr></wbr>.<code><a href="pydocspec.ext.dup.html">dup</a></code></code></h1>
+        <h1 class="module"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.ext.html" class="internal-link" title="pydocspec.ext">ext</a></code><wbr></wbr>.<code><a href="pydocspec.ext.dup.html" class="internal-link" title="pydocspec.ext.dup">dup</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,13 +65,13 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/dup.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/dup.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
         <div><p>Handles objects created with the same name as an object that already exisist.</p>
-<p>Handles <code><a href="https://docs.python.org/3/library/functions.html#classmethod">classmethod()</a></code> and <code><a href="https://docs.python.org/3/library/functions.html#staticmethod">staticmethod()</a></code> like:</p>
+<p>Handles <code><a href="https://docs.python.org/3/library/functions.html#classmethod" class="intersphinx-link">classmethod()</a></code> and <code><a href="https://docs.python.org/3/library/functions.html#staticmethod" class="intersphinx-link">staticmethod()</a></code> like:</p>
 <pre class="rst-literal-block">
 def f():
     ...
@@ -82,18 +82,23 @@ f = staticmethod(f)
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id108">
+        <table class="children sortable" id="id101">
   
   
-  <tr class="function">
+  <tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.ext.dup.DuplicateHandler.html" class="internal-link" title="pydocspec.ext.dup.DuplicateHandler">​Duplicate​Handler</a></code></td>
+    <td>Handle duplicates</td>
+  </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#setup_extension">setup_extension</a></code></td>
+    <td><code><a href="#setup_extension" class="internal-link" title="pydocspec.ext.dup.setup_extension">setup​_extension</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_handleOldSchoolMethodDecoration">_handleOldSchoolMethodDecoration</a></code></td>
+    <td><code><a href="#_handleOldSchoolMethodDecoration" class="internal-link" title="pydocspec.ext.dup._handleOldSchoolMethodDecoration">_handle​Old​School​Method​Decoration</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -116,7 +121,7 @@ f = staticmethod(f)
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">setup_extension</span>(r):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/dup.py#L114">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/dup.py#L150">
       
       (source)
     </a>
@@ -124,7 +129,7 @@ f = staticmethod(f)
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">r:</span><code><a href="pydocspec.ext.ExtRegistrar.html">ExtRegistrar</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">r:</span><code><a href="pydocspec.ext.ExtRegistrar.html" class="internal-link" title="pydocspec.ext.ExtRegistrar">ExtRegistrar</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
@@ -138,7 +143,7 @@ f = staticmethod(f)
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_handleOldSchoolMethodDecoration</span>(self, target, expr):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/dup.py#L19">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/dup.py#L55">
       
       (source)
     </a>
@@ -146,7 +151,7 @@ f = staticmethod(f)
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">target:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">target:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -158,7 +163,7 @@ f = staticmethod(f)
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-31 01:59:50.
+    21.12.1.dev0 at 2022-02-10 20:35:14.
   </div>
 </footer>
 

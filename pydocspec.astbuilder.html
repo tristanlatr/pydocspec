@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="module"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astbuilder.html">astbuilder</a></code></code></h1>
+        <h1 class="module"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astbuilder.html" class="internal-link" title="pydocspec.astbuilder">astbuilder</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,49 +65,49 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/astbuilder.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/astbuilder.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
       <div class="moduleDocstring">
-        <div>Traverse module/packages directories, build and transform <code>astroid</code> AST into <code><a href="pydocspec.ApiObject.html">ApiObject</a></code> instances.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Notes</td></tr><tr><td colspan="2">Implementation is largely adapted from pydoctor's AST builder, adapted to work with <code>astroid</code>.</td></tr><tr><td colspan="2">The builder is responsible to asseble the tree of objects, but do set all attributes.
+        <div>Traverse module/packages directories, build and transform <code>astroid</code> AST into <code><a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject">ApiObject</a></code> instances.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Notes</td></tr><tr><td colspan="2">Implementation is largely adapted from pydoctor's AST builder, adapted to work with <code>astroid</code>.</td></tr><tr><td colspan="2">The builder is responsible to asseble the tree of objects, but do set all attributes.
 It only sets the strict minumum attributes required to process the rest of the attributes.
-The strict minimum beeing represented by the classes in <code><a href="pydocspec._model.html">_model</a></code> module.</td></tr></table></div>
+The strict minimum beeing represented by the classes in <code><a href="pydocspec._model.html" class="internal-link" title="pydocspec._model">_model</a></code> module.</td></tr></table></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id61">
+        <table class="children sortable" id="id60">
   
   
   <tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astbuilder.Builder.html">Builder</a></code></td>
+    <td><code><a href="pydocspec.astbuilder.Builder.html" class="internal-link" title="pydocspec.astbuilder.Builder">​Builder</a></code></td>
     <td>Coordinate the process of parsing and analysing the ast trees.</td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astbuilder.BuilderVisitor.html">BuilderVisitor</a></code></td>
+    <td><code><a href="pydocspec.astbuilder.BuilderVisitor.html" class="internal-link" title="pydocspec.astbuilder.BuilderVisitor">​Builder​Visitor</a></code></td>
     <td><span class="undocumented">No class docstring; 0/1 instance variable, 0/1 class variable, 8/20 methods documented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astbuilder.CyclicImport.html">CyclicImport</a></code></td>
+    <td><code><a href="pydocspec.astbuilder.CyclicImport.html" class="internal-link" title="pydocspec.astbuilder.CyclicImport">​Cyclic​Import</a></code></td>
     <td>Raised when trying to resolved an "from mod import <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">*</span></a>" statement from a module that is not totally processed yet.</td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astbuilder.ProcessingState.html">ProcessingState</a></code></td>
+    <td><code><a href="pydocspec.astbuilder.ProcessingState.html" class="internal-link" title="pydocspec.astbuilder.ProcessingState">​Processing​State</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#is_attribute_overridden">is_attribute_overridden</a></code></td>
+    <td><code><a href="#is_attribute_overridden" class="internal-link" title="pydocspec.astbuilder.is_attribute_overridden">is​_attribute​_overridden</a></code></td>
     <td>Detect if the optional C{new_value} expression override the one already stored in the L{_model.Data.value} attribute.</td>
   </tr><tr class="variable private">
     
     <td>Variable</td>
-    <td><code><a href="#_string_lineno_is_end">_string_lineno_is_end</a></code></td>
+    <td><code><a href="#_string_lineno_is_end" class="internal-link" title="pydocspec.astbuilder._string_lineno_is_end">​_string​_lineno​_is​_end</a></code></td>
     <td>True iff the 'lineno' attribute of an AST string node points to the last line in the string, rather than the first line.</td>
   </tr>
 </table>
@@ -130,7 +130,7 @@ The strict minimum beeing represented by the classes in <code><a href="pydocspec
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_attribute_overridden</span>(obj, new_value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/astbuilder.py#L53">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/astbuilder.py#L53">
       
       (source)
     </a>
@@ -138,7 +138,7 @@ The strict minimum beeing represented by the classes in <code><a href="pydocspec
   <div class="docstring functionBody">
     
     
-    <div>Detect if the optional C{new_value} expression override the one already stored in the L{_model.Data.value} attribute.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj:</span><code><a href="pydocspec._model.Data.html">_model.Data</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">new_value:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Detect if the optional C{new_value} expression override the one already stored in the L{_model.Data.value} attribute.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj:</span><code><a href="pydocspec._model.Data.html" class="internal-link" title="pydocspec._model.Data">_model.Data</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">new​_value:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basevariable private">
   
@@ -152,7 +152,7 @@ The strict minimum beeing represented by the classes in <code><a href="pydocspec
   <div class="functionHeader">
     
     <span class="py-defname">_string_lineno_is_end</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/astbuilder.py#L47">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/astbuilder.py#L47">
       
       (source)
     </a>
@@ -174,7 +174,7 @@ line in the string, rather than the first line.</div>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-31 01:59:50.
+    21.12.1.dev0 at 2022-02-10 20:35:14.
   </div>
 </footer>
 

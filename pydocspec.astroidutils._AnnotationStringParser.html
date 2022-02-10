@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class private"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astroidutils.html">astroidutils</a></code><wbr></wbr>.<code><a href="pydocspec.astroidutils._AnnotationStringParser.html">_AnnotationStringParser</a></code></code></h1>
+        <h1 class="class private"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astroidutils.html" class="internal-link" title="pydocspec.astroidutils">astroidutils</a></code><wbr></wbr>.<code><a href="pydocspec.astroidutils._AnnotationStringParser.html" class="internal-link" title="pydocspec.astroidutils._AnnotationStringParser">_AnnotationStringParser</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,37 +65,51 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">_AnnotationStringParser</span>(<a href="pydocspec.astroidutils.NodeTransformer.html" title="pydocspec.astroidutils.NodeTransformer">NodeTransformer</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/astroidutils.py#L495" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">_AnnotationStringParser</span>(<a href="pydocspec.astroidutils.NodeTransformer.html" class="internal-link" title="pydocspec.astroidutils.NodeTransformer">NodeTransformer</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/astroidutils.py#L495" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.astroidutils._AnnotationStringParser">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>Implementation of <code><a href="pydocspec.astroidutils.html#unstring_annotation">unstring_annotation</a></code>.</p>
-<p>When given an expression, the node returned by <code><a href="pydocspec.astroidutils.NodeVisitor.html#visit">visit()</a></code> will also be an expression.
+        <div><p>Implementation of <code><a href="pydocspec.astroidutils.html#unstring_annotation" class="internal-link" title="pydocspec.astroidutils.unstring_annotation">unstring_annotation</a></code>.</p>
+<p>When given an expression, the node returned by <code><a href="pydocspec.astroidutils.NodeVisitor.html#visit" class="internal-link" title="pydocspec.astroidutils.NodeVisitor.visit">visit()</a></code> will also be an expression.
 If any string literal contained in the original expression is either
-invalid Python or not a singular expression, <code><a href="https://docs.python.org/3/library/exceptions.html#SyntaxError">SyntaxError</a></code> or <code>astroid.exceptions.AstroidError</code> is raised.</p>
+invalid Python or not a singular expression, <code><a href="https://docs.python.org/3/library/exceptions.html#SyntaxError" class="intersphinx-link">SyntaxError</a></code> or <code>astroid.exceptions.AstroidError</code> is raised.</p>
 </div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id75">
+        <table class="children sortable" id="id74">
   
   
   <tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit_Const">visit_Const</a></code></td>
+    <td><code><a href="#visit_Const" class="internal-link" title="pydocspec.astroidutils._AnnotationStringParser.visit_Const">visit_​Const</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit_Subscript">visit_Subscript</a></code></td>
+    <td><code><a href="#visit_Subscript" class="internal-link" title="pydocspec.astroidutils._AnnotationStringParser.visit_Subscript">visit_​Subscript</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
           <p class="inheritedFrom">
-            Inherited from <code><a href="pydocspec.astroidutils.NodeTransformer.html">NodeTransformer</a></code>:
+            Inherited from <code><a href="pydocspec.astroidutils.NodeTransformer.html" class="internal-link" title="pydocspec.astroidutils.NodeTransformer">NodeTransformer</a></code>:
+          </p>
+          <table class="children sortable" id="id75">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.astroidutils.NodeTransformer.html#generic_visit" class="internal-link" title="pydocspec.astroidutils.NodeTransformer.generic_visit">generic​_visit</a></code></td>
+    <td>Called if no explicit visitor function exists for a node.</td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
+            Inherited from <code><a href="pydocspec.astroidutils.NodeVisitor.html" class="internal-link" title="pydocspec.astroidutils.NodeVisitor">NodeVisitor</a></code> (via <code><a href="pydocspec.astroidutils.NodeTransformer.html" class="internal-link" title="pydocspec.astroidutils.NodeTransformer">NodeTransformer</a></code>):
           </p>
           <table class="children sortable" id="id76">
   
@@ -103,21 +117,7 @@ invalid Python or not a singular expression, <code><a href="https://docs.python.
   <tr class="basemethod">
     
     <td>Method</td>
-    <td><code><a href="pydocspec.astroidutils.NodeTransformer.html#generic_visit">generic_visit</a></code></td>
-    <td>Called if no explicit visitor function exists for a node.</td>
-  </tr>
-</table>
-          
-          <p class="inheritedFrom">
-            Inherited from <code><a href="pydocspec.astroidutils.NodeVisitor.html">NodeVisitor</a></code> (via <code><a href="pydocspec.astroidutils.NodeTransformer.html">NodeTransformer</a></code>):
-          </p>
-          <table class="children sortable" id="id77">
-  
-  
-  <tr class="basemethod">
-    
-    <td>Method</td>
-    <td><code><a href="pydocspec.astroidutils.NodeVisitor.html#visit">visit</a></code></td>
+    <td><code><a href="pydocspec.astroidutils.NodeVisitor.html#visit" class="internal-link" title="pydocspec.astroidutils.NodeVisitor.visit">visit</a></code></td>
     <td>Visit a node.</td>
   </tr>
 </table>
@@ -140,7 +140,7 @@ invalid Python or not a singular expression, <code><a href="https://docs.python.
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Const</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/astroidutils.py#L516">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/astroidutils.py#L516">
       
       (source)
     </a>
@@ -162,7 +162,7 @@ invalid Python or not a singular expression, <code><a href="https://docs.python.
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit_Subscript</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/astroidutils.py#L503">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/astroidutils.py#L503">
       
       (source)
     </a>
@@ -182,7 +182,7 @@ invalid Python or not a singular expression, <code><a href="https://docs.python.
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-31 01:59:50.
+    21.12.1.dev0 at 2022-02-10 20:35:14.
   </div>
 </footer>
 

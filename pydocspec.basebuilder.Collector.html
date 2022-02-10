@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.basebuilder.html">basebuilder</a></code><wbr></wbr>.<code><a href="pydocspec.basebuilder.Collector.html">Collector</a></code></code></h1>
+        <h1 class="class"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.basebuilder.html" class="internal-link" title="pydocspec.basebuilder">basebuilder</a></code><wbr></wbr>.<code><a href="pydocspec.basebuilder.Collector.html" class="internal-link" title="pydocspec.basebuilder.Collector">Collector</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,44 +65,39 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Collector</span>(<span title="BaseCollector[_model.Module, _model.ApiObject]">BaseCollector[_model.Module, _model.ApiObject]</span>): <a href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/basebuilder.py#L82" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.astbuilder.BuilderVisitor.html">pydocspec.astbuilder.BuilderVisitor</a></code>, <code><a href="pydocspec.converter._ConverterVisitor.html">pydocspec.converter._ConverterVisitor</a></code>, <code><a href="pydocspec.introspect._IntrospectModuleBuilder.html">pydocspec.introspect._IntrospectModuleBuilder</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Collector</span>(BaseCollector[_model.Module, _model.ApiObject]): <a href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/basebuilder.py#L82" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.astbuilder.BuilderVisitor.html" class="internal-link">pydocspec.astbuilder.BuilderVisitor</a></code>, <code><a href="pydocspec.converter._ConverterVisitor.html" class="internal-link">pydocspec.converter._ConverterVisitor</a></code>, <code><a href="pydocspec.introspect._IntrospectModuleBuilder.html" class="internal-link">pydocspec.introspect._IntrospectModuleBuilder</a></code></p>
         <p><a href="classIndex.html#pydocspec.basebuilder.Collector">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>Base class to organize a tree of <code><a href="pydocspec.html">pydocspec</a></code> objects.</p>
-<p>Maintains a stack of objects and incrementally build <strong>one</strong> <code><a href="pydocspec.Module.html">Module</a></code> instance.</p>
+        <div><p>Base class to organize a tree of <code><a href="pydocspec.html" class="internal-link">pydocspec</a></code> objects.</p>
+<p>Maintains a stack of objects and incrementally build <strong>one</strong> <code><a href="pydocspec.Module.html" class="internal-link" title="pydocspec.Module">Module</a></code> instance.</p>
 <table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">See Also</td></tr><tr><td colspan="2"><code>pydocspec.TreeRoot.add_object</code></td></tr></table></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id82">
+        <table class="children sortable" id="id81">
   
   
   <tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#__init__">__init__</a></code></td>
+    <td><code><a href="#__init__" class="internal-link" title="pydocspec.basebuilder.Collector.__init__">__init__</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#add_object">add_object</a></code></td>
-    <td>See <code><a href="pydocspec._model.TreeRoot.html#add_object">TreeRoot.add_object</a></code>.</td>
+    <td><code><a href="#add_object" class="internal-link" title="pydocspec.basebuilder.Collector.add_object">add​_object</a></code></td>
+    <td>See <code><a href="pydocspec._model.TreeRoot.html#add_object" class="internal-link" title="pydocspec._model.TreeRoot.add_object">TreeRoot.add_object</a></code>.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
-    <td><code><a href="#last">last</a></code></td>
+    <td><code><a href="#module" class="internal-link" title="pydocspec.basebuilder.Collector.module">module</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
-    <td><code><a href="#module">module</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="instancevariable">
-    
-    <td>Instance Variable</td>
-    <td><code><a href="#root">root</a></code></td>
+    <td><code><a href="#root" class="internal-link" title="pydocspec.basebuilder.Collector.root">root</a></code></td>
     <td>The root of the tree.</td>
   </tr>
 </table>
@@ -124,16 +119,16 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, root, module=<a href="https://docs.python.org/3/library/constants.html#None">None</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/basebuilder.py#L91">
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, root, module=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/basebuilder.py#L91">
       
       (source)
     </a>
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">overridden in <code><a href="pydocspec.astbuilder.BuilderVisitor.html">pydocspec.astbuilder.BuilderVisitor</a></code>, <code><a href="pydocspec.introspect._IntrospectModuleBuilder.html">pydocspec.introspect._IntrospectModuleBuilder</a></code></div>
+    <div class="interfaceinfo">overridden in <code><a href="pydocspec.astbuilder.BuilderVisitor.html" class="internal-link">pydocspec.astbuilder.BuilderVisitor</a></code>, <code><a href="pydocspec.introspect._IntrospectModuleBuilder.html" class="internal-link">pydocspec.introspect._IntrospectModuleBuilder</a></code></div>
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec._model.TreeRoot.html">_model.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<wbr></wbr><a href="pydocspec._model.Module.html">_model.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec._model.TreeRoot.html" class="internal-link" title="pydocspec._model.TreeRoot">_model.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="pydocspec._model.Module.html" class="internal-link" title="pydocspec._model.Module">_model.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -146,8 +141,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">add_object</span>(self, ob, push=<a href="https://docs.python.org/3/library/constants.html#True">True</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/basebuilder.py#L102">
+    <span class="py-keyword">def</span> <span class="py-defname">add_object</span>(self, ob, push=<a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/basebuilder.py#L102">
       
       (source)
     </a>
@@ -155,30 +150,7 @@
   <div class="docstring functionBody">
     
     
-    <div>See <code><a href="pydocspec._model.TreeRoot.html#add_object">TreeRoot.add_object</a></code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.ApiObject.html">_model.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">push:</span><code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
-  </div>
-</div><div class="baseinstancevariable">
-  
-  
-  <a name="pydocspec.basebuilder.Collector.last">
-    
-  </a>
-  <a name="last">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">last</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/basebuilder.py#L124">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-    
+    <div>See <code><a href="pydocspec._model.TreeRoot.html#add_object" class="internal-link" title="pydocspec._model.TreeRoot.add_object">TreeRoot.add_object</a></code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">_model.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">push:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -192,13 +164,13 @@
   <div class="functionHeader">
     
     <span class="py-defname">module</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/basebuilder.py#L116">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/basebuilder.py#L116">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    <div class="interfaceinfo">overridden in <code><a href="pydocspec.astbuilder.BuilderVisitor.html">pydocspec.astbuilder.BuilderVisitor</a></code></div>
+    <div class="interfaceinfo">overridden in <code><a href="pydocspec.astbuilder.BuilderVisitor.html" class="internal-link">pydocspec.astbuilder.BuilderVisitor</a></code></div>
     
     <div><p class="undocumented">Undocumented</p></div>
     
@@ -215,7 +187,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">root</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/basebuilder.py#L95">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/basebuilder.py#L95">
       
       (source)
     </a>
@@ -238,7 +210,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-31 01:59:50.
+    21.12.1.dev0 at 2022-02-10 20:35:14.
   </div>
 </footer>
 

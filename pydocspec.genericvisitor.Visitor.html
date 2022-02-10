@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.html">genericvisitor</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a></code></code></h1>
+        <h1 class="class"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.html" class="internal-link" title="pydocspec.genericvisitor">genericvisitor</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.Visitor.html" class="internal-link" title="pydocspec.genericvisitor.Visitor">Visitor</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Visitor</span>(<span title="Generic[T]">Generic[T]</span>, <a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC">abc.ABC</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L11" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Visitor</span>(Generic[T], <a href="https://docs.python.org/3/library/abc.html#abc.ABC" class="intersphinx-link" title="abc.ABC">abc.ABC</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L11" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.genericvisitor.Visitor">View In Hierarchy</a></p>
       </div>
 
@@ -73,9 +73,9 @@
         <div><p>"Visitor" pattern abstract superclass implementation for tree traversals.</p>
 <p>Each class has corresponding methods, doing nothing by
 default; override individual methods for specific and useful
-behaviour.  The <code><a href="#visit">visit()</a></code> method is called by
-<code><a href="#walk">walk()</a></code> upon entering a object.  <code><a href="#walkabout">walkabout()</a></code> also calls
-the <code><a href="#depart">depart()</a></code> method before exiting a object.</p>
+behaviour.  The <code><a href="#visit" class="internal-link" title="pydocspec.genericvisitor.Visitor.visit">visit()</a></code> method is called by
+<code><a href="#walk" class="internal-link" title="pydocspec.genericvisitor.Visitor.walk">walk()</a></code> upon entering a object.  <code><a href="#walkabout" class="internal-link" title="pydocspec.genericvisitor.Visitor.walkabout">walkabout()</a></code> also calls
+the <code><a href="#depart" class="internal-link" title="pydocspec.genericvisitor.Visitor.depart">depart()</a></code> method before exiting a object.</p>
 <p>The generic methods call "<tt class="rst-docutils literal">visit_</tt> + objet class name" or
 "<tt class="rst-docutils literal">depart_</tt> + objet class name", resp.</p>
 <p>This is a base class for visitors whose <tt class="rst-docutils literal"><span class="pre">visit_...</span></tt> &amp; <tt class="rst-docutils literal"><span class="pre">depart_...</span></tt>
@@ -84,44 +84,44 @@ methods should be implemented for <em>all</em> concrete objets types encountered
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id115">
+        <table class="children sortable" id="id121">
   
   
   <tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#depart">depart</a></code></td>
+    <td><code><a href="#depart" class="internal-link" title="pydocspec.genericvisitor.Visitor.depart">depart</a></code></td>
     <td>Depart an object.</td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#get_children">get_children</a></code></td>
+    <td><code><a href="#get_children" class="internal-link" title="pydocspec.genericvisitor.Visitor.get_children">get​_children</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#unknown_departure">unknown_departure</a></code></td>
+    <td><code><a href="#unknown_departure" class="internal-link" title="pydocspec.genericvisitor.Visitor.unknown_departure">unknown​_departure</a></code></td>
     <td>Called before exiting unknown object types.</td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#unknown_visit">unknown_visit</a></code></td>
+    <td><code><a href="#unknown_visit" class="internal-link" title="pydocspec.genericvisitor.Visitor.unknown_visit">unknown​_visit</a></code></td>
     <td>Called when entering unknown object types.</td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit">visit</a></code></td>
+    <td><code><a href="#visit" class="internal-link" title="pydocspec.genericvisitor.Visitor.visit">visit</a></code></td>
     <td>Visit an object.</td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#walk">walk</a></code></td>
+    <td><code><a href="#walk" class="internal-link" title="pydocspec.genericvisitor.Visitor.walk">walk</a></code></td>
     <td><span class="undocumented">No summary</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#walkabout">walkabout</a></code></td>
-    <td>Perform a tree traversal similarly to <code><a href="#walk">walk()</a></code> (which see), except also call the <code><a href="#depart">depart()</a></code> method before exiting each node.</td>
+    <td><code><a href="#walkabout" class="internal-link" title="pydocspec.genericvisitor.Visitor.walkabout">walkabout</a></code></td>
+    <td>Perform a tree traversal similarly to <code><a href="#walk" class="internal-link" title="pydocspec.genericvisitor.Visitor.walk">walk()</a></code> (which see), except also call the <code><a href="#depart" class="internal-link" title="pydocspec.genericvisitor.Visitor.depart">depart()</a></code> method before exiting each node.</td>
   </tr>
 </table>
         
@@ -143,7 +143,7 @@ methods should be implemented for <em>all</em> concrete objets types encountered
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">depart</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L34">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L34">
       
       (source)
     </a>
@@ -151,7 +151,7 @@ methods should be implemented for <em>all</em> concrete objets types encountered
   <div class="docstring functionBody">
     
     
-    <div>Depart an object.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Depart an object.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -163,9 +163,9 @@ methods should be implemented for <em>all</em> concrete objets types encountered
     
   </a>
   <div class="functionHeader">
-    @<a href="https://docs.python.org/3/library/abc.html#abc.abstractclassmethod">abc.abstractclassmethod</a><br />
+    @<a href="https://docs.python.org/3/library/abc.html#abc.abstractclassmethod" class="intersphinx-link">abc.abstractclassmethod</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">get_children</span>(cls, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L97">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L97">
       
       (source)
     </a>
@@ -173,7 +173,7 @@ methods should be implemented for <em>all</em> concrete objets types encountered
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T">T</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable" class="intersphinx-link">Iterable</a>[<wbr></wbr><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -187,7 +187,7 @@ methods should be implemented for <em>all</em> concrete objets types encountered
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_departure</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L50">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L50">
       
       (source)
     </a>
@@ -197,7 +197,7 @@ methods should be implemented for <em>all</em> concrete objets types encountered
     
     <div><p>Called before exiting unknown object types.</p>
 <p>Raise exception unless overridden.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -211,7 +211,7 @@ methods should be implemented for <em>all</em> concrete objets types encountered
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unknown_visit</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L40">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L40">
       
       (source)
     </a>
@@ -221,7 +221,7 @@ methods should be implemented for <em>all</em> concrete objets types encountered
     
     <div><p>Called when entering unknown object types.</p>
 <p>Raise an exception unless overridden.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -235,7 +235,7 @@ methods should be implemented for <em>all</em> concrete objets types encountered
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L28">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L28">
       
       (source)
     </a>
@@ -243,7 +243,7 @@ methods should be implemented for <em>all</em> concrete objets types encountered
   <div class="docstring functionBody">
     
     
-    <div>Visit an object.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Visit an object.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -257,7 +257,7 @@ methods should be implemented for <em>all</em> concrete objets types encountered
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walk</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L60">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L60">
       
       (source)
     </a>
@@ -266,16 +266,16 @@ methods should be implemented for <em>all</em> concrete objets types encountered
     
     
     <div><p>Traverse a tree of objects, calling the
-<code><a href="#visit">visit()</a></code> method of <code><a href="pydocspec.genericvisitor.VisitorExtension.html#visitor">visitor</a></code> when entering each
-node.  (The <code><a href="#walkabout">walkabout()</a></code> method is similar, except it also
-calls the <code><a href="#depart">depart()</a></code> method before exiting each objects.)</p>
+<code><a href="#visit" class="internal-link" title="pydocspec.genericvisitor.Visitor.visit">visit()</a></code> method of <code><a href="pydocspec.genericvisitor.VisitorExtension.html#visitor" class="internal-link" title="pydocspec.genericvisitor.VisitorExtension.visitor">visitor</a></code> when entering each
+node.  (The <code><a href="#walkabout" class="internal-link" title="pydocspec.genericvisitor.Visitor.walkabout">walkabout()</a></code> method is similar, except it also
+calls the <code><a href="#depart" class="internal-link" title="pydocspec.genericvisitor.Visitor.depart">depart()</a></code> method before exiting each objects.)</p>
 <p>This tree traversal supports limited in-place tree
 modifications.  Replacing one node with one or more nodes is
 OK, as is removing an element.  However, if the node removed
 or replaced occurs after the current node, the old node will
 still be traversed, and any new nodes will not.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc">An object to walk.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor</span></td><td class="fieldArgDesc">A <code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a></code> object, containing a
-<tt class="rst-docutils literal">visit</tt> implementation for each object type encountered.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">get_children</span></td><td class="fieldArgDesc">A callable that returns the children of an object.</td></tr></table></div>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a></code></td><td class="fieldArgDesc">An object to walk.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor</span></td><td class="fieldArgDesc">A <code><a href="pydocspec.genericvisitor.Visitor.html" class="internal-link" title="pydocspec.genericvisitor.Visitor">Visitor</a></code> object, containing a
+<tt class="rst-docutils literal">visit</tt> implementation for each object type encountered.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">get​_children</span></td><td class="fieldArgDesc">A callable that returns the children of an object.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -289,7 +289,7 @@ still be traversed, and any new nodes will not.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walkabout</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/genericvisitor.py#L82">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/genericvisitor.py#L82">
       
       (source)
     </a>
@@ -297,9 +297,9 @@ still be traversed, and any new nodes will not.</p>
   <div class="docstring functionBody">
     
     
-    <div>Perform a tree traversal similarly to <code><a href="#walk">walk()</a></code> (which
-see), except also call the <code><a href="#depart">depart()</a></code> method before exiting each node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T">T</a></code></td><td class="fieldArgDesc">An object to walk.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor</span></td><td class="fieldArgDesc">A <code><a href="pydocspec.genericvisitor.Visitor.html">Visitor</a></code> object, containing a
-<tt class="rst-docutils literal">visit</tt> and <tt class="rst-docutils literal">depart</tt> implementation for each concrete object type encountered.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">get_children</span></td><td class="fieldArgDesc">A callable that returns the children of an object.</td></tr></table></div>
+    <div>Perform a tree traversal similarly to <code><a href="#walk" class="internal-link" title="pydocspec.genericvisitor.Visitor.walk">walk()</a></code> (which
+see), except also call the <code><a href="#depart" class="internal-link" title="pydocspec.genericvisitor.Visitor.depart">depart()</a></code> method before exiting each node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.genericvisitor.html#T" class="internal-link" title="pydocspec.genericvisitor.T">T</a></code></td><td class="fieldArgDesc">An object to walk.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">visitor</span></td><td class="fieldArgDesc">A <code><a href="pydocspec.genericvisitor.Visitor.html" class="internal-link" title="pydocspec.genericvisitor.Visitor">Visitor</a></code> object, containing a
+<tt class="rst-docutils literal">visit</tt> and <tt class="rst-docutils literal">depart</tt> implementation for each concrete object type encountered.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">get​_children</span></td><td class="fieldArgDesc">A callable that returns the children of an object.</td></tr></table></div>
   </div>
 </div>
 
@@ -311,7 +311,7 @@ see), except also call the <code><a href="#depart">depart()</a></code> method be
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-31 01:59:50.
+    21.12.1.dev0 at 2022-02-10 20:35:14.
   </div>
 </footer>
 

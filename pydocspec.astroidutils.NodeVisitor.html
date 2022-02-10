@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astroidutils.html">astroidutils</a></code><wbr></wbr>.<code><a href="pydocspec.astroidutils.NodeVisitor.html">NodeVisitor</a></code></code></h1>
+        <h1 class="class"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astroidutils.html" class="internal-link" title="pydocspec.astroidutils">astroidutils</a></code><wbr></wbr>.<code><a href="pydocspec.astroidutils.NodeVisitor.html" class="internal-link" title="pydocspec.astroidutils.NodeVisitor">NodeVisitor</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,45 +65,45 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">NodeVisitor</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/astroidutils.py#L40" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.astroidutils.NodeTransformer.html">pydocspec.astroidutils.NodeTransformer</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">NodeVisitor</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/astroidutils.py#L40" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.astroidutils.NodeTransformer.html" class="internal-link">pydocspec.astroidutils.NodeTransformer</a></code></p>
         <p><a href="classIndex.html#pydocspec.astroidutils.NodeVisitor">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
         <div><p>A node visitor base class that walks the abstract syntax tree and calls a
 visitor function for every node found.  This function may return a value
-which is forwarded by the <code><a href="#visit">visit</a></code> method.
+which is forwarded by the <code><a href="#visit" class="internal-link" title="pydocspec.astroidutils.NodeVisitor.visit">visit</a></code> method.
 This class is meant to be subclassed, with the subclass adding visitor
 methods.
 Per default the visitor functions for the nodes are <tt class="rst-docutils literal">'visit_'</tt> +
 class name of the node.  So a <code>ClassDef</code> node visit function would
 be <code>visit_ClassDef</code> or alternatively <code>visit_classdef</code>.
 This behavior can be changed by overriding
-the <code><a href="#visit">visit</a></code> method.  If no visitor function exists for a node
-(return value <code><a href="https://docs.python.org/3/library/constants.html#None">None</a></code>) the <code><a href="#generic_visit">generic_visit</a></code> visitor is used instead.
-Don't use the <code><a href="pydocspec.astroidutils.NodeVisitor.html">NodeVisitor</a></code> if you want to apply changes to nodes during
-traversing.  For this a special visitor exists (<code><a href="pydocspec.astroidutils.NodeTransformer.html">NodeTransformer</a></code>) that
+the <code><a href="#visit" class="internal-link" title="pydocspec.astroidutils.NodeVisitor.visit">visit</a></code> method.  If no visitor function exists for a node
+(return value <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>) the <code><a href="#generic_visit" class="internal-link" title="pydocspec.astroidutils.NodeVisitor.generic_visit">generic_visit</a></code> visitor is used instead.
+Don't use the <code><a href="pydocspec.astroidutils.NodeVisitor.html" class="internal-link" title="pydocspec.astroidutils.NodeVisitor">NodeVisitor</a></code> if you want to apply changes to nodes during
+traversing.  For this a special visitor exists (<code><a href="pydocspec.astroidutils.NodeTransformer.html" class="internal-link" title="pydocspec.astroidutils.NodeTransformer">NodeTransformer</a></code>) that
 allows modifications.</p>
 <div class="rst-admonition note">
 <p class="rst-first rst-admonition-title">Note</p>
-<p class="rst-last">Barely adapted from Python standard's library <code><a href="https://docs.python.org/3/library/ast.html#module-ast">ast</a></code> module.</p>
+<p class="rst-last">Barely adapted from Python standard's library <code><a href="https://docs.python.org/3/library/ast.html#module-ast" class="intersphinx-link">ast</a></code> module.</p>
 </div>
 </div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id69">
+        <table class="children sortable" id="id68">
   
   
   <tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#generic_visit">generic_visit</a></code></td>
+    <td><code><a href="#generic_visit" class="internal-link" title="pydocspec.astroidutils.NodeVisitor.generic_visit">generic​_visit</a></code></td>
     <td>Called if no explicit visitor function exists for a node.</td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#visit">visit</a></code></td>
+    <td><code><a href="#visit" class="internal-link" title="pydocspec.astroidutils.NodeVisitor.visit">visit</a></code></td>
     <td>Visit a node.</td>
   </tr>
 </table>
@@ -126,13 +126,13 @@ allows modifications.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">generic_visit</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/astroidutils.py#L66">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/astroidutils.py#L66">
       
       (source)
     </a>
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">overridden in <code><a href="pydocspec.astroidutils.NodeTransformer.html">pydocspec.astroidutils.NodeTransformer</a></code></div>
+    <div class="interfaceinfo">overridden in <code><a href="pydocspec.astroidutils.NodeTransformer.html" class="internal-link">pydocspec.astroidutils.NodeTransformer</a></code></div>
     
     <div>Called if no explicit visitor function exists for a node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
@@ -148,7 +148,7 @@ allows modifications.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit</span>(self, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/astroidutils.py#L60">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/astroidutils.py#L60">
       
       (source)
     </a>
@@ -156,7 +156,7 @@ allows modifications.</p>
   <div class="docstring functionBody">
     
     
-    <div>Visit a node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Visit a node.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -168,7 +168,7 @@ allows modifications.</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-31 01:59:50.
+    21.12.1.dev0 at 2022-02-10 20:35:14.
   </div>
 </footer>
 

@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="package"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.ext.html">ext</a></code></code></h1>
+        <h1 class="package"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.ext.html" class="internal-link" title="pydocspec.ext">ext</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/__init__.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/__init__.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -95,111 +95,136 @@ def setup_extension(r:ExtRegistrar) -&gt; None:
     r.register_postbuild_visitors(MyObjectVisitor)
 )
 </pre>
-<p><code><a href="pydocspec.specfactory.Factory.html">specfactory.Factory</a></code>. Because of that, the documentation of the classes listed in this module are incomplete, properties
-and methods provided by mixin classes can be review in their respective documentation, under the package <code><a href="pydocspec.brains.html">brains</a></code>.</p>
+<p><code><a href="pydocspec.specfactory.Factory.html" class="internal-link" title="pydocspec.specfactory.Factory">specfactory.Factory</a></code>. Because of that, the documentation of the classes listed in this module are incomplete, properties
+and methods provided by mixin classes can be review in their respective documentation, under the package <code><a href="pydocspec.ext.html" class="internal-link">pydocspec.ext</a></code>.</p>
 <table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Notes</td></tr><tr><td colspan="2">Tree root instance is created before extensions are loaded.</td></tr><tr><td colspan="2">Mixin classes are going to be added to the list of bases when creating the new objects with the</td></tr></table></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id106">
+        <table class="children sortable" id="id99">
   
   
   <tr class="package">
     
     <td>Package</td>
-    <td><code><a href="pydocspec.ext.opt.html">opt</a></code></td>
+    <td><code><a href="pydocspec.ext.opt.html" class="internal-link" title="pydocspec.ext.opt">opt</a></code></td>
     <td>Optional extensions packaged.</td>
   </tr><tr class="module">
     
     <td>Module</td>
-    <td><code><a href="pydocspec.ext.dup.html">dup</a></code></td>
+    <td><code><a href="pydocspec.ext.dup.html" class="internal-link" title="pydocspec.ext.dup">dup</a></code></td>
     <td>Handles objects created with the same name as an object that already exisist.</td>
   </tr>
 </table>
         
 
-          <p class="fromInitPy">From <code>__init__.py</code>:</p><table class="children sortable" id="id107">
+          <p class="fromInitPy">From <code>__init__.py</code>:</p><table class="children sortable" id="id100">
   
   
   <tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.ext.ClassMixin.html">ClassMixin</a></code></td>
+    <td><code><a href="pydocspec.ext.ApiObjectMixin.html" class="internal-link" title="pydocspec.ext.ApiObjectMixin">​Api​Object​Mixin</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.ext.DataMixin.html">DataMixin</a></code></td>
+    <td><code><a href="pydocspec.ext.ApiObjectVisitorExt.html" class="internal-link" title="pydocspec.ext.ApiObjectVisitorExt">​Api​Object​Visitor​Ext</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.ext.DecorationMixin.html">DecorationMixin</a></code></td>
+    <td><code><a href="pydocspec.ext.AstVisitorExt.html" class="internal-link" title="pydocspec.ext.AstVisitorExt">​Ast​Visitor​Ext</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.ext.DocstringMixin.html">DocstringMixin</a></code></td>
+    <td><code><a href="pydocspec.ext.ClassMixin.html" class="internal-link" title="pydocspec.ext.ClassMixin">​Class​Mixin</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.ext.ExtRegistrar.html">ExtRegistrar</a></code></td>
+    <td><code><a href="pydocspec.ext.DataMixin.html" class="internal-link" title="pydocspec.ext.DataMixin">​Data​Mixin</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.ext.DecorationMixin.html" class="internal-link" title="pydocspec.ext.DecorationMixin">​Decoration​Mixin</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.ext.DocstringMixin.html" class="internal-link" title="pydocspec.ext.DocstringMixin">​Docstring​Mixin</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.ext.ExtRegistrar.html" class="internal-link" title="pydocspec.ext.ExtRegistrar">​Ext​Registrar</a></code></td>
     <td>The extension registrar interface class.</td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.ext.FunctionMixin.html">FunctionMixin</a></code></td>
+    <td><code><a href="pydocspec.ext.FunctionMixin.html" class="internal-link" title="pydocspec.ext.FunctionMixin">​Function​Mixin</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.ext.IndirectionMixin.html">IndirectionMixin</a></code></td>
+    <td><code><a href="pydocspec.ext.HasMembersMixin.html" class="internal-link" title="pydocspec.ext.HasMembersMixin">​Has​Members​Mixin</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.ext.LocationMixin.html">LocationMixin</a></code></td>
+    <td><code><a href="pydocspec.ext.IndirectionMixin.html" class="internal-link" title="pydocspec.ext.IndirectionMixin">​Indirection​Mixin</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.ext.ModuleMixin.html">ModuleMixin</a></code></td>
+    <td><code><a href="pydocspec.ext.InheritableMixin.html" class="internal-link" title="pydocspec.ext.InheritableMixin">​Inheritable​Mixin</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.ext.LocationMixin.html" class="internal-link" title="pydocspec.ext.LocationMixin">​Location​Mixin</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.ext.ModuleMixin.html" class="internal-link" title="pydocspec.ext.ModuleMixin">​Module​Mixin</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#get_default_extensions">get_default_extensions</a></code></td>
+    <td><code><a href="#get_default_extensions" class="internal-link" title="pydocspec.ext.get_default_extensions">get​_default​_extensions</a></code></td>
     <td>Get the full names of all the default extension modules included in L{pydocspec}.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#get_optional_extensions">get_optional_extensions</a></code></td>
+    <td><code><a href="#get_optional_extensions" class="internal-link" title="pydocspec.ext.get_optional_extensions">get​_optional​_extensions</a></code></td>
     <td>Get the full names of all the default extension modules included in L{pydocspec}.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#load_extension_module">load_extension_module</a></code></td>
+    <td><code><a href="#load_extension_module" class="internal-link" title="pydocspec.ext.load_extension_module">load​_extension​_module</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_get_mixins">_get_mixins</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><code><a href="#_get_mixins" class="internal-link" title="pydocspec.ext._get_mixins">​_get​_mixins</a></code></td>
+    <td>Transform a list of mixins classes to a dict from the concrete class name to the mixins that must be applied to it.</td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_get_setup_extension_func_from_module">_get_setup_extension_func_from_module</a></code></td>
+    <td><code><a href="#_get_setup_extension_func_from_module" class="internal-link" title="pydocspec.ext._get_setup_extension_func_from_module">​_get​_setup​_extension​_func​_from​_module</a></code></td>
     <td>Will look for the special function <tt class="rst-docutils literal">setup_extension</tt> in the provided module.</td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_get_submodules">_get_submodules</a></code></td>
+    <td><code><a href="#_get_submodules" class="internal-link" title="pydocspec.ext._get_submodules">​_get​_submodules</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable private">
     
     <td>Variable</td>
-    <td><code><a href="#_mixins_names_map">_mixins_names_map</a></code></td>
+    <td><code><a href="#_mixin_to_class_name" class="internal-link" title="pydocspec.ext._mixin_to_class_name">​_mixin​_to​_class​_name</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -219,7 +244,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">load_extension_module</span>(builder, mod):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/__init__.py#L69">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/__init__.py#L75">
       
       (source)
     </a>
@@ -227,7 +252,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">builder:</span><code><a href="pydocspec.astbuilder.Builder.html">astbuilder.Builder</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/types.html#types.ModuleType">types.ModuleType</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">builder:</span><code><a href="pydocspec.astbuilder.Builder.html" class="internal-link" title="pydocspec.astbuilder.Builder">astbuilder.Builder</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -241,7 +266,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_default_extensions</span>():
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/__init__.py#L73">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/__init__.py#L79">
       
       (source)
     </a>
@@ -249,7 +274,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="docstring functionBody">
     
     
-    <div>Get the full names of all the default extension modules included in L{pydocspec}.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Get the full names of all the default extension modules included in L{pydocspec}.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator" class="intersphinx-link">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -263,7 +288,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_optional_extensions</span>():
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/__init__.py#L79">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/__init__.py#L85">
       
       (source)
     </a>
@@ -271,21 +296,21 @@ and methods provided by mixin classes can be review in their respective document
   <div class="docstring functionBody">
     
     
-    <div>Get the full names of all the default extension modules included in L{pydocspec}.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Get the full names of all the default extension modules included in L{pydocspec}.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator" class="intersphinx-link">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basevariable private">
   
   
-  <a name="pydocspec.ext._mixins_names_map">
+  <a name="pydocspec.ext._mixin_to_class_name">
     
   </a>
-  <a name="_mixins_names_map">
+  <a name="_mixin_to_class_name">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">_mixins_names_map</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/__init__.py#L121">
+    <span class="py-defname">_mixin_to_class_name</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/__init__.py#L138">
       
       (source)
     </a>
@@ -308,7 +333,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_mixins</span>(*mixins):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/__init__.py#L133">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/__init__.py#L150">
       
       (source)
     </a>
@@ -316,7 +341,12 @@ and methods provided by mixin classes can be review in their respective document
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*mixins:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Transform a list of mixins classes to a dict from the
+concrete class name to the mixins that must be applied to it.</p>
+<p>This relies on the fact that mixins shoud extend one of the
+base mixin classes in <code><a href="pydocspec.ext.html" class="internal-link">pydocspec.ext</a></code> module.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*mixins:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/exceptions.html#TypeError" class="intersphinx-link">TypeError</a></code></td><td>If a mixin does not extends any of the
+provided base mixin classes.</td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
@@ -330,7 +360,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_submodules</span>(pkg):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/__init__.py#L145">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/__init__.py#L175">
       
       (source)
     </a>
@@ -338,7 +368,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">pkg:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">pkg:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator" class="intersphinx-link">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
@@ -352,7 +382,7 @@ and methods provided by mixin classes can be review in their respective document
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_setup_extension_func_from_module</span>(module):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/ext/__init__.py#L151">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/ext/__init__.py#L181">
       
       (source)
     </a>
@@ -363,7 +393,8 @@ and methods provided by mixin classes can be review in their respective document
     <div><p>Will look for the special function <tt class="rst-docutils literal">setup_extension</tt> in the provided module.</p>
 <p>Raises ValueError if module do not provide a valid setup_extension() function.
 Raise ModuleNotFoundError if module is not found.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/types.html#types.ModuleType">types.ModuleType</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a>[<wbr></wbr>[<wbr></wbr><a href="pydocspec.ext.ExtRegistrar.html">ExtRegistrar</a>], <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None">None</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+<p>Returns a tuple(str, callable): extension module name, setup_extension() function.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a>[<wbr></wbr>[<wbr></wbr><a href="pydocspec.ext.ExtRegistrar.html" class="internal-link" title="pydocspec.ext.ExtRegistrar">ExtRegistrar</a>], <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
 
@@ -375,7 +406,7 @@ Raise ModuleNotFoundError if module is not found.</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-31 01:59:50.
+    21.12.1.dev0 at 2022-02-10 20:35:14.
   </div>
 </footer>
 

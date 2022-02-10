@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="pydocspec.html">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.processor.html">processor</a></code><wbr></wbr>.<code><a href="pydocspec.processor.Processor.html">Processor</a></code></code></h1>
+        <h1 class="class"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.processor.html" class="internal-link" title="pydocspec.processor">processor</a></code><wbr></wbr>.<code><a href="pydocspec.processor.Processor.html" class="internal-link" title="pydocspec.processor.Processor">Processor</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,14 +65,14 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Processor</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/processor/__init__.py#L148" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Processor</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/processor/__init__.py#L148" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.processor.Processor">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>Populate <code><a href="pydocspec.html">pydocspec</a></code> attributes by applying processing to a newly created <code><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a></code> instance coming from the <code><a href="pydocspec.astbuilder.html">astbuilder</a></code>.</p>
-<p>At the point of the post processing, the root <code><a href="pydocspec.Module.html">pydocspec.Module</a></code> instances should have
-already been added to the <code><a href="pydocspec.TreeRoot.html#root_modules">pydocspec.TreeRoot.root_modules</a></code> attribute.</p>
+        <div><p>Populate <code><a href="pydocspec.html" class="internal-link">pydocspec</a></code> attributes by applying processing to a newly created <code><a href="pydocspec.TreeRoot.html" class="internal-link">pydocspec.TreeRoot</a></code> instance coming from the <code><a href="pydocspec.astbuilder.html" class="internal-link" title="pydocspec.astbuilder">astbuilder</a></code>.</p>
+<p>At the point of the post processing, the root <code><a href="pydocspec.Module.html" class="internal-link">pydocspec.Module</a></code> instances should have
+already been added to the <code><a href="pydocspec.TreeRoot.html#root_modules" class="internal-link">pydocspec.TreeRoot.root_modules</a></code> attribute.</p>
 <p>Post-build is done when there are no more unprocessed modules.</p>
 <p>Analysis of relations between documentables should be done in post-build,
 without the risk of drawing incorrect conclusions because modules
@@ -85,18 +85,18 @@ were not fully processed yet.</p>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id138">
+        <table class="children sortable" id="id144">
   
   
   <tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#post_build">post_build</a></code></td>
-    <td>Apply post-build process on the tree. This is required. Called automatically when using <code><a href="pydocspec.astbuilder.Builder.html">astbuilder.Builder</a></code>.</td>
+    <td><code><a href="#post_build" class="internal-link" title="pydocspec.processor.Processor.post_build">post​_build</a></code></td>
+    <td>Apply post-build process on the tree. This is required. Called automatically when using <code><a href="pydocspec.astbuilder.Builder.html" class="internal-link" title="pydocspec.astbuilder.Builder">astbuilder.Builder</a></code>.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
-    <td><code><a href="#visitor_extensions">visitor_extensions</a></code></td>
+    <td><code><a href="#visitor_extensions" class="internal-link" title="pydocspec.processor.Processor.visitor_extensions">visitor​_extensions</a></code></td>
     <td>Post-build visitor extensions.</td>
   </tr>
 </table>
@@ -119,7 +119,7 @@ were not fully processed yet.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">post_build</span>(self, root):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/processor/__init__.py#L171">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/processor/__init__.py#L171">
       
       (source)
     </a>
@@ -127,12 +127,12 @@ were not fully processed yet.</p>
   <div class="docstring functionBody">
     
     
-    <div><p>Apply post-build process on the tree. This is required. Called automatically when using <code><a href="pydocspec.astbuilder.Builder.html">astbuilder.Builder</a></code>.</p>
+    <div><p>Apply post-build process on the tree. This is required. Called automatically when using <code><a href="pydocspec.astbuilder.Builder.html" class="internal-link" title="pydocspec.astbuilder.Builder">astbuilder.Builder</a></code>.</p>
 <pre class="py-doctest">
 root: pydocspec.TreeRoot
 pp = processor.Processor()
 pp.visitor_extensions.add(MyCustomVisitor)
-pp.post_build(root)</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.TreeRoot.html">pydocspec.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">If you are creating a tree manually, you should run this on your tree as well.</td></tr></table></div>
+pp.post_build(root)</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec.TreeRoot.html" class="internal-link">pydocspec.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">If you are creating a tree manually, you should run this on your tree as well.</td></tr></table></div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -145,8 +145,8 @@ pp.post_build(root)</pre><table class="fieldTable"><tr class="fieldStart"><td cl
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">visitor_extensions</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Set">Set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<wbr></wbr><a href="pydocspec.visitors.ApiObjectVisitorExt.html">visitors.ApiObjectVisitorExt</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<wbr></wbr><a href="pydocspec.visitors.ApiObjectVisitorExt.html">visitors.ApiObjectVisitorExt</a>]]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/65a3cfa1564af8e0bee2a097d76b11c72ff557cc/pydocspec/processor/__init__.py#L166">
+    <span class="py-defname">visitor_extensions</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Set" class="intersphinx-link">Set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.visitors.ApiObjectVisitorExt.html" class="internal-link" title="pydocspec.visitors.ApiObjectVisitorExt">visitors.ApiObjectVisitorExt</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr><a href="pydocspec.visitors.ApiObjectVisitorExt.html" class="internal-link" title="pydocspec.visitors.ApiObjectVisitorExt">visitors.ApiObjectVisitorExt</a>]]]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/427bd16d5f869a1cebe982699bc4da09b154592d/pydocspec/processor/__init__.py#L166">
       
       (source)
     </a>
@@ -167,7 +167,7 @@ pp.post_build(root)</pre><table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-01-31 01:59:50.
+    21.12.1.dev0 at 2022-02-10 20:35:14.
   </div>
 </footer>
 
