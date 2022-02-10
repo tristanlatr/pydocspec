@@ -9,11 +9,47 @@ Handles `classmethod()` and `staticmethod()` like::
 
 It removes the Data object and mark the Function f() as a static method.
 """
-from typing import Optional
+
+# Duplicate handling names rationale: 
+# - Special handling for duplicates inside TYPE_CHECKING/sys.version_info min?
+# - Handle the homogeneous types duplicates first
+#   - Duplicates Data: 
+#       - Duplicates constant: warns
+#       - Duplicates class/instance variables: Keep the first Data object, 
+#           update the infos (value/datatype) with infos present in other Data objects and remove them from the tree.
+#           - Instance varaible overrides class variable -> becomes instance varaible.
+#       - Duplicate module var: object defined after wins.
+#   - Duplicates Function:
+#       - Duplicates property/getter/setter: Unify them under a single view.
+#       - Duplicates overlaoded function: Unify them under a single view.
+#       - Otherwise object defined after wins.
+#   - Duplicates Class:
+#       - Object defined after wins.
+# - Handle heterogeneous types duplicates
+#       - Data overrides Function: 
+#           - Check if Data is:
+#               - name=staticmethod(name) OR name=classmethod(name):
+#                   -> If context is a Class, transform the Function into static/class method.
+#               - 
+#           - We might want to use the 
+#             astroid inferrence system here to be more precise.
+#       - Data/Class/Indirection overrides sub-Module:
+#             -> sub-Module is shadowed by
+# - Handle heterogeneous types override inherited members.
+#       - Data overrides a inherited Function:
+#           - The data is probably on bound method, so transform it in Function. 
+
+
+from typing import List, Optional
 import astroid.nodes
 
 import pydocspec
 from pydocspec.ext import AstVisitorExt, ExtRegistrar
+
+class DuplicateHandler:
+    """Handle duplicates"""
+
+    def handle(dups: List[pydocspec.ApiObject]):...
 
 # this could be done in post-processing
 def _handleOldSchoolMethodDecoration(self:AstVisitorExt, 
