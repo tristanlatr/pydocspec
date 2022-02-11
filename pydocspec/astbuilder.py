@@ -857,7 +857,7 @@ class Builder:
             # so modules should not be shadowed by other objects (yet).
             assert isinstance(older_mod, _model.Module) #type:ignore[unreachable]
             
-            _warn_str = f"Duplicate module name: '{mod.full_name}', the package/directory wins."
+            _warn_str = f"Duplicate module name: '{mod.full_name}', the package/directory wins." #type:ignore[unreachable]
             
             if mod.is_package:
                 older_mod.warn(_warn_str)
@@ -981,7 +981,8 @@ class Builder:
         mod = self.root.all_objects.get(modname)
         
         if mod is None: return None
-        if not isinstance(mod, _model.Module): return None
+        if not isinstance(mod, _model.Module): #type:ignore[unreachable]
+            return None
                 
         if self.processing_map.get(mod.full_name) is ProcessingState.UNPROCESSED: #type:ignore[unreachable]
             self._process_module(mod)

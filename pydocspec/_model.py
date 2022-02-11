@@ -155,7 +155,7 @@ class TreeRoot:
     @overload
     def add_object(self, ob: 'Module', parent: None) -> None:
         ...
-    def add_object(self, ob: 'pydocspec.ApiObject', parent: Optional['pydocspec.ApiObject']) -> None:
+    def add_object(self, ob: 'ApiObject', parent: Optional['ApiObject']) -> None:
         """
         Add a newly created object to the tree. 
         Responsible to add the object to the parent namespace, setup parent attribute, setup 
@@ -163,15 +163,17 @@ class TreeRoot:
 
         If parent is `None`, the object passed will be treated as a root module.
         """
+        ob = cast('pydocspec.ApiObject', ob)
         if parent is not None:
             assert isinstance(parent, HasMembers), (f"Cannot add new object ({ob!r}) inside {parent.__class__.__name__}. " #type:ignore[unreachable]
                                                             f"{parent.full_name} is not namespace.")
+            parent = cast('Union[pydocspec.Class, pydocspec.Module]', parent)
             # setup child in the parent's member attribute
-            if ob not in parent.members:
+            if ob not in parent.members: #type:ignore[unreachable]
                 parent.members.append(ob)
             ob.parent = parent
         else:
-            assert isinstance(ob, Module)
+            assert isinstance(ob, Module) #type:ignore[unreachable]
             # add root modules to root.root_modules attribute
             self.root_modules.append(cast('pydocspec.Module', ob)) #type:ignore[unreachable]
         
@@ -186,7 +188,7 @@ class TreeRoot:
         self.all_objects.addvalue(ob.full_name, ob, shadow=should_shadow)
 
         # Set the ApiObject.root attribute
-        ob.root = self 
+        ob.root = cast('pydocspec.TreeRoot', self)
         
         # in case members are already present in the new object
         for child in ob._members():
@@ -240,9 +242,10 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
         except ValueError:
             pass
         
-        self._remove_self()    
+        self._remove_self() #type:ignore[misc]
     
-    def _remove_self(self: 'pydocspec.ApiObject') -> None:
+    def _remove_self(self: 'pydocspec.ApiObject' #type:ignore[misc]
+        ) -> None:
         # remove from the all_objects mapping
         try:
             self.root.all_objects.rmvalue(self.full_name, self)
@@ -276,11 +279,12 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
 
     def _members(self) -> Iterable['pydocspec.ApiObject']:
         if isinstance(self, HasMembers): 
-            return self.members
+            return cast('List[pydocspec.ApiObject]', self.members)
         else: 
             return ()
 
-    def walk(self: 'pydocspec.ApiObject', visitor: visitors.ApiObjectVisitor) -> None:
+    def walk(self: 'pydocspec.ApiObject', #type:ignore[misc]
+             visitor: visitors.ApiObjectVisitor) -> None:
         """
         Traverse a tree of objects, calling the `genericvisitor.Visitor.visit` 
         method of `visitor` when entering each node.
@@ -289,7 +293,8 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
         """
         visitor.walk(self)
         
-    def walkabout(self: 'pydocspec.ApiObject', visitor: visitors.ApiObjectVisitor) -> None:
+    def walkabout(self: 'pydocspec.ApiObject', #type:ignore[misc]
+                  visitor: visitors.ApiObjectVisitor) -> None:
         """
         Perform a tree traversal similarly to `walk()`, except also call the `genericvisitor.Visitor.depart` 
         method before exiting each node.
@@ -354,7 +359,8 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
                     assert isinstance(member, ApiObject), (name, self, member)
                     yield cast('pydocspec.ApiObject', member)
     
-    def _repr(self: 'pydocspec.ApiObject', full_name:bool=False, fields:Optional[Sequence[str]]=None) -> str:
+    def _repr(self: 'pydocspec.ApiObject',  #type:ignore[misc]
+             full_name:bool=False, fields:Optional[Sequence[str]]=None) -> str:
         return tree_repr(self, full_name=full_name, fields=fields)
 
 @dataclasses.dataclass(repr=False)

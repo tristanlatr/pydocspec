@@ -40,7 +40,7 @@ def convert_docspec_modules(modules: Iterable[docspec.Module], options: Optional
     builder._post_build()
     return builder.root
 
-def back_convert_modules(modules: Iterable[pydocspec.Module]) -> Sequence[docspec.Module]:
+def back_convert_modules(modules: Sequence[pydocspec.Module]) -> Sequence[docspec.Module]:
     """
     Convert a list of `pydocspec.Module` instances into a list of `docspec.Module`. 
     This the reverse of `convert_docspec_modules`, this is useful to be able to dump 
@@ -202,10 +202,10 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
 
     def _convert_Docstring(self, docstring: Optional[docspec.Docstring]) -> Optional[docspec.Docstring]:
         if not docstring: return None
-        return self.root.factory.Docstring(
+        return cast(docspec.Docstring, self.root.factory.Docstring(
                 content=docstring.content,
                 location=self._convert_Location(docstring.location),
-                )
+                ))
 
 @attr.s(auto_attribs=True)
 class _Converter:
@@ -238,7 +238,7 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
 
     def __init__(self) -> None:
         basebuilder.BaseCollector.__init__(self, None)
-        visitors.ApiObjectVisitor.__init__(cast(genericvisitor.CustomizableVisitor[pydocspec.ApiObject], self))
+        visitors.ApiObjectVisitor.__init__(self) #type:ignore[arg-type]
 
     def add_object(self, ob: docspec.ApiObject, push: bool = True) -> None:
         # There is a little bit of code duplication here with basebuilder.Collector. 
@@ -251,7 +251,7 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
             self.module = ob
         else:
             assert isinstance(self.current, docspec.HasMembers), f"Current object is not a class or a module: {self.current!r}"
-            self.current.members.append(ob)
+            cast('List[docspec.ApiObject]', self.current.members).append(ob)
             ob.sync_hierarchy(self.current)
         
         if push:

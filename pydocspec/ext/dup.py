@@ -50,7 +50,7 @@ from pydocspec.ext import AstVisitorExt, ExtRegistrar
 class DuplicateHandler:
     """Handle duplicates"""
 
-    def handle(dups: List[pydocspec.ApiObject]) -> None:...
+    def handle(self, dups: List[pydocspec.ApiObject]) -> None:...
 
 # this could be done in post-processing
 def _handleOldSchoolMethodDecoration(self:AstVisitorExt, 
@@ -85,14 +85,14 @@ def _handleOldSchoolMethodDecoration(self:AstVisitorExt,
             return True
     return False
 
-    def _warnsConstantAssigmentOverride(self, obj: _model.Data, lineno_offset: int) -> None:
-        obj.warn(f'Assignment to constant "{obj.name}" overrides previous assignment '
-                    f'at line {obj.location.lineno}, the original value will not be part of the docs.', 
-                            lineno_offset=lineno_offset)
-                            
-    def _warnsConstantReAssigmentInInstance(self, obj: _model.Data, lineno_offset: int = 0) -> None:
-        obj.warn(f'Assignment to constant "{obj.name}" inside an instance is ignored, this value will not be part of the docs.', 
-                        lineno_offset=lineno_offset)
+# def _warnsConstantAssigmentOverride(self, obj: _model.Data, lineno_offset: int) -> None:
+#     obj.warn(f'Assignment to constant "{obj.name}" overrides previous assignment '
+#                 f'at line {obj.location.lineno}, the original value will not be part of the docs.', 
+#                         lineno_offset=lineno_offset)
+                        
+# def _warnsConstantReAssigmentInInstance(self, obj: _model.Data, lineno_offset: int = 0) -> None:
+#     obj.warn(f'Assignment to constant "{obj.name}" inside an instance is ignored, this value will not be part of the docs.', 
+#                     lineno_offset=lineno_offset)
 
     # def _handleConstant(self, obj: _model.Data, value: Optional[astroid.nodes.NodeNG], lineno: int) -> None:
         

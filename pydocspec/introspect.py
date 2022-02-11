@@ -3,7 +3,7 @@ Build an `ApiObject` tree from live objects.
 
 Used to inspect c-extentions only.
 """
-from typing import Mapping, Tuple, Type, Any, Optional, cast, TYPE_CHECKING
+from typing import List, Mapping, Tuple, Type, Any, Optional, cast, TYPE_CHECKING
 import types
 import importlib.util
 from pathlib import Path
@@ -108,7 +108,7 @@ class _IntrospectModuleBuilder(Collector):
                             [inspect.Parameter("...", 
                                 inspect.Parameter.POSITIONAL_ONLY)])
                 
-                args = []
+                args: List[docspec.Argument] = []
 
                 for param in sig.parameters.values():
                     args.append(self._parameter2argument(param))

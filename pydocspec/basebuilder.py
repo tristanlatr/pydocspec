@@ -18,6 +18,8 @@ class MarkedTreeWalkingState(Generic[ApiObjectT]):
     last: ApiObjectT
     stack: List[ApiObjectT]
 
+MarkedTreeWalkingStateT = MarkedTreeWalkingState
+
 @attr.s
 class TreeWalkingState(Generic[ApiObjectT]):
     MarkedTreeWalkingState=MarkedTreeWalkingState
@@ -25,12 +27,12 @@ class TreeWalkingState(Generic[ApiObjectT]):
     last: ApiObjectT = attr.ib()
     stack: List[ApiObjectT] = attr.ib(factory=list) # should be only classes and modules
     
-    def mark(self) -> MarkedTreeWalkingState:
+    def mark(self) -> MarkedTreeWalkingStateT[ApiObjectT]:
         return self.MarkedTreeWalkingState(
             current=self.current, 
             last=self.last, 
             stack=self.stack.copy())
-    def restore(self, mark: MarkedTreeWalkingState) -> None:
+    def restore(self, mark: MarkedTreeWalkingStateT[ApiObjectT]) -> None:
         self.current = mark.current
         self.last = mark.last
         self.stack = mark.stack
@@ -72,7 +74,7 @@ class BaseCollector(Generic[ModuleT, ApiObjectT]):
         if ctx is not None: 
             assert isinstance(ctx, docspec.HasMembers), (f"Cannot add new object ({ob!r}) inside {ctx.__class__.__name__}. "
                                                            f"{ctx!r} must be a class or a module.")
-        self.stack.append(ctx)
+        self.stack.append(ctx) #type:ignore[arg-type]
         self.current = ob
 
     def pop(self, ob: ApiObjectT) -> None:

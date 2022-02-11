@@ -1,15 +1,16 @@
 """
 Helpers to populate attributes of `Class` instances. 
 """
-
-from types import NotImplementedType
-from typing import Iterator, List, Optional, Sequence, Tuple, Union
+from typing import Iterator, List, Optional, Sequence, Tuple, Union, TYPE_CHECKING
 
 import astroid.nodes
 import astroid.exceptions
 import pydocspec
 from pydocspec import _model, c3linear, astroidutils
 from . import helpers
+
+if TYPE_CHECKING:
+    from types import NotImplementedType
 
 class MRO(c3linear.GenericMRO[pydocspec.Class]):
     def bases(self, cls: pydocspec.Class) -> List[pydocspec.Class]:
@@ -46,7 +47,7 @@ def is_exception(ob: pydocspec.Class) -> bool:
     return False
 
 
-def mro_from_astroid(ob: _model.Class) -> Union[List[pydocspec.Class], NotImplementedType]:
+def mro_from_astroid(ob: _model.Class) -> Union[List[pydocspec.Class], 'NotImplementedType']:
     """
     Compute MRO from astroid, this does not require `pydocspec.Class.resolved_bases`. 
     
