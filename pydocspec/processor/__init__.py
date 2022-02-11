@@ -36,7 +36,7 @@ class _MroFromAstroidSetter(visitors.ApiObjectVisitorExt):
     when = visitors.ApiObjectVisitorExt.When.BEFORE
     def visit_Class(self, ob: pydocspec.Class) -> None:
         # This can set Class.mro attr to NotImplemented, we take of it in the regular post build visitor.
-        ob.mro = class_attr.mro_from_astroid(ob)
+        ob.mro = class_attr.mro_from_astroid(ob) #type:ignore[assignment]
 
 class _DuplicateWhoShadowsWhoHandling(visitors.ApiObjectVisitorExt):
     # Duplicate objects handling: (in post-build)

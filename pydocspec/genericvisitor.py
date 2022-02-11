@@ -4,7 +4,7 @@ General purpose visitor pattern implementation, with extensions.
 from collections import defaultdict
 import enum
 import abc
-from typing import Generic, Iterable, List, Optional, Type, TypeVar, Union
+from typing import Dict, Generic, Iterable, List, Optional, Type, TypeVar, Union
 
 T = TypeVar("T")
 
@@ -162,7 +162,7 @@ class VisitorExtensionList(Generic[T]):
         Parameters:
             *extensions: The extensions to add.
         """
-        self._visitors: dict[When, list['VisitorExtension[T]']] = defaultdict(list)
+        self._visitors: Dict[When, List['VisitorExtension[T]']] = defaultdict(list)
         self.add(*extensions)
 
     def add(self, *extensions: Union['VisitorExtension[T]', Type['VisitorExtension[T]']]) -> None:
