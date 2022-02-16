@@ -25,6 +25,35 @@ class Visitor(Generic[T], abc.ABC):
   methods should be implemented for *all* concrete objets types encountered. 
   """
 
+  class _TreePruningException(Exception):
+    """
+    Base class for `Visitor`-related tree pruning exceptions.
+
+    Raise subclasses from within ``visit_...`` or ``depart_...`` methods
+    called from `Visitor.walk()` and `Visitor.walkabout()` tree traversals to prune
+    the tree traversed.
+    """
+  class SkipChildren(_TreePruningException):
+    """
+    Do not visit any children of the current node.  The current node's
+    siblings and ``depart_...`` method are not affected.
+    """
+  class SkipSiblings(_TreePruningException):
+    """
+    Do not visit any more siblings (to the right) of the current node.  The
+    current node's children and its ``depart_...`` method are not affected.
+    """
+  class SkipNode(_TreePruningException):
+    """
+    Do not visit the current node's children, and do not call the current
+    node's ``depart_...`` method.
+    """
+  class SkipDeparture(_TreePruningException):
+    """
+    Do not call the current node's ``depart_...`` method.  The current node's
+    children and siblings are not affected.
+    """
+
   def visit(self, ob: T) -> None:
     """Visit an object."""
     method = 'visit_' + ob.__class__.__name__
@@ -75,9 +104,17 @@ class Visitor(Generic[T], abc.ABC):
         ``visit`` implementation for each object type encountered.
     :param get_children: A callable that returns the children of an object. 
     """
-    self.visit(ob)
-    for child in self.get_children(ob):
-        self.walk(child)
+    try:
+      self.visit(ob)
+    except (self.SkipChildren, self.SkipNode):
+      return
+    except self.SkipDeparture:           
+      pass # not applicable; ignore
+    try:
+      for child in self.get_children(ob):
+          self.walk(child)
+    except self.SkipSiblings:
+      pass
     
   def walkabout(self, ob: T) -> None:
     """
@@ -89,10 +126,23 @@ class Visitor(Generic[T], abc.ABC):
         ``visit`` and ``depart`` implementation for each concrete object type encountered.
     :param get_children: A callable that returns the children of an object. 
     """
-    self.visit(ob)
-    for child in self.get_children(ob):
-        self.walkabout(child)
-    self.depart(ob)
+    call_depart = True
+    try:
+      try:
+        self.visit(ob)
+      except self.SkipNode:
+        return
+      except self.SkipDeparture:           
+        call_depart = False
+      try:
+        for child in self.get_children(ob):
+            self.walkabout(child)
+      except self.SkipSiblings:
+        pass
+    except self.SkipChildren:
+      pass
+    if call_depart:
+      self.depart(ob)
   
   @abc.abstractclassmethod
   def get_children(cls, ob: T) -> Iterable[T]:
