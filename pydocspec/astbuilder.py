@@ -904,28 +904,35 @@ class Builder:
         :Returns: `None` if the process of adding this new module should continue normally.
         :Returns: The older module (already present) if the new module has been discarded.
             This should stop the new module from beeing added, it's a duplicate module.
-        :Note: Teh rule is that the package/directory wins over the regular module.
+        :Note: The rule is that the package/directory wins over the regular module, also, c-modules wins over regular modules.
         """
         # We check if that's a duplicate module name.
-        older_mod = self.root.all_objects.get(mod.full_name)
-        if older_mod:
+        is_dup = self.processing_map.get(mod.full_name) is not None
+        
+        if is_dup:
+
             # It's kindda safe to assume the modules contents have not been loaded yet,
             # so modules should not be shadowed by other objects (yet).
+            older_mod = self.root.all_objects.get(mod.full_name)
             assert isinstance(older_mod, _model.Module) #type:ignore[unreachable]
             
-            _warn_str = f"Duplicate module name: '{mod.full_name}', the package/directory wins." #type:ignore[unreachable]
-            
-            if mod.is_package:
-                older_mod.warn(_warn_str)
-                # The package wins, we remove the older module from the tree and we continue with the 
-                # addition of the package.
-                # When importing the package, Python searches through the directories on sys.path looking for the package subdirectory.
-                older_mod.remove()
-                del older_mod
-            else:
+            _warn_str = f"Duplicate module: '{mod.full_name}'." #type:ignore[unreachable]
+            #  the package/directory wins
+            if (older_mod.is_c_module and not mod.is_package) or \
+               (older_mod.is_package and not mod.is_package):
+                # C-modules wins, Packages wins
                 mod.warn(_warn_str)
                 del mod
                 return older_mod
+                # The package wins, we remove the older module from the tree and we continue with the 
+                # addition of the package.
+                # When importing the package, Python searches through the directories on sys.path looking for the package subdirectory.
+            
+            else:
+                # Else, the last added module wins
+                older_mod.warn(_warn_str)
+                older_mod.remove()
+                del older_mod
         return None
 
     def _add_module(self,
