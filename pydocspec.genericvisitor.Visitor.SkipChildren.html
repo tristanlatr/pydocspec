@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>pydocspec.ext.DocstringMixin</title>
+    <title>pydocspec.genericvisitor.Visitor.SkipChildren</title>
     <meta name="generator" content="pydoctor 21.12.1.dev0"> 
         
     </meta>
@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.ext.html" class="internal-link" title="pydocspec.ext">ext</a></code><wbr></wbr>.<code><a href="pydocspec.ext.DocstringMixin.html" class="internal-link" title="pydocspec.ext.DocstringMixin">DocstringMixin</a></code></code></h1>
+        <h1 class="class"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.html" class="internal-link" title="pydocspec.genericvisitor">genericvisitor</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.Visitor.html" class="internal-link" title="pydocspec.genericvisitor.Visitor">Visitor</a></code><wbr></wbr>.<code><a href="pydocspec.genericvisitor.Visitor.SkipChildren.html" class="internal-link" title="pydocspec.genericvisitor.Visitor.SkipChildren">SkipChildren</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,12 +65,13 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">DocstringMixin</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/ext/__init__.py#L67" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#pydocspec.ext.DocstringMixin">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">SkipChildren</span>(<a href="pydocspec.genericvisitor.Visitor._TreePruningException.html" class="internal-link" title="pydocspec.genericvisitor.Visitor._TreePruningException">_TreePruningException</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/genericvisitor.py#L36" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#pydocspec.genericvisitor.Visitor.SkipChildren">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="undocumented">Undocumented</p></div>
+        <div>Do not visit any children of the current node.  The current node's
+siblings and <tt class="rst-docutils literal"><span class="pre">depart_...</span></tt> method are not affected.</div>
       </div>
 
       <div id="splitTables">
