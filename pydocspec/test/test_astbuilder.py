@@ -420,7 +420,7 @@ def test_no_docstring(mod_from_text: ModFromTextFunction) -> None:
 
 @mod_from_text_param
 def test_all_recognition(mod_from_text: ModFromTextFunction) -> None:
-    """The value assigned to __all__ is parsed to Module.all."""
+    """The value assigned to __all__ is parsed to Module.dunder_all."""
     mod = mod_from_text('''
     def f():
         pass
@@ -430,6 +430,28 @@ def test_all_recognition(mod_from_text: ModFromTextFunction) -> None:
     assert '__all__' in list(o.name for o in mod._members())
     # Should pydocspec remove the __all__varible from the members?
     # It's metadata after all...
+
+@pytest.mark.xfail #https://github.com/PyCQA/astroid/issues/1398
+@getbuilder_param
+def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder],) -> None:
+    """The value assigned to __all__ is correctly inferred when it's built from binary operation '+'."""
+    builder = getbuilder()
+    builder.add_module_string('''
+    from .mod import *
+    from .mod import __all__ as _mod_all
+    def f():
+        pass
+    __all__ = ['f'] + _mod_all
+    ''', modname='top', is_package=True)
+    builder.add_module_string('''
+    def g():
+        pass
+    __all__ = ['g']
+    ''', modname='mod', parent_name='top')
+
+    builder.build_modules()
+    top = builder.root.root_modules[0]
+    assert top.dunder_all == ['f', 'g']
 
 @mod_from_text_param
 def test_docformat_recognition(mod_from_text: ModFromTextFunction) -> None:

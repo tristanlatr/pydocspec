@@ -5,6 +5,8 @@ Helpers to populate attributes of `Module` instances.
 from typing import List, Optional
 import astroid.nodes
 import astroid.exceptions
+import astroid.helpers
+import astroid.util
 from pydocspec import _model, astroidutils
     
 
@@ -13,8 +15,16 @@ def dunder_all(ob: _model.Module) -> Optional[List[str]]:
     if not var or not isinstance(var, _model.Data) or not var.value_ast:
         return None
     value = var.value_ast
-
-    #TODO: use astroid infer()
+    
+    if ob._ast is not None:
+        # Infer the __all__ variable with astroid inference system.
+        ivalue = astroid.helpers.safe_infer(value)
+        if ivalue not in (None, astroid.util.Uninferable):
+            assert isinstance(ivalue, astroid.nodes.NodeNG)
+            value = ivalue
+        else:
+            var.warn('Can\'t infer the value assigned to "__all__", too complex.')
+    
     if not isinstance(value, (astroid.nodes.List, astroid.nodes.Tuple)):
         var.warn('Cannot parse value assigned to "__all__", must be a list or tuple.')
         return None
@@ -33,7 +43,6 @@ def dunder_all(ob: _model.Module) -> Optional[List[str]]:
                     f'type "{type(name).__name__}", expected "str"')
 
     return names
-
 
 def docformat(ob: _model.Module) -> Optional[str]:
     var = ob.get_member('__docformat__')
