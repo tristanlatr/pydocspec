@@ -37,8 +37,7 @@ import attr
 # The builder should not import pydocspec, it should not be aware of pydocspec.* classes
 
 from pydocspec import (_model, astroidutils, introspect, processor, 
-                       basebuilder, genericvisitor, 
-                       dottedname, visitors)
+                       basebuilder, visitors)
 import pydocspec
 
 if TYPE_CHECKING:
@@ -124,6 +123,51 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         ob.docstring = cast('docspec.Docstring', self.root.factory.Docstring(docstring, 
             self.root.factory.Location(self.current.location.filename, lineno=docstring_lineno)))
     
+    def _maybe_set_docstring(self, obj: '_model.ApiObject', 
+                                 node: Union[astroid.nodes.Module, astroid.nodes.ClassDef, 
+                                             astroid.nodes.FunctionDef, astroid.nodes.AsyncFunctionDef]) -> None:
+            if len(node.body) > 0 and isinstance(node.body[0], astroid.nodes.Expr) \
+               and isinstance(node.body[0].value, astroid.nodes.Const):
+                self._set_docstring(obj, node.body[0].value)
+
+    # DECORATIONS
+
+    def _parse_decorations(self, decorators_nodes: Iterable[astroid.nodes.NodeNG]) -> Iterator[_model.Decoration]:        
+        for decnode in decorators_nodes:
+
+            # compute decoration attributes
+            name_ast: astroid.nodes.NodeNG
+            name: str
+            arglist: Optional[List[str]] = None
+
+            if isinstance(decnode, astroid.nodes.Call):
+                name_ast = decnode.func
+                dotted_name = astroidutils.node2dottedname(name_ast, strict=True)
+                arglist = [astroidutils.to_source(n) for n in decnode.args] + \
+                    [f"{(n.arg+'=') if n.arg else '**'}{astroidutils.to_source(n.value) if n.value else ''}" for n in decnode.keywords]
+            else:
+                name_ast = decnode
+                dotted_name = astroidutils.node2dottedname(name_ast, strict=True)
+            
+            if dotted_name is None:
+                name = astroidutils.to_source(name_ast)
+
+                # There were expressions for which node2dottedname() returns None, 
+                # this was leading into SyntaxError when used in a decorator.
+                # From Python3.9, any kind of expressions can be used as decorators, so we don't warn anymore.
+                # See Relaxing Grammar Restrictions On Decorators: https://www.python.org/dev/peps/pep-0614/
+                if sys.version_info < (3,9):
+                    cls.warn(f"Cannot make sense of class decorator: '{name}'")
+            else:
+                name = '.'.join(dotted_name)
+
+            yield self.root.factory.Decoration(
+                name=name, 
+                arglist=arglist,
+                name_ast=name_ast,
+                expr_ast=decnode,
+                )
+
     # Handles type guard, not working for some reason...
     # def visitIf(self, node: astroid.nodes.If) -> None:
     #     if astroidutils.is_type_guard(node):
@@ -180,7 +224,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         """
         # Ignore classes within functions.
         if isinstance(self.current, _model.Function):
-            return None
+            raise self.SkipNode()
 
         bases_str: Optional[List[str]] = None
         bases_ast: Optional[List[astroid.nodes.NodeNG]] = None
@@ -206,20 +250,17 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
 
         lineno = node.lineno
 
-        
-        
-        decorators = node.decorators.nodes if node.decorators else None
-        
         # If a class is decorated, 
         # set the linenumber from the line of the first decoration.
         # NO, not needed anymore since we can warn on decorators directly now.
-        # And also if made the ast2apiobject() function buggy because it's looking for classes with rh
+        # And also if made the ast2apiobject() function buggy because it's looking for classes with the same line number
         # if decorators:
         #     lineno = decorators[0].lineno
 
         # create new class
         cls: _model.Class = self.root.factory.Class(node.name, 
-                                    location=self.root.factory.Location(self.current.location.filename, lineno=lineno),
+                                    location=self.root.factory.Location(
+                                        self.current.location.filename, lineno=lineno),
                                     docstring=None, metaclass=None, 
                                     bases=bases_str, 
                                     bases_ast=bases_ast,
@@ -230,52 +271,12 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         self.add_object(cls)
 
         # set docstring
-        if len(node.body) > 0 and isinstance(node.body[0], astroid.nodes.Expr) and isinstance(node.body[0].value, astroid.nodes.Const):
-            self._set_docstring(cls, node.body[0].value)
-
+        self._maybe_set_docstring(cls, node)
+        
         # set decorations
+        decorators = node.decorators.nodes if node.decorators else None
         if decorators:
-            cls.decorations = []
-            for decnode in decorators:
-
-                # compute decoration attributes
-                name_ast: astroid.nodes.NodeNG
-                name: str
-                arglist: Optional[List[str]] = None
-
-                if isinstance(decnode, astroid.nodes.Call):
-                    name_ast = decnode.func
-                    dotted_name = astroidutils.node2dottedname(name_ast, strict=True)
-                    arglist = [astroidutils.to_source(n) for n in decnode.args] + \
-                        [f"{(n.arg+'=') if n.arg else '**'}{astroidutils.to_source(n.value) if n.value else ''}" for n in decnode.keywords]
-                else:
-                    name_ast = decnode
-                    dotted_name = astroidutils.node2dottedname(name_ast, strict=True)
-                
-                if dotted_name is None:
-                    name = astroidutils.to_source(name_ast)
-
-                    # There were expressions for which node2dottedname() returns None, 
-                    # this was leading into SyntaxError when used in a decorator.
-                    # From Python3.9, any kind of expressions can be used as decorators, so we don't warn anymore.
-                    # See Relaxing Grammar Restrictions On Decorators: https://www.python.org/dev/peps/pep-0614/
-                    if sys.version_info < (3,9):
-                        cls.warn(f"Cannot make sense of class decorator: '{name}'")
-                else:
-                    name = '.'.join(dotted_name)
-
-                deco = self.root.factory.Decoration(
-                    name=name, 
-                    arglist=arglist,
-                    name_ast=name_ast,
-                    expr_ast=decnode,
-                    )
-
-                # TODO: Adjust code once this issue is fixed.
-                # see https://github.com/NiklasRosenstein/docspec/issues/45
-                # deco = self.root.factory.Decoration(name=name, args=args) 
-                
-                cls.decorations.append(deco)
+            cls.decorations = list(self._parse_decorations(decorators))
         
 
     def depart_classdef(self, node: astroid.nodes.ClassDef) -> None:
@@ -287,10 +288,10 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
     def visit_importfrom(self, node: astroid.nodes.ImportFrom) -> None:
         ctx = self.current
         if not isinstance(ctx, _model.HasMembers):
-            assert ctx is not None, "processing import statement with no current context: {node!r}"
-            ctx.module.warn("processing import statement ({node!r}) in odd context: {ctx!r}",
-                            lineno_offset=node.lineno)
-            return
+            assert ctx is not None, f"processing import statement with no current context: {node!r}"
+            # ctx.module.warn(f"processing import statement ({node!r}) in odd context: {ctx!r}",
+            #                 lineno_offset=node.lineno)
+            raise self.SkipNode()
 
         modname = node.modname
 
@@ -590,7 +591,8 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
 
         obj = self._newData(name, annotation, expr, lineno, 
                         [self.root.factory.Data.Semantic.INSTANCE_VARIABLE])
-        self.add_object(obj, push=False)
+        self.add_object(obj, push=False, parent=cls)
+        
         if processor.data_attr.is_constant(obj):
             obj.semantic_hints.append(obj.Semantic.CONSTANT)
 
@@ -612,6 +614,55 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         cls = self.current
         assert isinstance(cls, _model.Class)
         self._handleClassVar(target, annotation, expr, lineno)
+    
+    def visit_AsyncFunctionDef(self, node: astroid.nodes.AsyncFunctionDef) -> None:
+        self._handleFunctionDef(node, is_async=True)
+
+    def visit_FunctionDef(self, node: astroid.nodes.FunctionDef) -> None:
+        self._handleFunctionDef(node, is_async=False)
+
+    def _handleFunctionDef(self,
+            node: Union[astroid.nodes.AsyncFunctionDef, astroid.nodes.FunctionDef],
+            is_async: bool
+            ) -> None:
+        # Ignore inner functions.
+        parent = self.current
+        if isinstance(parent, _model.Function):
+            raise self.SkipNode()
+
+        lineno = node.lineno
+        
+        func_name = node.name
+
+        args = [basebuilder.parameter2argument(p, self.root.factory) \
+                for p in astroidutils.get_args_info(node)]
+
+        func = self.root.factory.Function(name=func_name, 
+                location=self.root.factory.Location(
+                        filename=self.current.location.filename, 
+                        lineno=lineno), 
+                docstring=None, 
+                modifiers=['async'] if is_async else None,
+                args=args,
+                return_type_ast=node.returns if node.returns else None,
+                return_type=astroidutils.to_source(node.returns) if node.returns else None,
+                decorations=None,
+                )  
+
+        # set docstring
+        self._maybe_set_docstring(func, node)
+
+        # set decorations
+        decorators = node.decorators.nodes if node.decorators else None
+        if decorators:
+            func.decorations = list(self._parse_decorations(decorators))
+
+        self.add_object(func)
+
+    def depart_FunctionDef(self, node:astroid.nodes.FunctionDef) -> None:
+        self.pop(self.current)
+    
+    depart_AsyncFunctionDef = depart_FunctionDef
 
     # def _handleDocstringUpdate(self,
     #         targetNode: astroid.nodes.NodeNG,

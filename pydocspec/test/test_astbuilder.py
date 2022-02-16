@@ -235,9 +235,10 @@ def test_relative_import_in_package_star_import(getbuilder: Callable[[], astbuil
     assert isinstance(pkg.get_member('e'), pydocspec.Indirection)
     assert isinstance(pkg.get_member('j'), pydocspec.Indirection)
 
-    # does not work since we don't collect data for now
-    # assert not isinstance(pkg.get_member('h'), pydocspec.Indirection) # not re-exported because of __all__ var
-    # assert not isinstance(pkg.get_member('g'), pydocspec.Indirection) # not re-exported because of __all__ var
+    assert isinstance(mod, pydocspec.Module)
+    assert mod.dunder_all == ['e', 'j']
+    assert not isinstance(pkg.get_member('h'), pydocspec.Indirection) # not re-exported because of __all__ var
+    assert not isinstance(pkg.get_member('g'), pydocspec.Indirection) # not re-exported because of __all__ var
 
 @getbuilder_param
 def test_aliasing(getbuilder: Callable[[], astbuilder.Builder]) -> None:
@@ -396,23 +397,23 @@ def test_class_with_base_from_module_alt(mod_from_text: ModFromTextFunction) -> 
     assert base2 == 'X.B.C', base2
     assert base3 == 'Y.Z.C', base3
 
-# @getbuilder_param
-# def test_no_docstring(getbuilder: Callable[[], astbuilder.Builder]) -> None:
-#     # Inheritance of the docstring of an overridden method depends on
-#     # methods with no docstring having None in their 'docstring' field.
-#     mod = mod_from_text('''
-#     def f():
-#         pass
-#     class C:
-#         def m(self):
-#             pass
-#     ''', modname='test', rootcls=rootcls)
-#     f = mod.get_member('f')
-#     assert f is not None
-#     assert f.docstring is None
-#     m = mod.resolve_name('C.m')
-#     assert m is not None
-#     assert m.docstring is None
+@mod_from_text_param
+def test_no_docstring(mod_from_text: ModFromTextFunction) -> None:
+    # Inheritance of the docstring of an overridden method depends on
+    # methods with no docstring having None in their 'docstring' field.
+    mod = mod_from_text('''
+    def f():
+        pass
+    class C:
+        def m(self):
+            pass
+    ''', modname='test')
+    f = mod['f']
+    assert f is not None
+    assert f.docstring is None
+    m = mod.resolve_name('C.m')
+    assert m is not None
+    assert m.docstring is None
 
 @mod_from_text_param
 def test_all_recognition(mod_from_text: ModFromTextFunction) -> None:

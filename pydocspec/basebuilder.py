@@ -1,13 +1,17 @@
 from pathlib import Path
-from typing import Generic, List, TypeVar, Union, Optional, cast, TYPE_CHECKING
+from typing import Generic, List, Tuple, TypeVar, Union, Optional, cast, TYPE_CHECKING
 import abc
+import inspect
+
 import attr
+import astroid.nodes
 
 from . import _model
 import docspec
 
 if TYPE_CHECKING:
     import pydocspec
+    from pydocspec import specfactory
 
 ModuleT = TypeVar('ModuleT')
 ApiObjectT = TypeVar('ApiObjectT', bound=docspec.ApiObject)
@@ -16,7 +20,7 @@ ApiObjectT = TypeVar('ApiObjectT', bound=docspec.ApiObject)
 class MarkedTreeWalkingState(Generic[ApiObjectT]):
     current: ApiObjectT
     last: ApiObjectT
-    stack: List[ApiObjectT]
+    stack: Tuple[ApiObjectT, ...]
 
 MarkedTreeWalkingStateT = MarkedTreeWalkingState
 
@@ -31,11 +35,11 @@ class TreeWalkingState(Generic[ApiObjectT]):
         return self.MarkedTreeWalkingState(
             current=self.current, 
             last=self.last, 
-            stack=self.stack.copy())
+            stack=tuple(self.stack))
     def restore(self, mark: MarkedTreeWalkingStateT[ApiObjectT]) -> None:
         self.current = mark.current
         self.last = mark.last
-        self.stack = mark.stack
+        self.stack = list(mark.stack)
 
 class BaseCollector(Generic[ModuleT, ApiObjectT]):
     def __init__(self, module: Optional[ModuleT]=None) -> None:
@@ -105,17 +109,21 @@ class Collector(BaseCollector[_model.Module, _model.ApiObject]):
         Can be used to access the ``root.factory`` attribute and create new instances.
         """
     
-    def add_object(self, ob: _model.ApiObject, push: bool = True) -> None:
+    def add_object(self, ob: _model.ApiObject, push: bool = True, 
+                   parent: Optional[_model.ApiObject]=None) -> None:
         """
         See `TreeRoot.add_object`.
         """
+        
+        parent_ = parent or self.current
+
         # Do assertion to make sure we don't add an object that requires a parent as root module
         if not isinstance(ob, (_model.Module,)):
-            assert self.current is not None
+            assert parent_ is not None
         
-        self.root.add_object(ob, self.current)
+        self.root.add_object(ob, parent_)
         
-        if self.current is None:
+        if parent_ is None:
             # yes, it's reachable, when first adding a module.
             assert isinstance(ob, _model.Module) #type:ignore[unreachable]
             if self.module is None:
@@ -141,3 +149,26 @@ class BaseBuilder(abc.ABC):
     def build_modules(self) -> None: ...
 
 
+def parameter2argument(param: inspect.Parameter, factory: 'specfactory.Factory') -> 'docspec.Argument':
+    """
+    Convert a `inspect.Parameter` instance to a `pydocspec.Argument`.
+    """
+    kindmap = {
+        inspect.Parameter.POSITIONAL_ONLY: docspec.Argument.Type.POSITIONAL_ONLY,
+        inspect.Parameter.POSITIONAL_OR_KEYWORD: docspec.Argument.Type.POSITIONAL,
+        inspect.Parameter.VAR_POSITIONAL: docspec.Argument.Type.POSITIONAL_REMAINDER,
+        inspect.Parameter.KEYWORD_ONLY: docspec.Argument.Type.KEYWORD_ONLY,
+        inspect.Parameter.VAR_KEYWORD: docspec.Argument.Type.KEYWORD_REMAINDER,
+    }
+
+    annotation_str = param.annotation.as_string() if isinstance(param.annotation, astroid.nodes.NodeNG) else str(param.annotation)
+    annotation_ast = param.annotation if isinstance(param.annotation, astroid.nodes.NodeNG) else None
+    default_value_str = param.default.as_string() if isinstance(param.default, astroid.nodes.NodeNG) else str(param.default)
+    default_value_ast = param.default if isinstance(param.default, astroid.nodes.NodeNG) else None
+
+    return factory.Argument(name=param.name, 
+        type=kindmap[param.kind], #type:ignore[index]
+        datatype=annotation_str, 
+        default_value=default_value_str,
+        datatype_ast=annotation_ast,
+        default_value_ast=default_value_ast, )

@@ -3,6 +3,8 @@ Various bits of reusable code related to `astroid.nodes.NodeNG` node processing.
 """
 
 import functools
+import itertools
+import sys
 from typing import Any, Dict, Iterable, Iterator, Optional, List, TYPE_CHECKING, Tuple, Type, Union, cast, overload
 import inspect
 import re
@@ -526,11 +528,8 @@ class _AnnotationStringParser(NodeTransformer):
             assert isinstance(const, astroid.nodes.Const), const
             return const
 
-# (not used for now in pydocspec, found bug with inner classes.)
 # The MIT License (MIT)
 # Copyright (c) 2015 Read the Docs, Inc
-# functions: resolve_qualname, get_full_import_name, resolve_import_alias
-
 def resolve_import_alias(name:str, import_names:Iterable[Tuple[str, Union[str,None]]]) -> str:
     """Resolve a name from an aliased import to its original name.
 
@@ -550,6 +549,8 @@ def resolve_import_alias(name:str, import_names:Iterable[Tuple[str, Union[str,No
 
     return resolved_name
 
+# The MIT License (MIT)
+# Copyright (c) 2015 Read the Docs, Inc
 def get_full_import_name(import_from:astroid.nodes.ImportFrom, name:str) -> str:
     """Get the full path of a name from a ``from x import y`` statement.
 
@@ -569,6 +570,8 @@ def get_full_import_name(import_from:astroid.nodes.ImportFrom, name:str) -> str:
 
     return "{}.{}".format(module_name, partial_basename)
 
+# The MIT License (MIT)
+# Copyright (c) 2015 Read the Docs, Inc
 def resolve_qualname(
         ctx: astroid.nodes.NodeNG, 
         basename: str) -> str:
@@ -618,3 +621,152 @@ def resolve_qualname(
         return full_basename[len("__builtin__.") :]
 
     return full_basename
+
+# The MIT License (MIT)
+# Copyright (c) 2015 Read the Docs, Inc
+def _is_ellipsis(node:astroid.nodes.NodeNG) -> bool:
+    if sys.version_info < (3, 8):
+        return isinstance(node, astroid.Ellipsis)
+
+    return isinstance(node, astroid.Const) and node.value == Ellipsis
+
+# The MIT License (MIT)
+# Copyright (c) 2015 Read the Docs, Inc
+def _iter_args(args: List[astroid.nodes.AssignName], 
+               annotations: List[astroid.nodes.AssignName], 
+               defaults: List[astroid.nodes.AssignName]) -> Iterator[Tuple[str, 
+                                           Optional[astroid.nodes.NodeNG], 
+                                           Optional[astroid.nodes.NodeNG]]]:
+    
+    default_offset = len(args) - len(defaults)
+    packed = itertools.zip_longest(args, annotations)
+    for i, (arg, annotation) in enumerate(packed):
+        default = None
+        if defaults is not None and i >= default_offset:
+            if defaults[i - default_offset] is not None:
+                default = defaults[i - default_offset]
+        name = arg.name
+        yield (name, annotation, default)
+
+# The MIT License (MIT)
+# Copyright (c) 2015 Read the Docs, Inc
+def merge_annotations(annotations: Iterable[Optional[astroid.nodes.NodeNG]], 
+                      comment_annotations: Iterable[Optional[astroid.nodes.NodeNG]]) -> Iterator[Optional[astroid.nodes.NodeNG]]:
+    for ann, comment_ann in itertools.zip_longest(annotations, comment_annotations):
+        if ann and not _is_ellipsis(ann):
+            yield ann
+        elif comment_ann and not _is_ellipsis(comment_ann):
+            yield comment_ann
+        else:
+            yield None
+
+# The MIT License (MIT)
+# Copyright (c) 2015 Read the Docs, Inc
+def get_args_info(func: Union[astroid.nodes.AsyncFunctionDef, 
+                            astroid.nodes.FunctionDef]) -> List[inspect.Parameter]:
+    """
+    Builds a list of `inspect.Parameter` representing this function's parameters.
+    """
+    args_node: astroid.nodes.Arguments = func.args
+    result: List[inspect.Parameter] = []
+    positional_only_defaults: List[astroid.nodes.NodeNG] = []
+    positional_or_keyword_defaults = args_node.defaults
+    if args_node.defaults:
+        args = args_node.args or []
+        positional_or_keyword_defaults = args_node.defaults[-len(args) :]
+        positional_only_defaults = args_node.defaults[
+            : len(args_node.defaults) - len(args)
+        ]
+
+    plain_annotations = args_node.annotations or ()
+    func_comment_annotations = func.type_comment_args or ()
+    comment_annotations = args_node.type_comment_posonlyargs
+    comment_annotations += args_node.type_comment_args or []
+    comment_annotations += args_node.type_comment_kwonlyargs
+    annotations = list(
+        merge_annotations(
+            plain_annotations,
+            merge_annotations(func_comment_annotations, comment_annotations),
+        )
+    )
+    annotation_offset = 0
+
+    if args_node.posonlyargs:
+        posonlyargs_annotations = args_node.posonlyargs_annotations
+        if not any(args_node.posonlyargs_annotations):
+            num_args = len(args_node.posonlyargs)
+            posonlyargs_annotations = annotations[
+                annotation_offset : annotation_offset + num_args
+            ]
+
+        for arg, annotation, default in _iter_args(
+            args_node.posonlyargs, posonlyargs_annotations, positional_only_defaults
+        ):
+            result.append(inspect.Parameter(name=arg, 
+                kind=inspect.Parameter.POSITIONAL_ONLY,
+                default=default,
+                annotation=annotation, ))
+
+        if not any(args_node.posonlyargs_annotations):
+            annotation_offset += num_args
+
+    if args_node.args:
+        num_args = len(args_node.args)
+        for arg, annotation, default in _iter_args(
+            args_node.args,
+            annotations[annotation_offset : annotation_offset + num_args],
+            positional_or_keyword_defaults,
+        ):
+            result.append(inspect.Parameter(name=arg, 
+                kind=inspect.Parameter.POSITIONAL_OR_KEYWORD,
+                default=default,
+                annotation=annotation, ))
+
+        annotation_offset += num_args
+
+    if args_node.vararg:
+        annotation = None
+        if args_node.varargannotation:
+            annotation = args_node.varargannotation
+        elif len(annotations) > annotation_offset and annotations[annotation_offset]:
+            annotation = annotations[annotation_offset]
+            annotation_offset += 1
+        result.append(inspect.Parameter(name=args_node.vararg, 
+                kind=inspect.Parameter.VAR_POSITIONAL,
+                default=inspect.Parameter.empty,
+                annotation=annotation, ))
+
+    if args_node.kwonlyargs:
+        kwonlyargs_annotations = args_node.kwonlyargs_annotations
+        if not any(args_node.kwonlyargs_annotations):
+            num_args = len(args_node.kwonlyargs)
+            kwonlyargs_annotations = annotations[
+                annotation_offset : annotation_offset + num_args
+            ]
+
+        for arg, annotation, default in _iter_args(
+            args_node.kwonlyargs,
+            kwonlyargs_annotations,
+            args_node.kw_defaults,
+        ):
+            result.append(inspect.Parameter(name=arg, 
+                kind=inspect.Parameter.KEYWORD_ONLY,
+                default=default,
+                annotation=annotation, ))
+
+        if not any(args_node.kwonlyargs_annotations):
+            annotation_offset += num_args
+
+    if args_node.kwarg:
+        annotation = None
+        if args_node.kwargannotation:
+            annotation = args_node.kwargannotation
+        elif len(annotations) > annotation_offset and annotations[annotation_offset]:
+            annotation = annotations[annotation_offset]
+            annotation_offset += 1
+        result.append(inspect.Parameter(name=args_node.kwarg, 
+                kind=inspect.Parameter.VAR_KEYWORD,
+                default=inspect.Parameter.empty,
+                annotation=annotation, ))
+
+    return result

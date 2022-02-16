@@ -10,7 +10,7 @@ from pathlib import Path
 import inspect
 
 from .basebuilder import Collector
-from . import _model
+from . import _model, basebuilder
 
 import docspec
 
@@ -71,22 +71,6 @@ class _IntrospectModuleBuilder(Collector):
             module_full_name = f'{self.parent.full_name}.{self.module_name}'
         
         self.py_mod = _import_module(self.path, module_full_name)
-    
-
-    def _parameter2argument(self, param: inspect.Parameter) -> 'pydocspec.Argument':
-        kindmap = {
-            inspect.Parameter.POSITIONAL_ONLY: docspec.Argument.Type.POSITIONAL_ONLY,
-            inspect.Parameter.POSITIONAL_OR_KEYWORD: docspec.Argument.Type.POSITIONAL,
-            inspect.Parameter.VAR_POSITIONAL: docspec.Argument.Type.POSITIONAL_REMAINDER,
-            inspect.Parameter.KEYWORD_ONLY: docspec.Argument.Type.KEYWORD_ONLY,
-            inspect.Parameter.VAR_KEYWORD: docspec.Argument.Type.KEYWORD_REMAINDER,
-        }
-        return self.root.factory.Argument(name=param.name, 
-            type=kindmap[param.kind], #type:ignore[index]
-            datatype=str(param.annotation), 
-            default_value=str(param.default),
-            datatype_ast=None,
-            default_value_ast=None, )
 
     def _introspect_thing(self, thing: object, parent: _model.ApiObject) -> None:
         
@@ -104,14 +88,12 @@ class _IntrospectModuleBuilder(Collector):
                     # __text_signature__ attribute
                     if getattr(v, "__text_signature__", None) is not None:
                         parent.warn("Cannot parse signature of {0.name}.{1}".format(parent, k))
-                    sig = inspect.Signature(
-                            [inspect.Parameter("...", 
-                                inspect.Parameter.POSITIONAL_ONLY)])
+                    sig = inspect.Signature()
                 
                 args: List[docspec.Argument] = []
 
                 for param in sig.parameters.values():
-                    args.append(self._parameter2argument(param))
+                    args.append(basebuilder.parameter2argument(param, self.root.factory))
                 rtype = None if sig.return_annotation is inspect.Signature.empty else str(sig.return_annotation)
                 
                 f = self.root.factory.Function(k, None, 
