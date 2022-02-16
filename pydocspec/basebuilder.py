@@ -149,7 +149,7 @@ class BaseBuilder(abc.ABC):
     def build_modules(self) -> None: ...
 
 
-def parameter2argument(param: inspect.Parameter, factory: 'specfactory.Factory') -> 'docspec.Argument':
+def parameter2argument(param: inspect.Parameter, factory: 'specfactory.Factory') -> 'pydocspec.Argument':
     """
     Convert a `inspect.Parameter` instance to a `pydocspec.Argument`.
     """
@@ -161,10 +161,17 @@ def parameter2argument(param: inspect.Parameter, factory: 'specfactory.Factory')
         inspect.Parameter.VAR_KEYWORD: docspec.Argument.Type.KEYWORD_REMAINDER,
     }
 
-    annotation_str = param.annotation.as_string() if isinstance(param.annotation, astroid.nodes.NodeNG) else str(param.annotation)
-    annotation_ast = param.annotation if isinstance(param.annotation, astroid.nodes.NodeNG) else None
-    default_value_str = param.default.as_string() if isinstance(param.default, astroid.nodes.NodeNG) else str(param.default)
-    default_value_ast = param.default if isinstance(param.default, astroid.nodes.NodeNG) else None
+    if param.annotation != inspect.Signature.empty:
+        annotation_str = param.annotation.as_string() if isinstance(param.annotation, astroid.nodes.NodeNG) else str(param.annotation)
+        annotation_ast = param.annotation if isinstance(param.annotation, astroid.nodes.NodeNG) else None
+    else:
+        annotation_str = annotation_ast = None
+    
+    if param.default != inspect.Signature.empty:
+        default_value_str = param.default.as_string() if isinstance(param.default, astroid.nodes.NodeNG) else str(param.default)
+        default_value_ast = param.default if isinstance(param.default, astroid.nodes.NodeNG) else None
+    else:
+        default_value_str = default_value_ast = None
 
     return factory.Argument(name=param.name, 
         type=kindmap[param.kind], #type:ignore[index]

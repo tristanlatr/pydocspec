@@ -1,6 +1,6 @@
 from typing import Callable, cast
 import ast
-import textwrap
+import sys
 import pytest
 
 from pydocspec import astbuilder, visitors
@@ -11,7 +11,10 @@ import astroid.nodes
 
 from . import (CapSys, ModFromTextFunction, 
     getbuilder_param, mod_from_text_param, 
-    _docspec_python)
+    _docspec_python, _back_converter_round_trip1)
+
+posonlyargs = pytest.mark.skipif(sys.version_info < (3, 8), reason="requires python 3.8")
+typecomment = pytest.mark.skipif(sys.version_info < (3, 8), reason="requires python 3.8")
 
 @getbuilder_param
 def test_class_docstring(getbuilder: Callable[[], astbuilder.Builder]) -> None:
@@ -484,8 +487,100 @@ def test_docformat_warn_empty(mod_from_text: ModFromTextFunction, caplog) -> Non
     assert len(caplog.text.strip().split('\n')) == 1, caplog.text
     # assert '__docformat__' not in mod.contents
 
+@mod_from_text_param
+def test_function_simple(mod_from_text: ModFromTextFunction) -> None:
+    src = '''
+    """ MOD DOC """
+    def f():
+        """This is a docstring."""
+    '''
+    mod = mod_from_text(src)
+    func, = mod.members
+    assert func.full_name== 'test.f'
+    assert func.docstring == """This is a docstring."""
+    assert isinstance(func, pydocspec.Function)
+    assert func.is_async is False
 
-# @systemcls_param
+
+@mod_from_text_param
+def test_function_async(mod_from_text: ModFromTextFunction) -> None:
+    src = '''
+    """ MOD DOC """
+    async def a():
+        """This is a docstring."""
+    '''
+    mod = mod_from_text(src)
+    func, = mod.members
+    assert func.full_name == 'test.a'
+    assert func.docstring == """This is a docstring."""
+    assert isinstance(func, pydocspec.Function)
+    assert func.is_async is True
+
+
+@pytest.mark.parametrize('signature', (
+    '()',
+    '(*, a, b=None)',
+    '(*, a=(), b)',
+    '(a, b=3, *c, **kw)',
+    '(f=True)',
+    '(x=0.1, y=-2)',
+    "(s='theory', t=\"con'text\")",
+    ))
+@mod_from_text_param
+def test_function_signature(signature: str, mod_from_text: ModFromTextFunction) -> None:
+    """
+    A round trip from source to inspect.Signature and back produces
+    the original text.
+    """
+    mod = mod_from_text(f'def f{signature}: ...')
+    docfunc, = mod.members
+    assert isinstance(docfunc, pydocspec.Function)
+    text = str(docfunc.signature())
+    assert text == signature
+
+@posonlyargs
+@pytest.mark.parametrize('signature', (
+    '(x, y, /)',
+    '(x, y=0, /)',
+    '(x, y, /, z, w)',
+    '(x, y, /, z, w=42)',
+    '(x, y, /, z=0, w=0)',
+    '(x, y=3, /, z=5, w=7)',
+    '(x, /, *v, a=1, b=2)',
+    '(x, /, *, a=1, b=2, **kwargs)',
+    ))
+@mod_from_text_param
+def test_function_signature_posonly(signature: str, mod_from_text: ModFromTextFunction) -> None:
+    if mod_from_text == _docspec_python.mod_from_text:
+        # tests with positional only arguments does not currently passes with docspec_python
+        # https://github.com/NiklasRosenstein/docspec/issues/57
+        return
+    test_function_signature(signature, mod_from_text)
+
+@pytest.mark.parametrize('signature', (
+    '(a, a)',
+    ))
+@mod_from_text_param
+def test_function_badsig(signature: str, mod_from_text: ModFromTextFunction, caplog) -> None:
+    """When a function has an invalid signature, an error is logged and
+    the empty signature is returned.
+
+    Note that most bad signatures lead to a SyntaxError, which we cannot
+    recover from. This test checks what happens if the AST can be produced
+    but inspect.Signature() rejects the parsed parameters.
+    """
+
+    if mod_from_text in (_docspec_python.mod_from_text, _back_converter_round_trip1.mod_from_text):
+        # This test only passes with our own builder
+        return
+
+    mod = mod_from_text(f'def f{signature}: ...', modname='mod')
+    assert "<fromtext>:1: mod.f has invalid parameters: " in caplog.text
+    docfunc, = mod.members
+    assert isinstance(docfunc, pydocspec.Function)
+    assert str(docfunc.signature()) == '()'
+
+# @mod_from_text_param
 # def test_docformat_warn_overrides(systemcls: Type[model.System], capsys: CapSys) -> None:
 #     mod = fromText('''
 #     __docformat__ = 'numpy'

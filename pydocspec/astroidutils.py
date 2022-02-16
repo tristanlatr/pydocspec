@@ -662,10 +662,12 @@ def merge_annotations(annotations: Iterable[Optional[astroid.nodes.NodeNG]],
 
 # The MIT License (MIT)
 # Copyright (c) 2015 Read the Docs, Inc
-def get_args_info(func: Union[astroid.nodes.AsyncFunctionDef, 
-                            astroid.nodes.FunctionDef]) -> List[inspect.Parameter]:
+def build_signature(func: Union[astroid.nodes.AsyncFunctionDef, 
+                            astroid.nodes.FunctionDef]) -> inspect.Signature:
     """
-    Builds a list of `inspect.Parameter` representing this function's parameters.
+    Builds `inspect.Signature` representing this function's parameters and return value.
+
+    :raises ValueError: If the function has invalid parameters.
     """
     args_node: astroid.nodes.Arguments = func.args
     result: List[inspect.Parameter] = []
@@ -704,8 +706,8 @@ def get_args_info(func: Union[astroid.nodes.AsyncFunctionDef,
         ):
             result.append(inspect.Parameter(name=arg, 
                 kind=inspect.Parameter.POSITIONAL_ONLY,
-                default=default,
-                annotation=annotation, ))
+                default=default or inspect.Parameter.empty,
+                annotation=annotation or inspect.Parameter.empty, ))
 
         if not any(args_node.posonlyargs_annotations):
             annotation_offset += num_args
@@ -719,8 +721,8 @@ def get_args_info(func: Union[astroid.nodes.AsyncFunctionDef,
         ):
             result.append(inspect.Parameter(name=arg, 
                 kind=inspect.Parameter.POSITIONAL_OR_KEYWORD,
-                default=default,
-                annotation=annotation, ))
+                default=default or inspect.Parameter.empty,
+                annotation=annotation or inspect.Parameter.empty, ))
 
         annotation_offset += num_args
 
@@ -734,7 +736,7 @@ def get_args_info(func: Union[astroid.nodes.AsyncFunctionDef,
         result.append(inspect.Parameter(name=args_node.vararg, 
                 kind=inspect.Parameter.VAR_POSITIONAL,
                 default=inspect.Parameter.empty,
-                annotation=annotation, ))
+                annotation=annotation or inspect.Parameter.empty, ))
 
     if args_node.kwonlyargs:
         kwonlyargs_annotations = args_node.kwonlyargs_annotations
@@ -751,8 +753,8 @@ def get_args_info(func: Union[astroid.nodes.AsyncFunctionDef,
         ):
             result.append(inspect.Parameter(name=arg, 
                 kind=inspect.Parameter.KEYWORD_ONLY,
-                default=default,
-                annotation=annotation, ))
+                default=default or inspect.Parameter.empty,
+                annotation=annotation or inspect.Parameter.empty, ))
 
         if not any(args_node.kwonlyargs_annotations):
             annotation_offset += num_args
@@ -767,6 +769,6 @@ def get_args_info(func: Union[astroid.nodes.AsyncFunctionDef,
         result.append(inspect.Parameter(name=args_node.kwarg, 
                 kind=inspect.Parameter.VAR_KEYWORD,
                 default=inspect.Parameter.empty,
-                annotation=annotation, ))
-
-    return result
+                annotation=annotation or inspect.Parameter.empty, ))
+    
+    return inspect.Signature(result, return_annotation=func.returns if func.returns else inspect.Signature.empty)

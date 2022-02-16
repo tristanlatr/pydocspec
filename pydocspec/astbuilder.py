@@ -634,20 +634,27 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         
         func_name = node.name
 
-        args = [basebuilder.parameter2argument(p, self.root.factory) \
-                for p in astroidutils.get_args_info(node)]
-
         func = self.root.factory.Function(name=func_name, 
                 location=self.root.factory.Location(
                         filename=self.current.location.filename, 
                         lineno=lineno), 
                 docstring=None, 
                 modifiers=['async'] if is_async else None,
-                args=args,
+                args=[],
                 return_type_ast=node.returns if node.returns else None,
                 return_type=astroidutils.to_source(node.returns) if node.returns else None,
                 decorations=None,
                 )  
+        self.add_object(func)
+
+        # set args
+        try:
+            func_sig = astroidutils.build_signature(node)
+        except ValueError as e:
+            func.warn(f'{func.full_name} has invalid parameters: {e}')
+        else:
+            func.args = [basebuilder.parameter2argument(p, self.root.factory) \
+                    for p in func_sig.parameters.values()]
 
         # set docstring
         self._maybe_set_docstring(func, node)
@@ -656,8 +663,6 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         decorators = node.decorators.nodes if node.decorators else None
         if decorators:
             func.decorations = list(self._parse_decorations(decorators))
-
-        self.add_object(func)
 
     def depart_FunctionDef(self, node:astroid.nodes.FunctionDef) -> None:
         self.pop(self.current)

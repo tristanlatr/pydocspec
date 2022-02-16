@@ -196,7 +196,7 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
                 filename=location.filename, 
                 lineno=location.lineno,
                 endlineno=location.endlineno)
-        if not loc.filename:
+        if not loc.filename and self.current is not None:
             loc.filename = self.current.module.location.filename
         return loc
 
