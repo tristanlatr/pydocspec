@@ -26,4 +26,4 @@ jobs:
           python -m pip install tox
         
       - name: Run static checks
-        run: tox -e pytype,mypy
+        run: tox -e mypy
