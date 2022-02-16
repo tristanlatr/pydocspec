@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id155">
+        <table class="children sortable" id="id174">
   
   
   <tr class="function">
@@ -91,7 +91,12 @@
     
     <td>Function</td>
     <td><code><a href="#test_all_recognition" class="internal-link" title="pydocspec.test.test_astbuilder.test_all_recognition">test​_all​_recognition</a></code></td>
-    <td>The value assigned to __all__ is parsed to Module.all.</td>
+    <td>The value assigned to __all__ is parsed to Module.dunder_all.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_all_recognition_complex" class="internal-link" title="pydocspec.test.test_astbuilder.test_all_recognition_complex">test​_all​_recognition​_complex</a></code></td>
+    <td>The value assigned to __all__ is correctly inferred when it's built from binary operation '+'.</td>
   </tr><tr class="function">
     
     <td>Function</td>
@@ -135,8 +140,33 @@
   </tr><tr class="function">
     
     <td>Function</td>
+    <td><code><a href="#test_function_async" class="internal-link" title="pydocspec.test.test_astbuilder.test_function_async">test​_function​_async</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_function_badsig" class="internal-link" title="pydocspec.test.test_astbuilder.test_function_badsig">test​_function​_badsig</a></code></td>
+    <td>When a function has an invalid signature, an error is logged and the empty signature is returned.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
     <td><code><a href="#test_function_name_dulpicate_module" class="internal-link" title="pydocspec.test.test_astbuilder.test_function_name_dulpicate_module">test​_function​_name​_dulpicate​_module</a></code></td>
     <td>It's possible that a function or class name is the same as a module's. The builder should not crash.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_function_signature" class="internal-link" title="pydocspec.test.test_astbuilder.test_function_signature">test​_function​_signature</a></code></td>
+    <td>A round trip from source to inspect.Signature and back produces the original text.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_function_signature_posonly" class="internal-link" title="pydocspec.test.test_astbuilder.test_function_signature_posonly">test​_function​_signature​_posonly</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#test_function_simple" class="internal-link" title="pydocspec.test.test_astbuilder.test_function_simple">test​_function​_simple</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
@@ -157,6 +187,16 @@
     <td>Function</td>
     <td><code><a href="#test_relative_import_past_top" class="internal-link" title="pydocspec.test.test_astbuilder.test_relative_import_past_top">test​_relative​_import​_past​_top</a></code></td>
     <td>A warning is logged when a relative import goes beyond the top-level package.</td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#posonlyargs" class="internal-link" title="pydocspec.test.test_astbuilder.posonlyargs">posonlyargs</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#typecomment" class="internal-link" title="pydocspec.test.test_astbuilder.typecomment">typecomment</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
@@ -178,7 +218,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#getbuilder_param" class="internal-link" title="pydocspec.test.getbuilder_param">getbuilder_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_aliasing</span>(getbuilder):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L243">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L246">
       
       (source)
     </a>
@@ -200,7 +240,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_aliasing_recursion</span>(mod_from_text):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L283">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L286">
       
       (source)
     </a>
@@ -222,7 +262,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_all_recognition</span>(mod_from_text):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L418">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L421">
       
       (source)
     </a>
@@ -230,7 +270,29 @@
   <div class="docstring functionBody">
     
     
-    <div>The value assigned to __all__ is parsed to Module.all.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod​_from​_text:</span><code><a href="pydocspec.test.ModFromTextFunction.html" class="internal-link" title="pydocspec.test.ModFromTextFunction">ModFromTextFunction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>The value assigned to __all__ is parsed to Module.dunder_all.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod​_from​_text:</span><code><a href="pydocspec.test.ModFromTextFunction.html" class="internal-link" title="pydocspec.test.ModFromTextFunction">ModFromTextFunction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_all_recognition_complex">
+    
+  </a>
+  <a name="test_all_recognition_complex">
+    
+  </a>
+  <div class="functionHeader">
+    @pytest.mark.xfail<br />@<a href="pydocspec.test.html#getbuilder_param" class="internal-link" title="pydocspec.test.getbuilder_param">getbuilder_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_all_recognition_complex</span>(getbuilder):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L434">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>The value assigned to __all__ is correctly inferred when it's built from binary operation '+'.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">getbuilder:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a>[<wbr></wbr>[], <wbr></wbr><a href="pydocspec.astbuilder.Builder.html" class="internal-link" title="pydocspec.astbuilder.Builder">astbuilder.Builder</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -244,7 +306,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_class_decos_and_bases</span>(mod_from_text, caplog):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L35">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L38">
       
       (source)
     </a>
@@ -266,7 +328,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#getbuilder_param" class="internal-link" title="pydocspec.test.getbuilder_param">getbuilder_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_class_docstring</span>(getbuilder):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L16">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L19">
       
       (source)
     </a>
@@ -288,7 +350,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_class_with_base_from_module</span>(mod_from_text):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L334">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L337">
       
       (source)
     </a>
@@ -310,7 +372,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_class_with_base_from_module_alt</span>(mod_from_text):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L365">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L368">
       
       (source)
     </a>
@@ -332,7 +394,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_docformat_recognition</span>(mod_from_text):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L431">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L456">
       
       (source)
     </a>
@@ -354,7 +416,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_docformat_warn_empty</span>(mod_from_text, caplog):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L473">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L498">
       
       (source)
     </a>
@@ -376,7 +438,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_docformat_warn_not_str</span>(mod_from_text, caplog):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L445">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L470">
       
       (source)
     </a>
@@ -398,7 +460,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_docformat_warn_not_str2</span>(mod_from_text, caplog):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L459">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L484">
       
       (source)
     </a>
@@ -407,6 +469,55 @@
     
     
     <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod​_from​_text:</span><code><a href="pydocspec.test.ModFromTextFunction.html" class="internal-link" title="pydocspec.test.ModFromTextFunction">ModFromTextFunction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">caplog</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_function_async">
+    
+  </a>
+  <a name="test_function_async">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_function_async</span>(mod_from_text):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L527">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod​_from​_text:</span><code><a href="pydocspec.test.ModFromTextFunction.html" class="internal-link" title="pydocspec.test.ModFromTextFunction">ModFromTextFunction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_function_badsig">
+    
+  </a>
+  <a name="test_function_badsig">
+    
+  </a>
+  <div class="functionHeader">
+    @pytest.mark.parametrize(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">signature</span><span class="rst-variable-quote">'</span>, <wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(a, a)</span><span class="rst-variable-quote">'</span>))<br />@<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_function_badsig</span>(signature, mod_from_text, caplog):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L582">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>When a function has an invalid signature, an error is logged and
+the empty signature is returned.</p>
+<p>Note that most bad signatures lead to a SyntaxError, which we cannot
+recover from. This test checks what happens if the AST can be produced
+but inspect.Signature() rejects the parsed parameters.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signature:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod​_from​_text:</span><code><a href="pydocspec.test.ModFromTextFunction.html" class="internal-link" title="pydocspec.test.ModFromTextFunction">ModFromTextFunction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">caplog</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -420,7 +531,7 @@
   <div class="functionHeader">
     @<a href="pydocspec.test.html#getbuilder_param" class="internal-link" title="pydocspec.test.getbuilder_param">getbuilder_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_function_name_dulpicate_module</span>(getbuilder):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L80">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L83">
       
       (source)
     </a>
@@ -434,6 +545,73 @@ The builder should not crash.<table class="fieldTable"><tr class="fieldStart"><t
 </div><div class="basefunction">
   
   
+  <a name="pydocspec.test.test_astbuilder.test_function_signature">
+    
+  </a>
+  <a name="test_function_signature">
+    
+  </a>
+  <div class="functionHeader">
+    @pytest.mark.parametrize(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">signature</span><span class="rst-variable-quote">'</span>, <wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">()</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(*, a, b=None)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(*, a=(), b)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(a, b=3, *c, **kw)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(f=True)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(x=0.1, y=-2)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(s=\'theory\', t="con\'text")</span><span class="rst-variable-quote">'</span>))<br />@<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_function_signature</span>(signature, mod_from_text):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L542">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>A round trip from source to inspect.Signature and back produces
+the original text.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signature:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod​_from​_text:</span><code><a href="pydocspec.test.ModFromTextFunction.html" class="internal-link" title="pydocspec.test.ModFromTextFunction">ModFromTextFunction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_function_signature_posonly">
+    
+  </a>
+  <a name="test_function_signature_posonly">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="#posonlyargs" class="internal-link" title="pydocspec.test.test_astbuilder.posonlyargs">posonlyargs</a><br />@pytest.mark.parametrize(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">signature</span><span class="rst-variable-quote">'</span>, <wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(x, y, /)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(x, y=0, /)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(x, y, /, z, w)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(x, y, /, z, w=42)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(x, y, /, z=0, w=0)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(x, y=3, /, z=5, w=7)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(x, /, *v, a=1, b=2)</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">(x, /, *, a=1, b=2, **kwargs)</span><span class="rst-variable-quote">'</span>))<br />@<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_function_signature_posonly</span>(signature, mod_from_text):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L563">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signature:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod​_from​_text:</span><code><a href="pydocspec.test.ModFromTextFunction.html" class="internal-link" title="pydocspec.test.ModFromTextFunction">ModFromTextFunction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.test_function_simple">
+    
+  </a>
+  <a name="test_function_simple">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">test_function_simple</span>(mod_from_text):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L512">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">mod​_from​_text:</span><code><a href="pydocspec.test.ModFromTextFunction.html" class="internal-link" title="pydocspec.test.ModFromTextFunction">ModFromTextFunction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
   <a name="pydocspec.test.test_astbuilder.test_no_docstring">
     
   </a>
@@ -443,7 +621,7 @@ The builder should not crash.<table class="fieldTable"><tr class="fieldStart"><t
   <div class="functionHeader">
     @<a href="pydocspec.test.html#mod_from_text_param" class="internal-link" title="pydocspec.test.mod_from_text_param">mod_from_text_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_no_docstring</span>(mod_from_text):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L400">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L403">
       
       (source)
     </a>
@@ -465,7 +643,7 @@ The builder should not crash.<table class="fieldTable"><tr class="fieldStart"><t
   <div class="functionHeader">
     @<a href="pydocspec.test.html#getbuilder_param" class="internal-link" title="pydocspec.test.getbuilder_param">getbuilder_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_relative_import_in_package</span>(getbuilder):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L124">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L127">
       
       (source)
     </a>
@@ -495,7 +673,7 @@ top: def f
   <div class="functionHeader">
     @<a href="pydocspec.test.html#getbuilder_param" class="internal-link" title="pydocspec.test.getbuilder_param">getbuilder_param</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">test_relative_import_in_package_star_import</span>(getbuilder):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L178">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L181">
       
       (source)
     </a>
@@ -525,7 +703,7 @@ top: class f
   <div class="functionHeader">
     @<a href="pydocspec.test.html#getbuilder_param" class="internal-link" title="pydocspec.test.getbuilder_param">getbuilder_param</a><br />@pytest.mark.parametrize(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">level</span><span class="rst-variable-quote">'</span>, <wbr></wbr>(<wbr></wbr>1, <wbr></wbr>2, <wbr></wbr>3, <wbr></wbr>4))<br />
     <span class="py-keyword">def</span> <span class="py-defname">test_relative_import_past_top</span>(getbuilder, level, caplog):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/test/test_astbuilder.py#L310">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L313">
       
       (source)
     </a>
@@ -535,6 +713,52 @@ top: class f
     
     <div>A warning is logged when a relative import goes beyond the top-level
 package.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">getbuilder:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a>[<wbr></wbr>[], <wbr></wbr><a href="pydocspec.astbuilder.Builder.html" class="internal-link" title="pydocspec.astbuilder.Builder">astbuilder.Builder</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">level:</span><code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">caplog</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.posonlyargs">
+    
+  </a>
+  <a name="posonlyargs">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">posonlyargs</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L16">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="pydocspec.test.test_astbuilder.typecomment">
+    
+  </a>
+  <a name="typecomment">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">typecomment</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/test/test_astbuilder.py#L17">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div>
 
@@ -546,7 +770,7 @@ package.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" c
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-02-16 04:46:04.
+    21.12.1.dev0 at 2022-02-16 21:46:31.
   </div>
 </footer>
 

@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Indirection</span>(<a href="docspec.Indirection.html" class="internal-link" title="docspec.Indirection">docspec.Indirection</a>, <a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/_model.py#L389" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Indirection.html" class="internal-link">pydocspec.Indirection</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Indirection</span>(<a href="docspec.Indirection.html" class="internal-link" title="docspec.Indirection">docspec.Indirection</a>, <a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/_model.py#L389" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Indirection.html" class="internal-link">pydocspec.Indirection</a></code></p>
         <p><a href="classIndex.html#pydocspec._model.Indirection">View In Hierarchy</a></p>
       </div>
 
@@ -75,7 +75,7 @@ find the full name target of a link written with a local name.</div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id40">
+        <table class="children sortable" id="id44">
   
   
   <tr class="classvariable">
@@ -92,9 +92,77 @@ find the full name target of a link written with a local name.</div>
 </table>
         
           <p class="inheritedFrom">
+            Inherited from <code><a href="docspec.Indirection.html" class="internal-link" title="docspec.Indirection">Indirection</a></code>:
+          </p>
+          <table class="children sortable" id="id45">
+  
+  
+  <tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.Indirection.html#target" class="internal-link" title="docspec.Indirection.target">target</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
+            Inherited from <code><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a></code> (via <code><a href="docspec.Indirection.html" class="internal-link" title="docspec.Indirection">Indirection</a></code>):
+          </p>
+          <table class="children sortable" id="id46">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#__post_init__" class="internal-link" title="docspec.ApiObject.__post_init__">__post​_init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#parent.setter" class="internal-link" title="docspec.ApiObject.parent.setter">parent.setter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#sync_hierarchy" class="internal-link" title="docspec.ApiObject.sync_hierarchy">sync​_hierarchy</a></code></td>
+    <td><span class="undocumented">No summary</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.ApiObject.html#docstring" class="internal-link" title="docspec.ApiObject.docstring">docstring</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.ApiObject.html#location" class="internal-link" title="docspec.ApiObject.location">location</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.ApiObject.html#name" class="internal-link" title="docspec.ApiObject.name">name</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="docspec.ApiObject.html#parent" class="internal-link" title="docspec.ApiObject.parent">parent</a></code></td>
+    <td>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="docspec.ApiObject.html#path" class="internal-link" title="docspec.ApiObject.path">path</a></code></td>
+    <td>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</td>
+  </tr><tr class="baseinstancevariable private">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="docspec.ApiObject.html#_parent" class="internal-link" title="docspec.ApiObject._parent">​_parent</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code>:
           </p>
-          <table class="children sortable" id="id41">
+          <table class="children sortable" id="id47">
   
   
   <tr class="basemethod">
@@ -156,7 +224,7 @@ find the full name target of a link written with a local name.</div>
     
     <td>Instance Variable</td>
     <td><code><a href="pydocspec._model.ApiObject.html#parent" class="internal-link" title="pydocspec._model.ApiObject.parent">parent</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>Returns the parent of the #HasMembers. Note that if you make any modifications to the API object tree, you will need to call #sync_hierarchy() afterwards because adding to #Class.members or #Module.members does not automatically keep the #parent property in sync.</td>
   </tr><tr class="baseinstancevariable">
     
     <td>Instance Variable</td>
@@ -201,9 +269,48 @@ find the full name target of a link written with a local name.</div>
 </table>
           
           <p class="inheritedFrom">
+            Inherited from <code><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a></code> (via <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code>):
+          </p>
+          <table class="children sortable" id="id48">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#parent.setter" class="internal-link" title="docspec.ApiObject.parent.setter">parent.setter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="docspec.ApiObject.html#sync_hierarchy" class="internal-link" title="docspec.ApiObject.sync_hierarchy">sync​_hierarchy</a></code></td>
+    <td><span class="undocumented">No summary</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.ApiObject.html#docstring" class="internal-link" title="docspec.ApiObject.docstring">docstring</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="docspec.ApiObject.html#name" class="internal-link" title="docspec.ApiObject.name">name</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="docspec.ApiObject.html#path" class="internal-link" title="docspec.ApiObject.path">path</a></code></td>
+    <td>Returns a list of all of this API object's parents, from top to bottom. The list includes *self* as the last item.</td>
+  </tr><tr class="baseinstancevariable private">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="docspec.ApiObject.html#_parent" class="internal-link" title="docspec.ApiObject._parent">​_parent</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+          <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html" class="internal-link" title="pydocspec._model.CanTriggerWarnings">CanTriggerWarnings</a></code> (via <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id42">
+          <table class="children sortable" id="id49">
   
   
   <tr class="basemethod">
@@ -217,7 +324,7 @@ find the full name target of a link written with a local name.</div>
           <p class="inheritedFrom">
             Inherited from <code><a href="pydocspec._model.GetMembersMixin.html" class="internal-link" title="pydocspec._model.GetMembersMixin">GetMembersMixin</a></code> (via <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code>):
           </p>
-          <table class="children sortable" id="id43">
+          <table class="children sortable" id="id50">
   
   
   <tr class="basemethod">
@@ -246,7 +353,7 @@ find the full name target of a link written with a local name.</div>
   <div class="functionHeader">
     
     <span class="py-defname">is_type_guarged</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/_model.py#L398">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/_model.py#L398">
       
       (source)
     </a>
@@ -269,7 +376,7 @@ find the full name target of a link written with a local name.</div>
   <div class="functionHeader">
     
     <span class="py-defname">_spec_fields</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/0a8533d189c05950a16c64b098b756d46b139ca2/pydocspec/_model.py#L396">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/c424fb023854f8a02674a83d56fa75e67bd97dfc/pydocspec/_model.py#L396">
       
       (source)
     </a>
@@ -290,7 +397,7 @@ find the full name target of a link written with a local name.</div>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-02-16 04:46:04.
+    21.12.1.dev0 at 2022-02-16 21:46:31.
   </div>
 </footer>
 
