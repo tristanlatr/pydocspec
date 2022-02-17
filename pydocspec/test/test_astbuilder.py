@@ -441,15 +441,15 @@ def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder]) -
         builder = getbuilder()
         builder.add_module_string('''
         from top.mod import * # Fails with relative imports
-        from top.mod import a # Fails with relative imports
+        from top.mod import __all__ as mod_all # Fails with relative imports
         def f():
             pass
-        __all__ = ['f'] + a
+        __all__ = ['f'] + mod_all
         ''', modname='top', is_package=True)
         builder.add_module_string('''
         def g():
             pass
-        a = ['g']
+        __all__ = ['g']
         ''', modname='mod', parent_name='top')
 
         assert list(AstroidManager().astroid_cache) == ['builtins']
@@ -457,7 +457,7 @@ def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder]) -
         assert list(AstroidManager().astroid_cache) == ['builtins', 'top', 'top.mod']
         top = builder.root.root_modules[0]
         names = processor.mod_attr.public_names(top)
-        names.remove('a')
+        names.remove('mod_all')
         assert sorted(top.dunder_all) == sorted(['f', 'g']) == sorted(names)
 
     finally:
