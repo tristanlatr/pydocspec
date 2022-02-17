@@ -433,18 +433,27 @@ def test_all_recognition(mod_from_text: ModFromTextFunction) -> None:
 
 # @pytest.mark.xfail #https://github.com/PyCQA/astroid/issues/1398
 @getbuilder_param
-def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder]) -> None:
-    """The value assigned to __all__ is correctly inferred when it's built from binary operation '+'."""
+@pytest.mark.parametrize(['top_src_last_line'], 
+    [("__all__ = ['f'] + mod_all",),  
+     ("__all__ = ['f']; __all__ += mod_all",),
+    #  ("__all__ = ['f']; __all__.extend(mod_all)",), # Doesn't work for now
+    #  ("__all__ = ['f']; __all__.append(mod_all.pop())",) # Doesn't work for now
+     ])
+def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder], top_src_last_line:str) -> None:
+    """
+    The value assigned to __all__ is correctly inferred when 
+    it's built from binary operation '+' or augmented assigments '+='.
+    """
     from astroid.manager import AstroidManager
     AstroidManager().clear_cache()
     try:
         builder = getbuilder()
-        builder.add_module_string('''
+        builder.add_module_string(f'''
         from top.mod import * # Fails with relative imports
         from top.mod import __all__ as mod_all # Fails with relative imports
         def f():
             pass
-        __all__ = ['f'] + mod_all
+        {top_src_last_line}
         ''', modname='top', is_package=True)
         builder.add_module_string('''
         def g():

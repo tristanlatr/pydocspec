@@ -18,16 +18,11 @@ def dunder_all(ob: _model.Module) -> Optional[List[str]]:
     
     if ob._ast is not None:
         # Infer the __all__ variable with astroid inference system.
-        ivalue = astroid.helpers.safe_infer(value)
+        ivalue = list(ob._ast.igetattr("__all__"))[-1] # Do best effort inference.
         if ivalue != astroid.util.Uninferable:
-            if ivalue is None:
-                var.warn(f'Can\'t infer the value assigned to "{var.full_name}", there is some ambiguity.')
-                # TODO: Do some best effort inference.
-                return None
             assert isinstance(ivalue, astroid.nodes.NodeNG)
             value = ivalue
         else:
-            from astroid.manager import AstroidManager
             var.warn(f'Can\'t infer the value assigned to "{var.full_name}", too complex.')
             return None
     
