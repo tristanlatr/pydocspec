@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/be6c1683f34ecf59234b2319caa6bb2ba2dd2b45/pydocspec/astbuilder.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/b687fa677a827b202fe32b36b664f719f11ea57d/pydocspec/astbuilder.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -93,7 +93,7 @@ The strict minimum beeing represented by the classes in <code><a href="pydocspec
     
     <td>Class</td>
     <td><code><a href="pydocspec.astbuilder.CyclicImport.html" class="internal-link" title="pydocspec.astbuilder.CyclicImport">​Cyclic​Import</a></code></td>
-    <td>Raised when trying to resolved an "from mod import <a href="#system-message-1"><span class="rst-problematic" id="rst-problematic-1">*</span></a>" statement from a module that is not totally processed yet.</td>
+    <td>Raised when trying to re-processed a module that is not totally processed yet.</td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -103,12 +103,17 @@ The strict minimum beeing represented by the classes in <code><a href="pydocspec
     
     <td>Function</td>
     <td><code><a href="#import_module" class="internal-link" title="pydocspec.astbuilder.import_module">import​_module</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>Actually imports and execute a module from a location and module full name.</td>
   </tr><tr class="function">
     
     <td>Function</td>
     <td><code><a href="#is_attribute_overridden" class="internal-link" title="pydocspec.astbuilder.is_attribute_overridden">is​_attribute​_overridden</a></code></td>
     <td>Detect if the optional C{new_value} expression override the one already stored in the L{_model.Data.value} attribute.</td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.astbuilder._AstSpecFactory.html" class="internal-link" title="pydocspec.astbuilder._AstSpecFactory">_​Ast​Spec​Factory</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable private">
     
     <td>Variable</td>
@@ -135,7 +140,7 @@ The strict minimum beeing represented by the classes in <code><a href="pydocspec
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">import_module</span>(path, module_full_name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/be6c1683f34ecf59234b2319caa6bb2ba2dd2b45/pydocspec/astbuilder.py#L53">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b687fa677a827b202fe32b36b664f719f11ea57d/pydocspec/astbuilder.py#L50">
       
       (source)
     </a>
@@ -143,7 +148,7 @@ The strict minimum beeing represented by the classes in <code><a href="pydocspec
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">path:</span><code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module​_full​_name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/types.html#types.ModuleType" class="intersphinx-link">types.ModuleType</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Actually imports and execute a module from a location and module full name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">path:</span><code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">module​_full​_name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/types.html#types.ModuleType" class="intersphinx-link">types.ModuleType</a></code></td><td class="fieldArgDesc">the imported module.</td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -157,7 +162,7 @@ The strict minimum beeing represented by the classes in <code><a href="pydocspec
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_attribute_overridden</span>(obj, new_value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/be6c1683f34ecf59234b2319caa6bb2ba2dd2b45/pydocspec/astbuilder.py#L63">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b687fa677a827b202fe32b36b664f719f11ea57d/pydocspec/astbuilder.py#L65">
       
       (source)
     </a>
@@ -179,7 +184,7 @@ The strict minimum beeing represented by the classes in <code><a href="pydocspec
   <div class="functionHeader">
     
     <span class="py-defname">_string_lineno_is_end</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/be6c1683f34ecf59234b2319caa6bb2ba2dd2b45/pydocspec/astbuilder.py#L47">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b687fa677a827b202fe32b36b664f719f11ea57d/pydocspec/astbuilder.py#L44">
       
       (source)
     </a>
@@ -201,7 +206,7 @@ line in the string, rather than the first line.</div>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-02-17 05:48:55.
+    21.12.1.dev0 at 2022-02-17 20:56:37.
   </div>
 </footer>
 
