@@ -168,7 +168,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
                 # From Python3.9, any kind of expressions can be used as decorators, so we don't warn anymore.
                 # See Relaxing Grammar Restrictions On Decorators: https://www.python.org/dev/peps/pep-0614/
                 if sys.version_info < (3,9):
-                    cls.warn(f"Cannot make sense of class decorator: '{name}'")
+                    f"Cannot make sense of class decorator: '{name}'"
             else:
                 name = '.'.join(dotted_name)
 
