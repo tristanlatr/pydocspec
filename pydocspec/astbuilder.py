@@ -24,6 +24,7 @@ import logging
 import platform
 import inspect
 import importlib.machinery
+import importlib.util
 
 import astroid.builder
 import astroid.rebuilder
@@ -36,7 +37,7 @@ import attr
 # Implementation note: 
 # The builder should not import pydocspec, it should not be aware of pydocspec.* classes
 
-from pydocspec import (_model, astroidutils, introspect, processor, 
+from pydocspec import (_model, astroidutils, processor, 
                        basebuilder, visitors)
 import pydocspec
 
@@ -48,6 +49,16 @@ _string_lineno_is_end = sys.version_info < (3,8) \
 """True iff the 'lineno' attribute of an AST string node points to the last
 line in the string, rather than the first line.
 """
+
+def import_module(path: Path, module_full_name:str) -> types.ModuleType:
+    spec = importlib.util.spec_from_file_location(module_full_name, path)
+    if spec is None: 
+        raise RuntimeError(f"Cannot find spec for module {module_full_name} at {path}")
+    py_mod = importlib.util.module_from_spec(spec)
+    loader = spec.loader
+    assert isinstance(loader, importlib.abc.Loader), loader
+    loader.exec_module(py_mod)
+    return py_mod
 
 def is_attribute_overridden(obj: _model.Data, new_value: Optional[astroid.nodes.NodeNG]) -> bool:
     """
@@ -888,7 +899,7 @@ class Builder:
                         module_full_name = module_name
                     else:
                         module_full_name = f'{parent.full_name}.{module_name}'
-                    py_mod = introspect._import_module(path, module_full_name)
+                    py_mod = import_module(path, module_full_name)
                     self._add_module(path, module_name, parent, 
                                      is_c_module=True, py_mod=py_mod)
                 
