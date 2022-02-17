@@ -363,11 +363,9 @@ def is_type_guarded(node: Optional[astroid.nodes.NodeNG], ctx: '_model.ApiObject
     if node is None or isinstance(node, astroid.nodes.Module):
         return False
     maybe_ifstmt = node.parent
-    type_guarded = True if isinstance(maybe_ifstmt, astroid.nodes.If) and \
-        ((node2dottedname(maybe_ifstmt.test) or (None,))[-1]) == "TYPE_CHECKING" else False
+    type_guarded = is_type_guard(maybe_ifstmt)
     return type_guarded or is_type_guarded(maybe_ifstmt.parent, ctx)
 
-# not used right now
 def is_type_guard(node: astroid.nodes.If) -> bool:
     """Return True if the If statement is a typing guard."""
     ifstmt = node

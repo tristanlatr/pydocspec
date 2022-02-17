@@ -99,7 +99,7 @@ class _DefaultLocationSetter(visitors.ApiObjectVisitorExt):
 class PostBuildVisitor1(visitors.ApiObjectVisitor):
 
     def visit_Module(self, ob: pydocspec.Module) -> None:
-        if not ob.dunder_all:
+        if ob.dunder_all is None:
             ob.dunder_all = mod_attr.dunder_all(ob)
         ob.docformat = mod_attr.docformat(ob)
         if not ob.is_package:

@@ -499,7 +499,7 @@ class Module(docspec.Module, ApiObject):
     Represents a module, basically a named container for code/API objects. Modules may be nested in other modules.
     """
 
-    _spec_fields = ("members",  "is_package", "is_c_module", "dunder_all") + ApiObject._spec_fields
+    _spec_fields = ("members",  "is_package", "is_c_module") + ApiObject._spec_fields
 
     is_package: bool = False
     """

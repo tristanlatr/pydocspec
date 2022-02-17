@@ -19,14 +19,20 @@ def dunder_all(ob: _model.Module) -> Optional[List[str]]:
     if ob._ast is not None:
         # Infer the __all__ variable with astroid inference system.
         ivalue = astroid.helpers.safe_infer(value)
-        if ivalue not in (None, astroid.util.Uninferable):
+        if ivalue != astroid.util.Uninferable:
+            if ivalue is None:
+                var.warn(f'Can\'t infer the value assigned to "{var.full_name}", there is some ambiguity.')
+                # TODO: Do some best effort inference.
+                return None
             assert isinstance(ivalue, astroid.nodes.NodeNG)
             value = ivalue
         else:
-            var.warn('Can\'t infer the value assigned to "__all__", too complex.')
+            from astroid.manager import AstroidManager
+            var.warn(f'Can\'t infer the value assigned to "{var.full_name}", too complex.')
+            return None
     
     if not isinstance(value, (astroid.nodes.List, astroid.nodes.Tuple)):
-        var.warn('Cannot parse value assigned to "__all__", must be a list or tuple.')
+        var.warn(f'Cannot parse value assigned to "{var.full_name}", must be a list or tuple.')
         return None
 
     names = []
@@ -34,12 +40,12 @@ def dunder_all(ob: _model.Module) -> Optional[List[str]]:
         try:
             name: object = astroidutils.literal_eval(item)
         except ValueError:
-            var.warn(f'Cannot parse element {idx} of "__all__"')
+            var.warn(f'Cannot parse element {idx} of "{var.full_name}"')
         else:
             if isinstance(name, str):
                 names.append(name)
             else:
-                var.warn(f'Element {idx} of "__all__" has '
+                var.warn(f'Element {idx} of "{var.full_name}" has '
                     f'type "{type(name).__name__}", expected "str"')
 
     return names
@@ -80,7 +86,11 @@ def public_names(ob: _model.Module) -> List[str]:
     :note: This is used to resolve wildcard imports when no `__all__` variable is
         defined.
     """
-    return [name for name in (m.name for m in ob.members if \
+    return list(dict.fromkeys([name for name in (m.name for m in ob.members if \
         not ((isinstance(m, _model.Indirection) and m.is_type_guarged) \
             or isinstance(m, _model.Module)) )
-            if not name.startswith('_')]
+            if not name.startswith('_')]))
+    
+    # Maybe the following rationale is better:
+    # Even if submodules are not imported when wildcard importing a module, 
+    # this returns submodules as part of the public names anyway. 

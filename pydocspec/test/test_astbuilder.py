@@ -3,7 +3,7 @@ import ast
 import sys
 import pytest
 
-from pydocspec import astbuilder, visitors
+from pydocspec import astbuilder, processor, visitors
 import pydocspec
 
 import astroid.builder
@@ -431,27 +431,37 @@ def test_all_recognition(mod_from_text: ModFromTextFunction) -> None:
     # Should pydocspec remove the __all__varible from the members?
     # It's metadata after all...
 
-@pytest.mark.xfail #https://github.com/PyCQA/astroid/issues/1398
+# @pytest.mark.xfail #https://github.com/PyCQA/astroid/issues/1398
 @getbuilder_param
-def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder],) -> None:
+def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder]) -> None:
     """The value assigned to __all__ is correctly inferred when it's built from binary operation '+'."""
-    builder = getbuilder()
-    builder.add_module_string('''
-    from .mod import *
-    from .mod import __all__ as _mod_all
-    def f():
-        pass
-    __all__ = ['f'] + _mod_all
-    ''', modname='top', is_package=True)
-    builder.add_module_string('''
-    def g():
-        pass
-    __all__ = ['g']
-    ''', modname='mod', parent_name='top')
+    from astroid.manager import AstroidManager
+    AstroidManager().clear_cache()
+    try:
+        builder = getbuilder()
+        builder.add_module_string('''
+        from top.mod import * # Fails with relative imports
+        from top.mod import a # Fails with relative imports
+        def f():
+            pass
+        __all__ = ['f'] + a
+        ''', modname='top', is_package=True)
+        builder.add_module_string('''
+        def g():
+            pass
+        a = ['g']
+        ''', modname='mod', parent_name='top')
 
-    builder.build_modules()
-    top = builder.root.root_modules[0]
-    assert top.dunder_all == ['f', 'g']
+        assert list(AstroidManager().astroid_cache) == ['builtins']
+        builder.build_modules()
+        assert list(AstroidManager().astroid_cache) == ['builtins', 'top', 'top.mod']
+        top = builder.root.root_modules[0]
+        names = processor.mod_attr.public_names(top)
+        names.remove('a')
+        assert sorted(top.dunder_all) == sorted(['f', 'g']) == sorted(names)
+
+    finally:
+        AstroidManager().clear_cache()
 
 @mod_from_text_param
 def test_docformat_recognition(mod_from_text: ModFromTextFunction) -> None:

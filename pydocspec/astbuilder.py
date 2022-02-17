@@ -20,7 +20,6 @@ from enum import Enum
 from functools import partial
 from itertools import chain
 import sys
-import logging
 import platform
 import inspect
 import importlib.machinery
@@ -34,15 +33,13 @@ import astroid.exceptions
 import astroid.manager
 import attr
 
-# Implementation note: 
-# The builder should not import pydocspec, it should not be aware of pydocspec.* classes
-
 from pydocspec import (_model, astroidutils, processor, 
                        basebuilder, visitors)
 import pydocspec
 
 if TYPE_CHECKING:
     import docspec
+    from pydocspec import specfactory
 
 _string_lineno_is_end = sys.version_info < (3,8) \
                     and platform.python_implementation() != 'PyPy'
@@ -51,6 +48,11 @@ line in the string, rather than the first line.
 """
 
 def import_module(path: Path, module_full_name:str) -> types.ModuleType:
+    """
+    Actually imports and execute a module from a location and module full name.
+
+    :Returns: the imported module.
+    """
     spec = importlib.util.spec_from_file_location(module_full_name, path)
     if spec is None: 
         raise RuntimeError(f"Cannot find spec for module {module_full_name} at {path}")
@@ -81,8 +83,7 @@ def is_attribute_overridden(obj: _model.Data, new_value: Optional[astroid.nodes.
 
 class CyclicImport(Exception):
     """
-    Raised when trying to resolved an "from mod import *" statement 
-    from a module that is not totally processed yet.
+    Raised when trying to re-processed a module that is not totally processed yet.
     """
     def __init__(self, message:str, module: '_model.Module'):            
         super().__init__(message)
@@ -92,6 +93,27 @@ class CyclicImport(Exception):
 # we are associating the docstring expr to the object ourself because of https://github.com/PyCQA/astroid/issues/1340
 #  -> TODO: use the new '.doc_node' attribute when the PR https://github.com/PyCQA/astroid/pull/1276 is merged
 astroid.rebuilder.TreeRebuilder._get_doc = lambda _,o:(o, None)
+
+# Not used yet
+@attr.s(auto_attribs=True)
+class _AstSpecFactory:
+    factory: 'specfactory.Factory'
+    
+    def newDocstring(node: astroid.nodes.Const, location_filename:str) -> 'docspec.Docstring':
+        ...
+    def newDecorations(nodes: Iterable[astroid.nodes.NodeNG], location_filename:str) -> Iterator[_model.Decoration]:
+        ...
+    def newIndirections(self, modname: str, names: Iterable[Tuple[str, Optional[str]]], 
+                        location_filename:str, lineno: int, 
+                        is_type_guarged:bool) -> Iterator[_model.Indirection]:
+        ...
+    def newData(self, name: str, 
+            annotation: Optional[astroid.nodes.NodeNG],
+            expr: Optional[astroid.nodes.NodeNG],
+            location_filename:str, 
+            lineno: int, 
+            semantics: List[pydocspec.Data.Semantic]) -> pydocspec.Data: 
+        ...
 
 class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
     # help mypy
@@ -206,18 +228,16 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         """
         Visit an {astroid.nodes.Module}.
         """
-        # TODO: check this assertion and re-enable it
-        # unprocessed modules should not have been initialized with a docstring yet.
-        # assert self.module.docstring is None
 
-        if len(node.body) > 0 and isinstance(node.body[0], astroid.nodes.Expr) and \
-            isinstance(node.body[0].value, astroid.nodes.Const) and node.body[0].value.pytype() == 'str':
-            # setting the module docstring
-            self._set_docstring(self.module, node.body[0].value)
+        # unprocessed modules should not have been initialized with a docstring yet.
+        assert self.module.docstring is None
 
         # The new module should already be added to the tree.
         assert self.module in self.root.all_objects.getall(self.module.full_name, []) 
+        
         self.push(self.module)
+
+        self._maybe_set_docstring(self.module, node)
     
     def depart_module(self, node: astroid.nodes.Module) -> None:
 
@@ -361,6 +381,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         resolve unresolve imports in the first analysis pass.
         """
 
+        # Try to process the module we're importing stuff from before the one we're processing.
         from_module = self.builder.get_processed_module(modname)
         if from_module is None:
             # We don't have any information about the module, so we don't know
@@ -376,7 +397,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             names = from_module._ast.wildcard_import_names()
             self.current.module.warn("Can't resolve cyclic wildcard imports", lineno_offset=lineno)
         else:
-            # if there is no cycles,
+            # if there is no cycles detected,
             # Get names to import: use __all__ if available, otherwise take all
             # names and ignore private
             names = (from_module.dunder_all or 
@@ -392,7 +413,9 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
     def _newIndirections(self, modname: str, names: Iterable[Tuple[str, Optional[str]]], lineno: int, 
                       is_type_guarged:bool) -> Iterator[_model.Indirection]:
         """Handle a C{from <modname> import <names>} statement."""
-
+        # Just try to process the module we're importing stuff from before the one we're processing.
+        self.builder.get_processed_module(modname)
+        
         for al in names:
             orgname, asname = al[0], al[1]
             if asname is None:
@@ -426,6 +449,8 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         is_type_guarged=astroidutils.is_type_guarded(node, ctx)
         for al in node.names:
             fullname, asname = al[0], al[1]
+            # Just try to process the module we're importing stuff from before the one we're processing.
+            self.builder.get_processed_module(fullname)
             if asname is not None:
                 indirection = self.root.factory.Indirection(name=asname, 
                     location=self.root.factory.Location(filename=self.current.location.filename, lineno=node.lineno), docstring=None, 
@@ -907,7 +932,7 @@ class Builder:
                 self._add_module(path, module_name, parent)
             break
     
-    def _discard_duplicate_mod(self, mod: _model.Module) -> Optional[_model.Module]:
+    def _discard_duplicate_mod(self, mod: _model.Module, mod_full_name:str) -> Optional[_model.Module]:
         """
         Runs before adding a new module to the root. 
         Check if a module already has the same name. 
@@ -918,16 +943,16 @@ class Builder:
         :Note: The rule is that the package/directory wins over the regular module, also, c-modules wins over regular modules.
         """
         # We check if that's a duplicate module name.
-        is_dup = self.processing_map.get(mod.full_name) is not None
+        is_dup = self.processing_map.get(mod_full_name) is not None
         
         if is_dup:
 
             # It's kindda safe to assume the modules contents have not been loaded yet,
             # so modules should not be shadowed by other objects (yet).
-            older_mod = self.root.all_objects.get(mod.full_name)
+            older_mod = self.root.all_objects.get(mod_full_name)
             assert isinstance(older_mod, _model.Module) #type:ignore[unreachable]
             
-            _warn_str = f"Duplicate module: '{mod.full_name}'." #type:ignore[unreachable]
+            _warn_str = f"Duplicate module: '{mod_full_name}'." #type:ignore[unreachable]
             #  the package/directory wins
             if (older_mod.is_c_module and not mod.is_package) or \
                (older_mod.is_package and not mod.is_package):
@@ -991,8 +1016,12 @@ class Builder:
             is_c_module=is_c_module,
             _py_mod=py_mod,
             _py_string=py_string)
-        
-        if not self._discard_duplicate_mod(mod):
+        # craft module full name
+        if parent is None:
+            module_full_name = modname
+        else:
+            module_full_name = f'{parent.full_name}.{modname}'
+        if not self._discard_duplicate_mod(mod, mod_full_name=module_full_name):
             # add it to tree
             self.root.add_object(mod, parent=parent)
             # init state in processing map
@@ -1038,6 +1067,8 @@ class Builder:
         there is no unprocessed modules anymore. 
 
         Runs post-build operations after.
+
+        :note: This method should only be run once per Builder instance.
         """
         while list(self.unprocessed_modules):
             mod = next(self.unprocessed_modules)
