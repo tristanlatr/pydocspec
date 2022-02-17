@@ -628,7 +628,7 @@ def _is_ellipsis(node:astroid.nodes.NodeNG) -> bool:
     if sys.version_info < (3, 8):
         return isinstance(node, astroid.Ellipsis)
 
-    return isinstance(node, astroid.Const) and node.value == Ellipsis
+    return isinstance(node, astroid.Const) and node.value == Ellipsis #type:ignore[unreachable]
 
 # The MIT License (MIT)
 # Copyright (c) 2015 Read the Docs, Inc
