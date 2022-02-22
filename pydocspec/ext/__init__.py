@@ -28,7 +28,7 @@ You create an extension like this:
         r.register_mixins(MyDataMixin, MyClassMixin)
         r.register_astbuild_visitors(MyAstVisitor)
         r.register_postbuild_visitors(MyObjectVisitor)
-    )
+    
 
 :note: Mixin classes are going to be added to the list of bases when creating the new objects with the 
 `specfactory.Factory`. Because of that, the documentation of the classes listed in this module are incomplete, properties

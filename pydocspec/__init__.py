@@ -67,7 +67,13 @@ Argument = _model.Argument
 Decoration = _model.Decoration
 
 class TreeRoot(_model.TreeRoot):
-    # see _model.TreeRoot for docs.
+    """
+    A collection of related documentable objects, also known as "the system".
+    
+    This special object provides a single view on all referencable objects in the tree and root modules.
+
+    :note: A reference to the root instance is kept on all API objects as `ApiObject.root`.
+    """
 
     # help mypy
     root_modules: List['Module'] # type: ignore[assignment]

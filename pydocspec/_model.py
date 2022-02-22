@@ -12,6 +12,17 @@ processing can be done on these objects afterwards.
     Namely: `ApiObject.full_name`, `ApiObject.dottedname`, `ApiObject.module`, `ApiObject.scope`.
 """
 
+# The model in two: classes in `pydocspec._model` and classes in `pydocspec` top level module. 
+# On the one hand there are all the required attributes and on the other hand there are all the attributes that can be 
+# populate from the data we already have (some of them must be set in a specific order, 
+# for instance the `Class.mro` attribute must set first for the name resolution 
+# system to work correctly). So this is why all attributes of all objects are populated in 
+# the post-build phase, this way we can control the specific order of the processing. 
+# Currently it takes 2 passes of post-build visitors to be sure attributes are correct. 
+# See this discussion: https://github.com/twisted/pydoctor/issues/430#issuecomment-912905598 
+# for more information à about why we're computing all attributes in the post build step and don't rely
+# on on-demand processing.
+
 from typing import Any, Callable, Iterator, List, Optional, Sequence, Tuple, Union, Iterable, ClassVar, cast, TYPE_CHECKING, overload
 import astroid.nodes
 import dataclasses
@@ -115,14 +126,6 @@ class GetMembersMixin:
 
 @attr.s(repr=False)
 class TreeRoot:
-    """
-    A collection of related documentable objects, also known as "the system".
-    
-    This special object provides a single view on all referencable objects in the tree and root modules.
-
-    :note: A reference to the root instance is kept on all API objects as `ApiObject.root`.
-    """
-
     # :note: Do not intanciate a new `TreeRoot` manually with ``TreeRoot()``, first create a factory, in one line it gives::
     #     new_root = pydocspec.specfactory.Factory().TreeRoot()
 

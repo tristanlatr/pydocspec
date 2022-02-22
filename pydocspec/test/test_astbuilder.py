@@ -436,6 +436,7 @@ def test_all_recognition(mod_from_text: ModFromTextFunction) -> None:
 @pytest.mark.parametrize(['top_src_last_line'], 
     [("__all__ = ['f'] + mod_all",),  
      ("__all__ = ['f']; __all__ += mod_all",),
+     ("__all__ = list(['f'] + mod_all)",),
     #  ("__all__ = ['f']; __all__.extend(mod_all)",), # Doesn't work for now
     #  ("__all__ = ['f']; __all__.append(mod_all.pop())",) # Doesn't work for now
      ])
