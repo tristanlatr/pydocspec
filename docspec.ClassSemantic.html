@@ -6,8 +6,8 @@
 
   <head>
     
-    <title>docspec.Data.Semantic</title>
-    <meta name="generator" content="pydoctor 21.12.1.dev0"> 
+    <title>docspec.ClassSemantic</title>
+    <meta name="generator" content="pydoctor 22.2.2.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -54,7 +54,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="docspec.html" class="internal-link">docspec</a></code><wbr></wbr>.<code><a href="docspec.Data.html" class="internal-link" title="docspec.Data">Data</a></code><wbr></wbr>.<code><a href="docspec.Data.Semantic.html" class="internal-link" title="docspec.Data.Semantic">Semantic</a></code></code></h1>
+        <h1 class="class"><code><code><a href="docspec.html" class="internal-link">docspec</a></code><wbr></wbr>.<code><a href="docspec.ClassSemantic.html" class="internal-link" title="docspec.ClassSemantic">ClassSemantic</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -65,32 +65,37 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Semantic</span>(<a href="https://docs.python.org/3/library/enum.html#enum.Enum" class="intersphinx-link" title="enum.Enum">enum.Enum</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L259" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#docspec.Data.Semantic">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ClassSemantic</span>(<a href="https://docs.python.org/3/library/enum.html#enum.Enum" class="intersphinx-link" title="enum.Enum">enum.Enum</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L371" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#docspec.ClassSemantic">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div>A list of well-known properties and behaviour that can be attributed to a variable/constant.</div>
+        <div>A list of well-known properties and behaviour that can be attributed to a class.</div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id10">
+        <table class="children sortable" id="id18">
   
   
   <tr class="constant">
     
     <td>Constant</td>
-    <td><code><a href="#CLASS_VARIABLE" class="internal-link" title="docspec.Data.Semantic.CLASS_VARIABLE">CLASS​_VARIABLE</a></code></td>
+    <td><code><a href="#ABSTRACT" class="internal-link" title="docspec.ClassSemantic.ABSTRACT">ABSTRACT</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="constant">
     
     <td>Constant</td>
-    <td><code><a href="#CONSTANT" class="internal-link" title="docspec.Data.Semantic.CONSTANT">CONSTANT</a></code></td>
+    <td><code><a href="#ENUM" class="internal-link" title="docspec.ClassSemantic.ENUM">ENUM</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="constant">
     
     <td>Constant</td>
-    <td><code><a href="#INSTANCE_VARIABLE" class="internal-link" title="docspec.Data.Semantic.INSTANCE_VARIABLE">INSTANCE​_VARIABLE</a></code></td>
+    <td><code><a href="#FINAL" class="internal-link" title="docspec.ClassSemantic.FINAL">FINAL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#INTERFACE" class="internal-link" title="docspec.ClassSemantic.INTERFACE">INTERFACE</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -104,16 +109,16 @@
         <div class="baseconstant">
   
   
-  <a name="docspec.Data.Semantic.CLASS_VARIABLE">
+  <a name="docspec.ClassSemantic.ABSTRACT">
     
   </a>
-  <a name="CLASS_VARIABLE">
+  <a name="ABSTRACT">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">CLASS_VARIABLE</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L268">
+    <span class="py-defname">ABSTRACT</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L380">
       
       (source)
     </a>
@@ -127,16 +132,39 @@
 </div><div class="baseconstant">
   
   
-  <a name="docspec.Data.Semantic.CONSTANT">
+  <a name="docspec.ClassSemantic.ENUM">
     
   </a>
-  <a name="CONSTANT">
+  <a name="ENUM">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">CONSTANT</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L271">
+    <span class="py-defname">ENUM</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L386">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>3</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="docspec.ClassSemantic.FINAL">
+    
+  </a>
+  <a name="FINAL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">FINAL</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L383">
       
       (source)
     </a>
@@ -150,16 +178,16 @@
 </div><div class="baseconstant">
   
   
-  <a name="docspec.Data.Semantic.INSTANCE_VARIABLE">
+  <a name="docspec.ClassSemantic.INTERFACE">
     
   </a>
-  <a name="INSTANCE_VARIABLE">
+  <a name="INTERFACE">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">INSTANCE_VARIABLE</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L265">
+    <span class="py-defname">INTERFACE</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L377">
       
       (source)
     </a>
@@ -180,7 +208,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-02-17 21:18:22.
+    22.2.2.dev0 at 2022-02-25 20:43:51.
   </div>
 </footer>
 

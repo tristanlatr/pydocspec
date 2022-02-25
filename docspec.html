@@ -7,7 +7,7 @@
   <head>
     
     <title>docspec</title>
-    <meta name="generator" content="pydoctor 21.12.1.dev0"> 
+    <meta name="generator" content="pydoctor 22.2.2.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -95,8 +95,8 @@
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="docspec.Data.html" class="internal-link" title="docspec.Data">​Data</a></code></td>
-    <td>Represents a variable assignment (e.g. for global variables (often used as constants) or class members).</td>
+    <td><code><a href="docspec.ClassSemantic.html" class="internal-link" title="docspec.ClassSemantic">​Class​Semantic</a></code></td>
+    <td>A list of well-known properties and behaviour that can be attributed to a class.</td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -112,6 +112,11 @@
     <td>Class</td>
     <td><code><a href="docspec.Function.html" class="internal-link" title="docspec.Function">​Function</a></code></td>
     <td>Represents a function definition. This can be in a #Module for plain functions or in a #Class for methods. The #decorations need to be introspected to understand if the function has a special purpose (e.g. is it a `@property`, `@classmethod` or `@staticmethod`?).</td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.FunctionSemantic.html" class="internal-link" title="docspec.FunctionSemantic">​Function​Semantic</a></code></td>
+    <td>A list of well-known properties and behaviour that can be attributed to a function.</td>
   </tr><tr class="class">
     
     <td>Class</td>
@@ -135,8 +140,13 @@
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="docspec.ReverseMap.html" class="internal-link" title="docspec.ReverseMap">​Reverse​Map</a></code></td>
-    <td>Reverse map for finding the parent of an #ApiObject.</td>
+    <td><code><a href="docspec.Variable.html" class="internal-link" title="docspec.Variable">​Variable</a></code></td>
+    <td>Represents a variable assignment (e.g. for global variables (often used as constants) or class members).</td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="docspec.VariableSemantic.html" class="internal-link" title="docspec.VariableSemantic">​Variable​Semantic</a></code></td>
+    <td>A list of well-known properties and behaviour that can be attributed to a variable/constant.</td>
   </tr><tr class="function">
     
     <td>Function</td>
@@ -151,7 +161,7 @@
     
     <td>Function</td>
     <td><code><a href="#get_member" class="internal-link" title="docspec.get_member">get​_member</a></code></td>
-    <td>Generic function to retrieve a member from an API object. This will always return #None for objects that don't support members (eg. #Function and #Data).</td>
+    <td>Generic function to retrieve a member from an API object. This will always return #None for objects that don't support members (eg. #Function and #Variable).</td>
   </tr><tr class="function">
     
     <td>Function</td>
@@ -218,7 +228,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">dump_module</span>(module, target=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, dumper=<a href="https://docs.python.org/3/library/json.html#json.dump" class="intersphinx-link">json.dump</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L517">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L520">
       
       (source)
     </a>
@@ -240,7 +250,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">filter_visit</span>(objects, predicate, order=<span class="rst-variable-quote">'</span><span class="rst-variable-string">pre</span><span class="rst-variable-quote">'</span>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L540">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L543">
       
       (source)
     </a>
@@ -248,7 +258,7 @@
   <div class="docstring functionBody">
     
     
-    <div><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">objects:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">t.List</a>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">predicate:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">t.Callable</a>[<wbr></wbr>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>], <wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">order:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">t.List</a>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">objects:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.MutableSequence" class="intersphinx-link">t.MutableSequence</a>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">predicate:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">t.Callable</a>[<wbr></wbr>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>], <wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">order:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.MutableSequence" class="intersphinx-link">t.MutableSequence</a>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -262,7 +272,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_member</span>(obj, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L613">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L599">
       
       (source)
     </a>
@@ -270,7 +280,7 @@
   <div class="docstring functionBody">
     
     
-    <div>Generic function to retrieve a member from an API object. This will always return #None for objects that don't support members (eg. #Function and #Data).<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj:</span><code><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">t.Optional</a>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Generic function to retrieve a member from an API object. This will always return #None for objects that don't support members (eg. #Function and #Variable).<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj:</span><code><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">t.Optional</a>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -284,7 +294,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">load_module</span>(source, filename=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, loader=<a href="https://docs.python.org/3/library/json.html#json.load" class="intersphinx-link">json.load</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L439">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L442">
       
       (source)
     </a>
@@ -306,7 +316,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">load_modules</span>(source, filename=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, loader=<a href="https://docs.python.org/3/library/json.html#json.load" class="intersphinx-link">json.load</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L475">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L478">
       
       (source)
     </a>
@@ -328,7 +338,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">visit</span>(objects, func, order=<span class="rst-variable-quote">'</span><span class="rst-variable-string">pre</span><span class="rst-variable-quote">'</span>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L580">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L583">
       
       (source)
     </a>
@@ -336,7 +346,7 @@
   <div class="docstring functionBody">
     
     
-    <div>Visits all *objects*, applying *func* in the specified *order*.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">objects:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">t.List</a>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">func:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">t.Callable</a>[<wbr></wbr>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">t.Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">order:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Visits all *objects*, applying *func* in the specified *order*.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">objects:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence" class="intersphinx-link">t.Sequence</a>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">func:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">t.Callable</a>[<wbr></wbr>[<wbr></wbr><a href="docspec.ApiObject.html" class="internal-link" title="docspec.ApiObject">ApiObject</a>], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">t.Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">order:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basevariable">
   
@@ -350,7 +360,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">__author__</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L22">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L22">
       
       (source)
     </a>
@@ -373,7 +383,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">__version__</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L23">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L23">
       
       (source)
     </a>
@@ -396,7 +406,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_Members</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L426">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L429">
       
       (source)
     </a>
@@ -419,7 +429,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_MemberType</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L427">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L430">
       
       (source)
     </a>
@@ -442,7 +452,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_ModuleMembers</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L432">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L435">
       
       (source)
     </a>
@@ -465,7 +475,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_ModuleMemberType</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f8338b669f998f0d9bb4f318bf19467d3af8c06f/docspec.py#L433">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/docspec.py#L436">
       
       (source)
     </a>
@@ -486,7 +496,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.12.1.dev0 at 2022-02-17 21:18:22.
+    22.2.2.dev0 at 2022-02-25 20:43:51.
   </div>
 </footer>
 
