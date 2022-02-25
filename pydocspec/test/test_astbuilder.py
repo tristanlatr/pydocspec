@@ -431,19 +431,22 @@ def test_all_recognition(mod_from_text: ModFromTextFunction) -> None:
     # Should pydocspec remove the __all__varible from the members?
     # It's metadata after all...
 
-# @pytest.mark.xfail #https://github.com/PyCQA/astroid/issues/1398
+#https://github.com/PyCQA/astroid/issues/1398
 @getbuilder_param
 @pytest.mark.parametrize(['top_src_last_line'], 
     [("__all__ = ['f'] + mod_all",),  
      ("__all__ = ['f']; __all__ += mod_all",),
      ("__all__ = list(['f'] + mod_all)",),
-    #  ("__all__ = ['f']; __all__.extend(mod_all)",), # Doesn't work for now
-    #  ("__all__ = ['f']; __all__.append(mod_all.pop())",) # Doesn't work for now
+     ("__all__ = ['f']; __all__.extend(mod_all)",),
+     ("__all__ = ['f']; __all__.append(mod_all[0])",),
+     ("__all__ = ['f']; __all__.extend(mod_all + ['123']); __all__.remove('123')",)
      ])
 def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder], top_src_last_line:str) -> None:
     """
     The value assigned to __all__ is correctly inferred when 
     it's built from binary operation '+' or augmented assigments '+='.
+
+    As well as understands `__all__.extend()`, `__all__.remove()` and `__all__.append()`.
     """
     from astroid.manager import AstroidManager
     AstroidManager().clear_cache()
@@ -466,9 +469,11 @@ def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder], t
         builder.build_modules()
         assert list(AstroidManager().astroid_cache) == ['builtins', 'top', 'top.mod']
         top = builder.root.root_modules[0]
+        
         names = processor.mod_attr.public_names(top)
         names.remove('mod_all')
-        assert sorted(top.dunder_all) == sorted(['f', 'g']) == sorted(names)
+        assert sorted(top.dunder_all) == sorted(['f', 'g'])
+        assert sorted(['f', 'g']) == sorted(names)
 
     finally:
         AstroidManager().clear_cache()
