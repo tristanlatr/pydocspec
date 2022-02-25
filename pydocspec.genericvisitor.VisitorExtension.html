@@ -65,32 +65,30 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">VisitorExtension</span>(PartialVisitor[T]): <a href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/pydocspec/genericvisitor.py#L266" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">VisitorExtension</span>(PartialVisitor[T]): <a href="https://github.com/tristanlatr/pydocspec/tree/81235002c9b6d5b24f52072d9440aa633772c15a/pydocspec/genericvisitor.py#L266" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.genericvisitor.VisitorExtension">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
         <div><p>The node visitor extension base class, to inherit from.</p>
-<p>Subclasses must defined the <code><a href="https://docs.python.org/3/library/constants.html#NotImplemented" class="intersphinx-link">when</a></code> class variable, and your custom visit_* methods.:</p>
-<pre class="rst-literal-block">
-class TypeGuardTracker(AstVisitorExtension):
+<p>Subclasses must defined the <code><a href="https://docs.python.org/3/library/constants.html#NotImplemented" class="intersphinx-link">when</a></code> class variable, and your custom visit_* methods.</p>
+<pre class="py-doctest">
+<span class="py-keyword">class</span> <span class="py-defname">TypeGuardTracker</span>(AstVisitorExtension):
   when = When.AFTER
 
-  def visit_If(self, node: astroid.nodes.If) -&gt; None:
-    # self.visitor  # the main visitor
-    # self.visitor.current  # the current API object
-    # self.visitor.state  # the TreeWalkingState object
+  <span class="py-keyword">def</span> <span class="py-defname">visit_If</span>(self, node: astroid.nodes.If) -&gt; <span class="py-builtin">None</span>:
+    <span class="py-comment"># self.visitor  # the main visitor</span>
+    <span class="py-comment"># self.visitor.current  # the current API object</span>
+    <span class="py-comment"># self.visitor.state  # the TreeWalkingState object</span>
 
-    if not self.visitor.state.is_type_guarged and astroidutils.is_type_guard(node):
-        self.visitor.state.is_type_guarged = True
-        logging.getLogger('pydocspec').info('Entering TYPE_CHECKING if block')
+    <span class="py-keyword">if</span> <span class="py-keyword">not</span> self.visitor.state.is_type_guarged <span class="py-keyword">and</span> astroidutils.is_type_guard(node):
+        self.visitor.state.is_type_guarged = <span class="py-builtin">True</span>
+        logging.getLogger(<span class="py-string">'pydocspec'</span>).info(<span class="py-string">'Entering TYPE_CHECKING if block'</span>)
 
-  def depart_If(self, node: astroid.nodes.If) -&gt; None:
-    if self.visitor.state.is_type_guarged and astroidutils.is_type_guard(node):
-        logging.getLogger('pydocspec').info('Leaving TYPE_CHECKING if block')
-        self.visitor.state.is_type_guarged = False
-</pre>
-<p>See: <code><a href="pydocspec.genericvisitor.When.html" class="internal-link" title="pydocspec.genericvisitor.When">When</a></code></p>
+  <span class="py-keyword">def</span> <span class="py-defname">depart_If</span>(self, node: astroid.nodes.If) -&gt; <span class="py-builtin">None</span>:
+    <span class="py-keyword">if</span> self.visitor.state.is_type_guarged <span class="py-keyword">and</span> astroidutils.is_type_guard(node):
+        logging.getLogger(<span class="py-string">'pydocspec'</span>).info(<span class="py-string">'Leaving TYPE_CHECKING if block'</span>)
+        self.visitor.state.is_type_guarged = <span class="py-builtin">False</span></pre><p>See: <code><a href="pydocspec.genericvisitor.When.html" class="internal-link" title="pydocspec.genericvisitor.When">When</a></code></p>
 </div>
       </div>
 
@@ -144,7 +142,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/pydocspec/genericvisitor.py#L295">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81235002c9b6d5b24f52072d9440aa633772c15a/pydocspec/genericvisitor.py#L297">
       
       (source)
     </a>
@@ -166,7 +164,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">attach</span>(self, visitor):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/pydocspec/genericvisitor.py#L307">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81235002c9b6d5b24f52072d9440aa633772c15a/pydocspec/genericvisitor.py#L309">
       
       (source)
     </a>
@@ -193,7 +191,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walk</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/pydocspec/genericvisitor.py#L301">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81235002c9b6d5b24f52072d9440aa633772c15a/pydocspec/genericvisitor.py#L303">
       
       (source)
     </a>
@@ -215,7 +213,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">walkabout</span>(self, ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/pydocspec/genericvisitor.py#L304">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81235002c9b6d5b24f52072d9440aa633772c15a/pydocspec/genericvisitor.py#L306">
       
       (source)
     </a>
@@ -237,7 +235,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="functionHeader">
     
     <span class="py-defname">visitor</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b038b079b83bc6f369c1b8e1d1e4594a9fa3138f/pydocspec/genericvisitor.py#L298">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81235002c9b6d5b24f52072d9440aa633772c15a/pydocspec/genericvisitor.py#L300">
       
       (source)
     </a>
@@ -258,7 +256,7 @@ class TypeGuardTracker(AstVisitorExtension):
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.2.2.dev0 at 2022-02-25 20:43:51.
+    22.2.2.dev0 at 2022-02-25 21:54:17.
   </div>
 </footer>
 
