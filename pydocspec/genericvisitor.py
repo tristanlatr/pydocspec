@@ -267,7 +267,9 @@ class VisitorExtension(PartialVisitor[T]):
     """
     The node visitor extension base class, to inherit from.
 
-    Subclasses must defined the `when` class variable, and your custom visit_* methods.::
+    Subclasses must defined the `when` class variable, and your custom visit_* methods.
+    
+    .. python::
 
       class TypeGuardTracker(AstVisitorExtension):
         when = When.AFTER

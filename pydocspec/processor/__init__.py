@@ -12,13 +12,7 @@ from pydocspec import _model, visitors
 
 from . import class_attr, data_attr, func_attr, mod_attr
 
-__all__ = ('helpers', 'class_attr', 'data_attr', 'func_attr', 'mod_attr', 'Processor', 'Process')
-
-Process = Callable[[pydocspec.TreeRoot], None]
-"""
-A process is simply a function that modify/populate attributes of 
-the objects in a `TreeRoot` instance.
-"""
+__all__ = ('helpers', 'class_attr', 'data_attr', 'func_attr', 'mod_attr', 'Processor')
 
 class PostBuildVisitor0(visitors.ApiObjectVisitor):
     # pre-post-processor ;)
@@ -53,6 +47,7 @@ class _DuplicateWhoShadowsWhoHandling(visitors.ApiObjectVisitorExt):
     
     # names defined in the __init__.py of a package should shadow the 
     # submodules with the same name in all_objects.
+    # TODO: Actually we should completely ignore the the submodule 
     def visit_Module(self, ob: pydocspec.Module) -> None:
         # is this submodule shadowed by another name in the package ?
         if ob.parent is not None:

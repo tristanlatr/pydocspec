@@ -17,5 +17,5 @@ setup(
     license='MIT',
     packages=['pydocspec'],
     include_package_data=True,
-    install_requires=['docspec<2.0', 'cached_property', 'astroid'], 
+    install_requires=['docspec==1.3.0', 'cached_property', 'astroid'], 
 )

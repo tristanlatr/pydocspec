@@ -6,13 +6,16 @@ from typing import Iterator, List, Optional, Sequence, Tuple, Union, TYPE_CHECKI
 import astroid.nodes
 import astroid.exceptions
 import pydocspec
-from pydocspec import _model, c3linear, astroidutils
+from pydocspec import _model, _c3linear, astroidutils
 from . import helpers
 
 if TYPE_CHECKING:
     from typing_extensions import Literal
 
-class MRO(c3linear.GenericMRO[pydocspec.Class]):
+class MRO(_c3linear.GenericMRO[pydocspec.Class]):
+    """
+    Implements MRO resoling for `pydocspec.Class` instances.
+    """
     def bases(self, cls: pydocspec.Class) -> List[pydocspec.Class]:
         return [b for b in cls.resolved_bases if isinstance(b, pydocspec.Class)]
 
@@ -165,10 +168,11 @@ def resolved_bases(ob: pydocspec.Class) -> List[Union['pydocspec.Class', 'str']]
                     objs.append(resolved)
             else:
                 objs.append(resolved.full_name)
-                ob.warn(f"Can't find superclass {expanded_name} in the tree, not all inherited members not be listed.")
+                ob.warn(f"Can't find superclass {expanded_name!r} in the tree, some inherited members might be missing "
+                        f"(though, found an {resolved.__class__.__name__} named {resolved.full_name!r}).")
         else:
             objs.append(expanded_name)
-            ob.warn(f"Can't find superclass {expanded_name} in the tree, not all inherited members not be listed.")
+            ob.warn(f"Can't find superclass {expanded_name!r} in the tree, some inherited members might be missing.")
     
     return objs
 

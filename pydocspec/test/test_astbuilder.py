@@ -71,11 +71,7 @@ def test_class_decos_and_bases(mod_from_text: ModFromTextFunction, caplog) -> No
     bases = m.bases
     assert bases is not None
     assert len(bases) == 2
-    if mod_from_text == _docspec_python.mod_from_text:
-        # docspec_python behaves weirdly...
-        assert bases == ["str", " pkg.MyBase"]
-    else:
-        assert bases == ["str", "pkg.MyBase"]
+    assert bases == ["str", "pkg.MyBase"]
     assert m.bases_ast is not None
     for b in m.bases_ast:
         assert isinstance(b, (astroid.nodes.Name, astroid.nodes.Attribute))

@@ -7,13 +7,15 @@ Implements `Class.mro` attribute.
 # Adapadted from https://github.com/pilosus/c3linear
 
 import abc
-from collections import deque
 from itertools import islice
-from typing import Generic, List, Tuple, Optional, TypeVar, Deque
+from typing import Generic, List, Optional, TypeVar, Deque
 
 T = TypeVar('T')
 
 class GenericMRO(Generic[T], abc.ABC):
+    """
+    Generic class to encapsulate the c3 linearizations for any kind of class types.
+    """
 
     class Dependency(Deque[Optional['T']]):
         @property
