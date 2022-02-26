@@ -1,7 +1,6 @@
 """
-Pyocspec is a object specification for representing and loading API documentation 
-of a collection of related python modules. It extends docspec for the python language, 
-offers facility to resolve names and provides additional informations.
+Pydocspec is a object specification for representing API documentation of a collection of related python modules. 
+It offers facility to resolve names according to python lookups rules and provides additional informations. 
 
 **Warning**:
 
@@ -43,7 +42,7 @@ from ._model import Inheritable, HasMembers
 
 if TYPE_CHECKING:
     import docspec_python
-    from . import astbuilder, processor
+    from . import astbuilder
 
 __docformat__ = 'restructuredtext'
 __all__ = [
