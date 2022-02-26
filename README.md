@@ -10,7 +10,7 @@ There is also the possiblity to create a `pydocspec` tree from `docspec_python` 
 
 The main goal of this project is to replace the 15 years old [pydoctor](https://github.com/twisted/pydoctor) ast builder that is becomming unmaintainable. 
 
-Pydocspec focuses on Python semantic analysis, strives to be an extensible, correct well documented and de-coupled from any presentation details.
+Pydocspec focuses on Python semantic analysis, strives to be extensible, correct well documented and de-coupled from any presentation details.
 
 This software is work in progress... API might change without deprecation notice.
 
