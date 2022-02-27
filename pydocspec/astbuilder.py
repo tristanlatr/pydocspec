@@ -152,10 +152,13 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         docstring = inspect.cleandoc(doc)
         docstring_lineno = lineno
         
-        # until https://github.com/NiklasRosenstein/docspec/pull/50 is merged.
-        ob.docstring = cast('docspec.Docstring', self.root.factory.Docstring(docstring, 
-            self.root.factory.Location(self.current.location.filename, lineno=docstring_lineno)))
-    
+        # TODO: Remove cast when we bump version of docspec to 2.0
+        ob.docstring = cast('docspec.Docstring', self.root.factory.Docstring(
+            content=docstring, 
+            location=self.root.factory.Location(
+                filename=self.current.location.filename, 
+                lineno=docstring_lineno)))
+
     def _maybe_set_docstring(self, obj: '_model.ApiObject', 
                                  node: Union[astroid.nodes.Module, astroid.nodes.ClassDef, 
                                              astroid.nodes.FunctionDef, astroid.nodes.AsyncFunctionDef]) -> None:
@@ -289,10 +292,13 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         #     lineno = decorators[0].lineno
 
         # create new class
-        cls: _model.Class = self.root.factory.Class(node.name, 
+        cls: _model.Class = self.root.factory.Class(
+                                    name=node.name, 
                                     location=self.root.factory.Location(
-                                        self.current.location.filename, lineno=lineno),
-                                    docstring=None, metaclass=None, 
+                                        filename=self.current.location.filename, 
+                                        lineno=lineno),
+                                    docstring=None, 
+                                    metaclass=None, 
                                     bases=bases_str, 
                                     bases_ast=bases_ast,
                                     decorations=None, 
@@ -421,9 +427,14 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             if asname is None:
                 asname = orgname
 
-            indirection = self.root.factory.Indirection(name=asname, 
-                location=self.root.factory.Location(filename=self.current.location.filename, lineno=lineno), docstring=None, 
-                target=f'{modname}.{orgname}', is_type_guarged=is_type_guarged)
+            indirection = self.root.factory.Indirection(
+                name=asname, 
+                location=self.root.factory.Location(
+                    filename=self.current.location.filename, 
+                    lineno=lineno), 
+                docstring=None, 
+                target=f'{modname}.{orgname}', 
+                is_type_guarged=is_type_guarged)
             
             yield indirection
 
@@ -452,9 +463,14 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             # Just try to process the module we're importing stuff from before the one we're processing.
             self.builder.get_processed_module(fullname)
             if asname is not None:
-                indirection = self.root.factory.Indirection(name=asname, 
-                    location=self.root.factory.Location(filename=self.current.location.filename, lineno=node.lineno), docstring=None, 
-                    target=fullname, is_type_guarged=is_type_guarged)
+                indirection = self.root.factory.Indirection(
+                    name=asname, 
+                    location=self.root.factory.Location(
+                        filename=self.current.location.filename, 
+                        lineno=node.lineno), 
+                    docstring=None, 
+                    target=fullname, 
+                    is_type_guarged=is_type_guarged)
                 # do not add indirection with the same name and target
                 if str(self.current.dotted_name+indirection.name) != indirection.target:
                     self.add_object(indirection, push=False)
@@ -540,8 +556,11 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             value = expr.as_string()
             value_ast = expr
 
-        obj = self.root.factory.Data(name, 
-                                    location=self.root.factory.Location(self.current.location.filename, lineno),
+        obj = self.root.factory.Data(
+                                    name=name, 
+                                    location=self.root.factory.Location(
+                                        filename=self.current.location.filename, 
+                                        lineno=lineno),
                                     docstring=None,
                                     datatype=datatype,
                                     datatype_ast=datatype_ast,
@@ -670,7 +689,8 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         
         func_name = node.name
 
-        func = self.root.factory.Function(name=func_name, 
+        func = self.root.factory.Function(
+                name=func_name, 
                 location=self.root.factory.Location(
                         filename=self.current.location.filename, 
                         lineno=lineno), 
@@ -1003,7 +1023,10 @@ class Builder:
                 gets the AST from the file path. 
                 This is used when calling add_module_string().
         """
-        location = self.root.factory.Location(filename=str(path), lineno=0)
+        location = self.root.factory.Location(
+            filename=str(path), 
+            lineno=0)
+
         path = Path(path) if isinstance(path, str) else path
 
         mod = self.root.factory.Module(

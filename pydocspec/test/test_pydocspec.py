@@ -105,7 +105,8 @@ def test_arguments_required_at_init() -> None:
     mod = _default_astbuilder.mod_from_text('')
 
     with pytest.raises(TypeError, match=re.escape("Class.__init__() missing required keyword argument: 'bases_ast'")):
-        mod.root.factory.Class('mycls', location=None, 
+        mod.root.factory.Class(name='mycls', 
+                                location=None, 
                                 docstring=None, 
                                 metaclass=None,
                                 bases=None,
@@ -113,6 +114,11 @@ def test_arguments_required_at_init() -> None:
                                 members=[])
     
     with pytest.raises(TypeError, match=re.escape("Function.__init__() missing required keyword argument: 'return_type_ast'")):
-        mod.root.factory.Function('myfunc', location=None, 
-                                docstring=None, args=[], modifiers=[], 
-                                return_type='str', decorations=[],)
+        mod.root.factory.Function(
+                                name='myfunc', 
+                                location=None, 
+                                docstring=None, 
+                                args=[], 
+                                modifiers=[], 
+                                return_type='str', 
+                                decorations=[],)

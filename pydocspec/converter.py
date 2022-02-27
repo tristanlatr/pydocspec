@@ -85,9 +85,12 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
         args: List[docspec.Argument] = []
         for a in function.args:
             
-            new_arg = self.root.factory.Argument(name=a.name, type=a.type, 
+            new_arg = self.root.factory.Argument(
+                                        name=a.name, 
+                                        type=a.type, 
                                         location=self._convert_Location(a.location),
-                                        decorations=None, datatype=a.datatype, 
+                                        decorations=None, 
+                                        datatype=a.datatype, 
                                         default_value=a.default_value,
                                         datatype_ast=astroidutils.unstring_annotation(astroidutils.extract_expr(a.datatype)) if a.datatype else None,
                                         default_value_ast=astroidutils.extract_expr(a.default_value) if a.default_value else None)
@@ -102,7 +105,8 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
         else:
             decos = None
     
-        ob = self.root.factory.Function(name=function.name, 
+        ob = self.root.factory.Function(
+                                     name=function.name, 
                                      location=self._convert_Location(function.location),
                                      docstring=self._convert_Docstring(function.docstring), 
                                      modifiers=function.modifiers,
@@ -121,7 +125,8 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
                 decos.append(self._convert_Decoration(d)) #type:ignore[union-attr]
         else:
             decos = None
-        ob = self.root.factory.Class(name=klass.name, 
+        ob = self.root.factory.Class(
+            name=klass.name, 
             location=self._convert_Location(klass.location),
             docstring=self._convert_Docstring(klass.docstring), 
             bases=klass.bases,
@@ -134,8 +139,8 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
     
     def visit_Data(self, data: docspec.Data) -> None:
 
-        ob = self.root.factory.Data(name=data.name, 
-            
+        ob = self.root.factory.Data(
+            name=data.name,
             location=self._convert_Location(data.location),
             docstring=self._convert_Docstring(data.docstring), 
             datatype=data.datatype, 
@@ -147,14 +152,16 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
         self.add_object(ob)
     
     def visit_Indirection(self, indirection: docspec.Indirection) -> None:
-        ob = self.root.factory.Indirection(name=indirection.name, 
+        ob = self.root.factory.Indirection(
+            name=indirection.name, 
             location=self._convert_Location(indirection.location),
             docstring=self._convert_Docstring(indirection.docstring),
             target=indirection.target, )
         self.add_object(ob)
     
     def visit_Module(self, module: docspec.Module) -> None:
-        ob = self.root.factory.Module(name=module.name, 
+        ob = self.root.factory.Module(
+            name=module.name, 
             location=self._convert_Location(module.location),
             docstring=self._convert_Docstring(module.docstring), 
             members=[], )
@@ -181,7 +188,8 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
                 decoration.arglist = [astroidutils.to_source(n) for n in expr_ast.args] + \
                         [f"{(n.arg+'=') if n.arg else '**'}{astroidutils.to_source(n.value) if n.value else ''}" for n in expr_ast.keywords]
 
-        new_deco = self.root.factory.Decoration(name=decoration.name, 
+        new_deco = self.root.factory.Decoration(
+                            name=decoration.name, 
                             location=self._convert_Location(decoration.location),
                             arglist=decoration.arglist, 
                             name_ast=astroidutils.extract_expr(decoration.name),
@@ -191,7 +199,8 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
         return new_deco
     
     def _convert_Location(self, location: Optional[docspec.Location]) -> Optional[docspec.Location]:
-        if not location: return None
+        if not location: 
+            return None
         loc = self.root.factory.Location(
                 filename=location.filename, 
                 lineno=location.lineno,
@@ -201,7 +210,8 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
         return loc
 
     def _convert_Docstring(self, docstring: Optional[docspec.Docstring]) -> Optional[docspec.Docstring]:
-        if not docstring: return None
+        if not docstring: 
+            return None
         return cast(docspec.Docstring, self.root.factory.Docstring(
                 content=docstring.content,
                 location=self._convert_Location(docstring.location),
@@ -273,10 +283,13 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
         args: List[docspec.Argument] = []
         for a in function.args:
             
-            new_arg = docspec.Argument(name=a.name, type=a.type, 
-                                        decorations=None, datatype=a.datatype, 
-                                        default_value=a.default_value,
-                                        location=self._convert_Location(a.location))
+            new_arg = docspec.Argument(
+                                    name=a.name, 
+                                    location=self._convert_Location(a.location),
+                                    type=a.type, 
+                                    decorations=None, 
+                                    datatype=a.datatype, 
+                                    default_value=a.default_value)
             args.append(new_arg)
         
         # convert decorators
@@ -288,14 +301,15 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
         else:
             decos = None
     
-        ob = docspec.Function(name=function.name, 
-                                     location=self._convert_Location(function.location),
-                                     docstring=self._convert_Docstring(function.docstring), 
-                                     modifiers=function.modifiers,
-                                     return_type=function.return_type,
-                                     args=args,
-                                     decorations=decos,
-                                     semantic_hints=function.semantic_hints,)
+        ob = docspec.Function(
+                        name=function.name, 
+                        location=self._convert_Location(function.location),
+                        docstring=self._convert_Docstring(function.docstring), 
+                        modifiers=function.modifiers,
+                        return_type=function.return_type,
+                        args=args,
+                        decorations=decos,
+                        semantic_hints=function.semantic_hints,)
         self.add_object(ob)
     
     def visit_Class(self, klass: pydocspec.Class) -> None:
@@ -307,45 +321,50 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
         else:
             decos = None
         
-        ob = docspec.Class(name=klass.name, 
-            location=self._convert_Location(klass.location),
-            docstring=self._convert_Docstring(klass.docstring), 
-            bases=klass.bases,
-            decorations=decos,
-            metaclass=klass.metaclass,
-            members=[],
-            semantic_hints=klass.semantic_hints)
+        ob = docspec.Class(
+                        name=klass.name, 
+                        location=self._convert_Location(klass.location),
+                        docstring=self._convert_Docstring(klass.docstring), 
+                        bases=klass.bases,
+                        decorations=decos,
+                        metaclass=klass.metaclass,
+                        members=[],
+                        semantic_hints=klass.semantic_hints)
         
         self.add_object(ob)
     
     def visit_Data(self, data: pydocspec.Data) -> None:
 
-        ob = docspec.Data(name=data.name, 
-            location=self._convert_Location(data.location),
-            docstring=self._convert_Docstring(data.docstring), 
-            datatype=data.datatype, 
-            value=data.value, 
-            semantic_hints=data.semantic_hints,
-            )
+        ob = docspec.Data(
+                    name=data.name, 
+                    location=self._convert_Location(data.location),
+                    docstring=self._convert_Docstring(data.docstring), 
+                    datatype=data.datatype, 
+                    value=data.value, 
+                    semantic_hints=data.semantic_hints,
+                    )
 
         self.add_object(ob)
     
     def visit_Indirection(self, indirection: pydocspec.Indirection) -> None:
-        ob = docspec.Indirection(name=indirection.name, 
-            location=self._convert_Location(indirection.location),
-            docstring=self._convert_Docstring(indirection.docstring),
-            target=indirection.target,)
+        ob = docspec.Indirection(
+                    name=indirection.name, 
+                    location=self._convert_Location(indirection.location),
+                    docstring=self._convert_Docstring(indirection.docstring),
+                    target=indirection.target,)
         self.add_object(ob)
     
     def visit_Module(self, module: pydocspec.Module) -> None:
-        ob = docspec.Module(name=module.name, 
+        ob = docspec.Module(
+            name=module.name, 
             location=self._convert_Location(module.location),
             docstring=self._convert_Docstring(module.docstring), 
             members=[],)
         self.add_object(ob)
     
     def _convert_Decoration(self, decoration: docspec.Decoration) ->  docspec.Decoration:
-        return docspec.Decoration(name=decoration.name, 
+        return docspec.Decoration(
+                            name=decoration.name, 
                             location=self._convert_Location(decoration.location),
                             arglist=decoration.arglist,) 
     

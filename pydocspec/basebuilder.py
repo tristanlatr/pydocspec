@@ -173,7 +173,12 @@ def parameter2argument(param: inspect.Parameter, factory: 'specfactory.Factory')
     else:
         default_value_str = default_value_ast = None
 
-    return factory.Argument(name=param.name, 
+    return factory.Argument(
+        name=param.name, 
+        location=factory.Location(
+            filename='', # TODO: Fill by post-processor
+            lineno=0,
+        ),
         type=kindmap[param.kind], #type:ignore[index]
         datatype=annotation_str, 
         default_value=default_value_str,
