@@ -57,7 +57,7 @@ def mro_from_astroid(ob: _model.Class) -> Union[List[pydocspec.Class], object]:
     Returns NotImplemented if the tree has not been built with astroid. 
     """
     # this does not support objects loaded from other places than astroid, 
-    # for instance coming from introspection of a c-module.  
+    # for instance coming from JSON data.
     # This is why we need to re-compute the MRO after.
     # But it does the job for the first iteration 
     # This should not rely on Class.resolved_bases, since resolved_bases relies 
@@ -193,17 +193,18 @@ def constructor_method(ob: _model.Class) -> Optional['pydocspec.Function']:
 
 def inherited_members(ob: pydocspec.Class) -> List[pydocspec.Class.InheritedMember]:
     """provide inherited_members property"""
-    _inherited_members = []
+    _inherited_members = {}
     for baselist in _nested_bases(ob):
         #  If the class has super class
         if len(baselist) >= 2:
             attrs = _unmasked_attrs(baselist)
             if attrs:
                 for attr in attrs:
-                    _inherited_members.append(ob.InheritedMember(
+                    _inherited_members.setdefault(attr.name, ob.InheritedMember(
                                                     member=attr, 
                                                     inherited_via=baselist))
-    return _inherited_members
+                    
+    return list(_inherited_members.values())
 
 # def overriding_subclasses(ob: pydocspec.Class,
 #         name: str,
@@ -221,8 +222,10 @@ def inherited_members(ob: pydocspec.Class) -> List[pydocspec.Class.InheritedMemb
 
 def _nested_bases(classobj: pydocspec.Class) -> Iterator[Tuple[pydocspec.Class, ...]]:
     """
-    Helper function to retreive the complete list of base classes chains (represented by tuples) for a given Class. 
-    A chain of classes is used to compute the member inheritence from the first element to the last element of the chain.  
+    Helper function to retreive the complete list of base classes chains 
+    (represented by tuples) for a given Class. 
+    A chain of classes is used to compute the member inheritence from the 
+    first element to the last element of the chain.  
     
     The first yielded chain only contains the Class itself. 
 
@@ -230,18 +233,17 @@ def _nested_bases(classobj: pydocspec.Class) -> Iterator[Tuple[pydocspec.Class, 
         - the next yielded chain contains the super class and the class itself, 
         - the the next yielded chain contains the super-super class, the super class and the class itself, etc...
     """
-    bases: List[pydocspec.Class] = []
-    for base in classobj.mro:
-        yield tuple(bases+[base])
-        bases.append(base)
-
-        # for nested_base in _nested_bases(base):
-        #     yield (nested_base + (classobj,))
+    _mro = classobj.mro
+    for i, _ in enumerate(_mro):
+        yield tuple(reversed(_mro[:(i+1)]))
 
 def _unmasked_attrs(baselist: Sequence[pydocspec.Class]) -> List[pydocspec.ApiObject]:
     """
-    Helper function to reteive the list of inherited children given a base classes chain (As yielded by `nested_bases`). 
-    The returned members are inherited from the Class listed first in the chain to the Class listed last: they are not overriden in between. 
+    Helper function to reteive the list of inherited children 
+    given a base classes chain (As yielded by `nested_bases`). 
+    
+    The returned members are inherited from the Class listed 
+    first in the chain to the Class listed last: they are not overriden in between. 
     """
     maybe_masking = {
         o.name

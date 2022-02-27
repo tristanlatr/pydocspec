@@ -23,7 +23,7 @@ The core of the logic is design to be extensible with extensions modules. See `p
 
 import dataclasses
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Iterable, Iterator, List, Optional, Sequence, TextIO, Tuple, Union, Type, Any, cast
+from typing import TYPE_CHECKING, Iterable, Iterator, List, Optional, Sequence, Tuple, Union, Type, Any
 
 import inspect
 
@@ -305,14 +305,7 @@ class Data(_model.Data, ApiObject):
         # help mypy
         self.parent: Union['Class', 'Module']
 
-    
-    # @cached_property
-    
-
-    # TODO: Add type/docstring extraction from marshmallow attributes
-    # https://github.com/mkdocstrings/mkdocstrings/issues/130
-
-    # TODO: Always consider Enum values as constants. Maybe having a Class.is_enum property, similar to is_exception?
+# TODO: Always consider Enum values as constants. Maybe having a Class.is_enum property, similar to is_exception?
 
 @dataclasses.dataclass(repr=False)
 class Indirection(_model.Indirection, ApiObject):
@@ -365,7 +358,7 @@ class Class(_model.Class, ApiObject):
     Members inherited from superclasses.
     """
 
-    @dataclasses.dataclass(repr=False)
+    @dataclasses.dataclass
     class InheritedMember:
         member: ApiObject
         inherited_via: Tuple['Class', ...]

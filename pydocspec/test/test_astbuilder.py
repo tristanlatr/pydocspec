@@ -637,3 +637,152 @@ def test_function_badsig(signature: str, mod_from_text: ModFromTextFunction, cap
 #     assert captured == 'mod:7: Assignment to "__docformat__" overrides previous assignment\n'
 #     assert mod.docformat == 'restructuredtext'
 #     assert '__docformat__' not in mod.contents
+
+@getbuilder_param
+def test_inherited_members(getbuilder: Callable[[], astbuilder.Builder]) -> None:
+    """
+    Test for the inherited_members property.
+    """
+
+    src_base = '''
+    class _BaseClass:
+        def __init__(self) -> None:
+            self.lang = 'Fr'
+        def fn(a) -> None:
+            ...
+    
+    class _BaseClassWithInnerClass:
+        class Inner:
+            id = 1
+    '''
+    
+    src_mixin = '''
+    class MixinClass:
+        def fn2(self) -> None:
+            ...
+    '''
+    
+    src_subclass = '''
+    from base import _BaseClass, _BaseClassWithInnerClass
+    from mixin import MixinClass
+
+    class Subclass(_BaseClass, MixinClass):
+        pass
+
+    class SubSubclass(Subclass):
+        pass
+
+    class _SubSubclassBase:
+        lang = 'En'
+        output = 'html'
+
+    class SubSubclass(_SubSubclassBase, Subclass):
+        pass
+
+    class SubClassWithInnerClass(_BaseClassWithInnerClass):
+        pass
+    
+    # Diamond shape
+    class A:
+        myAttribute = 42
+        def myfunc(): ...
+    class B(A):
+        myAttribute = 43
+    class C(A):
+        myAttribute = 44
+    class Diamond(C,B):
+        ...
+    '''
+
+    builder = getbuilder()
+    builder.add_module_string(src_base, modname='base')
+    builder.add_module_string(src_mixin, modname='mixin')
+    builder.add_module_string(src_subclass, modname='subclass')
+    # processing the tree is mandatory
+    builder.build_modules()
+
+    objects = builder.root.all_objects
+
+    Subclass = objects['subclass.Subclass']
+    SubSubclass = objects['subclass.SubSubclass']
+    SubClassWithInnerClass = objects['subclass.SubClassWithInnerClass']
+    _BaseClass = objects['base._BaseClass']
+    Diamond = objects['subclass.Diamond']
+    assert isinstance(SubSubclass, pydocspec.Class)
+    assert isinstance(Subclass, pydocspec.Class)
+    assert isinstance(_BaseClass, pydocspec.Class)
+    assert isinstance(SubClassWithInnerClass, pydocspec.Class)
+    assert isinstance(Diamond, pydocspec.Class)
+
+    # Currently, we do not inclue default 'builtin.object' in the system, 
+    # so it doesn't show up here.
+    assert len(Subclass.mro) == 3
+    assert len(SubSubclass.mro) == 5
+    assert len(_BaseClass.inherited_members) == 0
+    
+    assert [(m.member.full_name, tuple(_m.full_name for _m in m.inherited_via)) for m in Diamond.inherited_members] == [
+              ('subclass.C.myAttribute',
+               ('subclass.C',
+                'subclass.Diamond')),
+              ('subclass.A.myfunc',
+               ('subclass.A',
+                'subclass.B',
+                'subclass.C',
+                'subclass.Diamond')),
+    ]
+
+    assert [(m.member.full_name, tuple(_m.full_name for _m in m.inherited_via)) for m in SubClassWithInnerClass.inherited_members] == [
+              ('base._BaseClassWithInnerClass.Inner',
+               ('base._BaseClassWithInnerClass',
+                'subclass.SubClassWithInnerClass')),
+    ]
+    
+    assert [(m.member.full_name, tuple(_m.full_name for _m in m.inherited_via)) for m in Subclass.inherited_members] == [
+        ('base._BaseClass.__init__',
+               ('base._BaseClass',
+                'subclass.Subclass')
+        ),
+        ('base._BaseClass.lang',
+               ('base._BaseClass',
+                'subclass.Subclass')
+        ),
+        ('base._BaseClass.fn',
+               ('base._BaseClass',
+                'subclass.Subclass')
+        ),
+        ('mixin.MixinClass.fn2',
+               ('mixin.MixinClass',
+                'base._BaseClass',
+                'subclass.Subclass')
+        )
+    ]
+
+    assert [(m.member.full_name, tuple(_m.full_name for _m in m.inherited_via)) for m in SubSubclass.inherited_members] == [
+        ('subclass._SubSubclassBase.lang',
+               ('subclass._SubSubclassBase',
+                'subclass.SubSubclass')
+        ),
+        ('subclass._SubSubclassBase.output',
+               ('subclass._SubSubclassBase',
+                'subclass.SubSubclass')
+        ),
+        ('base._BaseClass.__init__',
+               ('base._BaseClass',
+                'subclass.Subclass',
+                'subclass._SubSubclassBase',
+                'subclass.SubSubclass')
+        ),
+        ('base._BaseClass.fn',
+               ('base._BaseClass',
+                'subclass.Subclass',
+                'subclass._SubSubclassBase',
+                'subclass.SubSubclass')
+        ),
+        ('mixin.MixinClass.fn2',
+               ('mixin.MixinClass',
+                'base._BaseClass',
+                'subclass.Subclass',
+                'subclass._SubSubclassBase',
+                'subclass.SubSubclass')
+        )
+    ]
