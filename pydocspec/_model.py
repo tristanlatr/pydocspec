@@ -322,17 +322,19 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
         return str(self.dotted_name)
     
     @property
-    def module(self) -> 'Module':
+    def module(self) -> 'pydocspec.Module':
         if isinstance(self, Module):
-            return self
+            # pydocspec._model.Module==pydocspec.Module
+            return self # type:ignore
         else:
             assert self.parent is not None
             return self.parent.module
     
     @property
-    def scope(self) -> Union['Module', 'Class']:
+    def scope(self) -> Union['pydocspec.Module', 'pydocspec.Class']:
         if isinstance(self, (Module, Class)):
-            return self
+            
+            return self # type:ignore
         else:
             assert self.parent is not None
             return self.parent.scope

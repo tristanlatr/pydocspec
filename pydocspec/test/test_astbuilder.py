@@ -786,3 +786,56 @@ def test_inherited_members(getbuilder: Callable[[], astbuilder.Builder]) -> None
                 'subclass.SubSubclass')
         )
     ]
+
+@mod_from_text_param
+def test_class_is_abstract(mod_from_text: ModFromTextFunction, caplog) -> None:
+    # test if we catch whether a class is abstract or not.
+    mod = mod_from_text('''
+    from abc import ABC, abstractmethod
+    class C(ABC):
+        """my class"""
+    class Abstract(C):
+        @abstractmethod
+        def p(self) -> None:
+            pass
+        @abstractproperty
+        def name(self) -> str:
+            pass
+    class StillAbstract(Abstract):
+        name = 'bob'
+    class Concrete(StillAbstract):
+        lastname = 'smith'
+        def p(self) -> None:
+            ...
+    ''', 
+    modname='test')
+    # assert caplog.text == ''
+    # assert len(caplog.text.strip().split('\n')) == 2 # because we can't resolve builtin types for now.
+    m = mod.get_member('C')
+    assert m is not None
+    assert isinstance(m, pydocspec.Class)
+    assert m.decorations is None
+    bases = m.bases
+    assert bases is not None
+    assert len(bases) == 1
+    assert bases == ["ABC"]
+    assert m.bases_ast is not None
+    for b in m.bases_ast:
+        assert isinstance(b, (astroid.nodes.Name, astroid.nodes.Attribute))
+    assert m.resolved_bases == ['abc.ABC']
+    assert m.is_abstractclass == False
+
+    m = mod.get_member('Abstract')
+    assert m is not None
+    assert isinstance(m, pydocspec.Class)
+    assert m.is_abstractclass == True
+
+    m = mod.get_member('StillAbstract')
+    assert m is not None
+    assert isinstance(m, pydocspec.Class)
+    assert m.is_abstractclass == True
+
+    m = mod.get_member('Concrete')
+    assert m is not None
+    assert isinstance(m, pydocspec.Class)
+    assert m.is_abstractclass == False

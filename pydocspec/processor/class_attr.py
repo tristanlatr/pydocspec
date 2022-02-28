@@ -1,13 +1,14 @@
 """
 Helpers to populate attributes of `Class` instances. 
 """
-from typing import Dict, Iterator, List, Optional, Sequence, Tuple, Union, TYPE_CHECKING
+from typing import Dict, Iterable, Iterator, List, Optional, Sequence, Tuple, Union, TYPE_CHECKING
 
 import astroid.nodes
 import astroid.exceptions
 import pydocspec
+
 from pydocspec import _model, _c3linear, astroidutils
-from . import helpers
+from pydocspec.processor import func_attr, helpers
 
 if TYPE_CHECKING:
     from typing_extensions import Literal
@@ -19,8 +20,19 @@ class MRO(_c3linear.GenericMRO[pydocspec.Class]):
     def bases(self, cls: pydocspec.Class) -> List[pydocspec.Class]:
         return [b for b in cls.resolved_bases if isinstance(b, pydocspec.Class)]
 
+def is_subclass_of(ob: pydocspec.Class, baseclasses: Sequence[Union[str, pydocspec.Class]]) -> bool:
+    """
+    Check if class ``ob`` is a subclass of any of the base classes in ``baseclasses``.
+    :returns: `True` if ``ob`` is derived from any of the base classes. 
+        `False` otherwise.
+    """
+    for base in ob.ancestors(True):
+        if base in baseclasses:
+            return True
+    return False
+
 # List of exceptions class names in the standard library, Python 3.8.10
-_exceptions = ('ArithmeticError', 'AssertionError', 'AttributeError', 
+EXCEPTIONS_CLASSES = ('ArithmeticError', 'AssertionError', 'AttributeError', 
     'BaseException', 'BlockingIOError', 'BrokenPipeError', 
     'BufferError', 'BytesWarning', 'ChildProcessError', 
     'ConnectionAbortedError', 'ConnectionError', 
@@ -44,10 +56,7 @@ _exceptions = ('ArithmeticError', 'AssertionError', 'AttributeError',
 
 def is_exception(ob: pydocspec.Class) -> bool: 
     """must be set after resolved_bases"""
-    for base in ob.ancestors(True):
-        if base in _exceptions:
-            return True
-    return False
+    return is_subclass_of(ob, EXCEPTIONS_CLASSES)
 
 
 def mro_from_astroid(ob: _model.Class) -> Union[List[pydocspec.Class], object]:
@@ -252,3 +261,28 @@ def _unmasked_attrs(baselist: Sequence[pydocspec.Class]) -> List[pydocspec.ApiOb
         }
     return [ o for o in baselist[0].members
              if o.name not in maybe_masking ]
+
+def is_abstractclass(ob: 'pydocspec.Class') -> bool:
+    """
+    Returns whether the given class is an abstract class. 
+
+    Must be set after Class.inherited_members.
+    """
+    # Check for explicit metaclass=ABCMeta on this specific class.
+    meta = ob.metaclass
+    if meta is not None:
+        if ob.expand_name(meta) in ('abc.ABCMeta',):
+            return True
+
+    if not is_subclass_of(ob, ('abc.ABC',)):
+        # For a class to be abstract, it must extend abc.ABC.
+        return False
+    
+    for method in filter(lambda o:isinstance(o, pydocspec.Function), 
+                    ob.members + [o.member for o in ob.inherited_members]):
+        
+        assert isinstance(method, pydocspec.Function)
+        if func_attr.is_abstractmethod(method):
+            return True
+    
+    return False

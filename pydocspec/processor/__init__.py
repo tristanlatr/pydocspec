@@ -112,6 +112,8 @@ class PostBuildVisitor1(visitors.ApiObjectVisitor):
 
         ob.constructor_method = class_attr.constructor_method(ob)
         ob.inherited_members = class_attr.inherited_members(ob)
+        ob.is_abstractclass = class_attr.is_abstractclass(ob)
+
         class_attr.process_subclasses(ob) # Setup the `pydocspec.Class.subclasses` attribute.
     
     def visit_Function(self, ob: pydocspec.Function) -> None:

@@ -324,10 +324,11 @@ class Class(_model.Class, ApiObject):
     """
     Represents a class definition.
     """
-    # TODO: create property inherited_members
 
     is_exception: bool = False
-    """Whether this class extends one of the standard library exceptions."""
+    """
+    Whether this class extends one of the standard library exceptions.
+    """
 
     resolved_bases: List[Union['Class', 'str']] = dataclasses.field(default_factory=list)
     """
@@ -356,6 +357,13 @@ class Class(_model.Class, ApiObject):
     Members inherited from superclasses.
     """
 
+    is_abstractclass: bool = False
+    """
+    Whether this class is abstract. 
+    
+    A class is abstract if it has abstract methods or if it's declared with ``metaclass=ABCMeta``.
+    """
+    
     @dataclasses.dataclass
     class InheritedMember:
         member: ApiObject
