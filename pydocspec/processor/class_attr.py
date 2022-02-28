@@ -1,7 +1,7 @@
 """
 Helpers to populate attributes of `Class` instances. 
 """
-from typing import Iterator, List, Optional, Sequence, Tuple, Union, TYPE_CHECKING
+from typing import Dict, Iterator, List, Optional, Sequence, Tuple, Union, TYPE_CHECKING
 
 import astroid.nodes
 import astroid.exceptions
@@ -193,7 +193,7 @@ def constructor_method(ob: _model.Class) -> Optional['pydocspec.Function']:
 
 def inherited_members(ob: pydocspec.Class) -> List[pydocspec.Class.InheritedMember]:
     """provide inherited_members property"""
-    _inherited_members = {}
+    _inherited_members: Dict[str, pydocspec.Class.InheritedMember] = {}
     for baselist in _nested_bases(ob):
         #  If the class has super class
         if len(baselist) >= 2:
