@@ -305,8 +305,6 @@ class Data(_model.Data, ApiObject):
         # help mypy
         self.parent: Union['Class', 'Module']
 
-# TODO: Always consider Enum values as constants. Maybe having a Class.is_enum property, similar to is_exception?
-
 @dataclasses.dataclass(repr=False)
 class Indirection(_model.Indirection, ApiObject):
   """

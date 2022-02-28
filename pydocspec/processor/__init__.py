@@ -108,6 +108,8 @@ class PostBuildVisitor1(visitors.ApiObjectVisitor):
             ob.mro = class_attr.mro(ob)
 
         ob.is_exception = class_attr.is_exception(ob)
+        # TODO: Always consider Enum values as constants. Maybe having a Class.is_enum property, similar to is_exception?
+
         ob.constructor_method = class_attr.constructor_method(ob)
         ob.inherited_members = class_attr.inherited_members(ob)
         class_attr.process_subclasses(ob) # Setup the `pydocspec.Class.subclasses` attribute.
