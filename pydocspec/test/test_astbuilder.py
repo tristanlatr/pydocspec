@@ -450,13 +450,15 @@ def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder], t
     AstroidManager().clear_cache()
     try:
         builder = getbuilder()
+        
         builder.add_module_string(f'''
-        from top.mod import * # Fails with relative imports
-        from top.mod import __all__ as mod_all # Fails with relative imports
+        from .mod import *
+        from .mod import __all__ as mod_all
         def f():
             pass
         {top_src_last_line}
         ''', modname='top', is_package=True)
+
         builder.add_module_string('''
         def g():
             pass

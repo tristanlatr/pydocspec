@@ -29,16 +29,16 @@ def ast2apiobject(root: _model.TreeRoot, node: Union['astroid.nodes.ClassDef',
 # BUT when resolving import names, there is good chance that the indirection is already created, so it's ok.
 
 def is_using_typing_final(expr: Optional[astroid.nodes.NodeNG], 
-                    ctx:Union[pydocspec.Class, pydocspec.Module]) -> bool:
+                    ctx:pydocspec.ApiObject) -> bool:
     return is_using_annotations(expr, ("typing.Final", "typing_extensions.Final"), ctx)
 
 def is_using_typing_classvar(expr: Optional[astroid.nodes.NodeNG], 
-                    ctx:Union[pydocspec.Class, pydocspec.Module]) -> bool:
+                    ctx:pydocspec.ApiObject) -> bool:
     return is_using_annotations(expr, ('typing.ClassVar', "typing_extensions.ClassVar"), ctx)
 
 def is_using_annotations(expr: Optional[astroid.nodes.NodeNG], 
                             annotations:Sequence[str], 
-                            ctx:Union[pydocspec.Class, pydocspec.Module]) -> bool:
+                            ctx:pydocspec.ApiObject) -> bool:
     """
     Detect if this expr is firstly composed by one of the specified annotation(s)' full name.
     """

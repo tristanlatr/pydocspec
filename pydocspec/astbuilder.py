@@ -117,7 +117,7 @@ class _AstSpecFactory:
 
 class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
     # help mypy
-    module: _model.Module
+    module: pydocspec.Module
     
     def __init__(self, builder: 'Builder', module: _model.Module) -> None:
         visitors.AstVisitor.__init__(self, extensions=None)
@@ -357,6 +357,10 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
                 modname = parent.full_name
             else:
                 modname = f'{parent.full_name}.{modname}'
+            
+            # Transform this relative import into a absolute import to fix inference across modules in astroid
+            node.level = 0
+            node.modname = modname
         else:
             # The module name can only be omitted on relative imports.
             assert modname
@@ -419,8 +423,12 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
     def _newIndirections(self, modname: str, names: Iterable[Tuple[str, Optional[str]]], lineno: int, 
                       is_type_guarged:bool) -> Iterator[_model.Indirection]:
         """Handle a C{from <modname> import <names>} statement."""
-        # Just try to process the module we're importing stuff from before the one we're processing.
-        self.builder.get_processed_module(modname)
+        # If we're not in an if TYPE_CHECKING block,
+        if not is_type_guarged:
+            # Process the module we're importing stuff from before the one
+            # we're processing, because we want to process the ast for this 
+            # module first to be in cache when we'll use infer().
+            self.builder.get_processed_module(modname)
         
         for al in names:
             orgname, asname = al[0], al[1]
@@ -461,7 +469,13 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         for al in node.names:
             fullname, asname = al[0], al[1]
             # Just try to process the module we're importing stuff from before the one we're processing.
-            self.builder.get_processed_module(fullname)
+            # If we're not in an if TYPE_CHECKING block,
+            if not is_type_guarged:
+                # Process the module we're importing stuff from before the one
+                # we're processing, because we want to process the ast for this 
+                # module first to be in cache when we'll use infer().
+                self.builder.get_processed_module(fullname)
+            
             if asname is not None:
                 indirection = self.root.factory.Indirection(
                     name=asname, 
