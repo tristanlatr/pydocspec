@@ -285,6 +285,11 @@ class Data(_model.Data, ApiObject):
     Aliases are folowed by default when using `ApiObject.expand_name`. 
     """
 
+    is_type_alias: bool = False
+    """
+    Whether this Data is a type alias.
+    """
+
     is_constant: bool = False
     """
     Whether this Data is a constant.

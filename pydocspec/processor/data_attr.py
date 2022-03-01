@@ -2,6 +2,7 @@
 Helpers to populate attributes of `Data` instances. 
 """
 
+import copy
 from typing import List
 
 import pydocspec
@@ -28,6 +29,19 @@ def is_alias(ob: _model.Data) -> bool:
 def is_constant(ob: pydocspec.Data) -> bool: # still uses expand_name
     """a constant is a all caps varaible or if using Final qualifier, uses name resolution."""
     return ob.name.isupper() or helpers.is_using_typing_final(ob.datatype_ast, ob.parent)
+
+def is_type_alias(ob: pydocspec.Data) -> bool:
+    if ob.value_ast is not None:
+        if ob.datatype_ast is not None:
+            if helpers.is_using_annotations(ob.datatype_ast, ('typing.TypeAlias'), ob):
+                try:
+                    ob.value_ast = astroidutils.unstring_annotation(ob.value_ast)
+                except SyntaxError:
+                    pass
+                return True
+        if helpers.is_typing_annotation(ob.value_ast, ob.scope):
+            return True
+    return False
 
 def process_aliases(ob: pydocspec.Data) -> None:
     """if the data is an alias, try to resolve it to an apiobject and add `ob` to the 

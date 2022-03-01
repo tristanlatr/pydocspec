@@ -132,6 +132,7 @@ class PostBuildVisitor1(visitors.ApiObjectVisitor):
         ob.is_module_variable = data_attr.is_module_variable(ob)
         ob.is_alias = data_attr.is_alias(ob)
         ob.is_constant = data_attr.is_constant(ob)
+        ob.is_type_alias = data_attr.is_type_alias(ob)
         # Populate a list of aliases for each objects.
         # TODO: this will be correct at the moment where we're using astorid to laod AST from 
         # c-extensions. For now, it works with pure-python.

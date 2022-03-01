@@ -9,6 +9,8 @@ import pydocspec
 import astroid.builder
 import astroid.nodes
 
+from pydocspec.astroidutils import literal_eval
+
 from . import (CapSys, ModFromTextFunction, 
     getbuilder_param, mod_from_text_param, 
     _docspec_python, _back_converter_round_trip1)
@@ -839,3 +841,44 @@ def test_class_is_abstract(mod_from_text: ModFromTextFunction, caplog) -> None:
     assert m is not None
     assert isinstance(m, pydocspec.Class)
     assert m.is_abstractclass == False
+
+# @pytest.mark.parametrize('', [(),()])
+@mod_from_text_param
+def test_type_alias(mod_from_text: ModFromTextFunction, caplog) -> None:
+    # test if we catch whether a class is abstract or not.
+    mod = mod_from_text('''
+    from typing import List, Union, TypeAlias
+    from collections.abc import MutableMapping
+    from external import MyClass
+
+    # we need TypeAlias annotation to parse an alias to an external types
+    var: TypeAlias = MyClass[int]
+    
+    # we need TypeAlias annotation to parse string
+    var2: TypeAlias = 'MutableMapping[str, List[str]]'
+    
+    # not a type alias
+    var3 = '1243' 
+    
+    # a normal type alias
+    var4 = List[Union[str, bytes]]
+    ''', 
+    modname='test')
+    var = mod.get_member('var')
+    assert var is not None
+    assert isinstance(var, pydocspec.Data)
+    var2 = mod.get_member('var2')
+    assert var2 is not None
+    assert isinstance(var2, pydocspec.Data)
+    var3 = mod.get_member('var3')
+    assert var3 is not None
+    assert isinstance(var3, pydocspec.Data)
+    var4 = mod.get_member('var4')
+    assert var4 is not None
+    assert isinstance(var4, pydocspec.Data)
+    assert var.is_type_alias == True
+    assert var2.is_type_alias == True
+    assert var2.value_ast.as_string() == 'MutableMapping[str, List[str]]'
+    assert var3.is_type_alias == False
+    assert literal_eval(var3.value_ast) == '1243'
+    assert var4.is_type_alias == True

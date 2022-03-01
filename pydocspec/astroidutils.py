@@ -448,6 +448,7 @@ def infer_type_annotation(expr: Optional[astroid.nodes.NodeNG]) -> Optional[astr
     try:
         value: object = literal_eval(expr)
     except ValueError:
+        # TODO: Use astroid pytype()
         return None
     else:
         ann = _annotation_for_value(value)
