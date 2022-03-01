@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/data_attr.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/data_attr.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -110,6 +110,11 @@
   </tr><tr class="function">
     
     <td>Function</td>
+    <td><code><a href="#is_type_alias" class="internal-link" title="pydocspec.processor.data_attr.is_type_alias">is​_type​_alias</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
     <td><code><a href="#process_aliases" class="internal-link" title="pydocspec.processor.data_attr.process_aliases">process​_aliases</a></code></td>
     <td>if the data is an alias, try to resolve it to an apiobject and add <code>ob</code> to the list of aliases of the targeted object, uses name resolution.</td>
   </tr>
@@ -133,7 +138,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">doc_sources</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/data_attr.py#L41">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/data_attr.py#L55">
       
       (source)
     </a>
@@ -156,7 +161,7 @@ must be called after mro<table class="fieldTable"><tr class="fieldStart"><td cla
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_alias</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/data_attr.py#L24">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/data_attr.py#L25">
       
       (source)
     </a>
@@ -178,7 +183,7 @@ must be called after mro<table class="fieldTable"><tr class="fieldStart"><td cla
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_class_variable</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/data_attr.py#L16">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/data_attr.py#L17">
       
       (source)
     </a>
@@ -200,7 +205,7 @@ must be called after mro<table class="fieldTable"><tr class="fieldStart"><td cla
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_constant</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/data_attr.py#L28">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/data_attr.py#L29">
       
       (source)
     </a>
@@ -222,7 +227,7 @@ must be called after mro<table class="fieldTable"><tr class="fieldStart"><td cla
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_instance_variable</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/data_attr.py#L12">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/data_attr.py#L13">
       
       (source)
     </a>
@@ -244,7 +249,7 @@ must be called after mro<table class="fieldTable"><tr class="fieldStart"><td cla
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_module_variable</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/data_attr.py#L20">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/data_attr.py#L21">
       
       (source)
     </a>
@@ -253,6 +258,28 @@ must be called after mro<table class="fieldTable"><tr class="fieldStart"><td cla
     
     
     <div>check if the parent of this data is a module.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec._model.Data.html" class="internal-link" title="pydocspec._model.Data">_model.Data</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.processor.data_attr.is_type_alias">
+    
+  </a>
+  <a name="is_type_alias">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">is_type_alias</span>(ob):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/data_attr.py#L33">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.Data.html" class="internal-link">pydocspec.Data</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -266,7 +293,7 @@ must be called after mro<table class="fieldTable"><tr class="fieldStart"><td cla
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">process_aliases</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/data_attr.py#L32">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/data_attr.py#L46">
       
       (source)
     </a>
@@ -287,7 +314,7 @@ list of aliases of the targeted object, uses name resolution.<table class="field
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.2.2.dev0 at 2022-02-27 23:38:20.
+    22.2.2.dev0 at 2022-03-01 04:51:01.
   </div>
 </footer>
 

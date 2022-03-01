@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/helpers.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/helpers.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -85,6 +85,11 @@
   </tr><tr class="function">
     
     <td>Function</td>
+    <td><code><a href="#is_typing_annotation" class="internal-link" title="pydocspec.processor.helpers.is_typing_annotation">is​_typing​_annotation</a></code></td>
+    <td>Whether this annotation node refers to a typing alias.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
     <td><code><a href="#is_using_annotations" class="internal-link" title="pydocspec.processor.helpers.is_using_annotations">is​_using​_annotations</a></code></td>
     <td>Detect if this expr is firstly composed by one of the specified annotation(s)' full name.</td>
   </tr><tr class="function">
@@ -96,6 +101,16 @@
     
     <td>Function</td>
     <td><code><a href="#is_using_typing_final" class="internal-link" title="pydocspec.processor.helpers.is_using_typing_final">is​_using​_typing​_final</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#SUBSCRIPTABLE_CLASSES_PEP585" class="internal-link" title="pydocspec.processor.helpers.SUBSCRIPTABLE_CLASSES_PEP585">SUBSCRIPTABLE​_CLASSES​_PEP585</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#TYPING_ALIAS" class="internal-link" title="pydocspec.processor.helpers.TYPING_ALIAS">TYPING​_ALIAS</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -118,7 +133,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">ast2apiobject</span>(root, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/helpers.py#L11">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/helpers.py#L11">
       
       (source)
     </a>
@@ -127,6 +142,28 @@
     
     
     <div>implementation is duplicate safe.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec._model.TreeRoot.html" class="internal-link" title="pydocspec._model.TreeRoot">_model.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr>astroid.nodes.ClassDef, <wbr></wbr>astroid.nodes.Module]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a>, <wbr></wbr><a href="pydocspec.Module.html" class="internal-link">pydocspec.Module</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.processor.helpers.is_typing_annotation">
+    
+  </a>
+  <a name="is_typing_annotation">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">is_typing_annotation</span>(node, ctx):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/helpers.py#L146">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Whether this annotation node refers to a typing alias.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html" class="internal-link">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -140,7 +177,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_using_annotations</span>(expr, annotations, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/helpers.py#L39">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/helpers.py#L39">
       
       (source)
     </a>
@@ -148,7 +185,7 @@
   <div class="docstring functionBody">
     
     
-    <div>Detect if this expr is firstly composed by one of the specified annotation(s)' full name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotations:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence" class="intersphinx-link">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a>, <wbr></wbr><a href="pydocspec.Module.html" class="internal-link">pydocspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Detect if this expr is firstly composed by one of the specified annotation(s)' full name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotations:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence" class="intersphinx-link">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html" class="internal-link">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -162,7 +199,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_using_typing_classvar</span>(expr, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/helpers.py#L35">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/helpers.py#L35">
       
       (source)
     </a>
@@ -170,7 +207,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a>, <wbr></wbr><a href="pydocspec.Module.html" class="internal-link">pydocspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html" class="internal-link">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -184,7 +221,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_using_typing_final</span>(expr, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/helpers.py#L31">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/helpers.py#L31">
       
       (source)
     </a>
@@ -192,7 +229,67 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a>, <wbr></wbr><a href="pydocspec.Module.html" class="internal-link">pydocspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html" class="internal-link">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="pydocspec.processor.helpers.SUBSCRIPTABLE_CLASSES_PEP585">
+    
+  </a>
+  <a name="SUBSCRIPTABLE_CLASSES_PEP585">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">SUBSCRIPTABLE_CLASSES_PEP585</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/helpers.py#L105">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">tuple</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">list</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">dict</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">set</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">frozenset</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">type</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">collections.deque</span><span class="rst-variable-quote">'</span>,
+<span class="rst-variable-ellipsis">...</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="pydocspec.processor.helpers.TYPING_ALIAS">
+    
+  </a>
+  <a name="TYPING_ALIAS">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">TYPING_ALIAS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/helpers.py#L57">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">typing.Hashable</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">typing.Awaitable</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">typing.Coroutine</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">typing.AsyncIterable</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">typing.AsyncIterator</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">typing.Iterable</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">typing.Iterator</span><span class="rst-variable-quote">'</span>,
+<span class="rst-variable-ellipsis">...</span></code></pre></td></tr></table>
   </div>
 </div>
 
@@ -204,7 +301,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.2.2.dev0 at 2022-02-27 23:38:20.
+    22.2.2.dev0 at 2022-03-01 04:51:01.
   </div>
 </footer>
 

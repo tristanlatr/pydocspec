@@ -65,7 +65,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -95,8 +95,18 @@
   </tr><tr class="function">
     
     <td>Function</td>
+    <td><code><a href="#is_abstractclass" class="internal-link" title="pydocspec.processor.class_attr.is_abstractclass">is​_abstractclass</a></code></td>
+    <td>Returns whether the given class is an abstract class.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
     <td><code><a href="#is_exception" class="internal-link" title="pydocspec.processor.class_attr.is_exception">is​_exception</a></code></td>
     <td>must be set after resolved_bases</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#is_subclass_of" class="internal-link" title="pydocspec.processor.class_attr.is_subclass_of">is​_subclass​_of</a></code></td>
+    <td>Check if class <tt class="rst-docutils literal">ob</tt> is a subclass of any of the base classes in <tt class="rst-docutils literal">baseclasses</tt>. :returns: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code> if <tt class="rst-docutils literal">ob</tt> is derived from any of the base classes. <code><a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a></code> otherwise.</td>
   </tr><tr class="function">
     
     <td>Function</td>
@@ -117,6 +127,11 @@
     <td>Function</td>
     <td><code><a href="#resolved_bases" class="internal-link" title="pydocspec.processor.class_attr.resolved_bases">resolved​_bases</a></code></td>
     <td>direct bases of this class, if the name cannot be resolved as an apiobject, fallback to expanded name str. uses name resolution.</td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#EXCEPTIONS_CLASSES" class="internal-link" title="pydocspec.processor.class_attr.EXCEPTIONS_CLASSES">EXCEPTIONS​_CLASSES</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
@@ -127,11 +142,6 @@
     <td>Function</td>
     <td><code><a href="#_unmasked_attrs" class="internal-link" title="pydocspec.processor.class_attr._unmasked_attrs">​_unmasked​_attrs</a></code></td>
     <td>Helper function to reteive the list of inherited children given a base classes chain (As yielded by <code>nested_bases</code>).</td>
-  </tr><tr class="variable private">
-    
-    <td>Variable</td>
-    <td><code><a href="#_exceptions" class="internal-link" title="pydocspec.processor.class_attr._exceptions">​_exceptions</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
@@ -153,7 +163,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">constructor_method</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py#L186">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L195">
       
       (source)
     </a>
@@ -175,7 +185,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">inherited_members</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py#L194">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L203">
       
       (source)
     </a>
@@ -184,6 +194,30 @@
     
     
     <div>provide inherited_members property<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="pydocspec.Class.InheritedMember.html" class="internal-link">pydocspec.Class.InheritedMember</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.processor.class_attr.is_abstractclass">
+    
+  </a>
+  <a name="is_abstractclass">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">is_abstractclass</span>(ob):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L265">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Returns whether the given class is an abstract class.</p>
+<p>Must be set after Class.inherited_members.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -197,7 +231,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_exception</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py#L45">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L57">
       
       (source)
     </a>
@@ -206,6 +240,32 @@
     
     
     <div>must be set after resolved_bases<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="pydocspec.processor.class_attr.is_subclass_of">
+    
+  </a>
+  <a name="is_subclass_of">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">is_subclass_of</span>(ob, baseclasses):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L23">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p>Check if class <tt class="rst-docutils literal">ob</tt> is a subclass of any of the base classes in <tt class="rst-docutils literal">baseclasses</tt>.
+:returns: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code> if <tt class="rst-docutils literal">ob</tt> is derived from any of the base classes.</p>
+<blockquote>
+<code><a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a></code> otherwise.</blockquote>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">baseclasses:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence" class="intersphinx-link">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -219,7 +279,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">mro</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py#L91">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L100">
       
       (source)
     </a>
@@ -241,7 +301,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">mro_from_astroid</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py#L53">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L62">
       
       (source)
     </a>
@@ -265,7 +325,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">process_subclasses</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py#L180">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L189">
       
       (source)
     </a>
@@ -287,7 +347,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">resolved_bases</span>(ob):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py#L119">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L128">
       
       (source)
     </a>
@@ -297,6 +357,36 @@
     
     <div>direct bases of this class, if the name cannot be resolved as an apiobject, fallback to expanded name str.
 uses name resolution.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ob:</span><code><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="pydocspec.processor.class_attr.EXCEPTIONS_CLASSES">
+    
+  </a>
+  <a name="EXCEPTIONS_CLASSES">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">EXCEPTIONS_CLASSES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L35">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">ArithmeticError</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AssertionError</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AttributeError</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">BaseException</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">BlockingIOError</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">BrokenPipeError</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">BufferError</span><span class="rst-variable-quote">'</span>,
+<span class="rst-variable-ellipsis">...</span></code></pre></td></tr></table>
   </div>
 </div><div class="basefunction private">
   
@@ -310,7 +400,7 @@ uses name resolution.<table class="fieldTable"><tr class="fieldStart"><td class=
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_nested_bases</span>(classobj):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py#L223">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L232">
       
       (source)
     </a>
@@ -345,7 +435,7 @@ first element to the last element of the chain.</p>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_unmasked_attrs</span>(baselist):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py#L240">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/4b4d50fbea7b29d3d498adc62f621bb611aada5a/pydocspec/processor/class_attr.py#L249">
       
       (source)
     </a>
@@ -359,29 +449,6 @@ given a base classes chain (As yielded by <code>nested_bases</code>).</p>
 first in the chain to the Class listed last: they are not overriden in between.</p>
 <table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">baselist:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence" class="intersphinx-link">Sequence</a>[<wbr></wbr><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="pydocspec.ApiObject.html" class="internal-link">pydocspec.ApiObject</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
-</div><div class="basevariable private">
-  
-  
-  <a name="pydocspec.processor.class_attr._exceptions">
-    
-  </a>
-  <a name="_exceptions">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">_exceptions</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/81dedbd163a7f54d3955306b8050b825969eccc9/pydocspec/processor/class_attr.py#L23">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-    
-  </div>
 </div>
 
       </div>
@@ -392,7 +459,7 @@ first in the chain to the Class listed last: they are not overriden in between.<
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.2.2.dev0 at 2022-02-27 23:38:20.
+    22.2.2.dev0 at 2022-03-01 04:51:01.
   </div>
 </footer>
 
