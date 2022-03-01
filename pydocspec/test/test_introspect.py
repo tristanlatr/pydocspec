@@ -1,13 +1,15 @@
 import os
 from pathlib import Path
-from re import A
+import sys
 import subprocess
 from pydocspec import Options, load_python_modules
 import pydocspec
+import pytest
 from . import tree_repr
 
 testpackages = Path(__file__).parent / 'testpackages'
 
+@pytest.mark.skipif(sys.platform == "win32", reason="does not run on windows")
 def test_build_and_introspec_cython_based_C_extension_with_python_suclass() -> None:
 
     c_extension_base_class_path = testpackages / 'c_extension_base_class'
