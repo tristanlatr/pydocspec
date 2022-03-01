@@ -21,6 +21,11 @@ and populate the strict-minimum attributes. Then the `processor` takes that tree
 The core of the logic is design to be extensible with extensions modules. See `pydocspec.ext`.
 """
 
+# TODOs:
+# - Setup code coverage.
+# - Build pydocspec from imported modules too, if they are available in the system.
+# - Add overriden in / overrides . What to do withData with annotation only?
+
 import dataclasses
 from pathlib import Path
 from typing import TYPE_CHECKING, Iterable, Iterator, List, Optional, Sequence, Tuple, Union, Type, Any
@@ -414,13 +419,44 @@ class Function(_model.Function, ApiObject):
     """
 
     is_property: bool = False
+    """
+    Whether this Function is a property getter.
+    """
+
     is_property_setter: bool = False
+    """
+    Whether this Function is a property setter.
+    """
+
     is_property_deleter: bool = False
+    """
+    Whether this Function is a property deteter.
+    """
+
     is_async: bool = False
+    """
+    Whether this Function is a coroutine, aka ``async`` function.
+    """
+
     is_method: bool = False
+    """
+    Whether this Function is a method.
+    """
+
     is_staticmethod: bool = False
+    """
+    Whether this Function is a static method.
+    """
+
     is_classmethod: bool = False
+    """
+    Whether this Function is a class method.
+    """
+
     is_abstractmethod: bool = False
+    """
+    Whether this Function is a abstract method.
+    """
 
     def __post_init__(self) -> None:
         super().__post_init__()
@@ -435,6 +471,23 @@ class Function(_model.Function, ApiObject):
                   value_formatter_class: Type[astroidutils.ValueFormatter] = astroidutils.ValueFormatter) -> inspect.Signature:
         """
         Get the function's signature. 
+
+        :Parameters:
+            include_types
+                Whether to include the type annotation.
+            include_defaults
+                Whether to include the default values of parameters.
+            include_return_type
+                Whether to include the return type annotation.
+            include_self
+                Whether to include ``self`` as the first argument if it exist.
+            signature_class
+                A custom `inspect.Signature` subclass to build the signature with.
+            value_formatter_class
+                A custom `astroidutils.ValueFormatter` class to present the 
+                annotations and parameters default values when calling `str()` on the signature object.
+        
+        :Returns: A signature built with the specified options.
         """
         
         # build the signature

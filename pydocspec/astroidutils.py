@@ -270,7 +270,7 @@ Acts like every node arguments can be passed to the constructor method.
 
 class ValueFormatter:
     """
-    Formats values stored in AST expressions back to sourcecode.
+    Formats values stored in AST expressions back to source code.
     Used for presenting default values of parameters and annotations. 
 
     :note: The default behaviour defers to `astroid.nodes.NodeNG.as_string`. 
