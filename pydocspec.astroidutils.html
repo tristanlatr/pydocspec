@@ -28,21 +28,98 @@
     <div class="navbar-header">
       
       <div class="navlinks">
-          <span class="navbar-brand">
-            <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a> <a href="index.html">API Documentation</a>
+        <span class="navbar-brand">
+          <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a> <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="search-results-container" style="display: none;">
+        
+        <div id="search-buttons">
+          <span class="label label-default" id="search-docstrings-button">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+              search in docstrings
+            </input>
+          </label>
           </span>
+          
+        </div>
+        
+        <noscript>
+            <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+        </noscript>
 
-          <a href="moduleIndex.html">
-            Modules
-          </a>
+        <div class="hint" id="search-help-box">
+          <p class="rst-last">
+      
+            Search bar offers the following options:
+            <ul>   
+                <li>
+                  <strong>Term presence.</strong> The below example searches for documents that 
+                    must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                </li> 
 
-          <a href="classIndex.html">
-            Classes
-          </a>
+                <li>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                </li> 
 
-          <a href="nameIndex.html">
-            Names
-          </a>
+                <li>
+                  <strong>Search in specific fields.</strong> The following search matches all objects 
+                  in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+
+                  <p>
+                    Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                    Last two fields are only applicable if "search in docstrings" is enabled.
+                  </p>
+                </li>
+
+                <li>
+                  <strong>Fuzzy matches.</strong> The following search matches all documents 
+                  that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                </li>
+            </ul>
+
+          </p>
+        </div>
+
+        <div id="search-status"> </div>
+
+        <div class="warning" id="search-warn-box" style="display: none;">
+          <p class="rst-last"><span id="search-warn"></span></p>
+        </div>
+
+        <table id="search-results">
+          <!-- Filled dynamically by JS -->
+        </table>
+        
+        <div style="margin-top: 8px;">
+          <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+        </div>
       </div>
 
     </div>
@@ -65,7 +142,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -225,22 +302,22 @@
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_annotation_for_elements" class="internal-link" title="pydocspec.astroidutils._annotation_for_elements">​_annotation​_for​_elements</a></code></td>
+    <td><code><a href="#_annotation_for_elements" class="internal-link" title="pydocspec.astroidutils._annotation_for_elements">_annotation​_for​_elements</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_annotation_for_value" class="internal-link" title="pydocspec.astroidutils._annotation_for_value">​_annotation​_for​_value</a></code></td>
+    <td><code><a href="#_annotation_for_value" class="internal-link" title="pydocspec.astroidutils._annotation_for_value">_annotation​_for​_value</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_is_ellipsis" class="internal-link" title="pydocspec.astroidutils._is_ellipsis">​_is​_ellipsis</a></code></td>
+    <td><code><a href="#_is_ellipsis" class="internal-link" title="pydocspec.astroidutils._is_ellipsis">_is​_ellipsis</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_iter_args" class="internal-link" title="pydocspec.astroidutils._iter_args">​_iter​_args</a></code></td>
+    <td><code><a href="#_iter_args" class="internal-link" title="pydocspec.astroidutils._iter_args">_iter​_args</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -263,7 +340,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">bind_args</span>(sig, call):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L376">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L376">
       
       (source)
     </a>
@@ -286,7 +363,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">build_signature</span>(func):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L664">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L664">
       
       (source)
     </a>
@@ -308,7 +385,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">copy_location</span>(new_node, old_node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L182">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L182">
       
       (source)
     </a>
@@ -331,7 +408,7 @@ attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return 
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">extract_expr</span>(expr, filename=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, allow_stmt=<a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L391">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L391">
       
       (source)
     </a>
@@ -355,7 +432,7 @@ attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return 
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">extract_final_subscript</span>(annotation):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L413">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L413">
       
       (source)
     </a>
@@ -379,7 +456,7 @@ attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return 
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">fix_missing_locations</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L193">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L193">
       
       (source)
     </a>
@@ -405,7 +482,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_full_import_name</span>(import_from, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L553">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L553">
       
       (source)
     </a>
@@ -427,7 +504,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">infer_type_annotation</span>(expr):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L441">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L441">
       
       (source)
     </a>
@@ -451,7 +528,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_name</span>(value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L352">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L352">
       
       (source)
     </a>
@@ -474,7 +551,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_type_guard</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L369">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L369">
       
       (source)
     </a>
@@ -496,7 +573,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_type_guarded</span>(node, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L359">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L359">
       
       (source)
     </a>
@@ -518,7 +595,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">iter_fields</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L25">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L25">
       
       (source)
     </a>
@@ -540,7 +617,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">iter_values</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L33">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L33">
       
       (source)
     </a>
@@ -562,7 +639,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">literal_eval</span>(node_or_string):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L125">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L125">
       
       (source)
     </a>
@@ -587,7 +664,7 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">merge_annotations</span>(annotations, comment_annotations):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L652">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L652">
       
       (source)
     </a>
@@ -609,7 +686,7 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">node2dottedname</span>(node, strict=<a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L323">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L323">
       
       (source)
     </a>
@@ -631,7 +708,7 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">node2fullname</span>(expr, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L343">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L343">
       
       (source)
     </a>
@@ -653,7 +730,7 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">resolve_import_alias</span>(name, import_names):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L532">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L532">
       
       (source)
     </a>
@@ -676,7 +753,7 @@ from the import.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">resolve_qualname</span>(ctx, basename):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L574">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L574">
       
       (source)
     </a>
@@ -698,7 +775,7 @@ from the import.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">to_source</span>(expr):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L315">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L315">
       
       (source)
     </a>
@@ -720,7 +797,7 @@ from the import.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unstring_annotation</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L426">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L426">
       
       (source)
     </a>
@@ -746,7 +823,7 @@ and the original node is returned.</blockquote>
   <div class="functionHeader">
     
     <span class="py-defname">nodefactory</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L266">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L266">
       
       (source)
     </a>
@@ -769,7 +846,7 @@ and the original node is returned.</blockquote>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_elements</span>(sequence):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L484">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L484">
       
       (source)
     </a>
@@ -791,7 +868,7 @@ and the original node is returned.</blockquote>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_value</span>(value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L460">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L460">
       
       (source)
     </a>
@@ -813,7 +890,7 @@ and the original node is returned.</blockquote>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_is_ellipsis</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L626">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L626">
       
       (source)
     </a>
@@ -835,7 +912,7 @@ and the original node is returned.</blockquote>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_iter_args</span>(args, annotations, defaults):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/b23ba59101306a06cc2927cb7d310e74b33ad5bb/pydocspec/astroidutils.py#L634">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/astroidutils.py#L634">
       
       (source)
     </a>
@@ -851,12 +928,20 @@ and the original node is returned.</blockquote>
     </div>
 
     <footer class="navbar navbar-default">
+
   
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.2.2.dev0 at 2022-03-01 04:56:20.
+    22.2.2.dev0 at 2022-03-11 04:15:05.
   </div>
+
+  <!-- Search related scripts needs to be loaded at the end of HTML 
+    parsing not to introduce overhead and display HTML data asap -->
+  <script src="ajax.js" type="text/javascript"></script>
+  <script src="searchlib.js" type="text/javascript"></script>
+  <script src="search.js" type="text/javascript"></script>
+
 </footer>
 
     <script src="pydoctor.js" type="text/javascript"></script>
