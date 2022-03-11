@@ -6,7 +6,7 @@ The object model is built on top of the [docspec](https://github.com/NiklasRosen
 
 We provide our own loader, based on [astroid](https://github.com/PyCQA/astroid), a powefull AST analysis library.
 
-There is also the possiblity to create a `pydocspec` tree from `docspec_python` and the other way around, in which case `astroid` is not used. This can be used to serialize trees to JSON format and read them back into `pydocspec` tree.
+There is also the possiblity to create a `pydocspec` tree from `docspec_python` and the other way around. This can be used to serialize trees to JSON format and read them back into `pydocspec` tree.
 
 The main goal of this project is to replace the 15 years old [pydoctor](https://github.com/twisted/pydoctor) ast builder that is becomming unmaintainable. 
 
