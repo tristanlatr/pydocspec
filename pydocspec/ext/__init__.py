@@ -36,14 +36,18 @@ and methods provided by mixin classes can be review in their respective document
 
 """
 
-import types
+import abc
 from typing import Any, Callable, Dict, Iterable, Iterator, Tuple, Type, Union, TYPE_CHECKING, cast
 import attr
 import sys
 import importlib
 
+from cached_property import cached_property
+import astroid.nodes
+import astroid.manager
+
 if TYPE_CHECKING:
-    from pydocspec import astbuilder
+    from pydocspec import astbuilder, TreeRoot
 
 # On Python 3.7+, use importlib.resources from the standard library.
 # On older versions, a compatibility package must be installed from PyPI.
@@ -90,6 +94,64 @@ def get_optional_extensions() -> Iterator[str]:
     """
     return _get_submodules('pydocspec.ext.opt')
 
+@attr.s
+class _AstroidTransform(abc.ABC):
+    """
+    Base class to customize astroid inference system with a bridge to pydocspec tree.
+    """
+    root: 'TreeRoot' = attr.ib()
+
+    @abc.abstractproperty
+    def node_class(self) -> Type['astroid.nodes.NodeNG']:
+        """
+        Which node class this inference tip applies to.
+        """
+        ...
+    @abc.abstractmethod
+    def predicate(self, node: astroid.nodes.AssignName) -> bool:
+        ...
+    @abc.abstractproperty
+    def _transform_func(self) -> Callable[[astroid.nodes.NodeNG],Any]:
+        ...
+    def register(self) -> None:
+        assert self.node_class is not None
+        astroid.manager.AstroidManager().register_transform(
+            self.node_class, 
+            self._transform_func, 
+            self.predicate)
+    
+    def unregister(self) -> None:
+        astroid.manager.AstroidManager().unregister_transform(
+            self.node_class, 
+            self._transform_func, 
+            self.predicate)
+
+class AstroidInferenceTip(_AstroidTransform):
+    """
+    Encapsulate an astroid inference tip to be registered with the `ExtRegistrar`.
+
+    :See: https://pylint.pycqa.org/projects/astroid/en/latest/extending.html#ast-inference-tip-transforms
+    """
+    @cached_property
+    def _transform_func(self) -> Callable[[astroid.nodes.NodeNG], Any]:
+        return astroid.inference_tip(self.inference_tip) # type:ignore[no-any-return]
+    @abc.abstractmethod
+    def inference_tip(self, node: astroid.nodes.NodeNG, ctx:Any) -> astroid.nodes.NodeNG:
+        ...
+
+class AstroidTransform(_AstroidTransform):
+    """
+    Encapsulate an astroid transform to be registered with the `ExtRegistrar`.
+
+    :See: https://pylint.pycqa.org/projects/astroid/en/latest/extending.html#ast-transforms-example
+    """
+    @cached_property
+    def _transform_func(self) -> Callable[[astroid.nodes.NodeNG],Any]:
+        return self.transform
+    @abc.abstractmethod
+    def transform(self, node: astroid.nodes.NodeNG) -> astroid.nodes.NodeNG:
+        ...
+
 # Utilites to register extenions' components.
 
 @attr.s(auto_attribs=True)
@@ -108,20 +170,40 @@ class ExtRegistrar:
             setattr(o, 'extname', name)
 
     def register_mixins(self, *mixins: Type[Any]) -> None:
+        """
+        Register mixin classes for model objects. Mixins shoud extend one of the 
+        base mixin classes in `pydocspec.ext` module, i.e. `ClassMixin` or `ApiObjectMixin`, etc.
+        """
         self._setattr_extname_on_objs(mixins, self.extname)
         self._builder.root.factory.add_mixins(**_get_mixins(*mixins))
 
     def register_astbuild_visitors(self, 
             *visitors: Union[AstVisitorExt, Type[AstVisitorExt]]) -> None:
+        """
+        Register AST visitor extensions.
+        """
         self._setattr_extname_on_objs(visitors, self.extname)
         # load extensions' ast visitors
         self._builder.visitor_extensions.update(visitors)
     
     def register_postbuild_visitors(self, 
             *visitors: Union[ApiObjectVisitorExt, Type[ApiObjectVisitorExt]]) -> None:
+        """
+        Register post-build visitor extensions.
+        """
         self._setattr_extname_on_objs(visitors, self.extname)
         # load extensions' post build visitors
         self._builder.pprocessor.visitor_extensions.update(visitors)
+    
+    def register_astroid_transforms(self, 
+            *transforms: Type[Union[AstroidInferenceTip, AstroidTransform]]) -> None:
+        """
+        Register an astroid extensions.
+        """
+        self._setattr_extname_on_objs(transforms, self.extname)
+        # load inference tips
+        for t in transforms:
+            self._builder.astroid_transforms.append(t(self._builder.root))
     
     # TODO: implement me!
     # def register_on_modules_created_callback(self, 

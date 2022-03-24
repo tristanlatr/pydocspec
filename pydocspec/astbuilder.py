@@ -9,27 +9,19 @@ Traverse module/packages directories, build and transform `astroid` AST into `Ap
     The strict minimum beeing represented by the classes in `_model` module.
 
 """
-import abc
-import re
-import dataclasses
 import textwrap
 import types
-from typing import TYPE_CHECKING, Any, Callable, ClassVar, Iterable, Iterator, List, Dict, Optional, Sequence, Set, Tuple, Type, Union, cast
+from typing import TYPE_CHECKING, Iterable, Iterator, List, Dict, Optional, Set, Tuple, Type, Union, cast
 from pathlib import Path
 from enum import Enum
-from functools import partial
-from itertools import chain
 import sys
 import platform
 import inspect
 import importlib.machinery
 import importlib.util
 
-import astroid.builder
 import astroid.rebuilder
 import astroid.nodes
-import astroid.mixins
-import astroid.exceptions
 import astroid.manager
 import attr
 
@@ -39,7 +31,7 @@ import pydocspec
 
 if TYPE_CHECKING:
     import docspec
-    from pydocspec import specfactory
+    from pydocspec import specfactory, ext
 
 _string_lineno_is_end = sys.version_info < (3,8) \
                     and platform.python_implementation() != 'PyPy'
@@ -818,9 +810,14 @@ class Builder:
     Options
     """  
 
-    visitor_extensions: Set[Union['visitors.AstVisitorExt', Type['visitors.AstVisitorExt']]] = attr.ib(factory=set)
+    visitor_extensions: Set[Union['ext.AstVisitorExt', Type['ext.AstVisitorExt']]] = attr.ib(factory=set)
     """
     AST build visitor extensions.
+    """
+
+    astroid_transforms: List['ext._AstroidTransform'] = attr.ib(factory=list)
+    """
+    Astroid inference system tweaks.
     """
     
     _added_paths: Set[Path] = attr.ib(factory=set, init=False)
@@ -1082,7 +1079,7 @@ class Builder:
             ast = astroid.manager.AstroidManager().ast_from_module(mod._py_mod, mod.full_name)
         elif mod._py_string is not None:
             # Modules created from string have a ._py_string attribute.
-            ast = astroid.builder.AstroidManager().ast_from_string(mod._py_string, mod.full_name)
+            ast = astroid.manager.AstroidManager().ast_from_string(mod._py_string, mod.full_name)
         elif mod.source_path is None:
             raise RuntimeError(f"Can't parse module {mod!r}, no 'source_path' defined.")
         else:
@@ -1107,10 +1104,16 @@ class Builder:
 
         :note: This method should only be run once per Builder instance.
         """
+        # Install our astroid extensions
+        for transform in self.astroid_transforms: transform.register() 
+        
         while list(self.unprocessed_modules):
             mod = next(self.unprocessed_modules)
             self._process_module(mod)
         self._post_build()
+        
+        # Uninstall our astroid extension
+        for transform in self.astroid_transforms: transform.unregister() 
 
     def _post_build(self) -> None:
         self.pprocessor.post_build(self.root)
@@ -1134,5 +1137,3 @@ class Builder:
             raise CyclicImport(f"Cyclic import processing module {mod.full_name!r}", mod)
         
         return mod
-
-    

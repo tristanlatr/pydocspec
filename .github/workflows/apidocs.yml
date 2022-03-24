@@ -3,6 +3,9 @@ on:
   push:
     branches: 
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   apidocs:
@@ -25,7 +28,8 @@ jobs:
 
         tox -e apidocs
 
-    - name: Push API documentation to Github Pages
+    - name: Push API documentation to Github Pages (main branch only)
+      if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
