@@ -7,11 +7,11 @@
   <head>
     
     <title>pydocspec.ext.ExtRegistrar</title>
-    <meta name="generator" content="pydoctor 22.2.2.dev0"> 
+    <meta name="generator" content="pydoctor 22.3.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="apidocs.css" />
     <link rel="stylesheet" type="text/css" href="extra.css" />
@@ -142,7 +142,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">ExtRegistrar</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/ext/__init__.py#L95" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ExtRegistrar</span>: <a href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/ext/__init__.py#L157" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#pydocspec.ext.ExtRegistrar">View In Hierarchy</a></p>
       </div>
 
@@ -151,24 +151,29 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id136">
+        <table class="children sortable" id="id143">
   
   
   <tr class="method">
     
     <td>Method</td>
     <td><code><a href="#register_astbuild_visitors" class="internal-link" title="pydocspec.ext.ExtRegistrar.register_astbuild_visitors">register​_astbuild​_visitors</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>Register AST visitor extensions.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#register_astroid_transforms" class="internal-link" title="pydocspec.ext.ExtRegistrar.register_astroid_transforms">register​_astroid​_transforms</a></code></td>
+    <td>Register an astroid extensions.</td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#register_mixins" class="internal-link" title="pydocspec.ext.ExtRegistrar.register_mixins">register​_mixins</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>Register mixin classes for model objects. Mixins shoud extend one of the base mixin classes in <code><a href="pydocspec.ext.html" class="internal-link">pydocspec.ext</a></code> module, i.e. <code><a href="pydocspec.ext.ClassMixin.html" class="internal-link" title="pydocspec.ext.ClassMixin">ClassMixin</a></code> or <code><a href="pydocspec.ext.ApiObjectMixin.html" class="internal-link" title="pydocspec.ext.ApiObjectMixin">ApiObjectMixin</a></code>, etc.</td>
   </tr><tr class="method">
     
     <td>Method</td>
     <td><code><a href="#register_postbuild_visitors" class="internal-link" title="pydocspec.ext.ExtRegistrar.register_postbuild_visitors">register​_postbuild​_visitors</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>Register post-build visitor extensions.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
@@ -205,7 +210,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">register_astbuild_visitors</span>(self, *visitors):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/ext/__init__.py#L114">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/ext/__init__.py#L180">
       
       (source)
     </a>
@@ -213,7 +218,29 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*visitors:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.ext.AstVisitorExt.html" class="internal-link" title="pydocspec.ext.AstVisitorExt">AstVisitorExt</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr><a href="pydocspec.ext.AstVisitorExt.html" class="internal-link" title="pydocspec.ext.AstVisitorExt">AstVisitorExt</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Register AST visitor extensions.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*visitors:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.ext.AstVisitorExt.html" class="internal-link" title="pydocspec.ext.AstVisitorExt">AstVisitorExt</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr><a href="pydocspec.ext.AstVisitorExt.html" class="internal-link" title="pydocspec.ext.AstVisitorExt">AstVisitorExt</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pydocspec.ext.ExtRegistrar.register_astroid_transforms">
+    
+  </a>
+  <a name="register_astroid_transforms">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">register_astroid_transforms</span>(self, *transforms):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/ext/__init__.py#L198">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div>Register an astroid extensions.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*transforms:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.ext.AstroidInferenceTip.html" class="internal-link" title="pydocspec.ext.AstroidInferenceTip">AstroidInferenceTip</a>, <wbr></wbr><a href="pydocspec.ext.AstroidTransform.html" class="internal-link" title="pydocspec.ext.AstroidTransform">AstroidTransform</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -227,7 +254,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">register_mixins</span>(self, *mixins):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/ext/__init__.py#L110">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/ext/__init__.py#L172">
       
       (source)
     </a>
@@ -235,7 +262,8 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*mixins:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Register mixin classes for model objects. Mixins shoud extend one of the
+base mixin classes in <code><a href="pydocspec.ext.html" class="internal-link">pydocspec.ext</a></code> module, i.e. <code><a href="pydocspec.ext.ClassMixin.html" class="internal-link" title="pydocspec.ext.ClassMixin">ClassMixin</a></code> or <code><a href="pydocspec.ext.ApiObjectMixin.html" class="internal-link" title="pydocspec.ext.ApiObjectMixin">ApiObjectMixin</a></code>, etc.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*mixins:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -249,7 +277,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">register_postbuild_visitors</span>(self, *visitors):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/ext/__init__.py#L120">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/ext/__init__.py#L189">
       
       (source)
     </a>
@@ -257,7 +285,7 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*visitors:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.ext.ApiObjectVisitorExt.html" class="internal-link" title="pydocspec.ext.ApiObjectVisitorExt">ApiObjectVisitorExt</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr><a href="pydocspec.ext.ApiObjectVisitorExt.html" class="internal-link" title="pydocspec.ext.ApiObjectVisitorExt">ApiObjectVisitorExt</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div>Register post-build visitor extensions.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*visitors:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.ext.ApiObjectVisitorExt.html" class="internal-link" title="pydocspec.ext.ApiObjectVisitorExt">ApiObjectVisitorExt</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr><a href="pydocspec.ext.ApiObjectVisitorExt.html" class="internal-link" title="pydocspec.ext.ApiObjectVisitorExt">ApiObjectVisitorExt</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -271,7 +299,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">extname</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/ext/__init__.py#L100">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/ext/__init__.py#L162">
       
       (source)
     </a>
@@ -294,7 +322,7 @@
   <div class="functionHeader">
     @<a href="https://docs.python.org/3/library/functions.html#staticmethod" class="intersphinx-link">staticmethod</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">_setattr_extname_on_objs</span>(obs, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/ext/__init__.py#L103">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/ext/__init__.py#L165">
       
       (source)
     </a>
@@ -316,7 +344,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_builder</span>: <code><a href="pydocspec.astbuilder.Builder.html" class="internal-link" title="pydocspec.astbuilder.Builder">astbuilder.Builder</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/cab357b44a4080730a03b8f2d39d8a66b3e08303/pydocspec/ext/__init__.py#L101">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/ext/__init__.py#L163">
       
       (source)
     </a>
@@ -338,7 +366,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.2.2.dev0 at 2022-03-11 04:15:05.
+    22.3.0.dev0 at 2022-03-24 17:55:01.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
