@@ -7,16 +7,16 @@ Handles `classmethod()` and `staticmethod()` like::
         ...
     f = staticmethod(f)
 
-It removes the Data object and mark the Function f() as a static method.
+It removes the Variable object and mark the Function f() as a static method.
 """
 
 # Duplicate handling names rationale: 
 # - Special handling for duplicates inside TYPE_CHECKING/sys.version_info min?
 # - Handle the homogeneous types duplicates first
-#   - Duplicates Data: 
+#   - Duplicates Variable: 
 #       - Duplicates constant: warns
-#       - Duplicates class/instance variables: Keep the first Data object, 
-#           update the infos (value/datatype) with infos present in other Data objects and remove them from the tree.
+#       - Duplicates class/instance variables: Keep the first Variable object, 
+#           update the infos (value/datatype) with infos present in other Variable objects and remove them from the tree.
 #           - Instance varaible overrides class variable -> becomes instance varaible.
 #       - Duplicate module var: object defined after wins.
 #   - Duplicates Function:
@@ -26,17 +26,17 @@ It removes the Data object and mark the Function f() as a static method.
 #   - Duplicates Class:
 #       - Object defined after wins.
 # - Handle heterogeneous types duplicates
-#       - Data overrides Function: 
-#           - Check if Data is:
+#       - Variable overrides Function: 
+#           - Check if Variable is:
 #               - name=staticmethod(name) OR name=classmethod(name):
 #                   -> If context is a Class, transform the Function into static/class method.
 #               - 
 #           - We might want to use the 
 #             astroid inferrence system here to be more precise.
-#       - Data/Class/Indirection overrides sub-Module:
+#       - Variable/Class/Indirection overrides sub-Module:
 #             -> sub-Module is shadowed by
 # - Handle heterogeneous types override inherited members.
-#       - Data overrides a inherited Function:
+#       - Variable overrides a inherited Function:
 #           - The data is probably on bound method, so transform it in Function. 
 
 
@@ -85,16 +85,16 @@ def _handleOldSchoolMethodDecoration(self:AstVisitorExt,
             return True
     return False
 
-# def _warnsConstantAssigmentOverride(self, obj: _model.Data, lineno_offset: int) -> None:
+# def _warnsConstantAssigmentOverride(self, obj: _model.Variable, lineno_offset: int) -> None:
 #     obj.warn(f'Assignment to constant "{obj.name}" overrides previous assignment '
 #                 f'at line {obj.location.lineno}, the original value will not be part of the docs.', 
 #                         lineno_offset=lineno_offset)
                         
-# def _warnsConstantReAssigmentInInstance(self, obj: _model.Data, lineno_offset: int = 0) -> None:
+# def _warnsConstantReAssigmentInInstance(self, obj: _model.Variable, lineno_offset: int = 0) -> None:
 #     obj.warn(f'Assignment to constant "{obj.name}" inside an instance is ignored, this value will not be part of the docs.', 
 #                     lineno_offset=lineno_offset)
 
-    # def _handleConstant(self, obj: _model.Data, value: Optional[astroid.nodes.NodeNG], lineno: int) -> None:
+    # def _handleConstant(self, obj: _model.Variable, value: Optional[astroid.nodes.NodeNG], lineno: int) -> None:
         
     #     if is_attribute_overridden(obj, value):
             
@@ -126,7 +126,7 @@ def _handleOldSchoolMethodDecoration(self:AstVisitorExt,
     #             # Simply ignore it because it's duplication of information.
     #             obj.datatype_ast = astroidutils.infer_type(value) if value else None
     
-    # def _handleAlias(self, obj: _model.Data, value: Optional[astroid.nodes.NodeNG], lineno: int) -> None:
+    # def _handleAlias(self, obj: _model.Variable, value: Optional[astroid.nodes.NodeNG], lineno: int) -> None:
     #     """
     #     Must be called after obj.setLineNumber() to have the right line number in the warning.
 

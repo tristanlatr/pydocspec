@@ -1,5 +1,5 @@
 """
-Just like the `docspec` classes, but with ast attributes and few goodies added such that efficient 
+Like the `docspec` classes, but with ast attributes and few goodies added such that efficient 
 processing can be done on these objects afterwards.
 
 :note: This part of the model is never instanciated as-is, the pydocspec.* classes are always used. 
@@ -25,16 +25,12 @@ processing can be done on these objects afterwards.
 
 from typing import Any, Callable, Iterator, List, Optional, Sequence, Tuple, Union, Iterable, ClassVar, cast, TYPE_CHECKING, overload
 import astroid.nodes
-import dataclasses
-import attr
+
 import logging
-import sys
 from pathlib import Path
 import types
 
-import docspec
-
-from . import genericvisitor, visitors
+from . import _docspec, visitors
 from .dupsafedict import DuplicateSafeDict
 from .dottedname import DottedName
 
@@ -44,8 +40,6 @@ if TYPE_CHECKING:
     import pydocspec
     import astroid.nodes
 
-_REQUIRED_AT_INIT: Any = object()
-# Sentinel for values that should be initiated at init time.
 
 def tree_repr(obj: 'pydocspec.ApiObject', 
               full_name:bool=False, 
@@ -54,23 +48,13 @@ def tree_repr(obj: 'pydocspec.ApiObject',
     _repr_vis.walk(obj)
     return _repr_vis.repr.strip()
 
-# Remove when https://github.com/NiklasRosenstein/docspec/pull/50 is merged.
-@dataclasses.dataclass(repr=False, init=False)
-class _DefaultDocstring(str):
-  location: Optional['Location']
-  content: str = cast(str, property(lambda self: str(self)))
-  def __new__(cls, content: str, location: Optional['Location']) -> 'Docstring':
-    obj = super().__new__(cls, content)
-    obj.__dict__['location'] = location
-    return obj # type:ignore [return-value]
-
 __docformat__ = 'restructuredtext'
 __all__ = [
   'Location',
   'Decoration',
   'Argument',
   'ApiObject',
-  'Data',
+  'Variable',
   'Function',
   'Class',
   'Module',
@@ -80,7 +64,7 @@ __all__ = [
 
 # BASE MODEL CLASSES
 
-Location = docspec.Location
+Location = _docspec.Location
 
 class CanTriggerWarnings:
 
@@ -124,28 +108,30 @@ class GetMembersMixin:
             return ob
         return self[parts[0]][parts[1:]]
 
-@attr.s(repr=False)
 class TreeRoot:
     # :note: Do not intanciate a new `TreeRoot` manually with ``TreeRoot()``, first create a factory, in one line it gives::
     #     new_root = pydocspec.specfactory.Factory().TreeRoot()
 
-    root_modules: List['pydocspec.Module'] = attr.ib(factory=list, init=False)
-    """
-    The root modules of the tree.
-    """
+    def __init__(self) -> None:
+        
+        self.root_modules: List['pydocspec.Module'] = []
+        """
+        The root modules of the tree.
+        """
     
-    all_objects: DuplicateSafeDict[str, 'pydocspec.ApiObject'] = attr.ib(factory=DuplicateSafeDict, init=False)
-    """
-    All objects of the tree in a mapping ``full_name`` -> `ApiObject`.
-    
-    :note: Special care is taken in order no to shadow objects with duplicate names, see `DuplicateSafeDict`.
-    """
+        self.all_objects: DuplicateSafeDict[str, 'pydocspec.ApiObject'] = DuplicateSafeDict()
+        """
+        All objects of the tree in a mapping ``full_name`` -> `ApiObject`.
+        
+        :note: Special care is taken in order no to shadow objects with duplicate names, see `DuplicateSafeDict`.
+        """
 
     # This class variable is set from Factory itself.
     factory: ClassVar['specfactory.Factory'] = cast('specfactory.Factory', None)
     """
     The factory used to create this collection of objects.
     """
+
     def __str__(self) -> str:
         return self.__repr__()
     def __repr__(self) -> str:
@@ -198,39 +184,29 @@ class TreeRoot:
             self.add_object(child, ob)
 
 
-def _enforce_required_at_init_fields(self: 'ApiObject') -> None:
-    # enforce that all _spec_fields that are initialized with _REQUIRED_AT_INIT
-    # must be passed at at init time.
-    for f in self._spec_fields:
-        if getattr(self, f) == _REQUIRED_AT_INIT:
-            raise TypeError(f"{self.__class__.__name__}.__init__() missing required keyword argument: {f!r}")
-
-# must not use dataclasses
-class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
+class ApiObject(_docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
 
     _spec_fields: Tuple[str, ...] = (
         # defaults
         "name", "location", "docstring", 
         # added
-        ) # root is not an object field
+        ) # parent and root are not an object field
+    
+    # help mypy
+    parent: Optional[Union['Class', 'Module']]
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-
-        _enforce_required_at_init_fields(self)
-        
-        # help mypy
-        self.parent: Optional[Union['Class', 'Module']]
-        self.location: Location
+    def _init_attribs(self) -> None:
+        super()._init_attribs()
 
         # This attribute needs to be manually set after the init time of the object.
         self.root: TreeRoot = cast(TreeRoot, NotImplemented)
         """
         `TreeRoot` instance holding references to all objects in the tree.
         """
-    
+
     def __str__(self) -> str:
         return self.__repr__()
+    
     def __repr__(self) -> str:
         return (f"<{type(self).__name__}:{self.full_name} at l.{self.location.lineno}>")
     
@@ -342,7 +318,7 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
     def get_member(self, name: str) -> Optional['pydocspec.ApiObject']:
         """
         Retrieve a member from the API object. This will always return `None` for
-        objects that don't support members (eg. `Function` and `Data`).
+        objects that don't support members (eg. `Function` and `Variable`).
 
         :note: Implementation relies on `ApiObject.root.all_objects` such that
             it will return the last added object in case of duplicate names.
@@ -368,8 +344,8 @@ class ApiObject(docspec.ApiObject, CanTriggerWarnings, GetMembersMixin):
              full_name:bool=False, fields:Optional[Sequence[str]]=None) -> str:
         return tree_repr(self, full_name=full_name, fields=fields)
 
-@dataclasses.dataclass(repr=False)
-class Data(docspec.Data, ApiObject):
+
+class Variable(_docspec.Variable, ApiObject):
     """
     Represents a variable assignment.
     """
@@ -380,19 +356,23 @@ class Data(docspec.Data, ApiObject):
         # added
         "datatype_ast", "value_ast", "is_type_guarged",
     ) + ApiObject._spec_fields
-    
-    datatype_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
-    value_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
-    
-    is_type_guarged: bool = False
 
-    # def __post_init__(self) -> None:
-    #     super().__post_init__()
-    #     # help mypy
-    #     self.parent: Union['Class', 'Module']
+    def __init__(self, *args: Any, 
+                 datatype_ast: Optional[astroid.nodes.NodeNG],
+                 value_ast: Optional[astroid.nodes.NodeNG],
+                 is_type_guarged: bool = False,
+                 **kwargs: Any) -> None:
+        
+        super().__init__(*args, **kwargs)
+    
+        self.datatype_ast: Optional[astroid.nodes.NodeNG] = datatype_ast
 
-@dataclasses.dataclass(repr=False)
-class Indirection(docspec.Indirection, ApiObject):
+        self.value_ast: Optional[astroid.nodes.NodeNG] = value_ast
+    
+        self.is_type_guarged: bool = is_type_guarged
+
+
+class Indirection(_docspec.Indirection, ApiObject):
     """
     Represents an imported name. It can be used to properly 
     find the full name target of a link written with a local name. 
@@ -400,17 +380,30 @@ class Indirection(docspec.Indirection, ApiObject):
 
     _spec_fields = ("target", "is_type_guarged") + ApiObject._spec_fields
 
-    is_type_guarged: bool = False
+    def __init__(self, *args: Any, 
+                 is_type_guarged: bool = False,
+                 **kwargs: Any ) -> None:
 
-@dataclasses.dataclass(repr=False)
-class Class(docspec.Class, ApiObject):
+        super().__init__(*args, **kwargs)
+
+        self.is_type_guarged: bool = is_type_guarged
+
+
+class Class(_docspec.Class, ApiObject):
     """
     Represents a class definition.
     """
+
+    def __init__(self, *args: Any, 
+                 bases_ast: Optional[List[astroid.nodes.NodeNG]],
+                 is_type_guarged: bool = False, 
+                 _ast: Optional[astroid.nodes.ClassDef] = None, 
+                 **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
     
-    bases_ast: Optional[List[astroid.nodes.NodeNG]] = _REQUIRED_AT_INIT
-    is_type_guarged: bool = False
-    _ast: Optional[astroid.nodes.ClassDef] = None # is it necessary, yeah.
+        self.bases_ast: Optional[List[astroid.nodes.NodeNG]] = bases_ast
+        self.is_type_guarged: bool = is_type_guarged
+        self._ast: Optional[astroid.nodes.ClassDef] = _ast # is it necessary, yeah.
 
     _spec_fields = (
         # base fields
@@ -425,17 +418,14 @@ class Class(docspec.Class, ApiObject):
         "is_type_guarged", 
         "_ast") + ApiObject._spec_fields # _ast should not be part of fields
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
+    # help mypy
+    decorations: Optional[List['Decoration']] # type:ignore[assignment]
+    parent: Union['Class', 'Module']
+    members: List['ApiObject'] #type:ignore 
+    # the real type is Union['Variable', 'Function', 'Class', 'Indirection']
 
-        # help mypy
-        self.decorations: Optional[List['Decoration']] # type:ignore[assignment]
-        self.parent: Union['Class', 'Module']
-        self.members: List['ApiObject'] #type:ignore 
-        # the real type is Union['Data', 'Function', 'Class', 'Indirection']
 
-@dataclasses.dataclass(repr=False)
-class Function(docspec.Function, ApiObject):
+class Function(_docspec.Function, ApiObject):
     """
     Represents a function definition.
     """
@@ -450,27 +440,37 @@ class Function(docspec.Function, ApiObject):
                     "return_type_ast", 
                     "is_type_guarged") + ApiObject._spec_fields
 
-    return_type_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
-    is_type_guarged: bool = False
+    def __init__(self, *args: Any,
+                 return_type_ast: Optional[astroid.nodes.NodeNG], 
+                 is_type_guarged: bool = False, 
+                 **kwargs: Any) -> None:
+        
+        super().__init__(*args, **kwargs)
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
+        self.return_type_ast: Optional[astroid.nodes.NodeNG] = return_type_ast
+        self.is_type_guarged: bool = is_type_guarged
 
-        # help mypy
-        self.decorations: Optional[List['Decoration']] # type:ignore
-        self.args: List['Argument'] # type:ignore
-        self.parent: Union[Class, 'Module']
+    # help mypy
+    decorations: Optional[List['Decoration']] # type:ignore
+    args: List['Argument'] # type:ignore
+    parent: Union[Class, 'Module']
 
-@dataclasses.dataclass(repr=False)
-class Argument(docspec.Argument, CanTriggerWarnings):
+
+class Argument(_docspec.Argument, CanTriggerWarnings):
     """
     Represents a `Function` argument.
     """
-    datatype_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
-    default_value_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
+    def __init__(self, *args: Any,
+                 datatype_ast: Optional[astroid.nodes.NodeNG], 
+                 default_value_ast: Optional[astroid.nodes.NodeNG], 
+                 **kwargs: Any) -> None:
+        
+        super().__init__(*args, **kwargs)
+        self.datatype_ast: Optional[astroid.nodes.NodeNG] = datatype_ast
+        self.default_value_ast: Optional[astroid.nodes.NodeNG] = default_value_ast
 
-@dataclasses.dataclass(repr=False)
-class Decoration(docspec.Decoration, CanTriggerWarnings):
+
+class Decoration(_docspec.Decoration, CanTriggerWarnings):
     """
     Represents a decorator on a `Class` or `Function`.
 
@@ -488,78 +488,95 @@ class Decoration(docspec.Decoration, CanTriggerWarnings):
 
     """
 
-    name_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
-    """The name of the deocration as AST, this can be any kind of expression."""
+    def __init__(self, *args: Any,
+                 name_ast: Optional[astroid.nodes.NodeNG], 
+                 expr_ast: Optional[astroid.nodes.NodeNG], 
+                 **kwargs: Any) -> None:
+        
+        super().__init__(*args, **kwargs)
+        self.name_ast: Optional[astroid.nodes.NodeNG] = name_ast
+        """The name of the deocration as AST, this can be any kind of expression."""
 
-    expr_ast: Optional[astroid.nodes.NodeNG] = _REQUIRED_AT_INIT
-    """The full decoration AST's"""    
+        self.expr_ast: Optional[astroid.nodes.NodeNG] = expr_ast
+        """The full decoration AST's"""    
 
-@dataclasses.dataclass(repr=False, init=False)
-class Docstring(_DefaultDocstring, CanTriggerWarnings):
+class Docstring(_docspec.Docstring, CanTriggerWarnings):
     ...
 
-@dataclasses.dataclass(repr=False)
-class Module(docspec.Module, ApiObject):
+
+class Module(_docspec.Module, ApiObject):
     """
     Represents a module, basically a named container for code/API objects. Modules may be nested in other modules.
     """
 
     _spec_fields = ("members",  "is_package", "is_c_module") + ApiObject._spec_fields
 
-    is_package: bool = False
-    """
-    Whether this module is a package.
-    """
+    def __init__(self, *args: Any,
+                 is_package: bool = False,
+                 is_c_module: bool = False, 
+                 source_path: Optional[Path] = None, 
+                 _py_mod: Optional[types.ModuleType] = None, 
+                 _py_string: Optional[str] = None, 
+                 **kwargs: Any) -> None:
+        
+        super().__init__(*args, **kwargs)
+        self.is_package: bool = is_package
+        """
+        Whether this module is a package.
+        """
 
-    is_c_module: bool = False
-    """
-    Whether this module has been imported from a python C extension.
-    """
+        self.is_c_module: bool = is_c_module
+        """
+        Whether this module has been imported from a python C extension.
+        """
 
-    source_path: Optional[Path] = None
-    """
-    Module source path. 
-    `None` if the module was converted from `docspec`.
-    """
+        self.source_path: Optional[Path] = source_path
+        """
+        Module source path. 
+        `None` if the module was converted from `docspec`.
+        """
 
-    dunder_all: Optional[List[str]] = None # Need to be present in the lower level model because it's used by the builder for processing wildcard imports statements.
-    """The module variable __all__ as list of string."""
+        self._py_mod: Optional[types.ModuleType] = _py_mod
+        """
+        The live module this object has been created from. 
+        `None` for classes coming from AST.
+        """
 
-    _ast: Optional[astroid.nodes.Module] = None
-    """
-    The whole module's AST. 
-    Can be used in post-processes to compute any kind of supplementary informaions not devirable from objects attributes.
+        self._py_string: Optional[str] = _py_string
+        """
+        The module's string. Only set for modules built from string. `None` otherwise.
+        """
     
-    Only set when using our own astbuilder. `None` if the module was converted from `docspec`.
-    """
+    def _init_attribs(self) -> None:
+        super()._init_attribs()
 
-    _py_mod: Optional[types.ModuleType] = None
-    """
-    The live module this object has been created from. 
-    `None` for classes coming from AST.
-    """
+        # Attributes set later
+        self._ast: Optional[astroid.nodes.Module] = None
+        """
+        The whole module's AST. 
+        Can be used in post-processes to compute any kind of supplementary informations not devirable from objects attributes.
+        
+        Only set when using our own astbuilder. `None` if the module was converted from `docspec`.
+        """
 
-    _py_string: Optional[str] = None
-    """
-    The module's string. Only set for modules built from string. `None` otherwise.
-    """
+        self.dunder_all: Optional[List[str]] = None # Need to be present in the lower level model because it's used by the builder for processing wildcard imports statements.
+        """The module variable __all__ as list of string."""
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
 
-        # help mypy
-        self.parent: Optional['Module']
-        self.members: List['ApiObject'] # type:ignore[assignment]
+    # help mypy
+    parent: Optional['Module']
+    members: List['ApiObject'] # type:ignore[assignment]
     
     def __repr__(self) -> str:
         return (f"<{type(self).__name__}:{self.full_name} at {self.location.filename}, l.{self.location.lineno}>")
 
-HasMembers = (Module, Class)
+
+HasMembers = _docspec.HasMembers
 """
 Alias to use with `isinstance`()
 """
 
-Inheritable = (Data, Function) 
+Inheritable = _docspec.Inheritable
 """
 Alias to use with `isinstance`()
 """

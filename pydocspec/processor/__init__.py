@@ -34,11 +34,11 @@ class _MroFromAstroidSetter(visitors.ApiObjectVisitorExt):
 
 class _DuplicateWhoShadowsWhoHandling(visitors.ApiObjectVisitorExt):
     # Duplicate objects handling: (in post-build)
-    # - For duplicate Data object (pretty common), we unify the information present in all Data objects
+    # - For duplicate Variable object (pretty common), we unify the information present in all Variable objects
     #   under a single object. Information denifed after wins, but we only keep the first object created.
     #   If an instance varaible shadows a class variable, it will be considered as instance variable.
 
-    # - In a class, a Data definition sould not shadow another object that is not a Data, 
+    # - In a class, a Variable definition sould not shadow another object that is not a Variable, 
     #       even if the object is inherited. So if that happens, it's most probably a bound method,
     #       it will simply be ignored (we can leave a warning).
     # - A submodule can be shadowed by a another name by the same name in the package's __int__.py file.
@@ -73,23 +73,6 @@ class _DocSourcesSetter(visitors.ApiObjectVisitorExt):
     when = visitors.ApiObjectVisitorExt.When.AFTER
     def unknown_depart(self, ob: pydocspec.ApiObject) -> None:
         ob.doc_sources = data_attr.doc_sources(ob)
-
-class _DefaultLocationSetter(visitors.ApiObjectVisitorExt):
-    when = visitors.ApiObjectVisitorExt.When.BEFORE
-
-    def unknown_visit(self, ob: _model.ApiObject) -> None:
-        # Location attribute should be always set from the builder, though.
-        # Make the location attribute non-optional, reduces annoyance for modules 
-        # comming from c-extensions.
-        if ob.location is None:
-            ob.location = ob.root.factory.Location(None, lineno=0) # type:ignore[unreachable]
-        if ob.location.lineno is None:
-            ob.location.lineno = 0 # type:ignore[unreachable]
-        if ob.location.filename is None:
-            ob.location.filename = ob.module.location.filename
-        if ob.location.filename is None:
-            ob.location.filename = '<unknown>'
-
 
 class PostBuildVisitor1(visitors.ApiObjectVisitor):
 
@@ -126,7 +109,7 @@ class PostBuildVisitor1(visitors.ApiObjectVisitor):
         ob.is_staticmethod = func_attr.is_staticmethod(ob)
         ob.is_abstractmethod = func_attr.is_abstractmethod(ob)
     
-    def visit_Data(self, ob: pydocspec.Data) -> None:
+    def visit_Variable(self, ob: pydocspec.Variable) -> None:
         ob.is_instance_variable = data_attr.is_instance_variable(ob)
         ob.is_class_variable = data_attr.is_class_variable(ob)
         ob.is_module_variable = data_attr.is_module_variable(ob)
@@ -190,11 +173,7 @@ class Processor:
 
         _post_build_visitor0 = PostBuildVisitor0()
 
-        _post_build_visitor0.extensions.add(_DefaultLocationSetter, 
-                                            _DuplicateWhoShadowsWhoHandling, 
-        # order is important here other wise we can get a Type error 
-        # when warning in stuff that don't have a lineno, 
-        # namely classes comming from c-extensions.
+        _post_build_visitor0.extensions.add(_DuplicateWhoShadowsWhoHandling, 
                                             _MroFromAstroidSetter, )
         
         post_build_visitor = PostBuildVisitor1()

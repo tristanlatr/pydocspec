@@ -1,5 +1,5 @@
 """
-Helpers to populate attributes of `Data` instances. 
+Helpers to populate attributes of `Variable` instances. 
 """
 
 import copy
@@ -10,27 +10,27 @@ from pydocspec import _model, astroidutils
 
 from . import helpers
 
-def is_instance_variable(ob: _model.Data) -> bool:
+def is_instance_variable(ob: _model.Variable) -> bool:
     """INSTANCE_VARIABLE in ob.semantic_hints?"""
-    return _model.Data.Semantic.INSTANCE_VARIABLE in ob.semantic_hints
+    return _model.Variable.Semantic.INSTANCE_VARIABLE in ob.semantic_hints
 
-def is_class_variable(ob: _model.Data) -> bool:
+def is_class_variable(ob: _model.Variable) -> bool:
     """CLASS_VARIABLE in semantic_hints?"""
-    return _model.Data.Semantic.CLASS_VARIABLE in ob.semantic_hints
+    return _model.Variable.Semantic.CLASS_VARIABLE in ob.semantic_hints
 
-def is_module_variable(ob: _model.Data) -> bool:
+def is_module_variable(ob: _model.Variable) -> bool:
     """check if the parent of this data is a module."""
     return isinstance(ob.parent, _model.Module)
 
-def is_alias(ob: _model.Data) -> bool:
+def is_alias(ob: _model.Variable) -> bool:
     """check if the value of this data is an alias to another name."""
     return astroidutils.is_name(ob.value_ast)
 
-def is_constant(ob: pydocspec.Data) -> bool: # still uses expand_name
+def is_constant(ob: pydocspec.Variable) -> bool: # still uses expand_name
     """a constant is a all caps varaible or if using Final qualifier, uses name resolution."""
     return ob.name.isupper() or helpers.is_using_typing_final(ob.datatype_ast, ob.parent)
 
-def is_type_alias(ob: pydocspec.Data) -> bool:
+def is_type_alias(ob: pydocspec.Variable) -> bool:
     if ob.value_ast is not None:
         if ob.datatype_ast is not None:
             if helpers.is_using_annotations(ob.datatype_ast, ('typing.TypeAlias'), ob):
@@ -43,7 +43,7 @@ def is_type_alias(ob: pydocspec.Data) -> bool:
             return True
     return False
 
-def process_aliases(ob: pydocspec.Data) -> None:
+def process_aliases(ob: pydocspec.Variable) -> None:
     """if the data is an alias, try to resolve it to an apiobject and add `ob` to the 
     list of aliases of the targeted object, uses name resolution."""
     if ob.is_alias:

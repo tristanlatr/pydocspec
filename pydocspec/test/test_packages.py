@@ -4,7 +4,7 @@ import logging
 
 import pydocspec
 from pydocspec import visitors
-from . import load_python_modules_param, CapSys
+from . import CapLog, load_python_modules_param, CapSys
 
 import astroid.builder
 import astroid.manager
@@ -141,7 +141,7 @@ def test_cyclic_imports(load_python_modules: Callable[[Sequence[Path]], pydocspe
 # We don't even try to resolve wildcard imports in the case of a cycle,
 # the value is deffered to astroid.
 
-def test_cyclic_imports_all(caplog) -> None:
+def test_cyclic_imports_all(caplog: CapLog) -> None:
     """
     Test whether names are resolved correctly when we have import cycles.
     The test package contains module 'a' that defines class 'A' and module 'b'
@@ -169,12 +169,12 @@ def test_cyclic_imports_all(caplog) -> None:
 | - Module 'b' at l.0
 | | - Indirection 'A' at l.1, target: 'cyclic_imports_all.a.A'
 | | - Class 'B' at l.3
-| | | - Data 'a' at l.4, datatype: 'A', semantic_hints: [<Semantic.CLASS_VARIABLE: 1>]
+| | | - Variable 'a' at l.4, datatype: 'A', semantic_hints: [<VariableSemantic.CLASS_VARIABLE: 1>]
 | - Module 'a' at l.0
 | | - Indirection 'A' at l.1, target: 'cyclic_imports_all.b.A'
 | | - Indirection 'B' at l.1, target: 'cyclic_imports_all.b.B'
 | | - Class 'A' at l.3
-| | | - Data 'b' at l.4, datatype: 'B', semantic_hints: [<Semantic.CLASS_VARIABLE: 1>]
+| | | - Variable 'b' at l.4, datatype: 'B', semantic_hints: [<VariableSemantic.CLASS_VARIABLE: 1>]
 """
     assert mod_a.expand_name('B') == 'cyclic_imports_all.b.B'
     assert mod_b.expand_name('A') == 'cyclic_imports_all.a.A'
@@ -183,7 +183,7 @@ def test_cyclic_imports_all(caplog) -> None:
     assert isinstance(mod_b["B"], pydocspec.Class)
 
 # Works only with pydocspec.astbuilder
-def test_imports_all_many_level(caplog) -> None:
+def test_imports_all_many_level(caplog: CapLog) -> None:
     caplog.set_level('WARNING', 'pydocspec')
     system = pydocspec.load_python_modules([testpackages / 'imports_all_many_levels'])
     # assert not caplog.text, caplog.text
@@ -208,7 +208,7 @@ def test_imports_all_many_level(caplog) -> None:
     assert pack.expand_name('l2') == 'imports_all_many_levels.level1.level2.l2'
 
 # Works only with pydocspec.astbuilder
-def test_cyclic_imports_all_many_level(caplog) -> None:
+def test_cyclic_imports_all_many_level(caplog: CapLog) -> None:
 
     system = pydocspec.load_python_modules([testpackages / 'cyclic_imports_all_many_levels'])
     assert isinstance(system.all_objects['cyclic_imports_all_many_levels'], pydocspec.Module)

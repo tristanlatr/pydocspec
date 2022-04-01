@@ -13,13 +13,13 @@ def test_visitors(capsys:CapSys, root1: pydocspec.TreeRoot) -> None:
     assert captured == """:0 - Module: a
 | :1 - Indirection: Union
 | :2 - Class: foo
-| | :4 - Data: val
-| | :5 - Data: alias
+| | :4 - Variable: val
+| | :5 - Variable: alias
 | | :6 - Function: __init__
-| :8 - Data: saila
+| :8 - Variable: saila
 """
 
-    predicate = lambda ob: not isinstance(ob, pydocspec.Data) # removes any Data entries
+    predicate = lambda ob: not isinstance(ob, pydocspec.Variable) # removes any Variable entries
     filter_visitor = FilterVisitor(predicate)
     module.walk(filter_visitor)
 
@@ -39,10 +39,10 @@ def test_visitors2(capsys: CapSys, root3: pydocspec.TreeRoot) -> None:
     assert captured == """:0 - Module: a
 | :1 - Indirection: Union
 | :2 - Class: foo
-| | :4 - Data: _val
-| | :5 - Data: _alias
+| | :4 - Variable: _val
+| | :5 - Variable: _alias
 | | :6 - Function: __init__
-| :8 - Data: saila
+| :8 - Variable: saila
 """
     # removes entries starting by one underscore that are not dunder methods, aka private API.
     predicate = lambda ob: not ob.name.startswith("_") or ob.name.startswith("__") and ob.name.endswith("__")
@@ -55,7 +55,7 @@ def test_visitors2(capsys: CapSys, root3: pydocspec.TreeRoot) -> None:
 | :1 - Indirection: Union
 | :2 - Class: foo
 | | :6 - Function: __init__
-| :8 - Data: saila
+| :8 - Variable: saila
 """
 
 def test_visitors3(capsys: CapSys, root1: pydocspec.TreeRoot, root4:pydocspec.TreeRoot) -> None:
@@ -66,10 +66,10 @@ def test_visitors3(capsys: CapSys, root1: pydocspec.TreeRoot, root4:pydocspec.Tr
     assert captured == """:0 - Module: a
 | :1 - Indirection: Union
 | :2 - Class: foo
-| | :4 - Data: val
-| | :5 - Data: alias
+| | :4 - Variable: val
+| | :5 - Variable: alias
 | | :6 - Function: __init__
-| :8 - Data: saila
+| :8 - Variable: saila
 """
     assert module.expand_name('saila') == 'a.foo.val'
 
@@ -82,26 +82,26 @@ def test_visitors3(capsys: CapSys, root1: pydocspec.TreeRoot, root4:pydocspec.Tr
     captured = capsys.readouterr().out
     assert captured == """:0 - Module: a
 | :1 - Indirection: Union
-| :8 - Data: saila
+| :8 - Variable: saila
 """
     assert module.expand_name('saila') == 'foo.alias'
 
-    module.get_member('saila').add_siblings(root4.all_objects['a.f'])
+    module['saila'].add_siblings(root4.all_objects['a.f'])
 
     module.walk(visitor)
     captured = capsys.readouterr().out
     assert captured == """:0 - Module: a
 | :1 - Indirection: Union
-| :8 - Data: saila
-| :0 - Function: f
+| :8 - Variable: saila
+| :2 - Function: f
 """
 
 def test_CustomizableVisitor(capsys: CapSys, root1: pydocspec.TreeRoot) -> None:
 
-    def _unknown_visit(self, ob: 'pydocspec.ApiObject') -> None:
+    def _unknown_visit(self:visitors.ApiObjectVisitor, ob: 'pydocspec.ApiObject') -> None:
         name = self.__class__.__name__ + ' '*(20-len(self.__class__.__name__))
         print(f'{name}.visit({ob.full_name})')
-    def _unknown_departure(self, ob: 'pydocspec.ApiObject') -> None:
+    def _unknown_departure(self:visitors.ApiObjectVisitor, ob: 'pydocspec.ApiObject') -> None:
         name = self.__class__.__name__ + ' '*(20-len(self.__class__.__name__))
         print(f'{name}.depart({ob.full_name})')
 
@@ -121,7 +121,7 @@ def test_CustomizableVisitor(capsys: CapSys, root1: pydocspec.TreeRoot) -> None:
     
     
     module = root1.root_modules[0]
-    ext = genericvisitor.VisitorExtensionList()
+    ext: genericvisitor.VisitorExtensionList[pydocspec.ApiObject] = genericvisitor.VisitorExtensionList()
     ext.add(Before(), After())
     module.walkabout(MainVistor(ext))
     captured = capsys.readouterr().out
@@ -130,10 +130,10 @@ def test_CustomizableVisitor(capsys: CapSys, root1: pydocspec.TreeRoot) -> None:
     # :0 - Module: a
     # | :1 - Indirection: Union
     # | :2 - Class: foo
-    # | | :4 - Data: val
-    # | | :5 - Data: alias
+    # | | :4 - Variable: val
+    # | | :5 - Variable: alias
     # | | :6 - Function: __init__
-    # | :8 - Data: saila
+    # | :8 - Variable: saila
 
     assert captured == """\
 Before              .visit(a)

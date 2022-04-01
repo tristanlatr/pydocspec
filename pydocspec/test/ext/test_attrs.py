@@ -24,14 +24,14 @@ def test_attrs_class() -> None:
     attr2 = mod['Attrs.l']
     attr3 = mod['Attrs.dev']
     attr4 = mod['Attrs.stg']
-    # attr5 = mod['Attrs.name'] # not working right now
+    attr5 = mod['Attrs.name'] # not working right now
 
     assert isinstance(klass, AttrsClassMixin)
     assert isinstance(attr1, AttrsDataMixin)
     assert isinstance(attr2, AttrsDataMixin)
     assert isinstance(attr3, AttrsDataMixin)
     assert isinstance(attr4, AttrsDataMixin)
-    # assert isinstance(attr5, AttrsDataMixin)
+    assert isinstance(attr5, AttrsDataMixin)
 
     assert klass.attrs_decoration is not None
     assert klass.uses_attrs_auto_attribs == True
@@ -40,4 +40,4 @@ def test_attrs_class() -> None:
     assert attr2.is_attrs_attribute == True
     assert attr3.is_attrs_attribute == False
     assert attr4.is_attrs_attribute == False
-    # assert attr5.is_attrs_attribute == False
+    assert attr5.is_attrs_attribute == False

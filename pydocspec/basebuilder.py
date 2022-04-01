@@ -6,15 +6,15 @@ import inspect
 import attr
 import astroid.nodes
 
-from . import _model
-import docspec
+from . import _docspec, _model
 
 if TYPE_CHECKING:
     import pydocspec
+    import docspec
     from pydocspec import specfactory
 
-ModuleT = TypeVar('ModuleT')
-ApiObjectT = TypeVar('ApiObjectT', bound=docspec.ApiObject)
+ModuleT = TypeVar('ModuleT', bound=Union[_docspec.Module, 'docspec.Module'])
+ApiObjectT = TypeVar('ApiObjectT', bound=Union[_docspec.ApiObject, 'docspec.ApiObject'])
 
 @attr.s(auto_attribs=True, frozen=True)
 class MarkedTreeWalkingState(Generic[ApiObjectT]):
@@ -76,7 +76,7 @@ class BaseCollector(Generic[ModuleT, ApiObjectT]):
         # Note: the stack is initiated with a None value.
         ctx = self.current
         if ctx is not None: 
-            assert isinstance(ctx, docspec.HasMembers), (f"Cannot add new object ({ob!r}) inside {ctx.__class__.__name__}. "
+            assert hasattr(ctx, 'members'), (f"Cannot add new object ({ob!r}) inside {ctx.__class__.__name__}. "
                                                            f"{ctx!r} must be a class or a module.")
         self.stack.append(ctx) #type:ignore[arg-type]
         self.current = ob
@@ -154,11 +154,11 @@ def parameter2argument(param: inspect.Parameter, factory: 'specfactory.Factory')
     Convert a `inspect.Parameter` instance to a `pydocspec.Argument`.
     """
     kindmap = {
-        inspect.Parameter.POSITIONAL_ONLY: docspec.Argument.Type.POSITIONAL_ONLY,
-        inspect.Parameter.POSITIONAL_OR_KEYWORD: docspec.Argument.Type.POSITIONAL,
-        inspect.Parameter.VAR_POSITIONAL: docspec.Argument.Type.POSITIONAL_REMAINDER,
-        inspect.Parameter.KEYWORD_ONLY: docspec.Argument.Type.KEYWORD_ONLY,
-        inspect.Parameter.VAR_KEYWORD: docspec.Argument.Type.KEYWORD_REMAINDER,
+        inspect.Parameter.POSITIONAL_ONLY: _docspec.Argument.Type.POSITIONAL_ONLY,
+        inspect.Parameter.POSITIONAL_OR_KEYWORD: _docspec.Argument.Type.POSITIONAL,
+        inspect.Parameter.VAR_POSITIONAL: _docspec.Argument.Type.POSITIONAL_REMAINDER,
+        inspect.Parameter.KEYWORD_ONLY: _docspec.Argument.Type.KEYWORD_ONLY,
+        inspect.Parameter.VAR_KEYWORD: _docspec.Argument.Type.KEYWORD_REMAINDER,
     }
 
     if param.annotation != inspect.Signature.empty:

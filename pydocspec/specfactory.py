@@ -37,7 +37,7 @@ class GenericFactory:
             class MyClassMixin: ...
             class MyDataMixin: ...
             factory = specfactory.Factory()
-            factory.add_mixins(Class=MyClassMixin, Data=MyDataMixin)
+            factory.add_mixins(Class=MyClassMixin, Variable=MyDataMixin)
 
         :param kwargs: Minin(s) classes to apply to names.
         """
@@ -64,7 +64,7 @@ class Factory(GenericFactory):
             'Class': pydocspec.Class,
             'Function': pydocspec.Function,
             'Module': pydocspec.Module,
-            'Data': pydocspec.Data,
+            'Variable': pydocspec.Variable,
             'Indirection': pydocspec.Indirection,
             'Decoration': pydocspec.Decoration,
             'Argument': pydocspec.Argument,
@@ -102,9 +102,9 @@ class Factory(GenericFactory):
         return mod
 
     @property
-    def Data(self) -> Type[pydocspec.Data]:
-        data = self.get_class('Data')
-        assert issubclass(data, pydocspec.Data)
+    def Variable(self) -> Type[pydocspec.Variable]:
+        data = self.get_class('Variable')
+        assert issubclass(data, pydocspec.Variable)
         return data
 
     @property

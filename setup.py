@@ -6,7 +6,7 @@ setup(
     name='pydocspec',
     version='0.0.0',
     author='tristanlatr',
-    author_email='trislatr@gmail.com',
+    author_email='trislatr at gmail.com',
     description='Pydocspec is a object specification for representing API documentation of a collection of related python modules.',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -17,5 +17,7 @@ setup(
     license='MIT',
     packages=['pydocspec'],
     include_package_data=True,
-    install_requires=['docspec<2.0', 'cached_property', 'astroid>=2.11.1'], 
+    install_requires=['cached_property', 
+                      'astroid>=2.11.1',
+                      'docspec>2.0.0'], # TODO: work on adding docspec as an extra.
 )

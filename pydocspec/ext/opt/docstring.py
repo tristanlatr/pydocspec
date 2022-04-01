@@ -1,5 +1,5 @@
-import dataclasses
-from typing import Optional
+
+from typing import Optional, cast
 
 import pydocspec
 from pydocspec.ext import ExtRegistrar, ApiObjectMixin, ApiObjectVisitorExt
@@ -10,8 +10,10 @@ def setup_extension(r: ExtRegistrar) -> None:
     r.register_mixins(HasParsedDocstring)
     r.register_postbuild_visitors(DocstringParsingVis)
 
-@dataclasses.dataclass
 class HasParsedDocstring(ApiObjectMixin):
+    # def _init_attribs(self) -> None:
+    #     cast(pydocspec.ApiObject, super())._init_attribs()
+    #     self.
     parsed_docstring: Optional[docstring_parser.Docstring] = None
 
 class DocstringParsingVis(ApiObjectVisitorExt):
@@ -19,4 +21,4 @@ class DocstringParsingVis(ApiObjectVisitorExt):
     def unknown_visit(self, ob: pydocspec.ApiObject) -> None:
         assert isinstance(ob, HasParsedDocstring)
         if ob.docstring is not None:
-            ob.parsed_docstring = docstring_parser.parse(ob.docstring)
+            ob.parsed_docstring = docstring_parser.parse(ob.docstring.content)

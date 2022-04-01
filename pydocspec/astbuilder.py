@@ -25,12 +25,11 @@ import astroid.nodes
 import astroid.manager
 import attr
 
-from pydocspec import (_model, astroidutils, processor, 
+from pydocspec import (_docspec, _model, astroidutils, processor, 
                        basebuilder, visitors)
 import pydocspec
 
 if TYPE_CHECKING:
-    import docspec
     from pydocspec import specfactory, ext
 
 _string_lineno_is_end = sys.version_info < (3,8) \
@@ -54,9 +53,9 @@ def import_module(path: Path, module_full_name:str) -> types.ModuleType:
     loader.exec_module(py_mod)
     return py_mod
 
-def is_attribute_overridden(obj: _model.Data, new_value: Optional[astroid.nodes.NodeNG]) -> bool:
+def is_attribute_overridden(obj: _model.Variable, new_value: Optional[astroid.nodes.NodeNG]) -> bool:
     """
-    Detect if the optional C{new_value} expression override the one already stored in the L{_model.Data.value} attribute.
+    Detect if the optional C{new_value} expression override the one already stored in the L{_model.Variable.value} attribute.
     """
     return obj.value_ast is not None and new_value is not None
     
@@ -91,7 +90,7 @@ astroid.rebuilder.TreeRebuilder._get_doc = lambda _,o:(o, None)
 class _AstSpecFactory:
     factory: 'specfactory.Factory'
     
-    def newDocstring(node: astroid.nodes.Const, location_filename:str) -> 'docspec.Docstring':
+    def newDocstring(node: astroid.nodes.Const, location_filename:str) -> '_docspec.Docstring':
         ...
     def newDecorations(nodes: Iterable[astroid.nodes.NodeNG], location_filename:str) -> Iterator[_model.Decoration]:
         ...
@@ -104,7 +103,7 @@ class _AstSpecFactory:
             expr: Optional[astroid.nodes.NodeNG],
             location_filename:str, 
             lineno: int, 
-            semantics: List[pydocspec.Data.Semantic]) -> pydocspec.Data: 
+            semantics: List[pydocspec.Variable.Semantic]) -> pydocspec.Variable: 
         ...
 
 class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
@@ -125,7 +124,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         doc = node.value
         if not isinstance(doc, str): 
             return
-        lineno = node.lineno
+        lineno = node.lineno or 0
         if _string_lineno_is_end:
             # In older CPython versions, the AST only tells us the end line
             # number and we must approximate the start line number.
@@ -142,14 +141,12 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
                 break
 
         docstring = inspect.cleandoc(doc)
-        docstring_lineno = lineno
         
-        # TODO: Remove cast when we bump version of docspec to 2.0
-        ob.docstring = cast('docspec.Docstring', self.root.factory.Docstring(
+        ob.docstring = self.root.factory.Docstring(
             content=docstring, 
             location=self.root.factory.Location(
                 filename=self.current.location.filename, 
-                lineno=docstring_lineno)))
+                lineno=lineno))
 
     def _maybe_set_docstring(self, obj: '_model.ApiObject', 
                                  node: Union[astroid.nodes.Module, astroid.nodes.ClassDef, 
@@ -190,6 +187,9 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
                 name = '.'.join(dotted_name)
 
             yield self.root.factory.Decoration(
+                location=self.root.factory.Location(
+                                        filename=self.current.location.filename, 
+                                        lineno=decnode.lineno),
                 name=name, 
                 arglist=arglist,
                 name_ast=name_ast,
@@ -214,7 +214,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         value = node.value
         if isinstance(value, astroid.nodes.Const) and isinstance(value.value, str):
             attr = self.last
-            if isinstance(attr, _model.Data) and attr.parent is self.current:
+            if isinstance(attr, _model.Variable) and attr.parent is self.current:
                 self._set_docstring(attr, value)
 
     ### MODULE ###
@@ -285,7 +285,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
 
         # create new class
         cls: _model.Class = self.root.factory.Class(
-                                    name=node.name, 
+                                    name=str(node.name or '??'), 
                                     location=self.root.factory.Location(
                                         filename=self.current.location.filename, 
                                         lineno=lineno),
@@ -293,7 +293,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
                                     metaclass=None, 
                                     bases=bases_str, 
                                     bases_ast=bases_ast,
-                                    decorations=None, 
+                                    decorations=None,
                                     members=[], 
                                     is_type_guarged=astroidutils.is_type_guarded(node, self.current), 
                                     _ast=node)
@@ -491,7 +491,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
     #   all objects might not be added at the time we do these checks.
     # Duplicate Module: this is not supported by the Builder, it's not supported by python neither.
     # Duplicate Indirection: Object defined after wins (older Indirection can still be accessed).
-    # Duplicate Data: No exceptions. Object defined after wins (older Data can still be accessed).
+    # Duplicate Variable: No exceptions. Object defined after wins (older Variable can still be accessed).
     # Duplicate Class object: Object defined after wins (older Class can still be accessed).
     # Duplicate Function object: Object defined after wins (older Function can still be accessed).
 
@@ -548,9 +548,9 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             annotation: Optional[astroid.nodes.NodeNG],
             expr: Optional[astroid.nodes.NodeNG],
             lineno: int, 
-            semantics: List[pydocspec.Data.Semantic]) -> pydocspec.Data:
+            semantics: List[pydocspec.Variable.Semantic]) -> pydocspec.Variable:
         """
-        Create a new Data object.
+        Create a new Variable object.
         """
         if annotation is None and expr is not None:
             annotation = astroidutils.infer_type_annotation(expr)
@@ -562,7 +562,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             value = expr.as_string()
             value_ast = expr
 
-        obj = self.root.factory.Data(
+        obj = self.root.factory.Variable(
                                     name=name, 
                                     location=self.root.factory.Location(
                                         filename=self.current.location.filename, 
@@ -623,7 +623,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
         #TODO: Ensure a variable do not shadow an inherited object, post-processing.
 
         obj = self._newData(name, annotation, expr, lineno, 
-                        [self.root.factory.Data.Semantic.CLASS_VARIABLE])
+                        [self.root.factory.Variable.Semantic.CLASS_VARIABLE])
         self.add_object(obj, push=False)
         if processor.data_attr.is_constant(obj):
             obj.semantic_hints.append(obj.Semantic.CONSTANT)
@@ -651,7 +651,7 @@ class BuilderVisitor(basebuilder.Collector, visitors.AstVisitor):
             return # this could happend if a function with self is defined outside of the class scope
 
         obj = self._newData(name, annotation, expr, lineno, 
-                        [self.root.factory.Data.Semantic.INSTANCE_VARIABLE])
+                        [self.root.factory.Variable.Semantic.INSTANCE_VARIABLE])
         self.add_object(obj, push=False, parent=cls)
         
         if processor.data_attr.is_constant(obj):
@@ -1034,15 +1034,14 @@ class Builder:
                 gets the AST from the file path. 
                 This is used when calling add_module_string().
         """
-        location = self.root.factory.Location(
-            filename=str(path), 
-            lineno=0)
 
         path = Path(path) if isinstance(path, str) else path
 
         mod = self.root.factory.Module(
             name=modname, 
-            location=location, 
+            location=self.root.factory.Location(
+                filename=str(path), 
+                lineno=0), 
             docstring=None, 
             members=[], 
             source_path=path,

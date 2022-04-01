@@ -6,11 +6,11 @@ from pydocspec import astroidutils, ext
 if TYPE_CHECKING:
     import pydocspec
 
-class DataClassesDataMixin(ext.DataMixin):
+class DataClassesDataMixin(ext.VariableMixin):
     @cached_property
-    def is_dataclass_field(self: 'pydocspec.Data') -> bool: #type:ignore[misc]
+    def is_dataclass_field(self: 'pydocspec.Variable') -> bool: #type:ignore[misc]
         """
-        Whether this Data is a L{dataclasses.field} attribute.
+        Whether this Variable is a L{dataclasses.field} attribute.
         """
         return isinstance(self.value_ast, astroid.nodes.Call) and \
             astroidutils.node2fullname(self.value_ast.func, self) in (

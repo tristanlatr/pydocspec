@@ -11,7 +11,7 @@ import astroid.nodes
 
 from pydocspec.astroidutils import literal_eval
 
-from . import (CapSys, ModFromTextFunction, 
+from . import (CapLog, ModFromTextFunction, 
     getbuilder_param, mod_from_text_param, 
     _docspec_python, _back_converter_round_trip1)
 
@@ -38,7 +38,7 @@ def test_class_docstring(getbuilder: Callable[[], astbuilder.Builder]) -> None:
 
 
 @mod_from_text_param
-def test_class_decos_and_bases(mod_from_text: ModFromTextFunction, caplog) -> None:
+def test_class_decos_and_bases(mod_from_text: ModFromTextFunction, caplog:CapLog) -> None:
     # test if we catch the bases and decorations for a class
     mod = mod_from_text('''
     @property
@@ -58,18 +58,19 @@ def test_class_decos_and_bases(mod_from_text: ModFromTextFunction, caplog) -> No
     assert [d.name for d in decorations] == ["property", "attr.s"]
 
     for d in decorations:
+        assert d.name_ast is not None
 
         if d.name == 'attr.s':
-            assert d.name_ast.as_string() == d.expr_ast.func.as_string()
+            assert d.name_ast.as_string() == d.expr_ast.func.as_string() # type:ignore[union-attr]
             assert isinstance(d.expr_ast, astroid.nodes.Call)
             assert d.arglist == ['auto_attribs=True', 'frozen=True']
         else:
-            assert d.name_ast.as_string() == d.expr_ast.as_string()
+            assert d.name_ast.as_string() == d.expr_ast.as_string() # type:ignore[union-attr]
 
         assert d.expr_ast is not None
         assert isinstance(d.expr_ast, astroid.nodes.NodeNG)
-
         assert isinstance(d.name_ast, (astroid.nodes.Name, astroid.nodes.Attribute))
+    
     bases = m.bases
     assert bases is not None
     assert len(bases) == 2
@@ -313,7 +314,7 @@ def test_aliasing_recursion(mod_from_text: ModFromTextFunction) -> None:
 def test_relative_import_past_top(
         getbuilder: Callable[[], astbuilder.Builder],
         level: int,
-        caplog
+        caplog:CapLog
         ) -> None:
     """A warning is logged when a relative import goes beyond the top-level
     package.
@@ -472,6 +473,7 @@ def test_all_recognition_complex(getbuilder: Callable[[], astbuilder.Builder], t
         
         names = processor.mod_attr.public_names(top)
         names.remove('mod_all')
+        assert top.dunder_all is not None
         assert sorted(top.dunder_all) == sorted(['f', 'g'])
         assert sorted(['f', 'g']) == sorted(names)
 
@@ -493,7 +495,7 @@ def test_docformat_recognition(mod_from_text: ModFromTextFunction) -> None:
     # It's metadata after all...
 
 @mod_from_text_param
-def test_docformat_warn_not_str(mod_from_text: ModFromTextFunction, caplog) -> None:
+def test_docformat_warn_not_str(mod_from_text: ModFromTextFunction, caplog:CapLog) -> None:
 
     mod = mod_from_text('''
     __docformat__ = [i for i in range(3)]
@@ -507,7 +509,7 @@ def test_docformat_warn_not_str(mod_from_text: ModFromTextFunction, caplog) -> N
     # assert '__docformat__' not in mod.contents
 
 @mod_from_text_param
-def test_docformat_warn_not_str2(mod_from_text: ModFromTextFunction, caplog) -> None:
+def test_docformat_warn_not_str2(mod_from_text: ModFromTextFunction, caplog:CapLog) -> None:
 
     mod = mod_from_text('''
     __docformat__ = 3.14
@@ -521,7 +523,7 @@ def test_docformat_warn_not_str2(mod_from_text: ModFromTextFunction, caplog) -> 
     # assert '__docformat__' not in mod.contents
 
 @mod_from_text_param
-def test_docformat_warn_empty(mod_from_text: ModFromTextFunction, caplog) -> None:
+def test_docformat_warn_empty(mod_from_text: ModFromTextFunction, caplog:CapLog) -> None:
 
     mod = mod_from_text('''
     __docformat__ = '  '
@@ -544,7 +546,7 @@ def test_function_simple(mod_from_text: ModFromTextFunction) -> None:
     mod = mod_from_text(src)
     func, = mod.members
     assert func.full_name== 'test.f'
-    assert func.docstring == """This is a docstring."""
+    assert func.docstring.content == """This is a docstring."""
     assert isinstance(func, pydocspec.Function)
     assert func.is_async is False
 
@@ -559,7 +561,8 @@ def test_function_async(mod_from_text: ModFromTextFunction) -> None:
     mod = mod_from_text(src)
     func, = mod.members
     assert func.full_name == 'test.a'
-    assert func.docstring == """This is a docstring."""
+    assert func.docstring is not None
+    assert func.docstring.content == """This is a docstring."""
     assert isinstance(func, pydocspec.Function)
     assert func.is_async is True
 
@@ -598,17 +601,17 @@ def test_function_signature(signature: str, mod_from_text: ModFromTextFunction) 
     ))
 @mod_from_text_param
 def test_function_signature_posonly(signature: str, mod_from_text: ModFromTextFunction) -> None:
-    if mod_from_text == _docspec_python.mod_from_text:
-        # tests with positional only arguments does not currently passes with docspec_python
-        # https://github.com/NiklasRosenstein/docspec/issues/57
-        return
+    # if mod_from_text == _docspec_python.mod_from_text:
+    #     # tests with positional only arguments does not currently passes with docspec_python
+    #     # https://github.com/NiklasRosenstein/docspec/issues/57
+    #     return
     test_function_signature(signature, mod_from_text)
 
 @pytest.mark.parametrize('signature', (
     '(a, a)',
     ))
 @mod_from_text_param
-def test_function_badsig(signature: str, mod_from_text: ModFromTextFunction, caplog) -> None:
+def test_function_badsig(signature: str, mod_from_text: ModFromTextFunction, caplog:CapLog) -> None:
     """When a function has an invalid signature, an error is logged and
     the empty signature is returned.
 
@@ -792,7 +795,7 @@ def test_inherited_members(getbuilder: Callable[[], astbuilder.Builder]) -> None
     ]
 
 @mod_from_text_param
-def test_class_is_abstract(mod_from_text: ModFromTextFunction, caplog) -> None:
+def test_class_is_abstract(mod_from_text: ModFromTextFunction, caplog:CapLog) -> None:
     # test if we catch whether a class is abstract or not.
     mod = mod_from_text('''
     from abc import ABC, abstractmethod
@@ -846,7 +849,7 @@ def test_class_is_abstract(mod_from_text: ModFromTextFunction, caplog) -> None:
 
 # @pytest.mark.parametrize('', [(),()])
 @mod_from_text_param
-def test_type_alias(mod_from_text: ModFromTextFunction, caplog) -> None:
+def test_type_alias(mod_from_text: ModFromTextFunction, caplog:CapLog) -> None:
     # test if we catch whether a class is abstract or not.
     mod = mod_from_text('''
     from typing import List, Union, TypeAlias
@@ -864,22 +867,22 @@ def test_type_alias(mod_from_text: ModFromTextFunction, caplog) -> None:
     
     # a normal type alias
     var4 = List[Union[str, bytes]]
-    ''', 
-    modname='test')
+    ''',  modname='test')
     var = mod.get_member('var')
     assert var is not None
-    assert isinstance(var, pydocspec.Data)
+    assert isinstance(var, pydocspec.Variable)
     var2 = mod.get_member('var2')
     assert var2 is not None
-    assert isinstance(var2, pydocspec.Data)
+    assert isinstance(var2, pydocspec.Variable)
     var3 = mod.get_member('var3')
     assert var3 is not None
-    assert isinstance(var3, pydocspec.Data)
+    assert isinstance(var3, pydocspec.Variable)
     var4 = mod.get_member('var4')
     assert var4 is not None
-    assert isinstance(var4, pydocspec.Data)
+    assert isinstance(var4, pydocspec.Variable)
     assert var.is_type_alias == True
     assert var2.is_type_alias == True
+    assert isinstance(var2.value_ast, astroid.nodes.NodeNG)
     assert var2.value_ast.as_string() == 'MutableMapping[str, List[str]]'
     assert var3.is_type_alias == False
     assert literal_eval(var3.value_ast) == '1243'

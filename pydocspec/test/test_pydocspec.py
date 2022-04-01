@@ -15,8 +15,8 @@ def test_expand_name(mod1: docspec.Module) -> None:
     saila = root.all_objects['a.saila']
     alias = root.all_objects['a.foo.alias']
 
-    assert isinstance(saila, pydocspec.Data)
-    assert isinstance(alias, pydocspec.Data)
+    assert isinstance(saila, pydocspec.Variable)
+    assert isinstance(alias, pydocspec.Variable)
 
     assert processor.data_attr.is_alias(saila)
     assert processor.data_attr.is_alias(alias)
@@ -104,8 +104,8 @@ def test_node2fullname(mod_from_text:ModFromTextFunction) -> None:
 def test_arguments_required_at_init() -> None:
     mod = _default_astbuilder.mod_from_text('')
 
-    with pytest.raises(TypeError, match=re.escape("Class.__init__() missing required keyword argument: 'bases_ast'")):
-        mod.root.factory.Class(name='mycls', 
+    with pytest.raises(TypeError):
+        mod.root.factory.Class(name='mycls', # type:ignore
                                 location=None, 
                                 docstring=None, 
                                 metaclass=None,
@@ -113,8 +113,8 @@ def test_arguments_required_at_init() -> None:
                                 decorations=None,
                                 members=[])
     
-    with pytest.raises(TypeError, match=re.escape("Function.__init__() missing required keyword argument: 'return_type_ast'")):
-        mod.root.factory.Function(
+    with pytest.raises(TypeError):
+        mod.root.factory.Function( # type:ignore
                                 name='myfunc', 
                                 location=None, 
                                 docstring=None, 

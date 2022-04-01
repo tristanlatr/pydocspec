@@ -1,3 +1,4 @@
+from typing import Any, Iterator, List, Tuple
 import unittest
 from textwrap import dedent
 
@@ -20,11 +21,11 @@ from . import CapSys, _default_astbuilder, mod_from_text_param, ModFromTextFunct
         ("var: dict[str, str]", "dict -> dict"),]
     )
 def test_node2fullname_nodes(mod_from_text:ModFromTextFunction, 
-                             source:str, expected:str, capsys: CapSys):
+                             source:str, expected:str, capsys: CapSys) -> None:
     class PrintNode2DottedAndFullName(visitors.ApiObjectVisitor):
         def unknown_visit(self, ob: pydocspec.ApiObject) -> None:
             pass
-        def visit_Data(self, ob:pydocspec.Data) -> astroid.nodes.NodeNG:
+        def visit_Variable(self, ob:pydocspec.Variable) -> astroid.nodes.NodeNG:
             ann_full_name = astroidutils.node2dottedname(ob.datatype_ast)
             if ann_full_name:
                 print('.'.join(ann_full_name) + " -> " + str(astroidutils.node2fullname(ob.datatype_ast, ob)))
@@ -35,7 +36,7 @@ def test_node2fullname_nodes(mod_from_text:ModFromTextFunction,
     assert captured.strip() == expected.strip()
 
 class InferTypeAnnotationTests(unittest.TestCase):
-    def test_literal_infer(self):
+    def test_literal_infer(self) -> None:
         values = [
             ("{'pom': '12'}", 'dict[str, str]'),
             ("{'pom': 12}", 'dict[str, int]'),
@@ -51,11 +52,12 @@ class InferTypeAnnotationTests(unittest.TestCase):
 
         for val, expected_ann in values:
             ann = astroidutils.infer_type_annotation(astroid.builder.parse(val).body[0])
+            assert ann is not None
             self.assertEqual(ann.as_string(), expected_ann)
 
 class UnstringAnnotationTests(unittest.TestCase):
 
-    def test_unstring(self):
+    def test_unstring(self) -> None:
         annotations = [
             ("hey['list']", "hey[list]"),
             ("hey['list[tuple]']", "hey[list[tuple]]"),
@@ -67,7 +69,7 @@ class UnstringAnnotationTests(unittest.TestCase):
             unstringed = astroidutils.unstring_annotation(astroid.builder.parse(origin_ann).body[0])
             self.assertEqual(unstringed.as_string(), expected_ann)
     
-    def test_unstring_raises(self):
+    def test_unstring_raises(self) -> None:
         with self.assertRaises(SyntaxError):
             astroidutils.unstring_annotation(astroid.builder.parse("hey['List[']").body[0])
         with self.assertRaisesRegex(SyntaxError, "Expected expression, got statement"):
@@ -76,11 +78,11 @@ class UnstringAnnotationTests(unittest.TestCase):
             astroidutils.unstring_annotation(astroid.builder.parse(r"hey['list[str]\nlist[str]']").body[0])
 
 class NodeVisitorTests(unittest.TestCase):
-    def test_visit_nodes(self):
+    def test_visit_nodes(self) -> None:
         class Visitor(astroidutils.NodeVisitor):
-            def __init__(self, log) -> None:
+            def __init__(self, log: List[Tuple[int, str, Any]] ) -> None:
                 self.log = log
-            def visit_Const(self, node: astroid.nodes.Const):
+            def visit_Const(self, node: astroid.nodes.Const) -> None:
                 log.append( (node.lineno, node.__class__.__name__, getattr(node, 'value', node.as_string())) )
             visit_Call = visit_Const
             
@@ -98,7 +100,7 @@ class NodeVisitorTests(unittest.TestCase):
             class Node:
                 pass
             '''))
-        log = []
+        log: List[Tuple[int, str, Any]] = []
         visitor = Visitor(log)
         
         visitor.visit(mod)
@@ -115,7 +117,7 @@ class NodeVisitorTests(unittest.TestCase):
             (10, 'Call', 'list(123)'),
         ])
     
-    def test_transform_nodes(self):
+    def test_transform_nodes(self) -> None:
         class RewriteName(astroidutils.NodeTransformer):
             # rewrites names to data['<name>']
            def visit_Name(self, node:astroid.nodes.Name) -> astroid.nodes.NodeNG:
@@ -150,7 +152,7 @@ class NodeVisitorTests(unittest.TestCase):
         self.assertEqual(mod.as_string().strip(), expected.strip())
 
 class LiteralEvalTests(unittest.TestCase):
-    def test_literal_eval(self):
+    def test_literal_eval(self) -> None:
         self.assertEqual(astroidutils.literal_eval('[1, 2, 3]'), [1, 2, 3])
         self.assertEqual(astroidutils.literal_eval('{"foo": 42}'), {"foo": 42})
         self.assertEqual(astroidutils.literal_eval('(True, False, None)'), (True, False, None))
@@ -169,7 +171,7 @@ class LiteralEvalTests(unittest.TestCase):
         self.assertRaises(ValueError, astroidutils.literal_eval, '+True')
         self.assertRaises(ValueError, astroidutils.literal_eval, '2+3')
 
-    def test_literal_eval_complex(self):
+    def test_literal_eval_complex(self) -> None:
         # Issue #4907
         self.assertEqual(astroidutils.literal_eval('6j'), 6j)
         self.assertEqual(astroidutils.literal_eval('-6j'), -6j)
@@ -191,12 +193,12 @@ class LiteralEvalTests(unittest.TestCase):
         self.assertRaises(ValueError, astroidutils.literal_eval, '-(3+6j)')
         self.assertRaises(ValueError, astroidutils.literal_eval, 'random()')
 
-    def test_literal_eval_trailing_ws(self):
+    def test_literal_eval_trailing_ws(self) -> None:
         self.assertEqual(astroidutils.literal_eval("    -1"), -1)
         self.assertEqual(astroidutils.literal_eval("\t\t-1"), -1)
         self.assertEqual(astroidutils.literal_eval(" \t -1"), -1)
 
-    def test_literal_eval_malformed_lineno(self):
+    def test_literal_eval_malformed_lineno(self) -> None:
         msg = r'malformed node or string on line 3:'
         with self.assertRaisesRegex(ValueError, msg):
             astroidutils.literal_eval("{'a': 1,\n'b':2,\n'c':++3,\n'd':4}")
@@ -209,7 +211,7 @@ class LiteralEvalTests(unittest.TestCase):
 
 class CopyLocationTests(unittest.TestCase):
     maxDiff = None
-    def test_copy_location(self):
+    def test_copy_location(self) -> None:
         src = astroid.builder.parse('1 + 1').body[0].value
 
         src.right = astroidutils.copy_location(astroid.nodes.Const(2), src.right)
@@ -237,7 +239,7 @@ class CopyLocationTests(unittest.TestCase):
 
 class FixMissingLocationTests(unittest.TestCase):
     maxDiff = None
-    def test_fix_missing_locations(self):
+    def test_fix_missing_locations(self) -> None:
         src = astroid.builder.parse('write("spam")')
         src.body.append(astroidutils.nodefactory.Expr(value=astroidutils.nodefactory.Call(func=astroid.nodes.Name('spam'),
                                           args=[astroid.nodes.Const('eggs')], keywords=[])))
@@ -334,14 +336,14 @@ class FixMissingLocationTests(unittest.TestCase):
 
 # from sphinx-autoapi, we do not currently use the resolve_qualname function, but tests are there anyway.
 
-def generate_module_names():
+def generate_module_names() -> Iterator[str]:
     for i in range(1, 5):
         yield ".".join("module{}".format(j) for j in range(i))
 
     yield "package.repeat.repeat"
 
 
-def imported_basename_cases():
+def imported_basename_cases() -> Iterator[Tuple[str, str, str]]:
     for module_name in generate_module_names():
         import_ = "import {}".format(module_name)
         basename = "{}.ImportedClass".format(module_name)
@@ -373,12 +375,12 @@ def imported_basename_cases():
         yield (import_, basename, expected)
 
 
-def generate_args():
+def generate_args() -> Iterator[str]:
     for i in range(5):
         yield ", ".join("arg{}".format(j) for j in range(i))
 
 
-def imported_call_cases():
+def imported_call_cases() -> Iterator[Tuple[str, str, str]]:
     for args in generate_args():
         for import_, basename, expected in imported_basename_cases():
             basename += "({})".format(args)
@@ -392,7 +394,7 @@ class TestAstroidUtilsAndExpandName:
         ("import_", "basename", "expected"), list(imported_basename_cases())
     )
     def test_can_get_full_imported_basename(self, mod_from_text: ModFromTextFunction,
-            import_, basename, expected):
+            import_:str, basename:str, expected:str) -> None:
         source = """
         {}
         class ThisClass({}): #@
@@ -413,7 +415,7 @@ class TestAstroidUtilsAndExpandName:
     @pytest.mark.parametrize(
         ("import_", "basename", "expected"), list(imported_call_cases())
     )
-    def test_can_get_full_function_basename(self, import_, basename, expected):
+    def test_can_get_full_function_basename(self, import_:str, basename:str, expected:str) -> None:
         source = """
         {}
         class ThisClass({}): #@

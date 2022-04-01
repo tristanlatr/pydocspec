@@ -200,9 +200,9 @@ def constructor_method(ob: _model.Class) -> Optional['pydocspec.Function']:
     else:
         return None
 
-def inherited_members(ob: pydocspec.Class) -> List[pydocspec.Class.InheritedMember]:
+def inherited_members(ob: pydocspec.Class) -> List[pydocspec.ClassInheritedMember]:
     """provide inherited_members property"""
-    _inherited_members: Dict[str, pydocspec.Class.InheritedMember] = {}
+    _inherited_members: Dict[str, pydocspec.ClassInheritedMember] = {}
     for baselist in _nested_bases(ob):
         #  If the class has super class
         if len(baselist) >= 2:

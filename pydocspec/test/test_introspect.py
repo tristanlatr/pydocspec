@@ -19,7 +19,7 @@ def test_build_and_introspec_cython_based_C_extension_with_python_suclass() -> N
     # build extension
     try:
         cwd = os.getcwd()
-        code, outstr = subprocess.getstatusoutput(f'cd {c_extension_base_class_path} && python3 setup.py build_ext --inplace')
+        code, outstr = subprocess.getstatusoutput(f'cd {str(c_extension_base_class_path)!r} && python3 setup.py build_ext --inplace')
         os.chdir(cwd)
         
         assert code==0, outstr
