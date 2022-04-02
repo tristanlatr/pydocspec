@@ -19,5 +19,5 @@ setup(
     include_package_data=True,
     install_requires=['cached_property', 
                       'astroid>=2.11.1',
-                      'docspec==0.2.1'], # TODO: work on adding docspec as an extra.
+                      'docspec==2.0.1'], # TODO: work on adding docspec as an extra.
 )
