@@ -94,7 +94,7 @@ def get_optional_extensions() -> Iterator[str]:
     """
     return _get_submodules('pydocspec.ext.opt')
 
-@attr.s
+@attr.s(frozen=True)
 class _AstroidTransform(abc.ABC):
     """
     Base class to customize astroid inference system with a bridge to pydocspec tree.
