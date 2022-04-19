@@ -59,15 +59,15 @@ def test_class_decos_and_bases(mod_from_text: ModFromTextFunction, caplog:CapLog
 
     for d in decorations:
         assert d.name_ast is not None
+        assert d.expr_ast is not None
 
         if d.name == 'attr.s':
-            assert isinstance(d.expr_ast, astroid.nodes.Call), f"{d.expr_ast.as_string()!r} is not a function!"
+            assert isinstance(d.expr_ast, astroid.nodes.Call), f"{d.expr_ast.as_string()!r} is not a function!" # type:ignore[union-attr]
             assert d.name_ast.as_string() == d.expr_ast.func.as_string() # type:ignore[union-attr]
             assert d.arglist == ['auto_attribs=True', 'frozen=True']
         else:
             assert d.name_ast.as_string() == d.expr_ast.as_string() # type:ignore[union-attr]
 
-        assert d.expr_ast is not None
         assert isinstance(d.expr_ast, astroid.nodes.NodeNG)
         assert isinstance(d.name_ast, (astroid.nodes.Name, astroid.nodes.Attribute))
     
@@ -546,6 +546,7 @@ def test_function_simple(mod_from_text: ModFromTextFunction) -> None:
     mod = mod_from_text(src)
     func, = mod.members
     assert func.full_name== 'test.f'
+    assert func.docstring is not None
     assert func.docstring.content == """This is a docstring."""
     assert isinstance(func, pydocspec.Function)
     assert func.is_async is False

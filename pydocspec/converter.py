@@ -68,7 +68,7 @@ def back_convert_modules(modules: Sequence[pydocspec.Module]) -> Sequence[docspe
     converter.back_convert_pydocspec_modules(modules)
     return converter.docspec_modules
 
-class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor):
+class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor):  #type:ignore[type-arg]
     """
     Visit each ``docspec`` objects of a module and create their ``pydocspec`` augmented counterparts.
     """
@@ -423,7 +423,7 @@ def _get_object_by_name(relativeroots: Iterable[docspec.ApiObject], name: dotted
 def _nest_docspec_python_modules(modules: Iterable[docspec.Module]) -> List[docspec.Module]:
     """Reparent modules to their respective parent packages such that we have an actual hiearchy of packages."""
     roots: List[docspec.Module] = []
-    for mod in sorted(modules, key=lambda x: x.name):
+    for mod in sorted(modules, key=lambda x: x.name): # type:ignore[no-any-return]
         name = dottedname.DottedName(mod.name)
         container = name.container()
         if not container:

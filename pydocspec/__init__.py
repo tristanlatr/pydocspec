@@ -220,8 +220,8 @@ class ApiObject(_model.ApiObject):
                 return self._resolve_indirection(member, _indirections) or member.target
             return member.full_name
 
-        elif isinstance(self, Class):
-            assert self.parent is not None
+        elif isinstance(self, Class): # type:ignore[unreachable]
+            assert self.parent is not None  # type:ignore[unreachable]
             return self.parent._local_to_full_name(name, follow_aliases, _indirections)
         
         return name
