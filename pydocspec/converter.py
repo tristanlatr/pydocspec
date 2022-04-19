@@ -179,6 +179,8 @@ class _ConverterVisitor(basebuilder.Collector, visitors._docspecApiObjectVisitor
         flat_arglist = ''
         if decoration.arglist:
             flat_arglist = f"({', '.join(decoration.arglist)})"
+        elif decoration.args:
+            flat_arglist = decoration.args
         decorator_text = f"{decoration.name}{flat_arglist}"
         try:
             expr_ast = astroidutils.extract_expr(decorator_text)
