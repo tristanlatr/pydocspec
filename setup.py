@@ -18,6 +18,9 @@ setup(
     packages=['pydocspec'],
     include_package_data=True,
     install_requires=['cached_property', 
-                      'astroid>=2.11.1',
-                      'docspec==2.0.1'], # TODO: work on adding docspec as an extra.
+                      'astroid>=2.11.1',], 
+    extra_requires={
+        'dev':['tox', 'docspec==2.0.1'],
+        'converter':['docspec==2.0.1'],
+    }
 )
