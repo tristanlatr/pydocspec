@@ -61,8 +61,8 @@ def test_class_decos_and_bases(mod_from_text: ModFromTextFunction, caplog:CapLog
         assert d.name_ast is not None
 
         if d.name == 'attr.s':
+            assert isinstance(d.expr_ast, astroid.nodes.Call), f"{d.expr_ast.as_string()!r} is not a function!"
             assert d.name_ast.as_string() == d.expr_ast.func.as_string() # type:ignore[union-attr]
-            assert isinstance(d.expr_ast, astroid.nodes.Call)
             assert d.arglist == ['auto_attribs=True', 'frozen=True']
         else:
             assert d.name_ast.as_string() == d.expr_ast.as_string() # type:ignore[union-attr]
@@ -601,10 +601,11 @@ def test_function_signature(signature: str, mod_from_text: ModFromTextFunction) 
     ))
 @mod_from_text_param
 def test_function_signature_posonly(signature: str, mod_from_text: ModFromTextFunction) -> None:
-    # if mod_from_text == _docspec_python.mod_from_text:
-    #     # tests with positional only arguments does not currently passes with docspec_python
-    #     # https://github.com/NiklasRosenstein/docspec/issues/57
-    #     return
+    if mod_from_text == _docspec_python.mod_from_text:
+        # tests with positional only arguments does not currently passes with docspec_python
+        # https://github.com/NiklasRosenstein/docspec/issues/57
+        # https://github.com/NiklasRosenstein/docspec/issues/76
+        return
     test_function_signature(signature, mod_from_text)
 
 @pytest.mark.parametrize('signature', (

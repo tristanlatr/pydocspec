@@ -1,8 +1,9 @@
 
 
 import os
+from pathlib import Path
 import tempfile
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, overload
+from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Optional, Sequence, TextIO, Tuple, Union, overload
 import sys
 import io
 import json
@@ -53,13 +54,27 @@ posonlyargs = pytest.mark.skipif(sys.version_info < (3, 8), reason="requires pyt
 typecomment = pytest.mark.skipif(sys.version_info < (3, 8), reason="requires python 3.8")
 
 class _docspec_python:
+
+    @staticmethod
+    def load_python_modules(
+        files: Sequence[Tuple[Optional[str], Union[TextIO, str]]],
+        options: Any = None,
+        encoding: Optional[str] = None,
+        ) -> Iterable[docspec.Module]:
+        # This function supports loading modules from StringIO
+        # https://github.com/NiklasRosenstein/docspec/issues/75
+        files = list(files) if files else []
+        for module_name, f in files:
+            yield docspec_python.parse_python_module(f, filename='<fromtext>', 
+                module_name=module_name, options=options, encoding=encoding)
+
     @staticmethod
     def mod_from_text(text:str, modname:str='test') -> 'pydocspec.Module':
-        docspec_modules = list(docspec_python.load_python_modules(
+        docspec_modules = list(_docspec_python.load_python_modules(
             files=[ (modname, io.StringIO(textwrap.dedent(text))) ]))
         docspec_modules[0].location = docspec.Location('<fromtext>', 0)
         
-        pydocspec_mod = converter.convert_docspec_modules(docspec_modules).root_modules.pop()
+        pydocspec_mod = converter.convert_docspec_modules(docspec_modules).root_modules[0]
         return pydocspec_mod
 
 class _default_astbuilder:
@@ -118,7 +133,7 @@ class _back_converter_round_trip1:
         return _mod
 
 mod_from_text_param = pytest.mark.parametrize(
-    'mod_from_text', ( # _docspec_python.mod_from_text, #commented until solved https://github.com/NiklasRosenstein/docspec/issues/75
+    'mod_from_text', ( _docspec_python.mod_from_text,
                       _default_astbuilder.mod_from_text,
                       # _back_converter_round_trip1.mod_from_text, # TODO: fix the converter semantic hints !
                       _optional_extensions_enabled.mod_from_text,
