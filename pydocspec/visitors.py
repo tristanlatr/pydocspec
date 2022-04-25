@@ -20,10 +20,6 @@ from . import _docspec, genericvisitor, astroidutils
 if t.TYPE_CHECKING:
   from .astbuilder import BuilderVisitor
   import pydocspec
-  import docspec
-  docspecApiObjectT = t.TypeVar('docspecApiObjectT', _docspec.ApiObject, docspec.ApiObject)
-else:
-  docspecApiObjectT = object
 
 # AST visitors
 
@@ -61,9 +57,9 @@ def iter_fields(ob: 'pydocspec.ApiObject') -> t.Iterator[t.Tuple[str, t.Any]]:
 
 # ApiObject visitors
 
-class _docspecApiObjectVisitor(genericvisitor.Visitor[docspecApiObjectT]):
+class _docspecApiObjectVisitor(genericvisitor.Visitor[_docspec.docspecApiObjectT]):
   # adapter for docspec
-  def get_children(cls, ob: docspecApiObjectT) -> t.Iterable[docspecApiObjectT]:
+  def get_children(cls, ob: _docspec.docspecApiObjectT) -> t.Iterable[_docspec.docspecApiObjectT]:
       return getattr(ob, 'members', ())
 
 class _ApiObjectVisitorGetChildren:

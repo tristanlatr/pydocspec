@@ -45,6 +45,7 @@ __all__ = [
 ]
 
 import enum
+import types
 import typing as t
 
 class _HasInitAttribsMethod:
@@ -473,3 +474,26 @@ class Module(HasMembers):
   Be aware that for historical reasons, some loaders lile #docspec_python by default do not return nested modules,
   even if nesting would be appropriate (and instead the #Module.name simply contains the fully qualified name).
   """
+
+if t.TYPE_CHECKING:
+  import docspec
+  docspecApiObjectT = t.TypeVar('docspecApiObjectT', ApiObject, docspec.ApiObject)
+else:
+  docspecApiObjectT = object
+
+# Set upstream modules shortcut
+class upstream:
+  """
+  :ivar docspec: The docspec module if it's installed, None otherwise.
+  :ivar docspec_python: The docspec_python module if it's installed, None otherwise.
+  """
+  
+  try:
+    import docspec
+  except ImportError:
+    docspec = None
+  
+  try:
+    import docspec_python
+  except ImportError:
+    docspec_python = None

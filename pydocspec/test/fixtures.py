@@ -1,10 +1,15 @@
 import pytest
+from typing import TypeVar, Union
 
-import docspec
 import pydocspec
-from pydocspec import converter
+from pydocspec import converter, _docspec
 
-_mod1 = module = docspec.Module(name='a', location=docspec.Location('test.py', 0), docstring=None, members=[
+if _docspec.upstream.docspec is not None:
+  import docspec
+else:
+  docspec = _docspec
+
+_mod1 = docspec.Module(name='a', location=docspec.Location('test.py', 0), docstring=None, members=[
     docspec.Indirection(name='Union', location=docspec.Location('test.py', 1), docstring=None, target='typing.Union'),
     docspec.Class(name='foo', location=docspec.Location('test.py', 2), 
       docstring=docspec.Docstring(content='This is class foo.', location=docspec.Location('test.py', 3)), 
@@ -21,7 +26,7 @@ _mod1 = module = docspec.Module(name='a', location=docspec.Location('test.py', 0
   ])
 _mod1.sync_hierarchy()
 
-_mod2 = module = docspec.Module(name='a', location=docspec.Location('test.py', 0), docstring=None, members=[
+_mod2 = docspec.Module(name='a', location=docspec.Location('test.py', 0), docstring=None, members=[
     docspec.Indirection(name='Union', location=docspec.Location('test.py', 1), docstring=None, target='typing.Union'),
     docspec.Class(name='foo', location=docspec.Location('test.py', 2), 
       docstring=docspec.Docstring(content='This is class foo.', location=docspec.Location('test.py', 3)), 
@@ -46,7 +51,7 @@ _mod2 = module = docspec.Module(name='a', location=docspec.Location('test.py', 0
   ])
 _mod2.sync_hierarchy()
 
-_mod3 = module = docspec.Module(name='a', location=docspec.Location('test.py', 0), docstring=None, members=[
+_mod3 = docspec.Module(name='a', location=docspec.Location('test.py', 0), docstring=None, members=[
     docspec.Indirection(name='Union', location=docspec.Location('test.py', 1), docstring=None, target='typing.Union'),
     docspec.Class(name='foo', location=docspec.Location('test.py', 2), 
       docstring=docspec.Docstring(content='This is class foo.', location=docspec.Location('test.py', 3)), 
@@ -63,7 +68,7 @@ _mod3 = module = docspec.Module(name='a', location=docspec.Location('test.py', 0
 
 _mod3.sync_hierarchy()
 
-_mod4 = module = docspec.Module(name='a', location=docspec.Location('test.py', 0), docstring=None, members=[
+_mod4 = docspec.Module(name='a', location=docspec.Location('test.py', 0), docstring=None, members=[
     docspec.Function(
       name='f',
       location=docspec.Location('test.py', 2),

@@ -694,7 +694,8 @@ def load_python_modules_with_docspec_python(files: Sequence[Path],
     """
     Load packages or modules with docspec_python and then convert them to pydocspec objects. 
     """
-    from docspec_python import parse_python_module
+    assert _docspec.upstream.docspec_python is not None, "Please install docspec_python"
+    parse_python_module = _docspec.upstream.docspec_python.parse_python_module
     from pydocspec import converter
 
     def _find_module(module_name: str, in_folder: str ) -> str:

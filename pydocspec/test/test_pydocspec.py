@@ -2,9 +2,13 @@ import re
 from typing import Optional
 
 import pytest
-import docspec
-from pydocspec import converter, astroidutils, processor
+from pydocspec import converter, astroidutils, processor, _docspec
 import pydocspec
+
+if _docspec.upstream.docspec is not None:
+    import docspec
+else:
+    docspec = _docspec
 
 from .fixtures import mod1, root2, root4
 from . import ModFromTextFunction, mod_from_text_param, _default_astbuilder

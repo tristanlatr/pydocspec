@@ -23,10 +23,12 @@ import attr
 import astroid.exceptions
 import astroid.nodes
 
-import docspec
 import pydocspec
 from pydocspec import dottedname, basebuilder, astroidutils, _docspec
  
+assert _docspec.upstream.docspec is not None, "Please install docspec"
+import docspec
+
 def convert_docspec_modules(modules: Iterable[docspec.Module], options: Optional[pydocspec.Options]=None) -> pydocspec.TreeRoot:
     """
     Convert a list of `docspec.Module` instances into a list of `pydocspec.Module`. 
