@@ -19,8 +19,21 @@ setup(
     include_package_data=True,
     install_requires=['cached_property', 
                       'astroid>=2.11.1',], 
-    extra_requires={
-        'dev':['tox', 'docspec==2.0.1'],
+    extras_require={
         'converter':['docspec==2.0.1'],
+
+        'test':[
+               'docspec==2.0.1', 
+               'docspec_python==2.0.1', 
+               'docstring_parser', 
+               'pytest',
+               'hypothesis',
+               'cython'],
+
+        'test-no-docspec':[
+                'docstring_parser', 
+                'pytest',
+                'hypothesis',
+                'cython'],
     }
 )
