@@ -15,7 +15,7 @@ TODO: Converter should not crash when calling unstring_annotation or exract_expr
 """
 
 import enum
-from typing import Any, Generic, Iterable, Sequence, Type, TypeVar, cast, List, Optional
+from typing import Any, Generic, Iterable, Sequence, Type, TypeVar, cast, List, Optional, TYPE_CHECKING
 
 from astroid.node_classes import NodeNG
 from pydocspec import visitors
@@ -26,6 +26,11 @@ import astroid.nodes
 
 import pydocspec
 from pydocspec import dottedname, basebuilder, astroidutils, _docspec
+
+if TYPE_CHECKING:
+    from typing import Protocol
+else:
+    Protocol = object
  
 assert _docspec.upstream.docspec is not None, "Please install docspec to use the converter"
 import docspec
@@ -388,14 +393,16 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
                 location=self._convert_Location(docstring.location),
                 )
 
-EnumT = TypeVar('EnumT', bound=enum.Enum)
-EnumMetaT = TypeVar('EnumMetaT', bound=Type[enum.Enum])
+_EnumT = TypeVar('_EnumT', bound=enum.Enum)
+
+class _EnumMeta(Protocol):
+    def __getitem__(self, name:str) -> _EnumT: ...
 
 @attr.s(auto_attribs=True)
-class _SemanticsConverter(Generic[EnumT]):
-    obj_semantics:EnumMetaT
+class _SemanticsConverter(Generic[_EnumT]):
+    obj_semantics: _EnumMeta
 
-    def convert_Semantics(self, semantics:List[EnumT],) -> List[EnumT]:
+    def convert_Semantics(self, semantics:List[_EnumT],) -> List[_EnumT]:
         return [self.obj_semantics[s.name] for s in semantics]
 
 @attr.s(auto_attribs=True)
