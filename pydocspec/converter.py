@@ -14,7 +14,8 @@ TODO: Converter should not crash when calling unstring_annotation or exract_expr
 
 """
 
-from typing import Iterable, Sequence, cast, List, Optional
+import enum
+from typing import Any, Generic, Iterable, Sequence, Type, TypeVar, cast, List, Optional, TYPE_CHECKING
 
 from astroid.node_classes import NodeNG
 from pydocspec import visitors
@@ -25,6 +26,11 @@ import astroid.nodes
 
 import pydocspec
 from pydocspec import dottedname, basebuilder, astroidutils, _docspec
+
+if TYPE_CHECKING:
+    from typing import Protocol
+else:
+    Protocol = object
  
 assert _docspec.upstream.docspec is not None, "Please install docspec to use the converter"
 import docspec
@@ -287,7 +293,7 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
             new_arg = docspec.Argument(
                                     name=a.name, 
                                     location=self._convert_Location(a.location),
-                                    type=cast(docspec.Argument.Type, a.type), 
+                                    type=docspec.Argument.Type[a.type.name], 
                                     decorations=None, 
                                     datatype=a.datatype, 
                                     default_value=a.default_value)
@@ -301,6 +307,8 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
                 decos.append(self._convert_Decoration(d)) #type:ignore[union-attr]
         else:
             decos = None
+        
+        semantics_converter: _SemanticsConverter[docspec.FunctionSemantic] = _SemanticsConverter(docspec.FunctionSemantic)
     
         ob = docspec.Function(
                         name=function.name, 
@@ -310,7 +318,7 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
                         return_type=function.return_type,
                         args=args,
                         decorations=decos,
-                        semantic_hints=cast(List[docspec.FunctionSemantic], function.semantic_hints))
+                        semantic_hints=semantics_converter.convert_Semantics(function.semantic_hints))
         self.add_object(ob)
     
     def visit_Class(self, klass: pydocspec.Class) -> None:
@@ -321,7 +329,9 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
                 decos.append(self._convert_Decoration(d)) #type:ignore[union-attr]
         else:
             decos = None
-        
+
+        semantics_converter: _SemanticsConverter[docspec.ClassSemantic] = _SemanticsConverter(docspec.ClassSemantic)
+
         ob = docspec.Class(
                         name=klass.name, 
                         location=self._convert_Location(klass.location),
@@ -330,11 +340,12 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
                         decorations=decos,
                         metaclass=klass.metaclass,
                         members=[],
-                        semantic_hints=cast(List[docspec.ClassSemantic], klass.semantic_hints))
+                        semantic_hints=semantics_converter.convert_Semantics(klass.semantic_hints))
         
         self.add_object(ob)
     
     def visit_Variable(self, data: pydocspec.Variable) -> None:
+        semantics_converter: _SemanticsConverter[docspec.VariableSemantic] = _SemanticsConverter(docspec.VariableSemantic)
 
         ob = docspec.Variable(
                     name=data.name, 
@@ -342,7 +353,7 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
                     docstring=self._convert_Docstring(data.docstring), 
                     datatype=data.datatype, 
                     value=data.value, 
-                    semantic_hints=cast(List[docspec.VariableSemantic], data.semantic_hints) ,
+                    semantic_hints=semantics_converter.convert_Semantics(data.semantic_hints) ,
                     )
 
         self.add_object(ob)
@@ -381,6 +392,18 @@ class _BackConverterVisitor(basebuilder.BaseCollector[docspec.Module, docspec.Ap
                 content=docstring.content,
                 location=self._convert_Location(docstring.location),
                 )
+
+_EnumT = TypeVar('_EnumT', bound=enum.Enum)
+
+class _EnumMeta(Protocol):
+    def __getitem__(self, name:str) -> _EnumT: ...
+
+@attr.s(auto_attribs=True)
+class _SemanticsConverter(Generic[_EnumT]):
+    obj_semantics: _EnumMeta
+
+    def convert_Semantics(self, semantics:List[_EnumT],) -> List[_EnumT]:
+        return [self.obj_semantics[s.name] for s in semantics]
 
 @attr.s(auto_attribs=True)
 class _BackConverter:
