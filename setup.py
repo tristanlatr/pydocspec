@@ -18,7 +18,8 @@ setup(
     packages=['pydocspec'],
     include_package_data=True,
     install_requires=['cached_property', 
-                      'astroid>=2.11.1',], 
+                      'astroid>=2.11.1',
+                      'importlib_resources', ], 
     extras_require={
         'converter':['docspec==2.0.1'],
 
