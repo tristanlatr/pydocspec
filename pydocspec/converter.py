@@ -26,7 +26,7 @@ import astroid.nodes
 import pydocspec
 from pydocspec import dottedname, basebuilder, astroidutils, _docspec
  
-assert _docspec.upstream.docspec is not None, "Please install docspec"
+assert _docspec.upstream.docspec is not None, "Please install docspec to use the converter"
 import docspec
 
 def convert_docspec_modules(modules: Iterable[docspec.Module], options: Optional[pydocspec.Options]=None) -> pydocspec.TreeRoot:

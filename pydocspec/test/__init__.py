@@ -11,7 +11,7 @@ import textwrap
 import pytest
 
 import pydocspec
-from pydocspec import (_model, converter, Options, _docspec, 
+from pydocspec import (_model, Options, _docspec, 
     load_python_modules, 
     load_python_modules_with_docspec_python,
     builder_from_options, _setup_stdout_logger)
@@ -72,6 +72,7 @@ class _docspec_python:
     @staticmethod
     def mod_from_text(text:str, modname:str='test') -> 'pydocspec.Module':
         assert _docspec.upstream.docspec is not None
+        from pydocspec import converter
         docspec_modules = list(_docspec_python.load_python_modules(
             files=[ (modname, io.StringIO(textwrap.dedent(text))) ]))
         docspec_modules[0].location = _docspec.upstream.docspec.Location('<fromtext>', 0)
@@ -108,7 +109,8 @@ class _back_converter_round_trip1:
         For testing only.
         """
         assert _docspec.upstream.docspec is not None
-
+        from pydocspec import converter
+        
         _setup_stdout_logger('pydocspec', quiet=True)
         mod = _default_astbuilder.mod_from_text(text, modname)
         _setup_stdout_logger('pydocspec')
