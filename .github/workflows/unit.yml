@@ -12,9 +12,10 @@ jobs:
     runs-on: ${{ matrix.os }} 
 
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ['3.7','3.8','3.9', '3.10']
+        python-version: ['3.6', '3.7','3.8','3.9', '3.10']
 
     steps:
       - uses: actions/checkout@v2
@@ -29,4 +30,9 @@ jobs:
           python -m pip install tox
         
       - name: Run unit tests
-        run: tox -e test
+        if: matrix.python-version != '3.6'
+        run: tox -e test,test-no-docspec
+      
+      - name: Run unit tests (python 3.6)
+        if: matrix.python-version == '3.6'
+        run: tox -e test-no-docspec

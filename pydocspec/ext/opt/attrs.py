@@ -20,12 +20,12 @@ import pydocspec.ext
 if TYPE_CHECKING:
     import pydocspec
 
-class AttrsDataMixin(pydocspec.ext.DataMixin):
+class AttrsDataMixin(pydocspec.ext.VariableMixin):
 
     @cached_property
-    def is_attrs_attribute(self: 'pydocspec.Data') -> bool: #type:ignore[misc]
+    def is_attrs_attribute(self: 'pydocspec.Variable') -> bool: #type:ignore[misc]
         """
-        Whether this Data is an L{attr.ib} attribute.
+        Whether this Variable is an L{attr.ib} attribute.
         """
         if self.Semantic.CLASS_VARIABLE in self.semantic_hints:
             explicit = isinstance(self.value_ast, astroid.nodes.Call) and \

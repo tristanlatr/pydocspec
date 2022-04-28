@@ -1,12 +1,13 @@
-from typing import List, Type
+from typing import List, Optional, Type
 import pytest
 
 from . import mod_from_text_param, ModFromTextFunction
-from pydocspec import Class, processor
+from pydocspec import Class, ApiObject, processor
 
-def assert_mro_equals(klass: Class, expected_mro: List[str]
+def assert_mro_equals(klass: Optional[ApiObject], expected_mro: List[str]
     ) -> None:
-        assert [member.full_name for member in processor.class_attr.MRO().mro(klass)] == expected_mro
+    assert isinstance(klass, Class)
+    assert [member.full_name for member in processor.class_attr.MRO().mro(klass)] == expected_mro
 
 @mod_from_text_param
 def test_mro(mod_from_text: ModFromTextFunction) -> None:
@@ -86,8 +87,8 @@ def test_mro(mod_from_text: ModFromTextFunction) -> None:
     )
 
     with pytest.raises(ValueError, match="Cannot compute c3 linearization"):
-        processor.class_attr.MRO().mro(mod["F1"])
+        processor.class_attr.MRO().mro(mod["F1"]) # type:ignore[arg-type]
     with pytest.raises(ValueError, match="Cannot compute c3 linearization"):
-        processor.class_attr.MRO().mro(mod["G1"])
+        processor.class_attr.MRO().mro(mod["G1"]) # type:ignore[arg-type]
     with pytest.raises(ValueError, match="Cannot compute c3 linearization"):
-        processor.class_attr.MRO().mro(mod["Duplicates"])
+        processor.class_attr.MRO().mro(mod["Duplicates"]) # type:ignore[arg-type]

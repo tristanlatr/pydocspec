@@ -12,7 +12,7 @@ from pydocspec import _model, astroidutils, visitors
 
 def dunder_all(ob: _model.Module) -> Optional[List[str]]:
     var = ob.get_member('__all__')
-    if not var or not isinstance(var, _model.Data) or not var.value_ast:
+    if not var or not isinstance(var, _model.Variable) or not var.value_ast:
         return None
     value = var.value_ast
     
@@ -47,7 +47,7 @@ def dunder_all(ob: _model.Module) -> Optional[List[str]]:
 
 def docformat(ob: _model.Module) -> Optional[str]:
     var = ob.get_member('__docformat__')
-    if not var or not isinstance(var, _model.Data) or not var.value_ast:
+    if not var or not isinstance(var, _model.Variable) or not var.value_ast:
         return None
     #TODO: use astroid infer()
     try:

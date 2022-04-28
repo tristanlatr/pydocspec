@@ -12,27 +12,28 @@ from pathlib import Path
 import typing as t
 
 import astroid.nodes
-import docspec
 
 # should not import pydocspec or _model
 
-from . import genericvisitor, astroidutils
+from . import _docspec, genericvisitor, astroidutils
 
 if t.TYPE_CHECKING:
-  from ._model import ApiObject
   from .astbuilder import BuilderVisitor
   import pydocspec
+
 # AST visitors
 
-class _ASTVisitorGetChildren:
+class _ASTVisitorGetChildren(genericvisitor.Visitor[astroid.nodes.NodeNG]):
   # implements get_children() for astroid nodes.
-  def get_children(self, node: astroid.nodes.NodeNG) -> t.Iterable[astroid.nodes.NodeNG]:
+  @classmethod
+  def get_children(cls, node: astroid.nodes.NodeNG) -> t.Iterable[astroid.nodes.NodeNG]: #type:ignore[override]
     return astroidutils.iter_values(node)
 
 # This alternative implementation for the get_children method might be useful because it only
-# traverses nodes that have a 'body' field. Might be more efficient.
-class _ASTVisitorGetChildrenBodyOnly:
-  def get_children(self, node: astroid.nodes.NodeNG) -> t.Iterable[astroid.nodes.NodeNG]:
+# traverses nodes that have a 'body' field. Might be more efficient for specific purporses.
+class _ASTVisitorGetChildrenBodyOnly(genericvisitor.Visitor[astroid.nodes.NodeNG]):
+  @classmethod
+  def get_children(cls, node: astroid.nodes.NodeNG) -> t.Iterable[astroid.nodes.NodeNG]: #type:ignore[override]
       """
       Visit the nested nodes in the body of a node.
       """
@@ -58,16 +59,15 @@ def iter_fields(ob: 'pydocspec.ApiObject') -> t.Iterator[t.Tuple[str, t.Any]]:
 
 # ApiObject visitors
 
-class _docspecApiObjectVisitor(genericvisitor.Visitor[docspec.ApiObject]):
+class _docspecApiObjectVisitor(genericvisitor.Visitor[_docspec.docspecApiObjectT]):
   # adapter for docspec
-  def get_children(cls, ob: docspec.ApiObject) -> t.Iterable[docspec.ApiObject]:
-      if isinstance(ob, (docspec.Class, docspec.Module)):
-        return ob.members
-      else:
-        return ()
+  @classmethod
+  def get_children(cls, ob: _docspec.docspecApiObjectT) -> t.Iterable[_docspec.docspecApiObjectT]: #type:ignore[override]
+      return getattr(ob, 'members', ())
 
-class _ApiObjectVisitorGetChildren:
-  def get_children(self, ob: 'pydocspec.ApiObject') -> t.Iterable['pydocspec.ApiObject']:
+class _ApiObjectVisitorGetChildren(genericvisitor.Visitor['pydocspec.ApiObject']):
+  @classmethod
+  def get_children(cls, ob: 'pydocspec.ApiObject') -> t.Iterable['pydocspec.ApiObject']: #type:ignore[override]
     return ob._members()
 
 class ApiObjectVisitor(_ApiObjectVisitorGetChildren, genericvisitor.CustomizableVisitor['pydocspec.ApiObject'],):
@@ -131,7 +131,6 @@ class ReprVisitor(ApiObjectVisitor):
   def unknown_visit(self, ob: 'pydocspec.ApiObject') -> None:
     depth = len(ob.path)-1
     
-    # dataclasses.asdict(ob) can't work on cycles references, so we iter the fields
     other_fields = dict(list(iter_fields(ob)))
     other_fields.pop('name')
     other_fields.pop('location')
@@ -181,7 +180,7 @@ class PrintVisitor(ApiObjectVisitor):
     'Module': 'magenta',
     'Class': 'cyan',
     'Function': 'yellow',
-    'Data': 'blue',
+    'Variable': 'blue',
     'Indirection': 'dark_blue',
   }
 

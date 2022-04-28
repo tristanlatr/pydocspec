@@ -1,7 +1,7 @@
 """
 Extensions sytem.
 
-Mixin classes ca be applied to objects: "Module", "Class", "Function", "Data", "Indirection", 
+Mixin classes ca be applied to objects: "Module", "Class", "Function", "Variable", "Indirection", 
 "Docstring", "Decoration", "Argument", "Location", **BUT NOT "TreeRoot"**.
 
 :Note: Tree root instance is created before extensions are loaded.
@@ -10,10 +10,10 @@ You create an extension like this:
 
 .. python::
         
-    from pydocspec.ext import DataMixin, ClassMixin, ApiObjectVisitorExt, AstVisitorExt, ExtRegistrar
+    from pydocspec.ext import VariableMixin, ClassMixin, ApiObjectVisitorExt, AstVisitorExt, ExtRegistrar
     
     # define extension logic
-    class MyDataMixin(DataMixin):
+    class MyDataMixin(VariableMixin):
         ...
     class MyClassMixin(ClassMixin):
         ...
@@ -66,15 +66,15 @@ class AstVisitorExt(_AstVisitorExt): ...
 class ClassMixin: ...
 class ModuleMixin: ...
 class FunctionMixin: ...
-class DataMixin: ...
+class VariableMixin: ...
 class IndirectionMixin: ...
 class DocstringMixin: ...
 class DecorationMixin: ...
 class LocationMixin: ...
 
-class ApiObjectMixin(ModuleMixin, ClassMixin, FunctionMixin, DataMixin, IndirectionMixin): ...
+class ApiObjectMixin(ModuleMixin, ClassMixin, FunctionMixin, VariableMixin, IndirectionMixin): ...
 class HasMembersMixin(ModuleMixin, ClassMixin): ...
-class InheritableMixin(FunctionMixin, DataMixin): ...
+class InheritableMixin(FunctionMixin, VariableMixin): ...
 
 # class TreeRootMixin: ... # can't add mixins to TreeRoot.
 
@@ -94,7 +94,7 @@ def get_optional_extensions() -> Iterator[str]:
     """
     return _get_submodules('pydocspec.ext.opt')
 
-@attr.s
+@attr.s(frozen=True)
 class _AstroidTransform(abc.ABC):
     """
     Base class to customize astroid inference system with a bridge to pydocspec tree.
@@ -223,7 +223,7 @@ _mixin_to_class_name: Dict[Any, str] = {
         ClassMixin: 'Class',
         ModuleMixin: 'Module',
         FunctionMixin: 'Function',
-        DataMixin: 'Data',
+        VariableMixin: 'Variable',
         IndirectionMixin: 'Indirection',
         DocstringMixin: 'Docstring',
         DecorationMixin: 'Decoration',

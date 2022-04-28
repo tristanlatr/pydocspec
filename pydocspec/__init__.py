@@ -26,19 +26,19 @@ The core of the logic is design to be extensible with extensions modules. See `p
 # - Build pydocspec from imported modules too, if they are available in the system.
 # - Add overriden in / overrides . What to do withData with annotation only?
 
-import dataclasses
+
 from pathlib import Path
-from typing import TYPE_CHECKING, Iterable, Iterator, List, Optional, Sequence, Tuple, Union, Type, Any
-
+import types
+from typing import TYPE_CHECKING, Iterable, Iterator, List, Optional, Sequence, Tuple, Union, Type, Any, cast, overload
 import inspect
-
-import attr
-import docspec
 import os.path
 import sys
 import logging
 
-from . import astroidutils, dupsafedict
+import attr
+from cached_property import cached_property
+
+from . import _docspec, astroidutils, dupsafedict
 from .dottedname import DottedName
 from . import _model
 from ._model import Inheritable, HasMembers
@@ -48,6 +48,7 @@ from ._model import Inheritable, HasMembers
 if TYPE_CHECKING:
     import docspec_python
     from . import astbuilder
+    import astroid
 
 __docformat__ = 'restructuredtext'
 __all__ = [
@@ -56,14 +57,14 @@ __all__ = [
   'Decoration',
   'Argument',
   'ApiObject',
-  'Data',
+  'Variable',
   'Function',
   'Class',
   'Module',
   'Docstring',
 ]
 
-_RESOLVE_ALIAS_MAX_RECURSE = 10
+_RESOLVE_ALIAS_MAX_RECURSE = 3
 
 Location = _model.Location
 Docstring = _model.Docstring
@@ -83,19 +84,14 @@ class TreeRoot(_model.TreeRoot):
     root_modules: List['Module'] # type: ignore[assignment]
     all_objects: dupsafedict.DuplicateSafeDict[str, 'ApiObject'] # type: ignore[assignment]
 
+
 class ApiObject(_model.ApiObject):
     """
     An augmented `docspec.ApiObject`, with functionalities to resolve names for the python language.
     """
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-        
-        # help mypy
-        self.root: TreeRoot
-        self.parent: Optional[Union['Class', 'Module']]
-        self.location: Location
-        self.module: 'Module'
+    def _init_attribs(self) -> None:
+        super()._init_attribs()
 
         # new attributes
 
@@ -107,10 +103,17 @@ class ApiObject(_model.ApiObject):
         subclass'.
         """
 
-        self.aliases: List['Data'] = []
+        self.aliases: List['Variable'] = []
         """
         Aliases to this object.
         """
+    
+    # help mypy
+    root: TreeRoot
+    parent: Optional[Union['Class', 'Module']]
+    location: Location
+    module: 'Module'
+    docstring: Optional[Docstring]
 
     # NAME RESOLVING LOGIC
 
@@ -210,15 +213,15 @@ class ApiObject(_model.ApiObject):
         # Follows indirections and aliases
         member = self.get_member(name) # type:ignore[unreachable]
         if member:
-            if follow_aliases and isinstance(member, Data) and astroidutils.is_name(member.value_ast):
+            if follow_aliases and isinstance(member, Variable) and astroidutils.is_name(member.value_ast):
                 indirection = member._alias_indirection
                 return self._resolve_indirection(indirection, _indirections) or indirection.target
             if isinstance(member, Indirection):
                 return self._resolve_indirection(member, _indirections) or member.target
             return member.full_name
 
-        elif isinstance(self, Class):
-            assert self.parent is not None
+        elif isinstance(self, Class): # type:ignore[unreachable]
+            assert self.parent is not None  # type:ignore[unreachable]
             return self.parent._local_to_full_name(name, follow_aliases, _indirections)
         
         return name
@@ -263,129 +266,175 @@ class ApiObject(_model.ApiObject):
         indirection.warn(f"Could not resolve indirection to {_indirections[0].target!r}.")
         return None
     
-@dataclasses.dataclass(repr=False)
-class Data(_model.Data, ApiObject):
+
+class Variable(_model.Variable, ApiObject):
     """
     Represents a variable assignment.
     """
 
-    is_instance_variable: bool = False
-    """
-    Whether this Data is an instance variable.
-    """
+    @overload # type:ignore[misc]
+    def __init__(self, 
+                 location: Location, 
+                 name: str, 
+                 docstring: Optional[Docstring],
+                 datatype: Optional[str], 
+                 value: Optional[str], 
+                 datatype_ast: Optional['astroid.nodes.NodeNG'],
+                 value_ast: Optional['astroid.nodes.NodeNG'],
+                 modifiers: Optional[List[str]] = None, 
+                 semantic_hints: Optional[List[_docspec.VariableSemantic]] = None,
+                 is_type_guarged: bool = False) -> None:
+        ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
 
-    is_class_variable: bool = False
-    """
-    Whether this Data is a class variable.
-    """
+    def _init_attribs(self) -> None:
+        super()._init_attribs()
 
-    is_module_variable: bool = False
-    """
-    Whether this Data is a module variable.
-    """
+        self.is_instance_variable: bool = False
+        """
+        Whether this Variable is an instance variable.
+        """
 
-    is_alias: bool = False
-    """
-    Whether this Data is an alias.
-    Aliases are folowed by default when using `ApiObject.expand_name`. 
-    """
+        self.is_class_variable: bool = False
+        """
+        Whether this Variable is a class variable.
+        """
 
-    is_type_alias: bool = False
-    """
-    Whether this Data is a type alias.
-    """
+        self.is_module_variable: bool = False
+        """
+        Whether this Variable is a module variable.
+        """
 
-    is_constant: bool = False
-    """
-    Whether this Data is a constant.
-    """
+        self.is_alias: bool = False
+        """
+        Whether this Variable is an alias.
+        Aliases are folowed by default when using `ApiObject.expand_name`. 
+        """
 
-    @property
+        self.is_type_alias: bool = False
+        """
+        Whether this Variable is a type alias.
+        """
+
+        self.is_constant: bool = False
+        """
+        Whether this Variable is a constant.
+        """
+
+    @cached_property
     def _alias_indirection(self) -> 'Indirection':
         # private helper object to resolve names only.
         assert self.value is not None
-        indirection = Indirection(self.name, self.location, None, self.value)
+        indirection = Indirection(name=self.name, location=self.location, docstring=None, target=self.value)
         indirection.parent = self.parent
         indirection.root = self.root
         return indirection
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-        
-        # help mypy
-        self.parent: Union['Class', 'Module']
+    # help mypy
+    parent: Union['Class', 'Module']
 
-@dataclasses.dataclass(repr=False)
+
 class Indirection(_model.Indirection, ApiObject):
-  """
-  Represents an imported name. It can be used to properly 
-  find the full name target of a link written with a local name. 
-  """
-#   resolved_target: Optional[ApiObject] = None
+    """
+    Represents an imported name. It can be used to properly 
+    find the full name target of a link written with a local name. 
+    """
+    # resolved_target: Optional[ApiObject] = None
 
-  def __post_init__(self) -> None:
-        super().__post_init__()
-        
-        # help mypy
-        self.parent: Union['Class', 'Module']
+    # help mypy
+    parent: Union['Class', 'Module']
 
-@dataclasses.dataclass(repr=False)
+    @overload # type:ignore[misc]
+    def __init__(self, 
+                 location: Location, 
+                 name: str, 
+                 docstring: Optional[Docstring],
+                 target: str, 
+                 is_type_guarged: bool = False) -> None:
+        ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+
+
+class ClassInheritedMember:
+        def __init__(self, member: ApiObject, inherited_via: Tuple['Class', ...]) -> None:
+            self.member = member
+            self.inherited_via = inherited_via
+
+
 class Class(_model.Class, ApiObject):
     """
     Represents a class definition.
     """
 
-    is_exception: bool = False
-    """
-    Whether this class extends one of the standard library exceptions.
-    """
+    InheritedMember = ClassInheritedMember
 
-    resolved_bases: List[Union['Class', 'str']] = dataclasses.field(default_factory=list)
-    """
-    For each bases, try to resolve the name to an `ApiObject` or fallback to the expanded name.
-    
-    :see: `resolve_name` and `expand_name`
-    """
+    @overload # type:ignore[misc]
+    def __init__(self, 
+                 location: Location, 
+                 name: str, 
+                 docstring: Optional[Docstring],
+                 members: List['ApiObject'],
+                 metaclass: Optional[str], 
+                 bases: Optional[List[str]], 
+                 decorations: Optional[List[Decoration]], 
+                 bases_ast: Optional[List['astroid.nodes.NodeNG']],
+                 modifiers: Optional[List[str]] = None,
+                 semantic_hints: Optional[List[_docspec.ClassSemantic]] = None,
+                 is_type_guarged: bool = False, 
+                 _ast: Optional['astroid.nodes.ClassDef'] = None
+                 ) -> None:
+        ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
 
-    mro: List['Class'] = dataclasses.field(default_factory=list)
-    """
-    The method resoltion order of this class.
-    """
+    def _init_attribs(self) -> None:
+        super()._init_attribs()
 
-    subclasses: List['Class'] = dataclasses.field(default_factory=list)
-    """
-    The direct subclasses of this class. 
-    """
+        self.is_exception: bool = False
+        """
+        Whether this class extends one of the standard library exceptions.
+        """
 
-    constructor_method: Optional['Function'] = None
-    """
-    The constructor method of this class.
-    """
-
-    inherited_members: List['InheritedMember'] = dataclasses.field(default_factory=list)
-    """
-    Members inherited from superclasses.
-    """
-
-    is_abstractclass: bool = False
-    """
-    Whether this class is abstract. 
-    
-    A class is abstract if it has abstract methods or if it's declared with ``metaclass=ABCMeta``.
-    """
-    
-    @dataclasses.dataclass
-    class InheritedMember:
-        member: ApiObject
-        inherited_via: Tuple['Class', ...]
+        self.resolved_bases: List[Union['Class', 'str']] = []
+        """
+        For each bases, try to resolve the name to an `ApiObject` or fallback to the expanded name.
         
-    def __post_init__(self) -> None:
-        super().__post_init__()
+        :see: `resolve_name` and `expand_name`
+        """
+
+        self.mro: List['Class'] = cast('List[Class]', NotImplemented)
+        """
+        The method resoltion order of this class.
+        """
+
+        self.subclasses: List['Class'] = []
+        """
+        The direct subclasses of this class. 
+        """
+
+        self.constructor_method: Optional['Function'] = None
+        """
+        The constructor method of this class.
+        """
+
+        self.inherited_members: List['ClassInheritedMember'] = []
+        """
+        Members inherited from superclasses.
+        """
+
+        self.is_abstractclass: bool = False
+        """
+        Whether this class is abstract. 
         
-        # help mypy
-        self.decorations: Optional[List['Decoration']] # type:ignore[assignment]
-        self.parent: Union['Class', 'Module']
-        self.members: List['ApiObject'] # type:ignore[assignment]
+        A class is abstract if it has abstract methods or if it's declared with ``metaclass=ABCMeta``.
+        """
+  
+    # help mypy
+    decorations: Optional[List['Decoration']] # type:ignore[assignment]
+    parent: Union['Class', 'Module']
+    members: List['ApiObject'] # type:ignore[assignment]
     
     def ancestors(self, include_self: bool = False) -> Iterator[Union['Class', 'str']]:
         """Reccursively returns `resolved_bases` for all bases."""
@@ -412,58 +461,77 @@ class Class(_model.Class, ApiObject):
                 return obj
         return None
 
-@dataclasses.dataclass(repr=False)
+
 class Function(_model.Function, ApiObject):
     """
     Represents a function definition.
     """
 
-    is_property: bool = False
-    """
-    Whether this Function is a property getter.
-    """
+    @overload # type:ignore[misc]
+    def __init__(self, 
+                 location: Location, 
+                 name: str, 
+                 docstring: Optional[Docstring],
+                 modifiers: Optional[List[str]], 
+                 args: List[Argument], 
+                 return_type: Optional[str], 
+                 return_type_ast: Optional['astroid.nodes.NodeNG'], 
+                 decorations: Optional[List[Decoration]],
+                 semantic_hints: Optional[List[_docspec.FunctionSemantic]] = None,
+                 is_type_guarged: bool = False
+                 ) -> None:
+        ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
 
-    is_property_setter: bool = False
-    """
-    Whether this Function is a property setter.
-    """
 
-    is_property_deleter: bool = False
-    """
-    Whether this Function is a property deteter.
-    """
+    def _init_attribs(self) -> None:
+        super()._init_attribs()
 
-    is_async: bool = False
-    """
-    Whether this Function is a coroutine, aka ``async`` function.
-    """
+        self.is_property: bool = False
+        """
+        Whether this Function is a property getter.
+        """
 
-    is_method: bool = False
-    """
-    Whether this Function is a method.
-    """
+        self.is_property_setter: bool = False
+        """
+        Whether this Function is a property setter.
+        """
 
-    is_staticmethod: bool = False
-    """
-    Whether this Function is a static method.
-    """
+        self.is_property_deleter: bool = False
+        """
+        Whether this Function is a property deteter.
+        """
 
-    is_classmethod: bool = False
-    """
-    Whether this Function is a class method.
-    """
+        self.is_async: bool = False
+        """
+        Whether this Function is a coroutine, aka ``async`` function.
+        """
 
-    is_abstractmethod: bool = False
-    """
-    Whether this Function is a abstract method.
-    """
+        self.is_method: bool = False
+        """
+        Whether this Function is a method.
+        """
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-        # help mypy
-        self.decorations: Optional[List['Decoration']] # type:ignore
-        self.args: List['Argument'] # type:ignore
-        self.parent: Union[Class, 'Module']
+        self.is_staticmethod: bool = False
+        """
+        Whether this Function is a static method.
+        """
+
+        self.is_classmethod: bool = False
+        """
+        Whether this Function is a class method.
+        """
+
+        self.is_abstractmethod: bool = False
+        """
+        Whether this Function is a abstract method.
+        """
+
+    # help mypy
+    decorations: Optional[List['Decoration']] # type:ignore
+    args: List['Argument'] # type:ignore
+    parent: Union[Class, 'Module']
 
     def signature(self, include_types:bool=True, include_defaults:bool=True, 
                   include_return_type:bool=True, include_self:bool=True,
@@ -497,26 +565,26 @@ class Function(_model.Function, ApiObject):
         # filter args
         args = [a for a in self.args if a.name != 'self' or include_self]
         
-        for argument in (a for a in args if a.type is docspec.Argument.Type.PositionalOnly):
+        for argument in (a for a in args if a.type.name == 'POSITIONAL_ONLY'):
             signature_builder.add_param(argument.name, inspect.Parameter.POSITIONAL_ONLY, 
                 default=argument.default_value_ast if argument.default_value_ast and include_defaults else None,
                 annotation=argument.datatype_ast if argument.datatype_ast and include_types else None)
         
-        for argument in (a for a in args if a.type is docspec.Argument.Type.Positional):
+        for argument in (a for a in args if a.type.name == 'POSITIONAL'):
             signature_builder.add_param(argument.name, inspect.Parameter.POSITIONAL_OR_KEYWORD, 
                 default=argument.default_value_ast if argument.default_value_ast and include_defaults else None,
                 annotation=argument.datatype_ast if argument.datatype_ast and include_types else None)
         
-        for argument in (a for a in args if a.type is docspec.Argument.Type.PositionalRemainder):
+        for argument in (a for a in args if a.type.name == 'POSITIONAL_REMAINDER'):
             signature_builder.add_param(argument.name, inspect.Parameter.VAR_POSITIONAL, default=None,
                 annotation=argument.datatype_ast if argument.datatype_ast and include_types else None)
         
-        for argument in (a for a in args if a.type is docspec.Argument.Type.KeywordOnly):
+        for argument in (a for a in args if a.type.name == 'KEYWORD_ONLY'):
             signature_builder.add_param(argument.name, inspect.Parameter.KEYWORD_ONLY, 
                 default=argument.default_value_ast if argument.default_value_ast and include_defaults else None,
                 annotation=argument.datatype_ast if argument.datatype_ast and include_types else None)
         
-        for argument in (a for a in args if a.type is docspec.Argument.Type.KeywordRemainder):
+        for argument in (a for a in args if a.type.name == 'KEYWORD_REMAINDER'):
             signature_builder.add_param(argument.name, inspect.Parameter.VAR_KEYWORD, default=None,
             annotation=argument.datatype_ast if argument.datatype_ast and include_types else None)
         
@@ -531,26 +599,38 @@ class Function(_model.Function, ApiObject):
         
         return signature
     
-@dataclasses.dataclass(repr=False)
+
 class Module(_model.Module, ApiObject):
     """
     Represents a module, basically a named container for code/API objects. Modules may be nested in other modules
     """
+    @overload # type:ignore[misc]
+    def __init__(self, 
+                 location: Location, 
+                 name: str, 
+                 docstring: Optional[Docstring],
+                 members: List['ApiObject'],
+                 is_package: bool = False, 
+                 is_c_module: bool = False, 
+                 source_path: Optional[Path] = None, 
+                 _py_mod: Optional[types.ModuleType] = None, 
+                 _py_string: Optional[str] = None) -> None:
+        ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
 
-    docformat: Optional[str] = None # TODO: rename to dunder_docformat
-    """The module variable __docformat__ as string."""
+    def _init_attribs(self) -> None:
+        super()._init_attribs()
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-        # help mypy
-        self.members: List['ApiObject'] #type:ignore[assignment]
-        self.parent: Optional['Module']
+        self.docformat: Optional[str] = None # TODO: rename to dunder_docformat
+        """The module variable __docformat__ as string."""
+
+    # help mypy
+    members: List['ApiObject'] #type:ignore[assignment]
+    parent: Optional['Module']
 
 
-# Builder / Extensions API
-
-# loader function is a function of the following form: 
-#   (files: Sequence[Path], options: Any = None) -> TreeRoot
+# Builder / High-level API
 
 @attr.s(auto_attribs=True)
 class Options:
@@ -558,6 +638,7 @@ class Options:
     load_optional_extensions: bool = False
     prepended_package: Optional[str] = None #TODO: implement me!
     introspect_c_modules: bool = False
+
 
 def builder_from_options(options: Optional[Options]=None) -> 'astbuilder.Builder':
     """
@@ -589,6 +670,7 @@ def builder_from_options(options: Optional[Options]=None) -> 'astbuilder.Builder
     
     return builder
 
+
 def load_python_modules(files: Sequence[Path], options: Optional[Options] = None) -> TreeRoot:
     """
     Load packages or modules with pydocspec's builder. 
@@ -605,13 +687,15 @@ def load_python_modules(files: Sequence[Path], options: Optional[Options] = None
 
     return builder.root
 
+
 def load_python_modules_with_docspec_python(files: Sequence[Path], 
                                             options: Optional[Options] = None,
                                             docspec_options: 'docspec_python.ParserOptions' = None, ) -> TreeRoot:
     """
     Load packages or modules with docspec_python and then convert them to pydocspec objects. 
     """
-    from docspec_python import parse_python_module
+    assert _docspec.upstream.docspec_python is not None, "Please install docspec_python"
+    parse_python_module = _docspec.upstream.docspec_python.parse_python_module
     from pydocspec import converter
 
     def _find_module(module_name: str, in_folder: str ) -> str:
@@ -668,6 +752,7 @@ def load_python_modules_with_docspec_python(files: Sequence[Path],
 
     return converter.convert_docspec_modules(modules, options=options)
 
+
 def _setup_stdout_logger(
     name: str,
     verbose: bool = False,
@@ -688,4 +773,6 @@ def _setup_stdout_logger(
     std.setFormatter(logging.Formatter(format_string))
     log.addHandler(std)
     return log
+
+
 _setup_stdout_logger('pydocspec')
