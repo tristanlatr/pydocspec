@@ -194,6 +194,26 @@
             </div>
         
 
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.converter._EnumMeta.html" class="internal-link" title="pydocspec.converter._EnumMeta">_<wbr></wbr>Enum<wbr></wbr>Meta</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.converter._SemanticsConverter.html" class="internal-link" title="pydocspec.converter._SemanticsConverter">_<wbr></wbr>Semantics<wbr></wbr>Converter</a></code>
+            </div>
+        
+
     </li>
 </ul>
 
@@ -246,8 +266,21 @@
         
          
 
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="private">
         
-         
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_EnumT" class="internal-link" title="pydocspec.converter._EnumT">_<wbr></wbr>Enum<wbr></wbr>T</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
 
         
          
@@ -633,7 +666,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <a href="https://github.com/tristanlatr/pydocspec/tree/859b867f0a2762ab112b27c4d36f8885a6551697/pydocspec/converter.py" class="sourceLink">(source)</a>
+          <a href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/converter.py" class="sourceLink">(source)</a>
           <p></p>
         </div>
 
@@ -685,6 +718,16 @@ root: pydocspec.TreeRoot = convert_docspec_modules(load_python_modules(...))
     <td>Class</td>
     <td><code><a href="pydocspec.converter._ConverterVisitor.html" class="internal-link" title="pydocspec.converter._ConverterVisitor">_<wbr></wbr>Converter<wbr></wbr>Visitor</a></code></td>
     <td>Visit each <tt class="rst-docutils literal">docspec</tt> objects of a module and create their <tt class="rst-docutils literal">pydocspec</tt> augmented counterparts.</td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.converter._EnumMeta.html" class="internal-link" title="pydocspec.converter._EnumMeta">_<wbr></wbr>Enum<wbr></wbr>Meta</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><code><a href="pydocspec.converter._SemanticsConverter.html" class="internal-link" title="pydocspec.converter._SemanticsConverter">_<wbr></wbr>Semantics<wbr></wbr>Converter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
@@ -695,6 +738,11 @@ root: pydocspec.TreeRoot = convert_docspec_modules(load_python_modules(...))
     <td>Function</td>
     <td><code><a href="#_nest_docspec_python_modules" class="internal-link" title="pydocspec.converter._nest_docspec_python_modules">_nest<wbr></wbr>_docspec<wbr></wbr>_python<wbr></wbr>_modules</a></code></td>
     <td>Reparent modules to their respective parent packages such that we have an actual hiearchy of packages.</td>
+  </tr><tr class="variable private">
+    
+    <td>Variable</td>
+    <td><code><a href="#_EnumT" class="internal-link" title="pydocspec.converter._EnumT">_<wbr></wbr>Enum<wbr></wbr>T</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
           
@@ -715,7 +763,7 @@ root: pydocspec.TreeRoot = convert_docspec_modules(load_python_modules(...))
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">back_convert_modules</span>(modules):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/859b867f0a2762ab112b27c4d36f8885a6551697/pydocspec/converter.py#L46">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/converter.py#L52">
       
       (source)
     </a>
@@ -752,7 +800,7 @@ raw_docspec_json = {<span class="py-string">'modules'</span>: []}
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">convert_docspec_modules</span>(modules, options=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/859b867f0a2762ab112b27c4d36f8885a6551697/pydocspec/converter.py#L32">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/converter.py#L38">
       
       (source)
     </a>
@@ -775,7 +823,7 @@ raw_docspec_json = {<span class="py-string">'modules'</span>: []}
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_object_by_name</span>(relativeroots, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/859b867f0a2762ab112b27c4d36f8885a6551697/pydocspec/converter.py#L415">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/converter.py#L438">
       
       (source)
     </a>
@@ -797,7 +845,7 @@ raw_docspec_json = {<span class="py-string">'modules'</span>: []}
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_nest_docspec_python_modules</span>(modules):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/859b867f0a2762ab112b27c4d36f8885a6551697/pydocspec/converter.py#L425">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/converter.py#L448">
       
       (source)
     </a>
@@ -807,6 +855,29 @@ raw_docspec_json = {<span class="py-string">'modules'</span>: []}
     
     <div><p>Reparent modules to their respective parent packages such that we have an actual hiearchy of packages.</p>
 <table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">modules:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable" class="intersphinx-link">Iterable</a>[<wbr></wbr><a href="docspec.Module.html" class="internal-link">docspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="docspec.Module.html" class="internal-link">docspec.Module</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basevariable private">
+  
+  
+  <a name="pydocspec.converter._EnumT">
+    
+  </a>
+  <a name="_EnumT">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_EnumT</span> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/converter.py#L396">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div>
         </div>
@@ -820,7 +891,7 @@ raw_docspec_json = {<span class="py-string">'modules'</span>: []}
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.5.0.dev0 at 2022-04-28 19:51:32.
+    22.5.0.dev0 at 2022-04-28 23:51:25.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
