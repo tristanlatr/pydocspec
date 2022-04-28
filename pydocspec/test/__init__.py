@@ -142,8 +142,7 @@ mod_from_text_functions = [_default_astbuilder.mod_from_text, _optional_extensio
 load_python_modules_param_functions = [load_python_modules]
 
 if _docspec.upstream.docspec_python is not None:
-    mod_from_text_functions.extend([_docspec_python.mod_from_text, ])
-    # _back_converter_round_trip1.mod_from_text, # TODO: fix the converter semantic hints !
+    mod_from_text_functions.extend([_docspec_python.mod_from_text, _back_converter_round_trip1.mod_from_text])
     load_python_modules_param_functions.extend([load_python_modules_with_docspec_python])
 
 mod_from_text_param = pytest.mark.parametrize(
