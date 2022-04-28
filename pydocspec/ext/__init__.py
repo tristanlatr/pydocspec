@@ -86,7 +86,7 @@ def get_default_extensions() -> Iterator[str]:
     """
     Get the full names of all the default extension modules included in L{pydocspec}.
     """
-    return _get_submodules('pydocspec.ext')
+    return _get_submodules('pydocspec.ext.default')
 
 def get_optional_extensions() -> Iterator[str]:
     """
