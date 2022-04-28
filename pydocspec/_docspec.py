@@ -52,6 +52,10 @@ class _HasInitAttribsMethod:
   def _init_attribs(self) -> None:
     """
     A method to define extra attributes that will be set after initialization.
+    
+    :Note: Most attributes don't need a special value at initialization (if they use None as default for instance), 
+      in those cases, avoid overriding this method by declaring them as class variable. 
+      Override this method only if you have to initialize an attribute value to a mutable object.
     """
 
 class Location(_HasInitAttribsMethod):
