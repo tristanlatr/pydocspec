@@ -31,7 +31,7 @@ jobs:
         
       - name: Run unit tests
         if: matrix.python-version != '3.6'
-        run: tox -e test
+        run: tox -e test,test-no-docspec
       
       - name: Run unit tests (python 3.6)
         if: matrix.python-version == '3.6'
