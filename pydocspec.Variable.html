@@ -1,0 +1,2126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>pydocspec.Variable</title>
+    <meta name="generator" content="pydoctor 22.5.0.dev0"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default mainnavbar">
+      
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a> <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="search-results-container" style="display: none;">
+        
+        <div id="search-buttons">
+          <span class="label label-default" id="search-docstrings-button">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+              search in docstrings
+            </input>
+          </label>
+          </span>
+          
+        </div>
+        
+        <noscript>
+            <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+        </noscript>
+
+        <div class="hint" id="search-help-box">
+          <p class="rst-last">
+      
+            Search bar offers the following options:
+            <ul>   
+                <li>
+                  <strong>Term presence.</strong> The below example searches for documents that 
+                    must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                </li> 
+
+                <li>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                </li> 
+
+                <li>
+                  <strong>Search in specific fields.</strong> The following search matches all objects 
+                  in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+
+                  <p>
+                    Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                    Last two fields are only applicable if "search in docstrings" is enabled.
+                  </p>
+                </li>
+
+                <li>
+                  <strong>Fuzzy matches.</strong> The following search matches all documents 
+                  that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                </li>
+            </ul>
+
+          </p>
+        </div>
+
+        <div id="search-status"> </div>
+
+        <div class="warning" id="search-warn-box" style="display: none;">
+          <p class="rst-last"><span id="search-warn"></span></p>
+        </div>
+
+        <table id="search-results">
+          <!-- Filled dynamically by JS -->
+        </table>
+        
+        <div style="margin-top: 8px;">
+          <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</nav>
+    
+    <div class="container-fluid">
+
+      <!-- Side navigation -->
+      <div class="sidebarcontainer" style="display: none;">
+        
+        <div class="sidebar"><nav class="sidebar">
+  
+
+  <div>
+
+      <div class="thingTitle">
+        <span>Class</span>
+        <code class="thisobject"><a href="pydocspec.Variable.html" class="internal-link" title="This class"><wbr></wbr>Variable</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Methods</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__init__" class="internal-link" title="pydocspec.Variable.__init__">__init__</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_init_attribs" class="internal-link" title="pydocspec.Variable._init_attribs">_init<wbr></wbr>_attribs</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        <div class="childrenKindTitle">Inherited Methods</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#sync_hierarchy" class="internal-link" title="pydocspec._docspec.ApiObject.sync_hierarchy">sync<wbr></wbr>_hierarchy</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#sync_hierarchy" class="internal-link" title="pydocspec._docspec.ApiObject.sync_hierarchy">sync<wbr></wbr>_hierarchy</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#sync_hierarchy" class="internal-link" title="pydocspec._docspec.ApiObject.sync_hierarchy">sync<wbr></wbr>_hierarchy</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#__repr__" class="internal-link" title="pydocspec._model.ApiObject.__repr__">__repr__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#__repr__" class="internal-link" title="pydocspec._model.ApiObject.__repr__">__repr__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#__str__" class="internal-link" title="pydocspec._model.ApiObject.__str__">__str__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#__str__" class="internal-link" title="pydocspec._model.ApiObject.__str__">__str__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#add_siblings" class="internal-link" title="pydocspec._model.ApiObject.add_siblings">add<wbr></wbr>_siblings</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#add_siblings" class="internal-link" title="pydocspec._model.ApiObject.add_siblings">add<wbr></wbr>_siblings</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#get_member" class="internal-link" title="pydocspec._model.ApiObject.get_member">get<wbr></wbr>_member</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#get_member" class="internal-link" title="pydocspec._model.ApiObject.get_member">get<wbr></wbr>_member</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#get_members" class="internal-link" title="pydocspec._model.ApiObject.get_members">get<wbr></wbr>_members</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#get_members" class="internal-link" title="pydocspec._model.ApiObject.get_members">get<wbr></wbr>_members</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#remove" class="internal-link" title="pydocspec._model.ApiObject.remove">remove</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#remove" class="internal-link" title="pydocspec._model.ApiObject.remove">remove</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#replace" class="internal-link" title="pydocspec._model.ApiObject.replace">replace</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#replace" class="internal-link" title="pydocspec._model.ApiObject.replace">replace</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#walk" class="internal-link" title="pydocspec._model.ApiObject.walk">walk</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#walk" class="internal-link" title="pydocspec._model.ApiObject.walk">walk</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#walkabout" class="internal-link" title="pydocspec._model.ApiObject.walkabout">walkabout</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#walkabout" class="internal-link" title="pydocspec._model.ApiObject.walkabout">walkabout</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.CanTriggerWarnings.html#warn" class="internal-link" title="pydocspec._model.CanTriggerWarnings.warn">warn</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.CanTriggerWarnings.html#warn" class="internal-link" title="pydocspec._model.CanTriggerWarnings.warn">warn</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.GetMembersMixin.html#__getitem__" class="internal-link" title="pydocspec._model.GetMembersMixin.__getitem__">__getitem__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.GetMembersMixin.html#__getitem__" class="internal-link" title="pydocspec._model.GetMembersMixin.__getitem__">__getitem__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html#expand_name" class="internal-link" title="pydocspec.ApiObject.expand_name">expand<wbr></wbr>_name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html#resolve_name" class="internal-link" title="pydocspec.ApiObject.resolve_name">resolve<wbr></wbr>_name</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#_members" class="internal-link" title="pydocspec._model.ApiObject._members">_members</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#_members" class="internal-link" title="pydocspec._model.ApiObject._members">_members</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#_remove_self" class="internal-link" title="pydocspec._model.ApiObject._remove_self">_remove<wbr></wbr>_self</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#_remove_self" class="internal-link" title="pydocspec._model.ApiObject._remove_self">_remove<wbr></wbr>_self</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#_repr" class="internal-link" title="pydocspec._model.ApiObject._repr">_repr</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#_repr" class="internal-link" title="pydocspec._model.ApiObject._repr">_repr</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html#_local_to_full_name" class="internal-link" title="pydocspec.ApiObject._local_to_full_name">_local<wbr></wbr>_to<wbr></wbr>_full<wbr></wbr>_name</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html#_resolve_indirection" class="internal-link" title="pydocspec.ApiObject._resolve_indirection">_resolve<wbr></wbr>_indirection</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        <div class="childrenKindTitle">Attributes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#parent" class="internal-link" title="pydocspec.Variable.parent">parent</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_alias" class="internal-link" title="pydocspec.Variable.is_alias">is<wbr></wbr>_alias</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_class_variable" class="internal-link" title="pydocspec.Variable.is_class_variable">is<wbr></wbr>_class<wbr></wbr>_variable</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_constant" class="internal-link" title="pydocspec.Variable.is_constant">is<wbr></wbr>_constant</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_instance_variable" class="internal-link" title="pydocspec.Variable.is_instance_variable">is<wbr></wbr>_instance<wbr></wbr>_variable</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_module_variable" class="internal-link" title="pydocspec.Variable.is_module_variable">is<wbr></wbr>_module<wbr></wbr>_variable</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_type_alias" class="internal-link" title="pydocspec.Variable.is_type_alias">is<wbr></wbr>_type<wbr></wbr>_alias</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_alias_indirection" class="internal-link" title="pydocspec.Variable._alias_indirection">_alias<wbr></wbr>_indirection</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        <div class="childrenKindTitle">Inherited Attributes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html#docstring" class="internal-link" title="pydocspec.ApiObject.docstring">docstring</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html#location" class="internal-link" title="pydocspec.ApiObject.location">location</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html#module" class="internal-link" title="pydocspec.ApiObject.module">module</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html#root" class="internal-link" title="pydocspec.ApiObject.root">root</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#docstring" class="internal-link" title="pydocspec._docspec.ApiObject.docstring">docstring</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#docstring" class="internal-link" title="pydocspec._docspec.ApiObject.docstring">docstring</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#location" class="internal-link" title="pydocspec._docspec.ApiObject.location">location</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#location" class="internal-link" title="pydocspec._docspec.ApiObject.location">location</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#name" class="internal-link" title="pydocspec._docspec.ApiObject.name">name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#name" class="internal-link" title="pydocspec._docspec.ApiObject.name">name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#name" class="internal-link" title="pydocspec._docspec.ApiObject.name">name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.Variable.html#datatype" class="internal-link" title="pydocspec._docspec.Variable.datatype">datatype</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.Variable.html#modifiers" class="internal-link" title="pydocspec._docspec.Variable.modifiers">modifiers</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.Variable.html#semantic_hints" class="internal-link" title="pydocspec._docspec.Variable.semantic_hints">semantic<wbr></wbr>_hints</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.Variable.html#value" class="internal-link" title="pydocspec._docspec.Variable.value">value</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#root" class="internal-link" title="pydocspec._model.ApiObject.root">root</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.Variable.html#datatype_ast" class="internal-link" title="pydocspec._model.Variable.datatype_ast">datatype<wbr></wbr>_ast</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.Variable.html#is_type_guarged" class="internal-link" title="pydocspec._model.Variable.is_type_guarged">is<wbr></wbr>_type<wbr></wbr>_guarged</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.Variable.html#value_ast" class="internal-link" title="pydocspec._model.Variable.value_ast">value<wbr></wbr>_ast</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html#aliases" class="internal-link" title="pydocspec.ApiObject.aliases">aliases</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html#doc_sources" class="internal-link" title="pydocspec.ApiObject.doc_sources">doc<wbr></wbr>_sources</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#path" class="internal-link" title="pydocspec._docspec.ApiObject.path">path</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#path" class="internal-link" title="pydocspec._docspec.ApiObject.path">path</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.ApiObject.html#path" class="internal-link" title="pydocspec._docspec.ApiObject.path">path</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#dotted_name" class="internal-link" title="pydocspec._model.ApiObject.dotted_name">dotted<wbr></wbr>_name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#dotted_name" class="internal-link" title="pydocspec._model.ApiObject.dotted_name">dotted<wbr></wbr>_name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#full_name" class="internal-link" title="pydocspec._model.ApiObject.full_name">full<wbr></wbr>_name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#full_name" class="internal-link" title="pydocspec._model.ApiObject.full_name">full<wbr></wbr>_name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#module" class="internal-link" title="pydocspec._model.ApiObject.module">module</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#scope" class="internal-link" title="pydocspec._model.ApiObject.scope">scope</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#scope" class="internal-link" title="pydocspec._model.ApiObject.scope">scope</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.ApiObject.html#_spec_fields" class="internal-link" title="pydocspec._model.ApiObject._spec_fields">_spec<wbr></wbr>_fields</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.Variable.html#_spec_fields" class="internal-link" title="pydocspec._model.Variable._spec_fields">_spec<wbr></wbr>_fields</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Package</span>
+        <code><a href="pydocspec.html" class="internal-link" title="The parent of this class">pydocspec</a></code> 
+      </div>
+      
+      <div>
+        
+
+        <div class="childrenKindTitle">Modules</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ext.html" class="internal-link" title="pydocspec.ext">ext</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor.html" class="internal-link" title="pydocspec.processor">processor</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.test.html" class="internal-link" title="pydocspec.test">test</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astbuilder.html" class="internal-link" title="pydocspec.astbuilder">astbuilder</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astroidutils.html" class="internal-link" title="pydocspec.astroidutils">astroidutils</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.basebuilder.html" class="internal-link" title="pydocspec.basebuilder">basebuilder</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.converter.html" class="internal-link" title="pydocspec.converter">converter</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.dottedname.html" class="internal-link" title="pydocspec.dottedname">dottedname</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.dupsafedict.html" class="internal-link" title="pydocspec.dupsafedict">dupsafedict</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.genericvisitor.html" class="internal-link" title="pydocspec.genericvisitor">genericvisitor</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.specfactory.html" class="internal-link" title="pydocspec.specfactory">specfactory</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.tmp.html" class="internal-link" title="pydocspec.tmp">tmp</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.visitors.html" class="internal-link" title="pydocspec.visitors">visitors</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.__main__.html" class="internal-link" title="pydocspec.__main__">__main__</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._c3linear.html" class="internal-link" title="pydocspec._c3linear">_c3linear</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.html" class="internal-link" title="pydocspec._docspec">_docspec</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.html" class="internal-link" title="pydocspec._model">_model</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject"><wbr></wbr>Api<wbr></wbr>Object</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Class.html" class="internal-link" title="pydocspec.Class"><wbr></wbr>Class</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ClassInheritedMember.html" class="internal-link" title="pydocspec.ClassInheritedMember"><wbr></wbr>Class<wbr></wbr>Inherited<wbr></wbr>Member</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Function.html" class="internal-link" title="pydocspec.Function"><wbr></wbr>Function</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Indirection.html" class="internal-link" title="pydocspec.Indirection"><wbr></wbr>Indirection</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Module.html" class="internal-link" title="pydocspec.Module"><wbr></wbr>Module</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Options.html" class="internal-link" title="pydocspec.Options"><wbr></wbr>Options</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.TreeRoot.html" class="internal-link" title="pydocspec.TreeRoot"><wbr></wbr>Tree<wbr></wbr>Root</a></code>
+            </div>
+        
+
+    </li><li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Variable.html" class="internal-link" title="pydocspec.Variable"><wbr></wbr>Variable</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        <div class="childrenKindTitle">Functions</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.html#builder_from_options" class="internal-link" title="pydocspec.builder_from_options">builder<wbr></wbr>_from<wbr></wbr>_options</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.html#load_python_modules" class="internal-link" title="pydocspec.load_python_modules">load<wbr></wbr>_python<wbr></wbr>_modules</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.html#load_python_modules_with_docspec_python" class="internal-link" title="pydocspec.load_python_modules_with_docspec_python">load<wbr></wbr>_python<wbr></wbr>_modules<wbr></wbr>_with<wbr></wbr>_docspec<wbr></wbr>_python</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.html#_setup_stdout_logger" class="internal-link" title="pydocspec._setup_stdout_logger">_setup<wbr></wbr>_stdout<wbr></wbr>_logger</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.html#_RESOLVE_ALIAS_MAX_RECURSE" class="internal-link" title="pydocspec._RESOLVE_ALIAS_MAX_RECURSE">_RESOLVE<wbr></wbr>_ALIAS<wbr></wbr>_MAX<wbr></wbr>_RECURSE</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
+        </div>
+        <div id="collapseSideBar">
+          <a class="btn btn-link" onclick="toggleSideBarCollapse()" title="Toggle Sidebar Collapse">
+          </a>
+        </div> 
+        <script src="sidebartoggle.js" type="text/javascript"></script>
+       
+      </div>
+
+      <div id="main" class="">
+        
+
+        
+
+        <div class="page-header">
+          <h1 class="class"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.Variable.html" class="internal-link" title="pydocspec.Variable">Variable</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
+
+        <div class="categoryHeader">
+          class documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <p><code><span class="py-keyword">class</span> <span class="py-defname">Variable</span>(<a href="pydocspec._model.Variable.html" class="internal-link" title="pydocspec._model.Variable">_model.Variable</a>, <a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L270" class="sourceLink">(source)</a></code></p>
+          <p><a href="classIndex.html#pydocspec.Variable">View In Hierarchy</a></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p>Represents a variable assignment.</p>
+</div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id269">
+  
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__" class="internal-link" title="pydocspec.Variable.__init__">__init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#parent" class="internal-link" title="pydocspec.Variable.parent">parent</a></code></td>
+    <td>The parent of the API object.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#is_alias" class="internal-link" title="pydocspec.Variable.is_alias">is<wbr></wbr>_alias</a></code></td>
+    <td>Whether this Variable is an alias. Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.html#expand_name" class="internal-link" title="pydocspec.ApiObject.expand_name">ApiObject.expand_name</a></code>.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#is_class_variable" class="internal-link" title="pydocspec.Variable.is_class_variable">is<wbr></wbr>_class<wbr></wbr>_variable</a></code></td>
+    <td>Whether this Variable is a class variable.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#is_constant" class="internal-link" title="pydocspec.Variable.is_constant">is<wbr></wbr>_constant</a></code></td>
+    <td>Whether this Variable is a constant.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#is_instance_variable" class="internal-link" title="pydocspec.Variable.is_instance_variable">is<wbr></wbr>_instance<wbr></wbr>_variable</a></code></td>
+    <td>Whether this Variable is an instance variable.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#is_module_variable" class="internal-link" title="pydocspec.Variable.is_module_variable">is<wbr></wbr>_module<wbr></wbr>_variable</a></code></td>
+    <td>Whether this Variable is a module variable.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#is_type_alias" class="internal-link" title="pydocspec.Variable.is_type_alias">is<wbr></wbr>_type<wbr></wbr>_alias</a></code></td>
+    <td>Whether this Variable is a type alias.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_init_attribs" class="internal-link" title="pydocspec.Variable._init_attribs">_init<wbr></wbr>_attribs</a></code></td>
+    <td>A method to define extra attributes that will be set after initialization.</td>
+  </tr><tr class="property private">
+    
+    <td>Property</td>
+    <td><code><a href="#_alias_indirection" class="internal-link" title="pydocspec.Variable._alias_indirection">_alias<wbr></wbr>_indirection</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._model.Variable.html" class="internal-link" title="pydocspec._model.Variable">Variable</a></code>:
+            </p>
+            <table class="children sortable" id="id270">
+  
+  
+  <tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._model.Variable.html#datatype_ast" class="internal-link" title="pydocspec._model.Variable.datatype_ast">datatype<wbr></wbr>_ast</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._model.Variable.html#is_type_guarged" class="internal-link" title="pydocspec._model.Variable.is_type_guarged">is<wbr></wbr>_type<wbr></wbr>_guarged</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._model.Variable.html#value_ast" class="internal-link" title="pydocspec._model.Variable.value_ast">value<wbr></wbr>_ast</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.Variable.html#_spec_fields" class="internal-link" title="pydocspec._model.Variable._spec_fields">_spec<wbr></wbr>_fields</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._docspec.Variable.html" class="internal-link" title="pydocspec._docspec.Variable">Variable</a></code> (via <code><a href="pydocspec._model.Variable.html" class="internal-link" title="pydocspec._model.Variable">Variable</a></code>):
+            </p>
+            <table class="children sortable" id="id271">
+  
+  
+  <tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.Variable.html#datatype" class="internal-link" title="pydocspec._docspec.Variable.datatype">datatype</a></code></td>
+    <td>The datatype associated with the assignment as code.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.Variable.html#modifiers" class="internal-link" title="pydocspec._docspec.Variable.modifiers">modifiers</a></code></td>
+    <td>A list of language-specific modifiers that were used to declare this #Variable object.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.Variable.html#semantic_hints" class="internal-link" title="pydocspec._docspec.Variable.semantic_hints">semantic<wbr></wbr>_hints</a></code></td>
+    <td>A list of hints that express semantics of this #Variable object which are not otherwise derivable from the context.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.Variable.html#value" class="internal-link" title="pydocspec._docspec.Variable.value">value</a></code></td>
+    <td>The value of the variable as code.</td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._docspec.ApiObject.html" class="internal-link" title="pydocspec._docspec.ApiObject">ApiObject</a></code> (via <code><a href="pydocspec._model.Variable.html" class="internal-link" title="pydocspec._model.Variable">Variable</a></code>, <code><a href="pydocspec._docspec.Variable.html" class="internal-link" title="pydocspec._docspec.Variable">Variable</a></code>, <code><a href="pydocspec._docspec.Inheritable.html" class="internal-link" title="pydocspec._docspec.Inheritable">Inheritable</a></code>):
+            </p>
+            <table class="children sortable" id="id272">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#sync_hierarchy" class="internal-link" title="pydocspec._docspec.ApiObject.sync_hierarchy">sync<wbr></wbr>_hierarchy</a></code></td>
+    <td>Synchronize the hierarchy of this API object and all of it's children. This should be called when the #HasMembers.members are updated to ensure that all child objects reference the right #parent. Loaders are expected to return #ApiObject#s in a fully synchronized state such that the user does not have to call this method unless they are doing modifications to the tree.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#docstring" class="internal-link" title="pydocspec._docspec.ApiObject.docstring">docstring</a></code></td>
+    <td>The documentation string of the API object.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#location" class="internal-link" title="pydocspec._docspec.ApiObject.location">location</a></code></td>
+    <td>The location of the API object, i.e. where it is sourced from/defined in the code.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#name" class="internal-link" title="pydocspec._docspec.ApiObject.name">name</a></code></td>
+    <td>The name of the entity. This is usually relative to the respective parent of the entity, as opposed to it's fully qualified name/absolute name. However, that is more of a recommendation than rule. For example the #docspec_python loader by default returns #Module objects with their full module name (and does not create a module hierarchy).</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#path" class="internal-link" title="pydocspec._docspec.ApiObject.path">path</a></code></td>
+    <td>Returns a list of all of this API object's parents, from top to bottom. The list includes <em>self</em> as the last item.</td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code> (via <code><a href="pydocspec._model.Variable.html" class="internal-link" title="pydocspec._model.Variable">Variable</a></code>):
+            </p>
+            <table class="children sortable" id="id273">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#__repr__" class="internal-link" title="pydocspec._model.ApiObject.__repr__">__repr__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#__str__" class="internal-link" title="pydocspec._model.ApiObject.__str__">__str__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#add_siblings" class="internal-link" title="pydocspec._model.ApiObject.add_siblings">add<wbr></wbr>_siblings</a></code></td>
+    <td>A new nodes to the tree, siblings to this node.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#get_member" class="internal-link" title="pydocspec._model.ApiObject.get_member">get<wbr></wbr>_member</a></code></td>
+    <td>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code> for objects that don't support members (eg. <code><a href="pydocspec._model.Function.html" class="internal-link" title="pydocspec._model.Function">Function</a></code> and <code><a href="pydocspec._model.Variable.html" class="internal-link" title="pydocspec._model.Variable">Variable</a></code>).</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#get_members" class="internal-link" title="pydocspec._model.ApiObject.get_members">get<wbr></wbr>_members</a></code></td>
+    <td>Like <code><a href="pydocspec._model.ApiObject.html#get_member" class="internal-link" title="pydocspec._model.ApiObject.get_member">get_member</a></code> but can return several items with the same name.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#remove" class="internal-link" title="pydocspec._model.ApiObject.remove">remove</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#replace" class="internal-link" title="pydocspec._model.ApiObject.replace">replace</a></code></td>
+    <td>Replace this object by one or more objects.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#walk" class="internal-link" title="pydocspec._model.ApiObject.walk">walk</a></code></td>
+    <td>Traverse a tree of objects, calling the <code><a href="pydocspec.genericvisitor.Visitor.html#visit" class="internal-link" title="pydocspec.genericvisitor.Visitor.visit">genericvisitor.Visitor.visit</a></code> method of <code>visitor</code> when entering each node.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#walkabout" class="internal-link" title="pydocspec._model.ApiObject.walkabout">walkabout</a></code></td>
+    <td>Perform a tree traversal similarly to <code><a href="pydocspec._model.ApiObject.html#walk" class="internal-link" title="pydocspec._model.ApiObject.walk">walk()</a></code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart" class="internal-link" title="pydocspec.genericvisitor.Visitor.depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#root" class="internal-link" title="pydocspec._model.ApiObject.root">root</a></code></td>
+    <td><code><a href="pydocspec._model.TreeRoot.html" class="internal-link" title="pydocspec._model.TreeRoot">TreeRoot</a></code> instance holding references to all objects in the tree.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#dotted_name" class="internal-link" title="pydocspec._model.ApiObject.dotted_name">dotted<wbr></wbr>_name</a></code></td>
+    <td>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html" class="internal-link" title="pydocspec.dottedname.DottedName">DottedName</a></code> instance.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#full_name" class="internal-link" title="pydocspec._model.ApiObject.full_name">full<wbr></wbr>_name</a></code></td>
+    <td>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#module" class="internal-link" title="pydocspec._model.ApiObject.module">module</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#scope" class="internal-link" title="pydocspec._model.ApiObject.scope">scope</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_members" class="internal-link" title="pydocspec._model.ApiObject._members">_members</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_remove_self" class="internal-link" title="pydocspec._model.ApiObject._remove_self">_remove<wbr></wbr>_self</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_repr" class="internal-link" title="pydocspec._model.ApiObject._repr">_repr</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._docspec.ApiObject.html" class="internal-link" title="pydocspec._docspec.ApiObject">ApiObject</a></code> (via <code><a href="pydocspec._model.Variable.html" class="internal-link" title="pydocspec._model.Variable">Variable</a></code>, <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code>):
+            </p>
+            <table class="children sortable" id="id274">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#sync_hierarchy" class="internal-link" title="pydocspec._docspec.ApiObject.sync_hierarchy">sync<wbr></wbr>_hierarchy</a></code></td>
+    <td>Synchronize the hierarchy of this API object and all of it's children. This should be called when the #HasMembers.members are updated to ensure that all child objects reference the right #parent. Loaders are expected to return #ApiObject#s in a fully synchronized state such that the user does not have to call this method unless they are doing modifications to the tree.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#docstring" class="internal-link" title="pydocspec._docspec.ApiObject.docstring">docstring</a></code></td>
+    <td>The documentation string of the API object.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#location" class="internal-link" title="pydocspec._docspec.ApiObject.location">location</a></code></td>
+    <td>The location of the API object, i.e. where it is sourced from/defined in the code.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#name" class="internal-link" title="pydocspec._docspec.ApiObject.name">name</a></code></td>
+    <td>The name of the entity. This is usually relative to the respective parent of the entity, as opposed to it's fully qualified name/absolute name. However, that is more of a recommendation than rule. For example the #docspec_python loader by default returns #Module objects with their full module name (and does not create a module hierarchy).</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#path" class="internal-link" title="pydocspec._docspec.ApiObject.path">path</a></code></td>
+    <td>Returns a list of all of this API object's parents, from top to bottom. The list includes <em>self</em> as the last item.</td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html" class="internal-link" title="pydocspec._model.CanTriggerWarnings">CanTriggerWarnings</a></code> (via <code><a href="pydocspec._model.Variable.html" class="internal-link" title="pydocspec._model.Variable">Variable</a></code>, <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code>):
+            </p>
+            <table class="children sortable" id="id275">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.CanTriggerWarnings.html#warn" class="internal-link" title="pydocspec._model.CanTriggerWarnings.warn">warn</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._model.GetMembersMixin.html" class="internal-link" title="pydocspec._model.GetMembersMixin">GetMembersMixin</a></code> (via <code><a href="pydocspec._model.Variable.html" class="internal-link" title="pydocspec._model.Variable">Variable</a></code>, <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code>):
+            </p>
+            <table class="children sortable" id="id276">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.GetMembersMixin.html#__getitem__" class="internal-link" title="pydocspec._model.GetMembersMixin.__getitem__">__getitem__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject">ApiObject</a></code>:
+            </p>
+            <table class="children sortable" id="id277">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.ApiObject.html#expand_name" class="internal-link" title="pydocspec.ApiObject.expand_name">expand<wbr></wbr>_name</a></code></td>
+    <td>Return a fully qualified name for the possibly-dotted <code>name</code>.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.ApiObject.html#resolve_name" class="internal-link" title="pydocspec.ApiObject.resolve_name">resolve<wbr></wbr>_name</a></code></td>
+    <td>Return the object named by "name" (using Python's lookup rules) in this context.</td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec.ApiObject.html#docstring" class="internal-link" title="pydocspec.ApiObject.docstring">docstring</a></code></td>
+    <td>The documentation string of the API object.</td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec.ApiObject.html#location" class="internal-link" title="pydocspec.ApiObject.location">location</a></code></td>
+    <td>The location of the API object, i.e. where it is sourced from/defined in the code.</td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec.ApiObject.html#module" class="internal-link" title="pydocspec.ApiObject.module">module</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec.ApiObject.html#root" class="internal-link" title="pydocspec.ApiObject.root">root</a></code></td>
+    <td><code><a href="pydocspec._model.TreeRoot.html" class="internal-link" title="pydocspec._model.TreeRoot">TreeRoot</a></code> instance holding references to all objects in the tree.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec.ApiObject.html#aliases" class="internal-link" title="pydocspec.ApiObject.aliases">aliases</a></code></td>
+    <td>Aliases to this object.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec.ApiObject.html#doc_sources" class="internal-link" title="pydocspec.ApiObject.doc_sources">doc<wbr></wbr>_sources</a></code></td>
+    <td>Objects that can be considered as a source of documentation.</td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.ApiObject.html#_local_to_full_name" class="internal-link" title="pydocspec.ApiObject._local_to_full_name">_local<wbr></wbr>_to<wbr></wbr>_full<wbr></wbr>_name</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec.ApiObject.html#_resolve_indirection" class="internal-link" title="pydocspec.ApiObject._resolve_indirection">_resolve<wbr></wbr>_indirection</a></code></td>
+    <td>Follow an indirection and return the <em>supposed</em> full name of the origin object.</td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code> (via <code><a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject">ApiObject</a></code>):
+            </p>
+            <table class="children sortable" id="id278">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#__repr__" class="internal-link" title="pydocspec._model.ApiObject.__repr__">__repr__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#__str__" class="internal-link" title="pydocspec._model.ApiObject.__str__">__str__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#add_siblings" class="internal-link" title="pydocspec._model.ApiObject.add_siblings">add<wbr></wbr>_siblings</a></code></td>
+    <td>A new nodes to the tree, siblings to this node.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#get_member" class="internal-link" title="pydocspec._model.ApiObject.get_member">get<wbr></wbr>_member</a></code></td>
+    <td>Retrieve a member from the API object. This will always return <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code> for objects that don't support members (eg. <code><a href="pydocspec._model.Function.html" class="internal-link" title="pydocspec._model.Function">Function</a></code> and <code><a href="pydocspec._model.Variable.html" class="internal-link" title="pydocspec._model.Variable">Variable</a></code>).</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#get_members" class="internal-link" title="pydocspec._model.ApiObject.get_members">get<wbr></wbr>_members</a></code></td>
+    <td>Like <code><a href="pydocspec._model.ApiObject.html#get_member" class="internal-link" title="pydocspec._model.ApiObject.get_member">get_member</a></code> but can return several items with the same name.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#remove" class="internal-link" title="pydocspec._model.ApiObject.remove">remove</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#replace" class="internal-link" title="pydocspec._model.ApiObject.replace">replace</a></code></td>
+    <td>Replace this object by one or more objects.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#walk" class="internal-link" title="pydocspec._model.ApiObject.walk">walk</a></code></td>
+    <td>Traverse a tree of objects, calling the <code><a href="pydocspec.genericvisitor.Visitor.html#visit" class="internal-link" title="pydocspec.genericvisitor.Visitor.visit">genericvisitor.Visitor.visit</a></code> method of <code>visitor</code> when entering each node.</td>
+  </tr><tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#walkabout" class="internal-link" title="pydocspec._model.ApiObject.walkabout">walkabout</a></code></td>
+    <td>Perform a tree traversal similarly to <code><a href="pydocspec._model.ApiObject.html#walk" class="internal-link" title="pydocspec._model.ApiObject.walk">walk()</a></code>, except also call the <code><a href="pydocspec.genericvisitor.Visitor.html#depart" class="internal-link" title="pydocspec.genericvisitor.Visitor.depart">genericvisitor.Visitor.depart</a></code> method before exiting each node.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#dotted_name" class="internal-link" title="pydocspec._model.ApiObject.dotted_name">dotted<wbr></wbr>_name</a></code></td>
+    <td>The fully qualified dotted name of this object, as <code><a href="pydocspec.dottedname.DottedName.html" class="internal-link" title="pydocspec.dottedname.DottedName">DottedName</a></code> instance.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#full_name" class="internal-link" title="pydocspec._model.ApiObject.full_name">full<wbr></wbr>_name</a></code></td>
+    <td>The fully qualified dotted name of this object, as string. This value is used as the key in the <code>ApiObject.root.all_objects</code> dictionnary.</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#scope" class="internal-link" title="pydocspec._model.ApiObject.scope">scope</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_members" class="internal-link" title="pydocspec._model.ApiObject._members">_members</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_remove_self" class="internal-link" title="pydocspec._model.ApiObject._remove_self">_remove<wbr></wbr>_self</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_repr" class="internal-link" title="pydocspec._model.ApiObject._repr">_repr</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="baseclassvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="pydocspec._model.ApiObject.html#_spec_fields" class="internal-link" title="pydocspec._model.ApiObject._spec_fields">_spec<wbr></wbr>_fields</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._docspec.ApiObject.html" class="internal-link" title="pydocspec._docspec.ApiObject">ApiObject</a></code> (via <code><a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject">ApiObject</a></code>, <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code>):
+            </p>
+            <table class="children sortable" id="id279">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#sync_hierarchy" class="internal-link" title="pydocspec._docspec.ApiObject.sync_hierarchy">sync<wbr></wbr>_hierarchy</a></code></td>
+    <td>Synchronize the hierarchy of this API object and all of it's children. This should be called when the #HasMembers.members are updated to ensure that all child objects reference the right #parent. Loaders are expected to return #ApiObject#s in a fully synchronized state such that the user does not have to call this method unless they are doing modifications to the tree.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#name" class="internal-link" title="pydocspec._docspec.ApiObject.name">name</a></code></td>
+    <td>The name of the entity. This is usually relative to the respective parent of the entity, as opposed to it's fully qualified name/absolute name. However, that is more of a recommendation than rule. For example the #docspec_python loader by default returns #Module objects with their full module name (and does not create a module hierarchy).</td>
+  </tr><tr class="baseproperty">
+    
+    <td>Property</td>
+    <td><code><a href="pydocspec._docspec.ApiObject.html#path" class="internal-link" title="pydocspec._docspec.ApiObject.path">path</a></code></td>
+    <td>Returns a list of all of this API object's parents, from top to bottom. The list includes <em>self</em> as the last item.</td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._model.CanTriggerWarnings.html" class="internal-link" title="pydocspec._model.CanTriggerWarnings">CanTriggerWarnings</a></code> (via <code><a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject">ApiObject</a></code>, <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code>):
+            </p>
+            <table class="children sortable" id="id280">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.CanTriggerWarnings.html#warn" class="internal-link" title="pydocspec._model.CanTriggerWarnings.warn">warn</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+            
+            <p class="inheritedFrom">
+              Inherited from <code><a href="pydocspec._model.GetMembersMixin.html" class="internal-link" title="pydocspec._model.GetMembersMixin">GetMembersMixin</a></code> (via <code><a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject">ApiObject</a></code>, <code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a></code>):
+            </p>
+            <table class="children sortable" id="id281">
+  
+  
+  <tr class="basemethod">
+    
+    <td>Method</td>
+    <td><code><a href="pydocspec._model.GetMembersMixin.html#__getitem__" class="internal-link" title="pydocspec._model.GetMembersMixin.__getitem__">__getitem__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+            
+
+            
+        </div>
+
+        <div id="childList">
+          <div class="basemethod">
+  
+  
+  <a name="pydocspec.Variable.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, *args, **kwargs):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L288">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    <div class="interfaceinfo">overrides <code><a href="pydocspec._model.Variable.html#__init__" class="internal-link">pydocspec._model.Variable.__init__</a></code></div>
+    
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">*args:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">**kwargs:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="pydocspec.Variable.parent">
+    
+  </a>
+  <a name="parent">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">parent</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.Class.html" class="internal-link" title="pydocspec.Class">Class</a>, <wbr></wbr><a href="pydocspec.Module.html" class="internal-link" title="pydocspec.Module">Module</a>]</code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L335">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    <div class="interfaceinfo">overrides <code><a href="pydocspec._docspec.ApiObject.html#parent" class="internal-link">pydocspec._docspec.ApiObject.parent</a></code></div>
+    
+    <div><p>The parent of the API object.</p>
+</div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.Variable.is_alias">
+    
+  </a>
+  <a name="is_alias">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">is_alias</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L309">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p>Whether this Variable is an alias.
+Aliases are folowed by default when using <code><a href="pydocspec.ApiObject.html#expand_name" class="internal-link" title="pydocspec.ApiObject.expand_name">ApiObject.expand_name</a></code>.</p>
+</div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.Variable.is_class_variable">
+    
+  </a>
+  <a name="is_class_variable">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">is_class_variable</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L299">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p>Whether this Variable is a class variable.</p>
+</div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.Variable.is_constant">
+    
+  </a>
+  <a name="is_constant">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">is_constant</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L320">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p>Whether this Variable is a constant.</p>
+</div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.Variable.is_instance_variable">
+    
+  </a>
+  <a name="is_instance_variable">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">is_instance_variable</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L294">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p>Whether this Variable is an instance variable.</p>
+</div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.Variable.is_module_variable">
+    
+  </a>
+  <a name="is_module_variable">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">is_module_variable</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L304">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p>Whether this Variable is a module variable.</p>
+</div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pydocspec.Variable.is_type_alias">
+    
+  </a>
+  <a name="is_type_alias">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">is_type_alias</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L315">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p>Whether this Variable is a type alias.</p>
+</div>
+    
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pydocspec.Variable._init_attribs">
+    
+  </a>
+  <a name="_init_attribs">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_init_attribs</span>(self):
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L291">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    <div class="interfaceinfo">overrides <code><a href="pydocspec._docspec._HasInitAttribsMethod.html#_init_attribs" class="internal-link">pydocspec._docspec._HasInitAttribsMethod._init_attribs</a></code></div>
+    
+    <div><p>A method to define extra attributes that will be set after initialization.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Note</td></tr><tr><td colspan="2">Most attributes don't need a special value at initialization (if they use None as default for instance),
+in those cases, avoid overriding this method by declaring them as class variable.
+Override this method only if you have to initialize an attribute value to a mutable object.</td></tr></table></div>
+  </div>
+</div><div class="baseproperty private">
+  
+  
+  <a name="pydocspec.Variable._alias_indirection">
+    
+  </a>
+  <a name="_alias_indirection">
+    
+  </a>
+  <div class="functionHeader">
+    @cached_property<br />
+    <span class="py-defname">_alias_indirection</span>: <code><a href="pydocspec.Indirection.html" class="internal-link" title="pydocspec.Indirection">Indirection</a></code> =
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/__init__.py#L325">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div>
+        </div>
+      
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    22.5.0.dev0 at 2022-04-28 19:30:24.
+  </div>
+
+  <!-- Search related scripts needs to be loaded at the end of HTML 
+    parsing not to introduce overhead and display HTML data asap -->
+  <script src="ajax.js" type="text/javascript"></script>
+  <script src="searchlib.js" type="text/javascript"></script>
+  <script src="search.js" type="text/javascript"></script>
+
+</footer>
+  
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>

@@ -7,7 +7,7 @@
   <head>
     
     <title>pydocspec.processor.helpers</title>
-    <meta name="generator" content="pydoctor 22.3.0.dev0"> 
+    <meta name="generator" content="pydoctor 22.5.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -21,9 +21,11 @@
 
     
 
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default mainnavbar">
+      
   
-  <div class="container">
+  <div class="container-fluid">
+
 
     <div class="navbar-header">
       
@@ -123,35 +125,309 @@
       </div>
 
     </div>
+
+
   </div>
 </nav>
-
     
+    <div class="container-fluid">
 
-    <div class="container">
+      <!-- Side navigation -->
+      <div class="sidebarcontainer" style="display: none;">
+        
+        <div class="sidebar"><nav class="sidebar">
+  
 
-      <div class="page-header">
-        <h1 class="module"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.processor.html" class="internal-link" title="pydocspec.processor">processor</a></code><wbr></wbr>.<code><a href="pydocspec.processor.helpers.html" class="internal-link" title="pydocspec.processor.helpers">helpers</a></code></code></h1>
-        <div id="showPrivate">
-          <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+  <div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code class="thisobject"><a href="pydocspec.processor.helpers.html" class="internal-link" title="This module">helpers</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Functions</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#ast2apiobject" class="internal-link" title="pydocspec.processor.helpers.ast2apiobject">ast2apiobject</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_typing_annotation" class="internal-link" title="pydocspec.processor.helpers.is_typing_annotation">is<wbr></wbr>_typing<wbr></wbr>_annotation</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_using_annotations" class="internal-link" title="pydocspec.processor.helpers.is_using_annotations">is<wbr></wbr>_using<wbr></wbr>_annotations</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_using_typing_classvar" class="internal-link" title="pydocspec.processor.helpers.is_using_typing_classvar">is<wbr></wbr>_using<wbr></wbr>_typing<wbr></wbr>_classvar</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_using_typing_final" class="internal-link" title="pydocspec.processor.helpers.is_using_typing_final">is<wbr></wbr>_using<wbr></wbr>_typing<wbr></wbr>_final</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#SUBSCRIPTABLE_CLASSES_PEP585" class="internal-link" title="pydocspec.processor.helpers.SUBSCRIPTABLE_CLASSES_PEP585">SUBSCRIPTABLE<wbr></wbr>_CLASSES<wbr></wbr>_PEP585</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#TYPING_ALIAS" class="internal-link" title="pydocspec.processor.helpers.TYPING_ALIAS">TYPING<wbr></wbr>_ALIAS</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Package</span>
+        <code><a href="pydocspec.processor.html" class="internal-link" title="The parent of this module">processor</a></code> 
+      </div>
+      
+      <div>
+        
+
+        <div class="childrenKindTitle">Modules</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor.class_attr.html" class="internal-link" title="pydocspec.processor.class_attr">class<wbr></wbr>_attr</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor.data_attr.html" class="internal-link" title="pydocspec.processor.data_attr">data<wbr></wbr>_attr</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor.func_attr.html" class="internal-link" title="pydocspec.processor.func_attr">func<wbr></wbr>_attr</a></code>
+            </div>
+        
+
+    </li><li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor.helpers.html" class="internal-link" title="pydocspec.processor.helpers">helpers</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor.mod_attr.html" class="internal-link" title="pydocspec.processor.mod_attr">mod<wbr></wbr>_attr</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor.PostBuildVisitor0.html" class="internal-link" title="pydocspec.processor.PostBuildVisitor0"><wbr></wbr>Post<wbr></wbr>Build<wbr></wbr>Visitor0</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor.PostBuildVisitor1.html" class="internal-link" title="pydocspec.processor.PostBuildVisitor1"><wbr></wbr>Post<wbr></wbr>Build<wbr></wbr>Visitor1</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor.Processor.html" class="internal-link" title="pydocspec.processor.Processor"><wbr></wbr>Processor</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor._DocSourcesSetter.html" class="internal-link" title="pydocspec.processor._DocSourcesSetter">_<wbr></wbr>Doc<wbr></wbr>Sources<wbr></wbr>Setter</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor._DuplicateWhoShadowsWhoHandling.html" class="internal-link" title="pydocspec.processor._DuplicateWhoShadowsWhoHandling">_<wbr></wbr>Duplicate<wbr></wbr>Who<wbr></wbr>Shadows<wbr></wbr>Who<wbr></wbr>Handling</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor._MroFromAstroidSetter.html" class="internal-link" title="pydocspec.processor._MroFromAstroidSetter">_<wbr></wbr>Mro<wbr></wbr>From<wbr></wbr>Astroid<wbr></wbr>Setter</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        
+         
+
+        
+         
+
+        
+         
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
         </div>
+        <div id="collapseSideBar">
+          <a class="btn btn-link" onclick="toggleSideBarCollapse()" title="Toggle Sidebar Collapse">
+          </a>
+        </div> 
+        <script src="sidebartoggle.js" type="text/javascript"></script>
+       
       </div>
 
-      <div class="categoryHeader">
-        module documentation
-      </div>
+      <div id="main" class="">
+        
 
-      <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/processor/helpers.py" class="sourceLink">(source)</a>
-        <p></p>
-      </div>
+        
 
-      <div class="moduleDocstring">
-        <div>Helpers to help the helpers.</div>
-      </div>
+        <div class="page-header">
+          <h1 class="module"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.processor.html" class="internal-link" title="pydocspec.processor">processor</a></code><wbr></wbr>.<code><a href="pydocspec.processor.helpers.html" class="internal-link" title="pydocspec.processor.helpers">helpers</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
 
-      <div id="splitTables">
-        <table class="children sortable" id="id157">
+        <div class="categoryHeader">
+          module documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <a href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/processor/helpers.py" class="sourceLink">(source)</a>
+          <p></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p>Helpers to help the helpers.</p>
+</div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id205">
   
   
   <tr class="function">
@@ -162,43 +438,42 @@
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#is_typing_annotation" class="internal-link" title="pydocspec.processor.helpers.is_typing_annotation">is​_typing​_annotation</a></code></td>
+    <td><code><a href="#is_typing_annotation" class="internal-link" title="pydocspec.processor.helpers.is_typing_annotation">is<wbr></wbr>_typing<wbr></wbr>_annotation</a></code></td>
     <td>Whether this annotation node refers to a typing alias.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#is_using_annotations" class="internal-link" title="pydocspec.processor.helpers.is_using_annotations">is​_using​_annotations</a></code></td>
+    <td><code><a href="#is_using_annotations" class="internal-link" title="pydocspec.processor.helpers.is_using_annotations">is<wbr></wbr>_using<wbr></wbr>_annotations</a></code></td>
     <td>Detect if this expr is firstly composed by one of the specified annotation(s)' full name.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#is_using_typing_classvar" class="internal-link" title="pydocspec.processor.helpers.is_using_typing_classvar">is​_using​_typing​_classvar</a></code></td>
+    <td><code><a href="#is_using_typing_classvar" class="internal-link" title="pydocspec.processor.helpers.is_using_typing_classvar">is<wbr></wbr>_using<wbr></wbr>_typing<wbr></wbr>_classvar</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#is_using_typing_final" class="internal-link" title="pydocspec.processor.helpers.is_using_typing_final">is​_using​_typing​_final</a></code></td>
+    <td><code><a href="#is_using_typing_final" class="internal-link" title="pydocspec.processor.helpers.is_using_typing_final">is<wbr></wbr>_using<wbr></wbr>_typing<wbr></wbr>_final</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="constant">
     
     <td>Constant</td>
-    <td><code><a href="#SUBSCRIPTABLE_CLASSES_PEP585" class="internal-link" title="pydocspec.processor.helpers.SUBSCRIPTABLE_CLASSES_PEP585">SUBSCRIPTABLE​_CLASSES​_PEP585</a></code></td>
+    <td><code><a href="#SUBSCRIPTABLE_CLASSES_PEP585" class="internal-link" title="pydocspec.processor.helpers.SUBSCRIPTABLE_CLASSES_PEP585">SUBSCRIPTABLE<wbr></wbr>_CLASSES<wbr></wbr>_PEP585</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="constant">
     
     <td>Constant</td>
-    <td><code><a href="#TYPING_ALIAS" class="internal-link" title="pydocspec.processor.helpers.TYPING_ALIAS">TYPING​_ALIAS</a></code></td>
+    <td><code><a href="#TYPING_ALIAS" class="internal-link" title="pydocspec.processor.helpers.TYPING_ALIAS">TYPING<wbr></wbr>_ALIAS</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
-        
-
           
-      </div>
 
-      <div id="childList">
+            
+        </div>
 
-        <div class="basefunction">
+        <div id="childList">
+          <div class="basefunction">
   
   
   <a name="pydocspec.processor.helpers.ast2apiobject">
@@ -210,7 +485,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">ast2apiobject</span>(root, node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/processor/helpers.py#L11">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/processor/helpers.py#L11">
       
       (source)
     </a>
@@ -218,7 +493,8 @@
   <div class="docstring functionBody">
     
     
-    <div>implementation is duplicate safe.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec._model.TreeRoot.html" class="internal-link" title="pydocspec._model.TreeRoot">_model.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr>astroid.nodes.ClassDef, <wbr></wbr>astroid.nodes.Module]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a>, <wbr></wbr><a href="pydocspec.Module.html" class="internal-link">pydocspec.Module</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>implementation is duplicate safe.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">root:</span><code><a href="pydocspec._model.TreeRoot.html" class="internal-link" title="pydocspec._model.TreeRoot">_model.TreeRoot</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr>astroid.nodes.ClassDef, <wbr></wbr>astroid.nodes.Module]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec.Class.html" class="internal-link">pydocspec.Class</a>, <wbr></wbr><a href="pydocspec.Module.html" class="internal-link">pydocspec.Module</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -232,7 +508,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_typing_annotation</span>(node, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/processor/helpers.py#L146">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/processor/helpers.py#L146">
       
       (source)
     </a>
@@ -240,7 +516,8 @@
   <div class="docstring functionBody">
     
     
-    <div>Whether this annotation node refers to a typing alias.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html" class="internal-link">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Whether this annotation node refers to a typing alias.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html" class="internal-link">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -254,7 +531,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_using_annotations</span>(expr, annotations, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/processor/helpers.py#L39">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/processor/helpers.py#L39">
       
       (source)
     </a>
@@ -262,7 +539,8 @@
   <div class="docstring functionBody">
     
     
-    <div>Detect if this expr is firstly composed by one of the specified annotation(s)' full name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotations:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence" class="intersphinx-link">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html" class="internal-link">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Detect if this expr is firstly composed by one of the specified annotation(s)' full name.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotations:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Sequence" class="intersphinx-link">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html" class="internal-link">pydocspec.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -276,7 +554,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_using_typing_classvar</span>(expr, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/processor/helpers.py#L35">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/processor/helpers.py#L35">
       
       (source)
     </a>
@@ -298,7 +576,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_using_typing_final</span>(expr, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/processor/helpers.py#L31">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/processor/helpers.py#L31">
       
       (source)
     </a>
@@ -320,7 +598,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">SUBSCRIPTABLE_CLASSES_PEP585</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/processor/helpers.py#L105">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/processor/helpers.py#L105">
       
       (source)
     </a>
@@ -350,7 +628,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">TYPING_ALIAS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/processor/helpers.py#L57">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/processor/helpers.py#L57">
       
       (source)
     </a>
@@ -369,7 +647,8 @@
 <span class="rst-variable-ellipsis">...</span></code></pre></td></tr></table>
   </div>
 </div>
-
+        </div>
+      
       </div>
     </div>
 
@@ -379,7 +658,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.3.0.dev0 at 2022-03-24 17:55:01.
+    22.5.0.dev0 at 2022-04-28 19:30:24.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
@@ -389,7 +668,7 @@
   <script src="search.js" type="text/javascript"></script>
 
 </footer>
-
+  
     <script src="pydoctor.js" type="text/javascript"></script>
 
   </body>

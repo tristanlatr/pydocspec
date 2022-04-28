@@ -7,7 +7,7 @@
   <head>
     
     <title>pydocspec.astroidutils</title>
-    <meta name="generator" content="pydoctor 22.3.0.dev0"> 
+    <meta name="generator" content="pydoctor 22.5.0.dev0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -21,9 +21,11 @@
 
     
 
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default mainnavbar">
+      
   
-  <div class="container">
+  <div class="container-fluid">
+
 
     <div class="navbar-header">
       
@@ -123,131 +125,874 @@
       </div>
 
     </div>
+
+
   </div>
 </nav>
-
     
+    <div class="container-fluid">
 
-    <div class="container">
+      <!-- Side navigation -->
+      <div class="sidebarcontainer" style="display: none;">
+        
+        <div class="sidebar"><nav class="sidebar">
+  
 
-      <div class="page-header">
-        <h1 class="module"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astroidutils.html" class="internal-link" title="pydocspec.astroidutils">astroidutils</a></code></code></h1>
-        <div id="showPrivate">
-          <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+  <div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code class="thisobject"><a href="pydocspec.astroidutils.html" class="internal-link" title="This module">astroidutils</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astroidutils.NodeTransformer.html" class="internal-link" title="pydocspec.astroidutils.NodeTransformer"><wbr></wbr>Node<wbr></wbr>Transformer</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astroidutils.NodeVisitor.html" class="internal-link" title="pydocspec.astroidutils.NodeVisitor"><wbr></wbr>Node<wbr></wbr>Visitor</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astroidutils.SignatureBuilder.html" class="internal-link" title="pydocspec.astroidutils.SignatureBuilder"><wbr></wbr>Signature<wbr></wbr>Builder</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astroidutils.ValueFormatter.html" class="internal-link" title="pydocspec.astroidutils.ValueFormatter"><wbr></wbr>Value<wbr></wbr>Formatter</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astroidutils._AnnotationStringParser.html" class="internal-link" title="pydocspec.astroidutils._AnnotationStringParser">_<wbr></wbr>Annotation<wbr></wbr>String<wbr></wbr>Parser</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astroidutils._NodeConstructorMethod.html" class="internal-link" title="pydocspec.astroidutils._NodeConstructorMethod">_<wbr></wbr>Node<wbr></wbr>Constructor<wbr></wbr>Method</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astroidutils._NodeFactory.html" class="internal-link" title="pydocspec.astroidutils._NodeFactory">_<wbr></wbr>Node<wbr></wbr>Factory</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        <div class="childrenKindTitle">Functions</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#bind_args" class="internal-link" title="pydocspec.astroidutils.bind_args">bind<wbr></wbr>_args</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#build_signature" class="internal-link" title="pydocspec.astroidutils.build_signature">build<wbr></wbr>_signature</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#copy_location" class="internal-link" title="pydocspec.astroidutils.copy_location">copy<wbr></wbr>_location</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#extract_expr" class="internal-link" title="pydocspec.astroidutils.extract_expr">extract<wbr></wbr>_expr</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#extract_final_subscript" class="internal-link" title="pydocspec.astroidutils.extract_final_subscript">extract<wbr></wbr>_final<wbr></wbr>_subscript</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#fix_missing_locations" class="internal-link" title="pydocspec.astroidutils.fix_missing_locations">fix<wbr></wbr>_missing<wbr></wbr>_locations</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#get_full_import_name" class="internal-link" title="pydocspec.astroidutils.get_full_import_name">get<wbr></wbr>_full<wbr></wbr>_import<wbr></wbr>_name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#infer_type_annotation" class="internal-link" title="pydocspec.astroidutils.infer_type_annotation">infer<wbr></wbr>_type<wbr></wbr>_annotation</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_name" class="internal-link" title="pydocspec.astroidutils.is_name">is<wbr></wbr>_name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_type_guard" class="internal-link" title="pydocspec.astroidutils.is_type_guard">is<wbr></wbr>_type<wbr></wbr>_guard</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_type_guarded" class="internal-link" title="pydocspec.astroidutils.is_type_guarded">is<wbr></wbr>_type<wbr></wbr>_guarded</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#iter_fields" class="internal-link" title="pydocspec.astroidutils.iter_fields">iter<wbr></wbr>_fields</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#iter_values" class="internal-link" title="pydocspec.astroidutils.iter_values">iter<wbr></wbr>_values</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#literal_eval" class="internal-link" title="pydocspec.astroidutils.literal_eval">literal<wbr></wbr>_eval</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#merge_annotations" class="internal-link" title="pydocspec.astroidutils.merge_annotations">merge<wbr></wbr>_annotations</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#node2dottedname" class="internal-link" title="pydocspec.astroidutils.node2dottedname">node2dottedname</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#node2fullname" class="internal-link" title="pydocspec.astroidutils.node2fullname">node2fullname</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#resolve_import_alias" class="internal-link" title="pydocspec.astroidutils.resolve_import_alias">resolve<wbr></wbr>_import<wbr></wbr>_alias</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#resolve_qualname" class="internal-link" title="pydocspec.astroidutils.resolve_qualname">resolve<wbr></wbr>_qualname</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#to_source" class="internal-link" title="pydocspec.astroidutils.to_source">to<wbr></wbr>_source</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#unstring_annotation" class="internal-link" title="pydocspec.astroidutils.unstring_annotation">unstring<wbr></wbr>_annotation</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_annotation_for_elements" class="internal-link" title="pydocspec.astroidutils._annotation_for_elements">_annotation<wbr></wbr>_for<wbr></wbr>_elements</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_annotation_for_value" class="internal-link" title="pydocspec.astroidutils._annotation_for_value">_annotation<wbr></wbr>_for<wbr></wbr>_value</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_is_ellipsis" class="internal-link" title="pydocspec.astroidutils._is_ellipsis">_is<wbr></wbr>_ellipsis</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_iter_args" class="internal-link" title="pydocspec.astroidutils._iter_args">_iter<wbr></wbr>_args</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#nodefactory" class="internal-link" title="pydocspec.astroidutils.nodefactory">nodefactory</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Package</span>
+        <code><a href="pydocspec.html" class="internal-link" title="The parent of this module">pydocspec</a></code> 
+      </div>
+      
+      <div>
+        
+
+        <div class="childrenKindTitle">Modules</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ext.html" class="internal-link" title="pydocspec.ext">ext</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.processor.html" class="internal-link" title="pydocspec.processor">processor</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.test.html" class="internal-link" title="pydocspec.test">test</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astbuilder.html" class="internal-link" title="pydocspec.astbuilder">astbuilder</a></code>
+            </div>
+        
+
+    </li><li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.astroidutils.html" class="internal-link" title="pydocspec.astroidutils">astroidutils</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.basebuilder.html" class="internal-link" title="pydocspec.basebuilder">basebuilder</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.converter.html" class="internal-link" title="pydocspec.converter">converter</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.dottedname.html" class="internal-link" title="pydocspec.dottedname">dottedname</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.dupsafedict.html" class="internal-link" title="pydocspec.dupsafedict">dupsafedict</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.genericvisitor.html" class="internal-link" title="pydocspec.genericvisitor">genericvisitor</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.specfactory.html" class="internal-link" title="pydocspec.specfactory">specfactory</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.tmp.html" class="internal-link" title="pydocspec.tmp">tmp</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.visitors.html" class="internal-link" title="pydocspec.visitors">visitors</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.__main__.html" class="internal-link" title="pydocspec.__main__">__main__</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._c3linear.html" class="internal-link" title="pydocspec._c3linear">_c3linear</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._docspec.html" class="internal-link" title="pydocspec._docspec">_docspec</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec._model.html" class="internal-link" title="pydocspec._model">_model</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject"><wbr></wbr>Api<wbr></wbr>Object</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Class.html" class="internal-link" title="pydocspec.Class"><wbr></wbr>Class</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.ClassInheritedMember.html" class="internal-link" title="pydocspec.ClassInheritedMember"><wbr></wbr>Class<wbr></wbr>Inherited<wbr></wbr>Member</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Function.html" class="internal-link" title="pydocspec.Function"><wbr></wbr>Function</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Indirection.html" class="internal-link" title="pydocspec.Indirection"><wbr></wbr>Indirection</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Module.html" class="internal-link" title="pydocspec.Module"><wbr></wbr>Module</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Options.html" class="internal-link" title="pydocspec.Options"><wbr></wbr>Options</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.TreeRoot.html" class="internal-link" title="pydocspec.TreeRoot"><wbr></wbr>Tree<wbr></wbr>Root</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.Variable.html" class="internal-link" title="pydocspec.Variable"><wbr></wbr>Variable</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        <div class="childrenKindTitle">Functions</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.html#builder_from_options" class="internal-link" title="pydocspec.builder_from_options">builder<wbr></wbr>_from<wbr></wbr>_options</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.html#load_python_modules" class="internal-link" title="pydocspec.load_python_modules">load<wbr></wbr>_python<wbr></wbr>_modules</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.html#load_python_modules_with_docspec_python" class="internal-link" title="pydocspec.load_python_modules_with_docspec_python">load<wbr></wbr>_python<wbr></wbr>_modules<wbr></wbr>_with<wbr></wbr>_docspec<wbr></wbr>_python</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.html#_setup_stdout_logger" class="internal-link" title="pydocspec._setup_stdout_logger">_setup<wbr></wbr>_stdout<wbr></wbr>_logger</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pydocspec.html#_RESOLVE_ALIAS_MAX_RECURSE" class="internal-link" title="pydocspec._RESOLVE_ALIAS_MAX_RECURSE">_RESOLVE<wbr></wbr>_ALIAS<wbr></wbr>_MAX<wbr></wbr>_RECURSE</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
         </div>
+        <div id="collapseSideBar">
+          <a class="btn btn-link" onclick="toggleSideBarCollapse()" title="Toggle Sidebar Collapse">
+          </a>
+        </div> 
+        <script src="sidebartoggle.js" type="text/javascript"></script>
+       
       </div>
 
-      <div class="categoryHeader">
-        module documentation
-      </div>
+      <div id="main" class="">
+        
 
-      <div class="extrasDocstring">
-        <a href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py" class="sourceLink">(source)</a>
-        <p></p>
-      </div>
+        
 
-      <div class="moduleDocstring">
-        <div>Various bits of reusable code related to <code>astroid.nodes.NodeNG</code> node processing.</div>
-      </div>
+        <div class="page-header">
+          <h1 class="module"><code><code><a href="pydocspec.html" class="internal-link">pydocspec</a></code><wbr></wbr>.<code><a href="pydocspec.astroidutils.html" class="internal-link" title="pydocspec.astroidutils">astroidutils</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
 
-      <div id="splitTables">
-        <table class="children sortable" id="id87">
+        <div class="categoryHeader">
+          module documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <a href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py" class="sourceLink">(source)</a>
+          <p></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p>Various bits of reusable code related to <code>astroid.nodes.NodeNG</code> node processing.</p>
+</div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id135">
   
   
   <tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astroidutils.NodeTransformer.html" class="internal-link" title="pydocspec.astroidutils.NodeTransformer">​Node​Transformer</a></code></td>
-    <td><span class="undocumented">No summary</span></td>
+    <td><code><a href="pydocspec.astroidutils.NodeTransformer.html" class="internal-link" title="pydocspec.astroidutils.NodeTransformer"><wbr></wbr>Node<wbr></wbr>Transformer</a></code></td>
+    <td>A <code><a href="pydocspec.astroidutils.NodeVisitor.html" class="internal-link" title="pydocspec.astroidutils.NodeVisitor">NodeVisitor</a></code> subclass that walks the abstract syntax tree and allows modification of nodes. The <code><a href="pydocspec.astroidutils.NodeTransformer.html" class="internal-link" title="pydocspec.astroidutils.NodeTransformer">NodeTransformer</a></code> will walk the AST and use the return value of the visitor methods to replace or remove the old node...</td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astroidutils.NodeVisitor.html" class="internal-link" title="pydocspec.astroidutils.NodeVisitor">​Node​Visitor</a></code></td>
-    <td><span class="undocumented">No summary</span></td>
+    <td><code><a href="pydocspec.astroidutils.NodeVisitor.html" class="internal-link" title="pydocspec.astroidutils.NodeVisitor"><wbr></wbr>Node<wbr></wbr>Visitor</a></code></td>
+    <td>A node visitor base class that walks the abstract syntax tree and calls a visitor function for every node found.  This function may return a value which is forwarded by the <code><a href="pydocspec.astroidutils.NodeVisitor.html#visit" class="internal-link" title="pydocspec.astroidutils.NodeVisitor.visit">visit</a></code> method. This class is meant to be subclassed, with the subclass adding visitor methods...</td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astroidutils.SignatureBuilder.html" class="internal-link" title="pydocspec.astroidutils.SignatureBuilder">​Signature​Builder</a></code></td>
+    <td><code><a href="pydocspec.astroidutils.SignatureBuilder.html" class="internal-link" title="pydocspec.astroidutils.SignatureBuilder"><wbr></wbr>Signature<wbr></wbr>Builder</a></code></td>
     <td>Builds a signature, parameter by parameter, with customizable value formatter and signature classes.</td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astroidutils.ValueFormatter.html" class="internal-link" title="pydocspec.astroidutils.ValueFormatter">​Value​Formatter</a></code></td>
+    <td><code><a href="pydocspec.astroidutils.ValueFormatter.html" class="internal-link" title="pydocspec.astroidutils.ValueFormatter"><wbr></wbr>Value<wbr></wbr>Formatter</a></code></td>
     <td>Formats values stored in AST expressions back to source code. Used for presenting default values of parameters and annotations.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#bind_args" class="internal-link" title="pydocspec.astroidutils.bind_args">bind​_args</a></code></td>
+    <td><code><a href="#bind_args" class="internal-link" title="pydocspec.astroidutils.bind_args">bind<wbr></wbr>_args</a></code></td>
     <td>Binds the arguments of a function call to that function's signature. :raise TypeError: If the arguments do not match the signature.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#build_signature" class="internal-link" title="pydocspec.astroidutils.build_signature">build​_signature</a></code></td>
+    <td><code><a href="#build_signature" class="internal-link" title="pydocspec.astroidutils.build_signature">build<wbr></wbr>_signature</a></code></td>
     <td>Builds <code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature" class="intersphinx-link">inspect.Signature</a></code> representing this function's parameters and return value.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#copy_location" class="internal-link" title="pydocspec.astroidutils.copy_location">copy​_location</a></code></td>
+    <td><code><a href="#copy_location" class="internal-link" title="pydocspec.astroidutils.copy_location">copy<wbr></wbr>_location</a></code></td>
     <td>Copy source location (<code>lineno</code>, <code>col_offset</code>, <code>end_lineno</code>, and <code>end_col_offset</code> attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return <em>new_node</em>.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#extract_expr" class="internal-link" title="pydocspec.astroidutils.extract_expr">extract​_expr</a></code></td>
+    <td><code><a href="#extract_expr" class="internal-link" title="pydocspec.astroidutils.extract_expr">extract<wbr></wbr>_expr</a></code></td>
     <td>Convert a python <strong>expression</strong> to ast.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#extract_final_subscript" class="internal-link" title="pydocspec.astroidutils.extract_final_subscript">extract​_final​_subscript</a></code></td>
+    <td><code><a href="#extract_final_subscript" class="internal-link" title="pydocspec.astroidutils.extract_final_subscript">extract<wbr></wbr>_final<wbr></wbr>_subscript</a></code></td>
     <td>Extract the "str" part from annotations like  "Final[str]".</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#fix_missing_locations" class="internal-link" title="pydocspec.astroidutils.fix_missing_locations">fix​_missing​_locations</a></code></td>
-    <td><span class="undocumented">No summary</span></td>
+    <td><code><a href="#fix_missing_locations" class="internal-link" title="pydocspec.astroidutils.fix_missing_locations">fix<wbr></wbr>_missing<wbr></wbr>_locations</a></code></td>
+    <td>When you compile a node tree with compile(), the compiler expects lineno and col_offset attributes for every node that supports them.  This is rather tedious to fill in for generated nodes, so this helper adds these attributes recursively where not already set, by setting them to the values of the parent node...</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#get_full_import_name" class="internal-link" title="pydocspec.astroidutils.get_full_import_name">get​_full​_import​_name</a></code></td>
+    <td><code><a href="#get_full_import_name" class="internal-link" title="pydocspec.astroidutils.get_full_import_name">get<wbr></wbr>_full<wbr></wbr>_import<wbr></wbr>_name</a></code></td>
     <td>Get the full path of a name from a <tt class="rst-docutils literal">from x import y</tt> statement.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#infer_type_annotation" class="internal-link" title="pydocspec.astroidutils.infer_type_annotation">infer​_type​_annotation</a></code></td>
+    <td><code><a href="#infer_type_annotation" class="internal-link" title="pydocspec.astroidutils.infer_type_annotation">infer<wbr></wbr>_type<wbr></wbr>_annotation</a></code></td>
     <td>Infer an expression's type. :param expr: The expression's AST. :return: A type annotation, or None if the expression has no obvious type.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#is_name" class="internal-link" title="pydocspec.astroidutils.is_name">is​_name</a></code></td>
+    <td><code><a href="#is_name" class="internal-link" title="pydocspec.astroidutils.is_name">is<wbr></wbr>_name</a></code></td>
     <td>A name is an expression composed by <code>astroid.nodes.Attribute</code> and <code>astroid.nodes.Name</code> nodes :returns: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code> if value is a valid name.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#is_type_guard" class="internal-link" title="pydocspec.astroidutils.is_type_guard">is​_type​_guard</a></code></td>
+    <td><code><a href="#is_type_guard" class="internal-link" title="pydocspec.astroidutils.is_type_guard">is<wbr></wbr>_type<wbr></wbr>_guard</a></code></td>
     <td>Return True if the If statement is a typing guard.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#is_type_guarded" class="internal-link" title="pydocspec.astroidutils.is_type_guarded">is​_type​_guarded</a></code></td>
+    <td><code><a href="#is_type_guarded" class="internal-link" title="pydocspec.astroidutils.is_type_guarded">is<wbr></wbr>_type<wbr></wbr>_guarded</a></code></td>
     <td>Return True if one of the parent(s) of a node is a typing guard.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#iter_fields" class="internal-link" title="pydocspec.astroidutils.iter_fields">iter​_fields</a></code></td>
+    <td><code><a href="#iter_fields" class="internal-link" title="pydocspec.astroidutils.iter_fields">iter<wbr></wbr>_fields</a></code></td>
     <td>Given a node, get the fields names and their values. We need the fields names in NodeTransformer.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#iter_values" class="internal-link" title="pydocspec.astroidutils.iter_values">iter​_values</a></code></td>
+    <td><code><a href="#iter_values" class="internal-link" title="pydocspec.astroidutils.iter_values">iter<wbr></wbr>_values</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#literal_eval" class="internal-link" title="pydocspec.astroidutils.literal_eval">literal​_eval</a></code></td>
-    <td><span class="undocumented">No summary</span></td>
+    <td><code><a href="#literal_eval" class="internal-link" title="pydocspec.astroidutils.literal_eval">literal<wbr></wbr>_eval</a></code></td>
+    <td>Safely evaluate an expression node or a string containing a Python expression.  The string or node provided may only consist of the following Python literal structures: strings, bytes, numbers, tuples, lists, dicts, sets, booleans, and None.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#merge_annotations" class="internal-link" title="pydocspec.astroidutils.merge_annotations">merge​_annotations</a></code></td>
+    <td><code><a href="#merge_annotations" class="internal-link" title="pydocspec.astroidutils.merge_annotations">merge<wbr></wbr>_annotations</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function">
     
@@ -262,23 +1007,23 @@
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#resolve_import_alias" class="internal-link" title="pydocspec.astroidutils.resolve_import_alias">resolve​_import​_alias</a></code></td>
+    <td><code><a href="#resolve_import_alias" class="internal-link" title="pydocspec.astroidutils.resolve_import_alias">resolve<wbr></wbr>_import<wbr></wbr>_alias</a></code></td>
     <td>Resolve a name from an aliased import to its original name.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#resolve_qualname" class="internal-link" title="pydocspec.astroidutils.resolve_qualname">resolve​_qualname</a></code></td>
+    <td><code><a href="#resolve_qualname" class="internal-link" title="pydocspec.astroidutils.resolve_qualname">resolve<wbr></wbr>_qualname</a></code></td>
     <td>Resolve a basename to get its fully qualified name.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#to_source" class="internal-link" title="pydocspec.astroidutils.to_source">to​_source</a></code></td>
+    <td><code><a href="#to_source" class="internal-link" title="pydocspec.astroidutils.to_source">to<wbr></wbr>_source</a></code></td>
     <td>This function convert a node tree back into python sourcecode.</td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#unstring_annotation" class="internal-link" title="pydocspec.astroidutils.unstring_annotation">unstring​_annotation</a></code></td>
-    <td>Replace all strings in the given expression by parsed versions. :return: The unstringed node. If parsing fails, an error is logged and the original node is returned.</td>
+    <td><code><a href="#unstring_annotation" class="internal-link" title="pydocspec.astroidutils.unstring_annotation">unstring<wbr></wbr>_annotation</a></code></td>
+    <td>Replace all strings in the given expression by parsed versions. :return: The unstringed node. If parsing fails, an error is logged</td>
   </tr><tr class="variable">
     
     <td>Variable</td>
@@ -287,48 +1032,47 @@
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astroidutils._AnnotationStringParser.html" class="internal-link" title="pydocspec.astroidutils._AnnotationStringParser">_​Annotation​String​Parser</a></code></td>
+    <td><code><a href="pydocspec.astroidutils._AnnotationStringParser.html" class="internal-link" title="pydocspec.astroidutils._AnnotationStringParser">_<wbr></wbr>Annotation<wbr></wbr>String<wbr></wbr>Parser</a></code></td>
     <td>Implementation of <code><a href="pydocspec.astroidutils.html#unstring_annotation" class="internal-link" title="pydocspec.astroidutils.unstring_annotation">unstring_annotation</a></code>.</td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astroidutils._NodeConstructorMethod.html" class="internal-link" title="pydocspec.astroidutils._NodeConstructorMethod">_​Node​Constructor​Method</a></code></td>
+    <td><code><a href="pydocspec.astroidutils._NodeConstructorMethod.html" class="internal-link" title="pydocspec.astroidutils._NodeConstructorMethod">_<wbr></wbr>Node<wbr></wbr>Constructor<wbr></wbr>Method</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><code><a href="pydocspec.astroidutils._NodeFactory.html" class="internal-link" title="pydocspec.astroidutils._NodeFactory">_​Node​Factory</a></code></td>
+    <td><code><a href="pydocspec.astroidutils._NodeFactory.html" class="internal-link" title="pydocspec.astroidutils._NodeFactory">_<wbr></wbr>Node<wbr></wbr>Factory</a></code></td>
     <td>Easy create NodeNG instances.</td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_annotation_for_elements" class="internal-link" title="pydocspec.astroidutils._annotation_for_elements">_annotation​_for​_elements</a></code></td>
+    <td><code><a href="#_annotation_for_elements" class="internal-link" title="pydocspec.astroidutils._annotation_for_elements">_annotation<wbr></wbr>_for<wbr></wbr>_elements</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_annotation_for_value" class="internal-link" title="pydocspec.astroidutils._annotation_for_value">_annotation​_for​_value</a></code></td>
+    <td><code><a href="#_annotation_for_value" class="internal-link" title="pydocspec.astroidutils._annotation_for_value">_annotation<wbr></wbr>_for<wbr></wbr>_value</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_is_ellipsis" class="internal-link" title="pydocspec.astroidutils._is_ellipsis">_is​_ellipsis</a></code></td>
+    <td><code><a href="#_is_ellipsis" class="internal-link" title="pydocspec.astroidutils._is_ellipsis">_is<wbr></wbr>_ellipsis</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><code><a href="#_iter_args" class="internal-link" title="pydocspec.astroidutils._iter_args">_iter​_args</a></code></td>
+    <td><code><a href="#_iter_args" class="internal-link" title="pydocspec.astroidutils._iter_args">_iter<wbr></wbr>_args</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
-        
-
           
-      </div>
 
-      <div id="childList">
+            
+        </div>
 
-        <div class="basefunction">
+        <div id="childList">
+          <div class="basefunction">
   
   
   <a name="pydocspec.astroidutils.bind_args">
@@ -340,7 +1084,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">bind_args</span>(sig, call):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L376">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L376">
       
       (source)
     </a>
@@ -348,8 +1092,9 @@
   <div class="docstring functionBody">
     
     
-    <div>Binds the arguments of a function call to that function's signature.
-:raise TypeError: If the arguments do not match the signature.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sig:</span><code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature" class="intersphinx-link">inspect.Signature</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">call:</span><code>astroid.nodes.Call</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/inspect.html#inspect.BoundArguments" class="intersphinx-link">inspect.BoundArguments</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Binds the arguments of a function call to that function's signature.
+:raise TypeError: If the arguments do not match the signature.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sig:</span><code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature" class="intersphinx-link">inspect.Signature</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">call:</span><code>astroid.nodes.Call</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/inspect.html#inspect.BoundArguments" class="intersphinx-link">inspect.BoundArguments</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -363,7 +1108,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">build_signature</span>(func):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L664">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L664">
       
       (source)
     </a>
@@ -371,7 +1116,8 @@
   <div class="docstring functionBody">
     
     
-    <div>Builds <code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature" class="intersphinx-link">inspect.Signature</a></code> representing this function's parameters and return value.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">func:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr>astroid.nodes.AsyncFunctionDef, <wbr></wbr>astroid.nodes.FunctionDef]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature" class="intersphinx-link">inspect.Signature</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/exceptions.html#ValueError" class="intersphinx-link">ValueError</a></code></td><td>If the function has invalid parameters.</td></tr></table></div>
+    <div><p>Builds <code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature" class="intersphinx-link">inspect.Signature</a></code> representing this function's parameters and return value.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">func:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr>astroid.nodes.AsyncFunctionDef, <wbr></wbr>astroid.nodes.FunctionDef]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/inspect.html#inspect.Signature" class="intersphinx-link">inspect.Signature</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/exceptions.html#ValueError" class="intersphinx-link">ValueError</a></code></td><td>If the function has invalid parameters.</td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -385,7 +1131,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">copy_location</span>(new_node, old_node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L182">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L182">
       
       (source)
     </a>
@@ -393,8 +1139,9 @@
   <div class="docstring functionBody">
     
     
-    <div>Copy source location (<code>lineno</code>, <code>col_offset</code>, <code>end_lineno</code>, and <code>end_col_offset</code>
-attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return <em>new_node</em>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">new​_node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">old​_node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Copy source location (<code>lineno</code>, <code>col_offset</code>, <code>end_lineno</code>, and <code>end_col_offset</code>
+attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return <em>new_node</em>.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">new<wbr></wbr>_node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">old<wbr></wbr>_node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -408,7 +1155,7 @@ attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return 
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">extract_expr</span>(expr, filename=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, allow_stmt=<a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L391">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L391">
       
       (source)
     </a>
@@ -418,7 +1165,7 @@ attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return 
     
     <div><p>Convert a python <strong>expression</strong> to ast.</p>
 <p>Can raise <code><a href="https://docs.python.org/3/library/exceptions.html#SyntaxError" class="intersphinx-link">SyntaxError</a></code> if invalid python sytax or if got statements instead of expression.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">filename:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">allow​_stmt:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">filename:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">allow<wbr></wbr>_stmt:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -432,7 +1179,7 @@ attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return 
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">extract_final_subscript</span>(annotation):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L413">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L413">
       
       (source)
     </a>
@@ -456,7 +1203,7 @@ attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return 
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">fix_missing_locations</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L193">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L193">
       
       (source)
     </a>
@@ -464,11 +1211,12 @@ attributes) from <em>old_node</em> to <em>new_node</em> if possible, and return 
   <div class="docstring functionBody">
     
     
-    <div>When you compile a node tree with compile(), the compiler expects lineno and
+    <div><p>When you compile a node tree with compile(), the compiler expects lineno and
 col_offset attributes for every node that supports them.  This is rather
 tedious to fill in for generated nodes, so this helper adds these attributes
 recursively where not already set, by setting them to the values of the
-parent node.  It works recursively starting at <em>node</em>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+parent node.  It works recursively starting at <em>node</em>.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -482,7 +1230,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_full_import_name</span>(import_from, name):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L553">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L553">
       
       (source)
     </a>
@@ -490,7 +1238,8 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="docstring functionBody">
     
     
-    <div>Get the full path of a name from a <tt class="rst-docutils literal">from x import y</tt> statement.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">import​_from:</span><code>astroid.nodes.ImportFrom</code></td><td class="fieldArgDesc">The astroid node to resolve the name of.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">The full import path of the name.</td></tr></table></div>
+    <div><p>Get the full path of a name from a <tt class="rst-docutils literal">from x import y</tt> statement.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">import<wbr></wbr>_from:</span><code>astroid.nodes.ImportFrom</code></td><td class="fieldArgDesc">The astroid node to resolve the name of.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">The full import path of the name.</td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -504,7 +1253,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">infer_type_annotation</span>(expr):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L441">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L441">
       
       (source)
     </a>
@@ -512,9 +1261,10 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="docstring functionBody">
     
     
-    <div>Infer an expression's type.
+    <div><p>Infer an expression's type.
 :param expr: The expression's AST.
-:return: A type annotation, or None if the expression has no obvious type.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+:return: A type annotation, or None if the expression has no obvious type.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -528,7 +1278,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_name</span>(value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L352">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L352">
       
       (source)
     </a>
@@ -536,8 +1286,9 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="docstring functionBody">
     
     
-    <div>A name is an expression composed by <code>astroid.nodes.Attribute</code> and <code>astroid.nodes.Name</code> nodes
-:returns: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code> if value is a valid name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">value:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>A name is an expression composed by <code>astroid.nodes.Attribute</code> and <code>astroid.nodes.Name</code> nodes
+:returns: <code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code> if value is a valid name.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">value:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -551,7 +1302,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_type_guard</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L369">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L369">
       
       (source)
     </a>
@@ -559,7 +1310,8 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="docstring functionBody">
     
     
-    <div>Return True if the If statement is a typing guard.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.If</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Return True if the If statement is a typing guard.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.If</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -573,7 +1325,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">is_type_guarded</span>(node, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L359">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L359">
       
       (source)
     </a>
@@ -581,7 +1333,8 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="docstring functionBody">
     
     
-    <div>Return True if one of the parent(s) of a node is a typing guard.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">_model.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Return True if one of the parent(s) of a node is a typing guard.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">_model.ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -595,7 +1348,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">iter_fields</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L25">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L25">
       
       (source)
     </a>
@@ -603,7 +1356,8 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="docstring functionBody">
     
     
-    <div>Given a node, get the fields names and their values. We need the fields names in NodeTransformer.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator" class="intersphinx-link">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Given a node, get the fields names and their values. We need the fields names in NodeTransformer.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator" class="intersphinx-link">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -617,7 +1371,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">iter_values</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L33">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L33">
       
       (source)
     </a>
@@ -639,7 +1393,7 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">literal_eval</span>(node_or_string):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L125">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L125">
       
       (source)
     </a>
@@ -647,10 +1401,11 @@ parent node.  It works recursively starting at <em>node</em>.<table class="field
   <div class="docstring functionBody">
     
     
-    <div>Safely evaluate an expression node or a string containing a Python
+    <div><p>Safely evaluate an expression node or a string containing a Python
 expression.  The string or node provided may only consist of the following
 Python literal structures: strings, bytes, numbers, tuples, lists, dicts,
-sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node​_or​_string:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+sets, booleans, and None.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node<wbr></wbr>_or<wbr></wbr>_string:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -664,7 +1419,7 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">merge_annotations</span>(annotations, comment_annotations):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L652">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L652">
       
       (source)
     </a>
@@ -672,7 +1427,7 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotations:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable" class="intersphinx-link">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">comment​_annotations:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable" class="intersphinx-link">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator" class="intersphinx-link">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotations:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable" class="intersphinx-link">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">comment<wbr></wbr>_annotations:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable" class="intersphinx-link">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator" class="intersphinx-link">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -686,7 +1441,7 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">node2dottedname</span>(node, strict=<a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L323">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L323">
       
       (source)
     </a>
@@ -694,7 +1449,8 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="docstring functionBody">
     
     
-    <div>Resove expression composed by <code>astroid.nodes.Attribute</code> and <code>astroid.nodes.Name</code> nodes to a list of names.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">strict:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Notes</td></tr><tr><td colspan="2">Supports variants <code>AssignAttr</code> and <code>AssignName</code>.</td></tr><tr><td colspan="2">Strips the subscript slice, i.e. <code>Generic[T]</code> -&gt; <code>Generic</code>, except if scrict=True.</td></tr></table></div>
+    <div><p>Resove expression composed by <code>astroid.nodes.Attribute</code> and <code>astroid.nodes.Name</code> nodes to a list of names.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">strict:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Notes</td></tr><tr><td colspan="2">Supports variants <code>AssignAttr</code> and <code>AssignName</code>.</td></tr><tr><td colspan="2">Strips the subscript slice, i.e. <code>Generic[T]</code> -&gt; <code>Generic</code>, except if scrict=True.</td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -708,7 +1464,7 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">node2fullname</span>(expr, ctx):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L343">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L343">
       
       (source)
     </a>
@@ -716,7 +1472,8 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="docstring functionBody">
     
     
-    <div>Return <tt class="rst-docutils literal">ctx.expand_name(name)</tt> if <tt class="rst-docutils literal">expr</tt> is a valid name, or <tt class="rst-docutils literal">None</tt>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>Return <tt class="rst-docutils literal">ctx.expand_name(name)</tt> if <tt class="rst-docutils literal">expr</tt> is a valid name, or <tt class="rst-docutils literal">None</tt>.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code><a href="pydocspec.ApiObject.html" class="internal-link" title="pydocspec.ApiObject">ApiObject</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -730,7 +1487,7 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">resolve_import_alias</span>(name, import_names):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L532">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L532">
       
       (source)
     </a>
@@ -738,7 +1495,8 @@ sets, booleans, and None.<table class="fieldTable"><tr class="fieldStart"><td cl
   <div class="docstring functionBody">
     
     
-    <div>Resolve a name from an aliased import to its original name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">The potentially aliased name to resolve.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">import​_names:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable" class="intersphinx-link">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]]</code></td><td class="fieldArgDesc">The pairs of original names and aliases
+    <div><p>Resolve a name from an aliased import to its original name.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">The potentially aliased name to resolve.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">import<wbr></wbr>_names:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterable" class="intersphinx-link">Iterable</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]]]</code></td><td class="fieldArgDesc">The pairs of original names and aliases
 from the import.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">The original name.</td></tr></table></div>
   </div>
 </div><div class="basefunction">
@@ -753,7 +1511,7 @@ from the import.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">resolve_qualname</span>(ctx, basename):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L574">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L574">
       
       (source)
     </a>
@@ -761,7 +1519,8 @@ from the import.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="
   <div class="docstring functionBody">
     
     
-    <div>Resolve a basename to get its fully qualified name.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc">The node representing the base name.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">basename:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">The partial base name to resolve.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">The fully resolved base name.</td></tr></table></div>
+    <div><p>Resolve a basename to get its fully qualified name.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ctx:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc">The node representing the base name.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">basename:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">The partial base name to resolve.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">The fully resolved base name.</td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -775,7 +1534,7 @@ from the import.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">to_source</span>(expr):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L315">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L315">
       
       (source)
     </a>
@@ -783,7 +1542,8 @@ from the import.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="
   <div class="docstring functionBody">
     
     
-    <div>This function convert a node tree back into python sourcecode.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>This function convert a node tree back into python sourcecode.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">expr:</span><code>astroid.nodes.NodeNG</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -797,7 +1557,7 @@ from the import.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">unstring_annotation</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L426">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L426">
       
       (source)
     </a>
@@ -823,7 +1583,7 @@ and the original node is returned.</blockquote>
   <div class="functionHeader">
     
     <span class="py-defname">nodefactory</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L266">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L266">
       
       (source)
     </a>
@@ -831,7 +1591,8 @@ and the original node is returned.</blockquote>
   <div class="functionBody">
     
     
-    <div>Acts like every node arguments can be passed to the constructor method.</div>
+    <div><p>Acts like every node arguments can be passed to the constructor method.</p>
+</div>
     
   </div>
 </div><div class="basefunction private">
@@ -846,7 +1607,7 @@ and the original node is returned.</blockquote>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_elements</span>(sequence):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L484">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L484">
       
       (source)
     </a>
@@ -868,7 +1629,7 @@ and the original node is returned.</blockquote>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_annotation_for_value</span>(value):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L460">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L460">
       
       (source)
     </a>
@@ -890,7 +1651,7 @@ and the original node is returned.</blockquote>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_is_ellipsis</span>(node):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L626">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L626">
       
       (source)
     </a>
@@ -912,7 +1673,7 @@ and the original node is returned.</blockquote>
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">_iter_args</span>(args, annotations, defaults):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/922d853b10ce85929ccb6347f4de273d9422e5ff/pydocspec/astroidutils.py#L634">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/de7f90fcd25ebbf425e4308ff306372ca4ada5f6/pydocspec/astroidutils.py#L634">
       
       (source)
     </a>
@@ -923,7 +1684,8 @@ and the original node is returned.</blockquote>
     <div><p class="undocumented">Undocumented</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">args:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr>astroid.nodes.AssignName]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">annotations:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr>astroid.nodes.AssignName]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">defaults:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr>astroid.nodes.AssignName]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Iterator" class="intersphinx-link">Iterator</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]]]</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div>
-
+        </div>
+      
       </div>
     </div>
 
@@ -933,7 +1695,7 @@ and the original node is returned.</blockquote>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.3.0.dev0 at 2022-03-24 17:55:01.
+    22.5.0.dev0 at 2022-04-28 19:30:24.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
@@ -943,7 +1705,7 @@ and the original node is returned.</blockquote>
   <script src="search.js" type="text/javascript"></script>
 
 </footer>
-
+  
     <script src="pydoctor.js" type="text/javascript"></script>
 
   </body>
