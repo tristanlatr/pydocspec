@@ -24,8 +24,10 @@ Mirrors `docspec` model, but without using `dataclasses` (and without deprecated
 
 __author__ = 'Niklas Rosenstein <rosensteinniklas@gmail.com>'
 
-#: The target docspec version: update me when syncing features from upstream.
 __version__ = '2.0.1'
+"""
+The target docspec version: update me when syncing features from upstream.
+"""
 
 __all__ = [
   'Location',
@@ -132,21 +134,31 @@ class ArgumentType(enum.Enum):
     only support #Positional and #PositionalRemainder arguments).
     """
 
-    #: A positional only argument. Such arguments are denoted in Python like this: `def foo(a, b, /): ...`
     POSITIONAL_ONLY = 0
+    """
+    A positional only argument. Such arguments are denoted in Python like this: `def foo(a, b, /): ...`
+    """
 
-    #: A positional argument, which may also be given as a keyword argument. Basically that is just a normal
-    #: argument as you would see most commonly in Python function definitions.
     POSITIONAL = 1
+    """
+    A positional argument, which may also be given as a keyword argument. Basically that is just a normal
+    argument as you would see most commonly in Python function definitions.
+    """
 
-    #: An argument that denotes the capture of additional positional arguments, aka. "args" or "varags".
     POSITIONAL_REMAINDER = 2
+    """
+    An argument that denotes the capture of additional positional arguments, aka. "args" or "varags".
+    """
 
-    #: A keyword-only argument is denoted in Python like thisL `def foo(*, kwonly): ...`
     KEYWORD_ONLY = 3
+    """
+    A keyword-only argument is denoted in Python like thisL `def foo(*, kwonly): ...`
+    """
 
-    #: An argument that captures additional keyword arguments, aka. "kwargs".
     KEYWORD_REMAINDER = 4
+    """
+    An argument that captures additional keyword arguments, aka. "kwargs".
+    """
 
 
 class Argument(_HasInitAttribsMethod):
@@ -269,14 +281,20 @@ class VariableSemantic(enum.Enum):
   A list of well-known properties and behaviour that can be attributed to a variable/constant.
   """
 
-  #: The #Variable object is an instance variable of a class.
   INSTANCE_VARIABLE = 0
+  """
+  The #Variable object is an instance variable of a class.
+  """
 
-  #: The #Variable object is a static variable of a class.
   CLASS_VARIABLE = 1
+  """
+  The #Variable object is a static variable of a class.
+  """
 
-  #: The #Variable object represents a constant value.
   CONSTANT = 2
+  """
+  The #Variable object represents a constant value.
+  """
 
 
 class Variable(Inheritable):
@@ -333,35 +351,55 @@ class FunctionSemantic(enum.Enum):
   A list of well-known properties and behaviour that can be attributed to a function.
   """
 
-  #: The function is abstract.
   ABSTRACT = 0
-
-  #: The function is final.
+  """
+  The function is abstract.
+  """
+  
   FINAL = 1
+  """
+  The function is final.
+  """
 
-  #: The function is a coroutine.
   COROUTINE = 2
+  """
+  The function is a coroutine.
+  """
 
-  #: The function does not return.
   NO_RETURN = 3
+  """
+  The function does not return.
+  """
 
-  #: The function is an instance method.
   INSTANCE_METHOD = 4
+  """
+  The function is an instance method.
+  """
 
-  #: The function is a classmethod.
   CLASS_METHOD = 5
+  """
+  The function is a classmethod.
+  """
 
-  #: The function is a staticmethod.
   STATIC_METHOD = 6
+  """
+  The function is a staticmethod.
+  """
 
-  #: The function is a property getter.
   PROPERTY_GETTER = 7
+  """
+  The function is a property getter.
+  """
 
-  #: The function is a property setter.
   PROPERTY_SETTER = 8
+  """
+  The function is a property setter.
+  """
 
-  #: The function is a property deleter.
   PROPERTY_DELETER = 9
+  """  
+  The function is a property deleter.
+  """
 
 
 class Function(Inheritable):
@@ -384,21 +422,30 @@ class Function(Inheritable):
                ) -> None:
       super().__init__(*_args, **kwargs)
 
-      #: A list of modifiers used in the function definition. For example, the only valid modifier in
-      #: Python is "async".
       self. modifiers: t.Optional[t.List[str]] = modifiers
+      """
+      A list of modifiers used in the function definition. For example, the only valid modifier in Python is "async".
+      """
 
-      #: A list of the function arguments.
       self.args: t.List[Argument] = args
+      """
+      A list of the function arguments.
+      """
 
-      #: The return type of the function as a code string.
       self.return_type: t.Optional[str] = return_type
+      """
+      The return type of the function as a code string.
+      """
 
-      #: A list of decorations used on the function.
       self.decorations: t.Optional[t.List[Decoration]] = decorations
+      """
+      A list of decorations used on the function.
+      """
 
-      #: A list of hints that describe the object.
       self.semantic_hints: t.List[FunctionSemantic] = semantic_hints or []
+      """
+      A list of hints that describe the object.
+      """
 
 
 class HasMembers(ApiObject):
@@ -426,17 +473,25 @@ class ClassSemantic(enum.Enum):
   A list of well-known properties and behaviour that can be attributed to a class.
   """
 
-  #: The class describes an interface.
   INTERFACE = 0
+  """
+  The class describes an interface.
+  """
 
-  #: The class is abstract.
   ABSTRACT = 1
+  """
+  The class is abstract.
+  """
 
-  #: The class is final.
   FINAL = 2
+  """
+  The class is final.
+  """
 
-  #: The class is an enumeration.
   ENUM = 3
+  """
+  The class is an enumeration.
+  """
 
 
 class Class(HasMembers):
@@ -456,20 +511,30 @@ class Class(HasMembers):
                ) -> None:
       super().__init__(*args, **kwargs)
 
-      #: The metaclass used in the class definition as a code string.
       self.metaclass: t.Optional[str] = metaclass
+      """
+      The metaclass used in the class definition as a code string.
+      """
 
-      #: The list of base classes as code strings.
       self.bases: t.Optional[t.List[str]] = bases
+      """
+      The list of base classes as code strings.
+      """
 
-      #: A list of decorations used in the class definition.
       self.decorations: t.Optional[t.List[Decoration]] = decorations
+      """
+      A list of decorations used in the class definition.
+      """
 
-      #: A list of language-specific modifiers that were used to declare this #Variable object.
       self.modifiers: t.List[str] = modifiers or []
+      """
+      A list of language-specific modifiers that were used to declare this #Variable object.
+      """
 
-      #: A list of hints that describe the object.
       self.semantic_hints: t.List[ClassSemantic] = semantic_hints or []
+      """
+      A list of hints that describe the object.
+      """
 
 
 class Module(HasMembers):
