@@ -783,7 +783,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p><code><span class="py-keyword">class</span> <span class="py-defname">Function</span>(<a href="pydocspec._docspec.Function.html" class="internal-link" title="pydocspec._docspec.Function">_docspec.Function</a>, <a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_model.py#L428" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Function.html" class="internal-link">pydocspec.Function</a></code></p>
+          <p><code><span class="py-keyword">class</span> <span class="py-defname">Function</span>(<a href="pydocspec._docspec.Function.html" class="internal-link" title="pydocspec._docspec.Function">_docspec.Function</a>, <a href="pydocspec._model.ApiObject.html" class="internal-link" title="pydocspec._model.ApiObject">ApiObject</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_model.py#L428" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec.Function.html" class="internal-link">pydocspec.Function</a></code></p>
           <p><a href="classIndex.html#pydocspec._model.Function">View In Hierarchy</a></p>
         </div>
 
@@ -805,12 +805,12 @@
     
     <td>Class Variable</td>
     <td><code><a href="#args" class="internal-link" title="pydocspec._model.Function.args">args</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A list of the function arguments.</td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
     <td><code><a href="#decorations" class="internal-link" title="pydocspec._model.Function.decorations">decorations</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A list of decorations used on the function.</td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
@@ -844,17 +844,17 @@
     
     <td>Instance Variable</td>
     <td><code><a href="pydocspec._docspec.Function.html#modifiers" class="internal-link" title="pydocspec._docspec.Function.modifiers">modifiers</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A list of modifiers used in the function definition. For example, the only valid modifier in Python is "async".</td>
   </tr><tr class="baseinstancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="pydocspec._docspec.Function.html#return_type" class="internal-link" title="pydocspec._docspec.Function.return_type">return<wbr></wbr>_type</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>The return type of the function as a code string.</td>
   </tr><tr class="baseinstancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="pydocspec._docspec.Function.html#semantic_hints" class="internal-link" title="pydocspec._docspec.Function.semantic_hints">semantic<wbr></wbr>_hints</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A list of hints that describe the object.</td>
   </tr>
 </table>
             
@@ -1084,7 +1084,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, *args, return_type_ast, is_type_guarged=<a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, **kwargs):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_model.py#L443">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_model.py#L443">
       
       (source)
     </a>
@@ -1106,7 +1106,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">args</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="pydocspec._model.Argument.html" class="internal-link" title="pydocspec._model.Argument">Argument</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_model.py#L455">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_model.py#L455">
       
       (source)
     </a>
@@ -1114,7 +1114,8 @@
   <div class="functionBody">
     <div class="interfaceinfo">overrides <code><a href="pydocspec._docspec.Function.html#args" class="internal-link">pydocspec._docspec.Function.args</a></code></div><div class="interfaceinfo">overridden in <code><a href="pydocspec.Function.html" class="internal-link">pydocspec.Function</a></code></div>
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>A list of the function arguments.</p>
+</div>
     
   </div>
 </div><div class="baseclassvariable">
@@ -1129,7 +1130,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">decorations</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="pydocspec._model.Decoration.html" class="internal-link" title="pydocspec._model.Decoration">Decoration</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_model.py#L454">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_model.py#L454">
       
       (source)
     </a>
@@ -1137,7 +1138,8 @@
   <div class="functionBody">
     <div class="interfaceinfo">overrides <code><a href="pydocspec._docspec.Function.html#decorations" class="internal-link">pydocspec._docspec.Function.decorations</a></code></div><div class="interfaceinfo">overridden in <code><a href="pydocspec.Function.html" class="internal-link">pydocspec.Function</a></code></div>
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>A list of decorations used on the function.</p>
+</div>
     
   </div>
 </div><div class="baseclassvariable">
@@ -1152,7 +1154,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">parent</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="pydocspec._model.Class.html" class="internal-link" title="pydocspec._model.Class">Class</a>, <wbr></wbr><a href="pydocspec._model.Module.html" class="internal-link" title="pydocspec._model.Module">Module</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_model.py#L456">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_model.py#L456">
       
       (source)
     </a>
@@ -1176,7 +1178,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">is_type_guarged</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_model.py#L451">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_model.py#L451">
       
       (source)
     </a>
@@ -1199,7 +1201,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">return_type_ast</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>astroid.nodes.NodeNG]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_model.py#L450">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_model.py#L450">
       
       (source)
     </a>
@@ -1222,7 +1224,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">_spec_fields</span> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_model.py#L433">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_model.py#L433">
       
       (source)
     </a>
@@ -1245,7 +1247,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.5.0.dev0 at 2022-04-28 23:51:25.
+    22.5.0.dev0 at 2022-04-29 00:33:08.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 

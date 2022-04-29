@@ -494,7 +494,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p><code><span class="py-keyword">class</span> <span class="py-defname">ArgumentType</span>(<a href="https://docs.python.org/3/library/enum.html#enum.Enum" class="intersphinx-link" title="enum.Enum">enum.Enum</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L128" class="sourceLink">(source)</a></code></p>
+          <p><code><span class="py-keyword">class</span> <span class="py-defname">ArgumentType</span>(<a href="https://docs.python.org/3/library/enum.html#enum.Enum" class="intersphinx-link" title="enum.Enum">enum.Enum</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L130" class="sourceLink">(source)</a></code></p>
           <p><a href="classIndex.html#pydocspec._docspec.ArgumentType">View In Hierarchy</a></p>
         </div>
 
@@ -513,27 +513,27 @@ only support #Positional and #PositionalRemainder arguments).</p>
     
     <td>Constant</td>
     <td><code><a href="#KEYWORD_ONLY" class="internal-link" title="pydocspec._docspec.ArgumentType.KEYWORD_ONLY">KEYWORD<wbr></wbr>_ONLY</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A keyword-only argument is denoted in Python like thisL <code>def foo(*, kwonly): ...</code></td>
   </tr><tr class="constant">
     
     <td>Constant</td>
     <td><code><a href="#KEYWORD_REMAINDER" class="internal-link" title="pydocspec._docspec.ArgumentType.KEYWORD_REMAINDER">KEYWORD<wbr></wbr>_REMAINDER</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>An argument that captures additional keyword arguments, aka. "kwargs".</td>
   </tr><tr class="constant">
     
     <td>Constant</td>
     <td><code><a href="#POSITIONAL" class="internal-link" title="pydocspec._docspec.ArgumentType.POSITIONAL">POSITIONAL</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A positional argument, which may also be given as a keyword argument. Basically that is just a normal argument as you would see most commonly in Python function definitions.</td>
   </tr><tr class="constant">
     
     <td>Constant</td>
     <td><code><a href="#POSITIONAL_ONLY" class="internal-link" title="pydocspec._docspec.ArgumentType.POSITIONAL_ONLY">POSITIONAL<wbr></wbr>_ONLY</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A positional only argument. Such arguments are denoted in Python like this: <code>def foo(a, b, /): ...</code></td>
   </tr><tr class="constant">
     
     <td>Constant</td>
     <td><code><a href="#POSITIONAL_REMAINDER" class="internal-link" title="pydocspec._docspec.ArgumentType.POSITIONAL_REMAINDER">POSITIONAL<wbr></wbr>_REMAINDER</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>An argument that denotes the capture of additional positional arguments, aka. "args" or "varags".</td>
   </tr>
 </table>
           
@@ -554,7 +554,7 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="functionHeader">
     
     <span class="py-defname">KEYWORD_ONLY</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L146">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L153">
       
       (source)
     </a>
@@ -562,7 +562,8 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>A keyword-only argument is denoted in Python like thisL <code>def foo(*, kwonly): ...</code></p>
+</div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>3</code></pre></td></tr></table>
   </div>
 </div><div class="baseconstant">
@@ -577,7 +578,7 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="functionHeader">
     
     <span class="py-defname">KEYWORD_REMAINDER</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L149">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L158">
       
       (source)
     </a>
@@ -585,7 +586,8 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>An argument that captures additional keyword arguments, aka. "kwargs".</p>
+</div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>4</code></pre></td></tr></table>
   </div>
 </div><div class="baseconstant">
@@ -600,7 +602,7 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="functionHeader">
     
     <span class="py-defname">POSITIONAL</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L140">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L142">
       
       (source)
     </a>
@@ -608,7 +610,9 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>A positional argument, which may also be given as a keyword argument. Basically that is just a normal
+argument as you would see most commonly in Python function definitions.</p>
+</div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>1</code></pre></td></tr></table>
   </div>
 </div><div class="baseconstant">
@@ -623,7 +627,7 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="functionHeader">
     
     <span class="py-defname">POSITIONAL_ONLY</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L136">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L137">
       
       (source)
     </a>
@@ -631,7 +635,8 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>A positional only argument. Such arguments are denoted in Python like this: <code>def foo(a, b, /): ...</code></p>
+</div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>0</code></pre></td></tr></table>
   </div>
 </div><div class="baseconstant">
@@ -646,7 +651,7 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="functionHeader">
     
     <span class="py-defname">POSITIONAL_REMAINDER</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L143">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L148">
       
       (source)
     </a>
@@ -654,7 +659,8 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>An argument that denotes the capture of additional positional arguments, aka. "args" or "varags".</p>
+</div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>2</code></pre></td></tr></table>
   </div>
 </div>
@@ -669,7 +675,7 @@ only support #Positional and #PositionalRemainder arguments).</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.5.0.dev0 at 2022-04-28 23:51:25.
+    22.5.0.dev0 at 2022-04-29 00:33:08.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 

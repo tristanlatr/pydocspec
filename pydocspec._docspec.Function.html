@@ -583,7 +583,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p><code><span class="py-keyword">class</span> <span class="py-defname">Function</span>(<a href="pydocspec._docspec.Inheritable.html" class="internal-link" title="pydocspec._docspec.Inheritable">Inheritable</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L367" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec._model.Function.html" class="internal-link">pydocspec._model.Function</a></code></p>
+          <p><code><span class="py-keyword">class</span> <span class="py-defname">Function</span>(<a href="pydocspec._docspec.Inheritable.html" class="internal-link" title="pydocspec._docspec.Inheritable">Inheritable</a>): <a href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L405" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="pydocspec._model.Function.html" class="internal-link">pydocspec._model.Function</a></code></p>
           <p><a href="classIndex.html#pydocspec._docspec.Function">View In Hierarchy</a></p>
         </div>
 
@@ -607,27 +607,27 @@ The #decorations need to be introspected to understand if the function has a spe
     
     <td>Instance Variable</td>
     <td><code><a href="#args" class="internal-link" title="pydocspec._docspec.Function.args">args</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A list of the function arguments.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="#decorations" class="internal-link" title="pydocspec._docspec.Function.decorations">decorations</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A list of decorations used on the function.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="#modifiers" class="internal-link" title="pydocspec._docspec.Function.modifiers">modifiers</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A list of modifiers used in the function definition. For example, the only valid modifier in Python is "async".</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="#return_type" class="internal-link" title="pydocspec._docspec.Function.return_type">return<wbr></wbr>_type</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>The return type of the function as a code string.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
     <td><code><a href="#semantic_hints" class="internal-link" title="pydocspec._docspec.Function.semantic_hints">semantic<wbr></wbr>_hints</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td>A list of hints that describe the object.</td>
   </tr>
 </table>
           
@@ -701,7 +701,7 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, *_args, modifiers, args, return_type, decorations, semantic_hints=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, **kwargs):
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L376">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L414">
       
       (source)
     </a>
@@ -723,7 +723,7 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionHeader">
     
     <span class="py-defname">args</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">t.List</a>[<wbr></wbr><a href="pydocspec._docspec.Argument.html" class="internal-link" title="pydocspec._docspec.Argument">Argument</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L392">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L430">
       
       (source)
     </a>
@@ -731,7 +731,8 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionBody">
     <div class="interfaceinfo">overridden in <code><a href="pydocspec._model.Function.html" class="internal-link">pydocspec._model.Function</a></code></div>
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>A list of the function arguments.</p>
+</div>
     
   </div>
 </div><div class="baseinstancevariable">
@@ -746,7 +747,7 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionHeader">
     
     <span class="py-defname">decorations</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">t.List</a>[<wbr></wbr><a href="pydocspec._docspec.Decoration.html" class="internal-link" title="pydocspec._docspec.Decoration">Decoration</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L398">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L440">
       
       (source)
     </a>
@@ -754,7 +755,8 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionBody">
     <div class="interfaceinfo">overridden in <code><a href="pydocspec._model.Function.html" class="internal-link">pydocspec._model.Function</a></code></div>
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>A list of decorations used on the function.</p>
+</div>
     
   </div>
 </div><div class="baseinstancevariable">
@@ -769,7 +771,7 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionHeader">
     
     <span class="py-defname">modifiers</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">t.List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L389">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L425">
       
       (source)
     </a>
@@ -777,7 +779,8 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>A list of modifiers used in the function definition. For example, the only valid modifier in Python is "async".</p>
+</div>
     
   </div>
 </div><div class="baseinstancevariable">
@@ -792,7 +795,7 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionHeader">
     
     <span class="py-defname">return_type</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">t.Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L395">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L435">
       
       (source)
     </a>
@@ -800,7 +803,8 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>The return type of the function as a code string.</p>
+</div>
     
   </div>
 </div><div class="baseinstancevariable">
@@ -815,7 +819,7 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionHeader">
     
     <span class="py-defname">semantic_hints</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">t.List</a>[<wbr></wbr><a href="pydocspec._docspec.FunctionSemantic.html" class="internal-link" title="pydocspec._docspec.FunctionSemantic">FunctionSemantic</a>]</code> =
-    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/bacb6c10c39d67b026f08001df70779277a09e9d/pydocspec/_docspec.py#L401">
+    <a class="sourceLink" href="https://github.com/tristanlatr/pydocspec/tree/f24dda4e63eaffc6170d4a05da10965cb4534e7f/pydocspec/_docspec.py#L445">
       
       (source)
     </a>
@@ -823,7 +827,8 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
+    <div><p>A list of hints that describe the object.</p>
+</div>
     
   </div>
 </div>
@@ -838,7 +843,7 @@ The #decorations need to be introspected to understand if the function has a spe
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/tristanlatr/pydocspec" class="projecthome">pydocspec 0.0.0</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.5.0.dev0 at 2022-04-28 23:51:25.
+    22.5.0.dev0 at 2022-04-29 00:33:08.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
